@@ -1,0 +1,36 @@
+ReadSoustraction:
+  db:
+    vitis: '/media/data/db/ncbi/vitis/vitis'
+    phiX:  '/media/data/db/ncbi/phiX/phiX'
+bin:
+  bowtie: '/usr/local/bin/bowtie2'
+  samtools: '/usr/bin/samtools'
+  bedtools: '/usr/bin/bedtools'
+  prinseq: '/usr/local/bin/prinseq-lite.pl'
+servers:
+  genotoul:
+    adress: 'genotoul.toulouse.inra.fr'
+    username: 'stheil'
+    db:
+      nr: '/bank/blastdb/nr'
+      nt: '/bank/blastdb/nt'
+      vitis: '/save/stheil/db/vitis/vitis'
+      vir: '/save/stheil/db/vir/vir'
+      pfam: '/home/stheil/save/db/pfam/pfam_viruses_rpsdb'
+    scratch: '/work/stheil'
+    bin:
+      blastx: 'blastx+'
+      blastn: 'blastn+'
+  avakas:
+    adress: 'avakas.mcia.univ-bordeaux.fr'
+    username: 'stheil'
+    db:
+      nr: '/home/stheil/db/nr/nr'
+      nt: '/home/stheil/db/nt/nt'
+      vitis: '/home/stheil/db/vitis/vitis'
+      vir: '/home/stheil/db/vir/vir'
+      pfam: '/home/stheil/db/pfam/pfam_viruses_rpsdb'
+    scratch: '/scratch/stheil'
+    bin:
+      blastx: 'blastx'
+      blastn: 'blastn'

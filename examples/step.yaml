@@ -1,0 +1,144 @@
+ReadSoustraction_phiX:
+  i1: (file1)
+  i2: (file2)
+  db: phiX
+  o1: (SampleID)_phiX.r1.fq
+  o2: (SampleID)_phiX.r2.fq
+  sge: True
+  n_cpu: 5
+  iter: library
+Demultiplex:
+  i1: (library)_vitis.r1.fq
+  i2: (library)_vitis.r2.fq
+  adapters: adapters.fna
+  tmp_prefix: (library)
+  middle: 1
+  min_qual: 30
+  polyA: True
+  min_len: 70
+  iter: library
+  sge: True
+drVM:
+  i1: (SampleID)/(SampleID)_r1.fa
+  i2: (SampleID)/(SampleID)_r2.fa
+  n_cpu: 8
+  identity: 70
+  min_len: 300
+  sge: True
+Assembly:
+  prog: idba
+  n_cpu: 5
+  i1: (SampleID)_R1.truePairs.fasta
+  i2: (SampleID)_R2.truePairs.fasta
+  out: (SampleID)_idba.scaffold.fa
+  sge: True
+Map:
+  contigs: (SampleID)_idba.scaffold.fa
+  i1: (SampleID)_R1.truePairs.fq
+  i2: (SampleID)_R2.truePairs.fq
+  bam: (SampleID)_idba.scaffold.bam
+  rn: (SampleID)_idba.scaffold.rn
+  sge: True
+Blast_X:
+  type: blastx
+  contigs: (SampleID)_idba.scaffold.fa
+  db: nr
+  out: (SampleID)_idba.scaffold.bltx.nr.xml
+  evalue: 0.0001
+  server: genotoul
+  n_cpu: 8
+  sge: True
+Blast_N:
+  type: blastn
+  contigs: (SampleID)_idba.scaffold.fa
+  db: nt
+  out: (SampleID)/(SampleID)_idba.scaffold.bltn.nt.xml
+  evalue: 0.0001
+  server: genotoul
+  n_cpu: 8
+  sge: True
+Blast_RPS:
+  type: rpstblastn
+  contigs: (SampleID)_idba.scaffold.fa
+  db: pfam
+  evalue: 0.0001
+  out: (SampleID)_idba.scaffold.rps.pfam.xml
+  server: genotoul
+  n_cpu: 8
+  sge: True
+Blast2ecsv_X:
+  contigs: (SampleID)_idba.scaffold.fa
+  evalue: 0.0001
+  fhit: True
+  pm: global
+  if: xml
+  rn: (SampleID)_idba.scaffold.rn
+  r: True
+  b: (SampleID)_idba.scaffold.bltx.nr.xml
+  vs: True
+  out: (SampleID)_idba.scaffold.bltx.nr.csv
+  sge: True
+  type: BLASTX
+Blast2ecsv_N:
+  contigs: (SampleID)_idba.scaffold.fa
+  evalue: 0.0001
+  fhit: True
+  pm: global
+  if: xml
+  rn: (SampleID)_idba.scaffold.rn
+  r: True
+  b: (SampleID)_idba.scaffold.bltn.nt.xml
+  vs: True
+  out: (SampleID)_idba.scaffold.bltn.nt.csv
+  sge: True
+  type: BLASTN
+Rps2ecsv:
+  b: (SampleID)_idba.scaffold.rps.pfam.xml
+  out: (SampleID)_idba.scaffold.rps.pfam.csv
+  evalue: 0.0001
+  sge: True
+Ecsv2excel:
+  b1: (SampleID)_idba.scaffold.bltx.nr.csv
+  b2: (SampleID)_idba.scaffold.bltn.nt.csv
+  r:  (SampleID)_idba.scaffold.rps.pfam.csv
+  out:  (SampleID)_idba.scaffold.xlsx
+Ecsv2krona:
+  id1: (SampleID)_nr
+  b1: (SampleID)_idba.scaffold.bltx.nr.csv
+  id2: (SampleID)_nt
+  b2: (SampleID)_idba.scaffold.bltn.nt.csv
+  out: radis.global.krona.html
+  data: both
+  r: True
+  c: identity
+  id: (SampleID)
+  iter: global
+  sge: True
+Automapper:
+  contigs: (SampleID)_idba.scaffold.fa
+  ecsv: (SampleID)_idba.scaffold.bltx.nr.csv
+  i1: (SampleID)_R1.truePairs.fq
+  i2: (SampleID)_R2.truePairs.fq
+  out: (SampleID)_autoMapper
+  sge: True
+Rps2tree:
+  pfam: (SampleID)_idba.scaffold.rps.pfam.csv
+  contigs: (SampleID)_idba.scaffold.fa
+  ecsv: (SampleID)_idba.scaffold.bltx.nr.csv
+  id: (SampleID)
+  out: rps2tree_global
+  min_prot: 100
+  viral_portion: 0.3
+  iter: global
+  sge: True
+Getresults:
+    rps2tree: rps2tree_global
+    autoMapper: (SampleID)_autoMapper
+    excel: (SampleID)_idba.scaffold.xlsx
+    contigs: (SampleID)_idba.scaffold.fa
+    krona: radis.global.krona.html
+    i1: (SampleID)_R1.truePairs.fq
+    i2: (SampleID)_R2.truePairs.fq
+    iter: global
+    out: results_radis
+    drVM: (SampleID)_drVM

@@ -1,0 +1,7 @@
+#SampleID	file1	file2
+C1B	C1B_r1.fa	C1B_r2.fa
+C1E	C1E_r1.fa	C1E_r2.fa
+C2B	C2B_r1.fa	C2B_r2.fa
+C2E	C2E_r1.fa	C2E_r2.fa
+M2B	M2B_r1.fa	M2B_r2.fa
+M2E	M2E_r1.fa	M2E_r2.fa

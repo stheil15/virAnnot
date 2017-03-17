@@ -1,0 +1,222 @@
+#!/usr/bin/python3.4
+
+import argparse
+import logging as log
+import yaml
+import csv
+import importlib
+import re
+import sys
+import os
+
+def main ():
+    log_format = '%(asctime)s %(levelname)-8s %(message)s'
+    log.basicConfig(level=log.DEBUG,format=log_format)
+    args = _set_options()
+    params = _read_yaml_file(args.param)
+    steps = _read_yaml_file(args.step)
+    maps = _read_map_file(args.map)
+    if args.name_step == 'init':
+        log.info('Init directory and move files...')
+        _create_folders(maps)
+    elif(args.name_step in steps):
+        log.info('Launching step ' + args.name_step)
+        _launch_step(args.name_step,steps,maps,params)
+    else:
+        log.critical('This step is not present in the step file.')
+
+
+def _create_folders (maps):
+    wd = os.getcwd()
+    for i in range(0,len(maps)):
+        if not os.path.exists(maps[i]['file']):
+            log.critical(maps[i]['file'] + ' not found.')
+            sys.exit(1)
+        else:
+            if not os.path.exists(wd + '/' + maps[i]['SampleID']):
+                os.mkdir(wd + '/' + maps[i]['SampleID'])
+                os.system('mv ' + wd + '/' + maps[i]['file'] + ' ' + wd + '/' + maps[i]['SampleID'])
+
+
+def _launch_step (s_n,s,m,p):
+    module_name = s_n.split('_')[0]
+    if('iter' in s[s_n]):
+        if(s[s_n]['iter'] == 'library'):
+             _launch_by_library(s_n,s,m,p,module_name)
+        elif(s[s_n]['iter'] == 'SampleID'):
+            _launch_by_sample_id(s_n,s,m,p,module_name)
+        elif(s[s_n]['iter'] == 'global'):
+            _launch_global(s_n,s,m,p,module_name)
+        else:
+            raise Error
+    else:
+        _launch_by_sample_id(s_n,s,m,p,module_name)
+
+
+def _launch_global (s_n,s,m,p,module_name):
+    global_input = {}
+    global_input['args'] = {}
+    for i in range(0,len(m)):
+        tmp = _replace_sample_name(s[s_n],m[i])
+        global_input['args'][m[i]['SampleID']] = {}
+        for j in tmp:
+            if j == 'out':
+                if 'out' not in global_input:
+                    global_input['out'] = tmp[j]
+                    continue
+            elif j == 'sge':
+                if 'sge' not in global_input:
+                    global_input['sge'] = tmp[j]
+                    continue
+            elif j == 'data':
+                if  'data' not in global_input:
+                    global_input['data'] = tmp[j]
+                    continue
+            elif j == 'r':
+                if 'r' not in global_input:
+                    global_input['r'] = tmp[j]
+                    continue
+            elif j == 'c':
+                if 'c' not in global_input:
+                    global_input['c'] = tmp[j]
+                    continue
+            elif j == 'viral_portion':
+                if 'viral_portion' not in global_input:
+                    global_input['viral_portion'] = tmp[j]
+                    continue
+            elif j == 'iter':
+                if 'iter' not in global_input:
+                    global_input['iter'] = tmp[j]
+                    continue
+            elif j == 'min_prot':
+                if 'min_prot' not in global_input:
+                    global_input['min_prot'] = tmp[j]
+                    continue
+            elif j == 'rps2tree':
+                if 'rps2tree' not in global_input:
+                    global_input['rps2tree'] = tmp[j]
+                    continue
+            elif j == 'krona':
+                if 'krona' not in global_input:
+                    global_input['krona'] = tmp[j]
+                    continue
+            else:
+                global_input['args'][m[i]['SampleID']][j] = tmp[j]
+    global_input['params'] = p
+    _launch_module(global_input,module_name)
+
+
+def _launch_by_sample_id (s_n,s,m,p,module_name):
+    for i in range(0,len(m)):
+        tmp = _replace_sample_name(s[s_n],m[i])
+        tmp['sample'] = m[i]['SampleID']
+        tmp['params'] = p
+        _launch_module(tmp,module_name)
+
+
+def _launch_by_library(s_n,s,m,p,module_name):
+    args = {}
+    for i in range(0,len(m)):
+        tmp = _replace_sample_name(s[s_n],m[i])
+        if(m[i]['library'] not in args):
+            args[m[i]['library']] = {}
+        if('file1' not in args[m[i]['library']] and 'i1' not in s[s_n]):
+            args[m[i]['library']]['i1'] = m[i]['file1']
+        else:
+            args[m[i]['library']]['i1'] = tmp['i1']
+        if('file2' not in args[m[i]['library']] and 'i2' not in s[s_n]):
+            args[m[i]['library']]['i2'] = m[i]['file2']
+        else:
+            args[m[i]['library']]['i2'] = tmp['i2']
+        if(s_n == 'Demultiplex'):
+            if('mid' not in args[m[i]['library']]):
+                args[m[i]['library']]['mid'] = {}
+            args[m[i]['library']]['mid'][m[i]['SampleID']] = m[i]['mid']
+            args[m[i]['library']]['common'] = m[i]['common']
+        for k in tmp:
+            if(k=='iter'):
+                continue
+            if (k not in args[m[i]['library']]):
+                args[m[i]['library']][k] = tmp[k]
+    for library in args:
+        args[library]['params'] = p
+        args[library]['sample'] = library
+        _launch_module(args[library],module_name)
+
+
+def _launch_module(args,module_name):
+    module = _create_module(module_name,args)
+    module.launch()
+
+
+def _replace_sample_name (step_args,sample_map):
+    args = {}
+    for k in step_args:
+        if(isinstance(step_args[k], str)):
+            if(re.search('(file1)',step_args[k])):
+                args[k] = step_args[k].replace('(file1)',sample_map['file1'])
+            elif(re.search('(file2)',step_args[k])):
+                args[k] = step_args[k].replace('(file2)',sample_map['file2'])
+            elif(re.search('(file)',step_args[k])):
+                args[k] = step_args[k].replace('(file)',sample_map['file'])
+            elif(re.search('(SampleID)',step_args[k])):
+                args[k] = step_args[k].replace('(SampleID)',sample_map['SampleID'])
+            elif(re.search('(library)',step_args[k])):
+                args[k] = step_args[k].replace('(library)',sample_map['library'])
+            else:
+                args[k] = step_args[k]
+        else:
+            args[k] = step_args[k]
+    return args
+
+
+def _create_module (name,param):
+    if '_' in name:
+        name = name.split('_')[0]
+    try:
+        _class = getattr(importlib.import_module(name),name)
+        instance = _class(param)
+        return instance
+    except Exception as e:
+        print(str(e))
+
+
+def _read_map_file (f):
+    reader = csv.reader(f,delimiter="\t")
+    data = list(reader)
+    headers = data[0]
+    headers[0] = headers[0][1:]
+    map_obj = []
+    for i in range(1,len(data)):
+        dict={}
+        if len(data[i]) != len(headers):
+            print(data[i])
+            print(headers)
+            sys.exit('line and headers not the same length.')
+        for j in range(0,len(headers)):
+            dict[headers[j]] = data[i][j]
+        map_obj.append(dict)
+    return map_obj
+
+
+def _read_yaml_file (f):
+    return yaml.safe_load(f)
+
+
+def _set_options ():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-m','--map',help='The map file.',action='store',type=argparse.FileType('r'),required=True)
+    parser.add_argument('-s','--step',help='The step file.',action='store',type=argparse.FileType('r'),required=True)
+    parser.add_argument('-n','--name_step',dest='name_step',help='The specified step to launch.',action='store',type=str)
+    parser.add_argument('-p','--param',help='The global parameter file.',action='store',type=argparse.FileType('r'))
+    parser.add_argument('-v','--verbosity',help='Verbose level', action='store',type=int,choices=[1,2,3,4])
+    args = parser.parse_args()
+    return args
+
+
+def _help ():
+    print('coverage_plot.py -t ref.bam')
+
+
+if __name__ == "__main__":
+    main()
