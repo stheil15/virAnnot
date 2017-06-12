@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=generator content="blast2html; see https://github.com/thehyve/blast2html/">
+    
+    <title>Blast output</title>
+    
+    <style>
+      body {
+      color: #333333;
+      font-family: Arial,Sans-Serif;
+      }
+
+      :link {
+      color: #336699;
+      }
+
+      .right {
+      float: right;
+      }
+
+      /* Galaxy with html sanitization enabled strips the header of this html page. If so, show the user a warning.*/
+      #strip_html_warning {
+      display: none;
+      }
+      
+      #content {
+      margin: 0 2em;
+      padding: 0.5em;
+      border: 1px solid #888888;
+      background-color: #d3dff5;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+      color: #2A6979;
+      font-family: arial,verdana,sans-serif;
+      letter-spacing: -1px;
+      margin: 1.2em 0 0.3em;
+      }
+
+      h1 {
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 150%;
+      padding-bottom: 0.1em;
+      }
+
+      h2 {
+      font-size: 120%;
+      font-weight: bold;
+      }
+
+      h4.darkHeader {
+      color: #4D4D4D;
+      letter-spacing: 0;
+      font-weight: bold;
+      }
+
+      #nodata {
+      font-weight: bold;
+      }
+
+      .index {
+      margin-bottom: 3em;
+      }
+      .index div.indexentry {
+      margin: 1.2em 1.6em;
+      font-weight: bold;
+      font-size: 100%;
+      }
+      
+      .headerdata {
+      font-size: 90%;
+      }
+      .headerdata .param {
+      font-weight: bold;
+      text-align: right;
+      padding: 0 1em;
+      }
+
+      .grey {
+      background-color: #eeeeee;
+      border: 1px solid #cccccc;
+      padding: 1em;
+      }
+
+      .white {
+      background-color: white;
+      border: 1px solid #cccccc;
+      padding: 1.5em 2%;
+      }
+
+      .graphicrow {
+      clear: left;
+      width: 100%;
+      }
+
+      .graphicitem {
+      float: left;
+      }
+
+
+      
+      .graphics .grey {
+      text-align: center;
+      }
+
+      .graphic {
+      background-color: white;
+      border: 2px solid black;
+      padding: 1.5em;
+      margin: auto;
+      }
+
+      .centered, .defline, div.legend, div.tablewrapper {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .defline {
+      background-color: white;
+      border: 1px solid black;
+      margin: .5em auto;
+      padding-left: .2em;
+      padding-right: .2em;
+      max-width: 50em;
+      text-align: left;
+      height: 2.8em;
+      overflow-y: hidden;
+      }
+
+      div.legend {
+      max-width: 40em;
+      }
+      div.legend div {
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-spacing: 0;
+      }
+      div.legend div .graphicitem {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      }
+
+      div.tablewrapper {
+      width: 50%;
+      min-width: 60em;
+      }
+
+      /* For small widths we give the graphic 100% */
+      @media (max-width: 72.5em) {
+      div.tablewrapper {
+      width: 100%;
+      min-width: 0px;
+      }
+      }
+
+      .scale {
+      width: 100%;
+      margin: .5em 0;
+      font-weight: bold;
+      }
+      .scale div {
+      color: red;
+      text-align: left;
+      }
+      .scale .graphicrow {
+      margin: .5em 0 .5em 0;
+      color: white;
+      }
+      .scale .graphicitem {
+      position: relative;
+      }
+      .scale .graphicitem div {
+      margin: 0 1px;
+      padding: 0 2px;
+      text-align: right;
+      background-color: red;
+      color: white;
+      }
+      .scale .graphicitem:first-child div {
+      margin-left: 0px;
+      }
+      .scale .graphicitem:last-child div {
+      margin-right: 0px;
+      }
+      .scale .graphicitem .lastlabel {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      background-color: transparent;
+      color: red;
+      }
+
+      a.matchresult {
+      display: block;
+      margin: 0;
+      padding: 0;
+      }
+      div.matchrow {
+      margin-top: 4px;
+      }
+      div.matchrow, div.matchitem {
+      height: 4px;
+      }
+
+      
+      table.descriptiontable {
+      font-size: 85%;
+      border: 1px solid #97b0c8;
+      border-spacing: 0;
+      color: #222222;
+      line-height: 1.3em;
+      background-color: white;
+      }
+      table.descriptiontable col:first-child {
+      width: 100%;
+      }
+      table.descriptiontable tr:hover {
+      background-color: #D5DEE3;
+      }
+      table.descriptiontable th {
+      color: #14376C;
+      font-weight: normal;
+      background-color: #F0F0F0;
+      background: linear-gradient(#FFFFFF, #F0F0F0);
+      border-bottom: 1px solid #D4DFE9;
+      border-right: 1px solid #CFCFCF;
+      border-left: 0px solid black;
+      border-top: 0px solid black;
+      }
+      table.descriptiontable td {
+      overflow: hidden;
+      text-align: center;
+      padding: .4em .8em;
+      }
+      table.descriptiontable td div {
+      width: 1em;
+      overflow: visible;
+      white-space: nowrap;
+      text-align: left;
+      }
+
+
+      
+      .alignments .white {
+      padding: 1.5em 1em;
+      }
+      
+      .alignment {
+      border-top: 1px solid black;
+      padding-left: 1em;
+      padding-right: 1em;
+      }
+      
+      div.linkheader {
+      padding-top: .2em;
+      font-size: 85%;
+      color: #14376C;
+      }
+      div.linkheader a.linkheader {
+      margin-right: 1em;
+      }
+      div.linkheader .right a {
+      text-decoration: none;
+      }
+
+      .title .hittitle {
+      color: #222222;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo {
+      font-size: 80%;
+      margin-top: 0;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo .b {
+      color: #606060;
+      font-weight: bold;
+      font-size: 90%;
+      }
+
+      .moretitles {
+      margin: 1.2em;
+      }
+      .moretitles .titleinfo {
+      margin: 0;
+      padding: 0;
+      }
+      .moretitles .hittitle {
+      margin: .4em 0 .2em 0;
+      padding: 0;
+      }
+      
+      a.showmoretitles {
+      font-size: 75%;
+      color: #336699;
+      font-weight: bold;
+      margin-top: 0;
+      }
+      a.showmoretitles:hover {
+      }
+
+      .hotspot {
+      color: #606060;
+      font-family: verdana, arial, sans-serif;
+      margin-bottom: 2.5em;
+      }
+
+      .hotspot p.range {
+      font-size: 70%;
+      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: .2em;
+      }
+      .hotspot p.range span.range {
+      font-weight: bold;
+      }
+      .hotspot p.range a.range {
+      margin-left: .5em;
+      }
+
+      table.hotspotstable {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      text-align: left;
+      border-collapse: collapse;
+      }
+      table.hotspotstable th, table.hotspotstable td {
+      padding: .1em 1em;
+      }
+      table.hotspotstable th {
+      font-size: 70%;
+      }
+      table.hotspotstable td {
+      min-width: 7em;
+      color: #222222;
+      font-size: 80%;
+      }
+
+      pre.alignmentgraphic {
+      color: #222222;
+      }
+
+      footer {
+      text-align: center;
+      color: #cccccc;
+      font-size: 70%;
+      margin-top: 1em;
+      }
+      footer :link {
+      color: #5588cc;
+      }
+      
+    </style>
+
+    <script type="text/javascript">
+      function toggle_visibility(id) {
+          var e = document.getElementById(id);
+          if(e.style.display != 'block')
+              e.style.display = 'block';
+          else
+              e.style.display = 'none';
+      }
+    </script>
+
+  </head>
+
+  
+  <body>
+    
+    <div id="strip_html_warning">
+      <!-- This div should be hidden by the header css block. Galaxy
+      strips all css, breaking this page but making this warning
+      visible. This warning contains some ugly old skool tabular html
+      layout that is not stripped. -->
+      <table bgcolor="#FFE5C9"><tr><td><font color="red"><b>
+                <font size=5><center>This html page seems to have been stripped by Galaxy.</center></font>
+                Disable Galaxy's html sanitization feature to view the full page (see <font face=monospace>sanitize_all_html</font> in your galaxy's universe_wsgi.ini), or download this page instead of viewing it in Galaxy.
+      </b></font></td></tr></table>
+    </div>
+    
+    <div id=content>
+
+
+
+      
+      <section class=match id=match21>
+      
+        <h1>Nucleotide Sequence (426 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-57_42</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>352</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/save/stheil/db/refseq_vir/viral.genomic.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 1 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline21>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>43</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>86</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>129</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>172</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>215</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>258</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>301</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>344</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>387</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.154929577464788%">
+                        <div>426</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline21").innerHTML="Fusarium graminearum dsRNA mycovirus-4 dsRNA1, complete genome"'
+                   onmouseout='document.getElementById("defline21").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Fusarium graminearum dsRNA mycovirus-4 dsRNA1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.9389671361502347%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 85.21126760563381%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 13.849765258215962%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit4"
+                   onmouseover='document.getElementById("defline21").innerHTML="Cryphonectria parasitica bipartite mycovirus 1 strain 09269 segment RNA1, complete sequence"'
+                   onmouseout='document.getElementById("defline21").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Cryphonectria parasitica bipartite mycovirus 1 strain 09269 segment RNA1, complete sequence">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.2347417840375587%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 85.21126760563381%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 14.553990610328638%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit2"
+                   onmouseover='document.getElementById("defline21").innerHTML="Curvularia thermal tolerance virus RNA1, complete sequence"'
+                   onmouseout='document.getElementById("defline21").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Curvularia thermal tolerance virus RNA1, complete sequence">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 4.460093896713615%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 78.87323943661971%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 16.666666666666668%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit3"
+                   onmouseover='document.getElementById("defline21").innerHTML="Penicillium aurantiogriseum bipartite virus 1 segment RNA 1 putative RdRp gene, complete cds"'
+                   onmouseout='document.getElementById("defline21").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Penicillium aurantiogriseum bipartite virus 1 segment RNA 1 putative RdRp gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 4.460093896713615%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 27.934272300469484%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 61.971830985915496%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 5.633802816901408%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit5"
+                   onmouseover='document.getElementById("defline21").innerHTML="Sclerotium hydrophilum virus 1 isolate ShR#20 putative RNA-dependent RNA polymerase gene, complete cds"'
+                   onmouseout='document.getElementById("defline21").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Sclerotium hydrophilum virus 1 isolate ShR#20 putative RNA-dependent RNA polymerase gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.6431924882629108%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: black; width: 18.309859154929576%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 3.5211267605633805%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 59.859154929577464%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 16.666666666666668%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Fusarium graminearum dsRNA mycovirus-4 dsRNA1, complete genome"
+                              id="description1">
+                        Fusarium graminearum dsRNA mycovirus-4 dsRNA1, complete genome
+                  </a></div></td>
+                  <td>157.3</td>
+                  <td>341.2</td>
+                  <td>41%</td>
+                  <td>6.943e-38</td>
+                  <td>36%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=genbank&amp;log$=nuclalign">NC_013470</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit4"
+                              title="Cryphonectria parasitica bipartite mycovirus 1 strain 09269 segment RNA1, complete sequence"
+                              id="description4">
+                        Cryphonectria parasitica bipartite mycovirus 1 strain 09269 segment RNA1, complete sequence
+                  </a></div></td>
+                  <td>89.0</td>
+                  <td>89.0</td>
+                  <td>28%</td>
+                  <td>2.476e-17</td>
+                  <td>38%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_021222.1?report=genbank&amp;log$=nuclalign">NC_021222</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit2"
+                              title="Curvularia thermal tolerance virus RNA1, complete sequence"
+                              id="description2">
+                        Curvularia thermal tolerance virus RNA1, complete sequence
+                  </a></div></td>
+                  <td>99.6</td>
+                  <td>99.6</td>
+                  <td>26%</td>
+                  <td>1.664e-20</td>
+                  <td>41%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_010985.1?report=genbank&amp;log$=nuclalign">NC_010985</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit3"
+                              title="Penicillium aurantiogriseum bipartite virus 1 segment RNA 1 putative RdRp gene, complete cds"
+                              id="description3">
+                        Penicillium aurantiogriseum bipartite virus 1 segment RNA 1 putative RdRp gene, complete cds
+                  </a></div></td>
+                  <td>63.4</td>
+                  <td>157.6</td>
+                  <td>33%</td>
+                  <td>3.069e-18</td>
+                  <td>33%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=genbank&amp;log$=nuclalign">NC_028498</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit5"
+                              title="Sclerotium hydrophilum virus 1 isolate ShR#20 putative RNA-dependent RNA polymerase gene, complete cds"
+                              id="description5">
+                        Sclerotium hydrophilum virus 1 isolate ShR#20 putative RNA-dependent RNA polymerase gene, complete cds
+                  </a></div></td>
+                  <td>49.6</td>
+                  <td>92.4</td>
+                  <td>26%</td>
+                  <td>1.073e-12</td>
+                  <td>31%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_030888.1?report=genbank&amp;log$=nuclalign">NC_030888</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Fusarium graminearum dsRNA mycovirus-4 dsRNA1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 2383
+                    <span class=b>Number of Matches:</span> 5
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1935 to 2297</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=genbank&amp;log$=nuclalign&amp;from=1935&amp;to=2297">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=graph&amp;log$=nuclalign&amp;from=1935&amp;to=2297">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>157.3 bits(337)</td>
+                      <td>0.0</td>
+                      <td>73/121(60%)</td>
+                      <td>0/121(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        5  GDAFDVVIPYRPIEETVARLYYPERVGGGATRTYLRALGNLLDNYGNPHAAKWLNGXXXXXXXXXXXXPVEWTSDTVQDAARDYTSELVVVPKPKRWSFEEWLALTLTPKEEITDMYTIA*  367
+                G    V +PYRP EET   +YYPER   G  RTY RALGNLLDNYGNP  A WLN LLDWLE +++LLP +W  DTVQDAARDYTS+LV VP+P RW+FEEW+ L L+  +   + Y  A*
+Subject   1935  GRKITVALPYRPCEETFVHMYYPERKSEGVERTYQRALGNLLDNYGNPMMADWLNKLLDWLEPQMELLPTDWLEDTVQDAARDYTSDLVRVPRPLRWTFEEWVHLCLSSDDSDPEWYMYA*  2297</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 2060 to 2293</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=genbank&amp;log$=nuclalign&amp;from=2060&amp;to=2293">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=graph&amp;log$=nuclalign&amp;from=2060&amp;to=2293">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>70.3 bits(147)</td>
+                      <td>0.0</td>
+                      <td>40/78(51%)</td>
+                      <td>0/78(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      130  AMVYISVISSFGVRVSASHSSNDHRLGFGTTTNSLV*SLAASCTVSDVHSTGSKSNRDSNQSRSPFSHLAACGLP*LS  363
+                A +Y S   S   +   +HSSN  R G GT T SLV*S AASCTVS   S G+ S   S+QS S FS  A  G P*LS
+Subject   2060  AYIYHSGSESSDDKHKCTHSSNVQRNGRGTRTRSLV*SRAASCTVSSSQSVGNSSICGSSQSSSLFSQSAIIGFP*LS  2293</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 1949 to 2008</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=genbank&amp;log$=nuclalign&amp;from=1949&amp;to=2008">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=graph&amp;log$=nuclalign&amp;from=1949&amp;to=2008">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>21.7 bits(41)</td>
+                      <td>0.0</td>
+                      <td>12/20(60%)</td>
+                      <td>0/20(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       19  RSG*YRRATVSSMGR*GITT  78
+                RSG*Y    VSS GR G  T
+Subject   1949  RSG*YICTKVSSHGRYGKAT  2008</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 4: 2058 to 2240</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=genbank&amp;log$=nuclalign&amp;from=2058&amp;to=2240">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=graph&amp;log$=nuclalign&amp;from=2058&amp;to=2240">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>47.3 bits(97)</td>
+                      <td>0.0</td>
+                      <td>22/61(36%)</td>
+                      <td>0/61(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      128  PFLKRPSFGLRNNYQLTGIVSGCVLHRVRCPFHW**VQSGLQPVKKSIQPLSSMRITVVIQ  310
+                P LK P+   R+ +Q+TG+V   +L+R+  P    *+   LQPV++ IQP+    I+V+++
+Subject   2058  PLLKCPAQWARHTHQVTGVVPRRILYRILQPIGGQ*LHLWLQPVQQLIQPVRHHWISVIVE  2240</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 5: 2047 to 2241</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=genbank&amp;log$=nuclalign&amp;from=2047&amp;to=2241">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_013470.1?report=graph&amp;log$=nuclalign&amp;from=2047&amp;to=2241">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>44.6 bits(91)</td>
+                      <td>0.0</td>
+                      <td>24/65(37%)</td>
+                      <td>0/65(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      117  WEISWITTVIRMLLSG*MDFLTGWSPDWTYYQWNGHLTRCRTQPETIPVSW*LFRSPNDGRLRNG  311
+                W I    T I+   +G*+   TGWS  W+Y    G   R R +  T PV+W + R+   G LR+G
+Subject   2047  WAIYSTITEIQ*WRTG*ISCWTGWSHRWSYCPPIGWRIRYRMRRGTTPVTWCVCRAHCAGHLRSG  2241</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit4>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description4">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_021222.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_021222.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Cryphonectria parasitica bipartite mycovirus 1 strain 09269 segment RNA1, complete sequence</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_021222.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 2026
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1526 to 1888</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_021222.1?report=genbank&amp;log$=nuclalign&amp;from=1526&amp;to=1888">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_021222.1?report=graph&amp;log$=nuclalign&amp;from=1526&amp;to=1888">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>89.0 bits(188)</td>
+                      <td>0.0</td>
+                      <td>46/121(38%)</td>
+                      <td>0/121(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        2  GGDAFDVVIPYRPIEETVARLYYPERVGGGATRTYLRALGNLLDNYGNPHAAKWLNGXXXXXXXXXXXXPVEWTSDTVQDAARDYTSELVVVPKPKRWSFEEWLALTLTPKEEITDMYTIA  364
+                G  A    IPYRP  ET  RL YPE       +TYLRALGN LD  GN     WL   ++WL+ +L   P EW  +  +  +RDY++  V VP+P++  F++W  L +  +E    ++  A
+Subject   1526  GDGAMQQPIPYRPASETYLRLLYPEYGDLPTPQTYLRALGNYLDAAGNRAMEAWLTAFIEWLQPQLSYEPNEWPDNFKRMVSRDYSNVGVEVPRPRQIDFQQWRDLVVLGREAYRRLWRTA  1888</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit2>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description2">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_010985.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_010985.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Curvularia thermal tolerance virus RNA1, complete sequence</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_010985.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 2149
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1617 to 1952</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_010985.1?report=genbank&amp;log$=nuclalign&amp;from=1617&amp;to=1952">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_010985.1?report=graph&amp;log$=nuclalign&amp;from=1617&amp;to=1952">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>99.6 bits(211)</td>
+                      <td>0.0</td>
+                      <td>46/112(41%)</td>
+                      <td>0/112(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       20  VVIPYRPIEETVARLYYPERVGGGATRTYLRALGNLLDNYGNPHAAKWLNGXXXXXXXXXXXXPVEWTSDTVQDAARDYTSELVVVPKPKRWSFEEWLALTLTPKEEITDMY  355
+                V IPYRP +ET  RL YPE     A +T+LR LGN LD  GNP   KWL G +DWLE ++   P  W S+  +  +RDY+   + +P+P+R  +E+W  L + P+++   ++
+Subject   1617  VAIPYRPFKETYLRLLYPEYGSLEADQTWLRLLGNYLDAAGNPVTEKWLQGFMDWLEPQVVAPPQVWPSNFQRMVSRDYSGIGIEMPRPERMCYEQWRDLVVLPRDDYRQLW  1952</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit3>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description3">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Penicillium aurantiogriseum bipartite virus 1 segment RNA 1 putative RdRp gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 2110
+                    <span class=b>Number of Matches:</span> 3
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1578 to 1730</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=genbank&amp;log$=nuclalign&amp;from=1578&amp;to=1730">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=graph&amp;log$=nuclalign&amp;from=1578&amp;to=1730">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>63.4 bits(132)</td>
+                      <td>0.0</td>
+                      <td>27/51(53%)</td>
+                      <td>0/51(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       20  VVIPYRPIEETVARLYYPERVGGGATRTYLRALGNLLDNYGNPHAAKWLNG  172
+                VVIPYRP  ET  RL YPE       +T+LR LGN +D  GNP   +WL G
+Subject   1578  VVIPYRPFGETFLRLLYPEYGTLDVEQTWLRVLGNYIDAAGNPVTERWLQG  1730</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 1773 to 1898</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=genbank&amp;log$=nuclalign&amp;from=1773&amp;to=1898">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=graph&amp;log$=nuclalign&amp;from=1773&amp;to=1898">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>47.8 bits(98)</td>
+                      <td>0.0</td>
+                      <td>17/42(40%)</td>
+                      <td>0/42(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      215  EWTSDTVQDAARDYTSELVVVPKPKRWSFEEWLALTLTPKEE  340
+                +W S+ ++  +RDYT   V VP+P+R S+E+W  L + P+ E
+Subject   1773  QWPSNFLRMVSRDYTGVGVEVPRPERMSYEQWRDLVVLPRSE  1898</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 1697 to 1960</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=genbank&amp;log$=nuclalign&amp;from=1697&amp;to=1960">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_028498.1?report=graph&amp;log$=nuclalign&amp;from=1697&amp;to=1960">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>46.4 bits(95)</td>
+                      <td>0.0</td>
+                      <td>29/88(33%)</td>
+                      <td>0/88(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      139  YAKGVKSPSTQAQAMVYISVISSFGVRVSASHSSNDHRLGFGTTTNSLV*SLAASCTVSDVHSTGSKSNRDSNQSRSPFSHLAACGLP  402
+                Y  G  S  + + +     + S  G    + H S D R G GT+T + V*S        + H     S   SNQS SP+SH +  GLP
+Subject   1697  YISGS*SAVSSSSSAFQADLYSDLGRTTRSRHCSYDIRSGRGTSTPTPV*SRDTIRRKLEGHWANVASTCGSNQSSSPWSHRSVTGLP  1960</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit5>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description5">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_030888.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_030888.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Sclerotium hydrophilum virus 1 isolate ShR#20 putative RNA-dependent RNA polymerase gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_030888.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 2121
+                    <span class=b>Number of Matches:</span> 2
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1743 to 1997</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_030888.1?report=genbank&amp;log$=nuclalign&amp;from=1743&amp;to=1997">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_030888.1?report=graph&amp;log$=nuclalign&amp;from=1743&amp;to=1997">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>49.6 bits(102)</td>
+                      <td>0.0</td>
+                      <td>26/85(31%)</td>
+                      <td>0/85(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      101  TYLRALGNLLDNYGNPHAAKWLNGXXXXXXXXXXXXPVEWTSDTVQDAARDYTSELVVVPKPKRWSFEEWLALTLTPKEEITDMY  355
+                +Y+RA+GN +D  GN     +L G L WLE +     + W  D +Q     Y          +R+++EEWL L L  K+ +  ++
+Subject   1743  SYMRAVGNYMDGAGNKLTRVFLEGYLTWLEGKGHHEGIRWREDDLQKMTGIYDGVAETFLPARRYTYEEWLDLVLVEKKVVQRVF  1997</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 1626 to 1703</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_030888.1?report=genbank&amp;log$=nuclalign&amp;from=1626&amp;to=1703">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_030888.1?report=graph&amp;log$=nuclalign&amp;from=1626&amp;to=1703">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>42.8 bits(87)</td>
+                      <td>0.0</td>
+                      <td>17/26(65%)</td>
+                      <td>0/26(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        8  DAFDVVIPYRPIEETVARLYYPERVG  85
+                +A   VIPYRPI ET+ RL YPER G
+Subject   1626  EAIQAVIPYRPITETLDRLAYPERPG  1703</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+
+    </div>
+
+    <footer>
+      This page was generated by <a href="https://github.com/thehyve/blast2html/">blast2html</a>.
+    </footer>
+  </body>
+</html>
+

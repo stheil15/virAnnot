@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>blastx</BlastOutput_program>
+  <BlastOutput_version>BLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/bank/blastdb/nr</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-57_54</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>328</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>13</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-57_0</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>2854</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1142970178|gb|AQM32768.1|</Hit_id>
+  <Hit_def>replicase [Agaricus bisporus endornavirus 1]</Hit_def>
+  <Hit_accession>AQM32768</Hit_accession>
+  <Hit_len>4217</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>137.502</Hsp_bit-score>
+      <Hsp_score>345</Hsp_score>
+      <Hsp_evalue>5.89433e-29</Hsp_evalue>
+      <Hsp_query-from>1578</Hsp_query-from>
+      <Hsp_query-to>2696</Hsp_query-to>
+      <Hsp_hit-from>538</Hsp_hit-from>
+      <Hsp_hit-to>841</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>110</Hsp_identity>
+      <Hsp_positive>171</Hsp_positive>
+      <Hsp_gaps>83</Hsp_gaps>
+      <Hsp_align-len>380</Hsp_align-len>
+      <Hsp_qseq>ETKREFNVPTLTYNTVLGTMNIPNIVTKRVTVNSKVLQTIMTRGLTGNMGIQGSLDYALAIAHARYSIDDTTYNIYNLDAQGAIEHASIAYALNRRAAAKRG--LNVMMHELSPSLRYLGQ----AIASTVQSGLEVIKAMTPNITGTVNQILDGLDMNSMNVLTGYASNPVWDELDDWVTKATLADVSSFGIEATATAHAYCNHQHDGCQHFGNGQCKCCLSPXXXXXXXXXXXXXXXXXAHQCIGHDAGIGEWKTCLCCGKQMRSNQEVCTSCEGPSEDWDNGVDYDRFWTFIGRETDKEHNVNSPKTKPKYNNEFMFRMANGITKPARPAIEPCTVVDAKQGLHTHLCY-CGTRYQHSHPFKSLLHPLFNGDCPKCD</Hsp_qseq>
+      <Hsp_hseq>DLRNTFTIPTITYNSALGLVGAPIVVIKTVKLHKELLTTLITRNLTGNVSAKELAEYGLGFAHSKYNLFDKSFSHYDVSAQMIMDHVFISVLLCTRATNKRRALLNSATPDLTGILNLIGYNSLGYLAATIKKMLDKNSTITA---------LNDFFTNNNSVLTEYANDPVWDEIESW-------------------THTATNENIQLITHY-ETPLGCC---------------------HTDIHNDS-------CGCCG--LGNSTFRCTHCANTPAQLIETLN-------IVVEEKIE-----PSEQVKTRNEKIFDY-NGI--PARKAVLPC--VELSDGSHEHTCVVCNNRYKHTHNHESSMHPLFVGDCPWCE</Hsp_hseq>
+      <Hsp_midline>+ +  F +PT+TYN+ LG +  P +V K V ++ ++L T++TR LTGN+  +   +Y L  AH++Y++ D +++ Y++ AQ  ++H  I+  L  RA  KR   LN    +L+  L  +G      +A+T++  L+    +T          L+    N+ +VLT YA++PVWDE++ W                    H   N       H+      CC                     H  I +D+       C CCG  + ++   CT C          ++       I  E   E     P  + K  NE +F   NGI  PAR A+ PC  V+   G H H C  C  RY+H+H  +S +HPLF GDCP C+</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>165</Statistics_hsp-len>
+      <Statistics_eff-space>19559765505384</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>43</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-57_2</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>1655</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1142970178|gb|AQM32768.1|</Hit_id>
+  <Hit_def>replicase [Agaricus bisporus endornavirus 1]</Hit_def>
+  <Hit_accession>AQM32768</Hit_accession>
+  <Hit_len>4217</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>111.309</Hsp_bit-score>
+      <Hsp_score>277</Hsp_score>
+      <Hsp_evalue>9.47394e-22</Hsp_evalue>
+      <Hsp_query-from>279</Hsp_query-from>
+      <Hsp_query-to>1652</Hsp_query-to>
+      <Hsp_hit-from>2218</Hsp_hit-from>
+      <Hsp_hit-to>2642</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>107</Hsp_identity>
+      <Hsp_positive>205</Hsp_positive>
+      <Hsp_gaps>59</Hsp_gaps>
+      <Hsp_align-len>471</Hsp_align-len>
+      <Hsp_qseq>KVTIRVPHLTVDALQLTRSPLITTRVVRVTRQLFKSMSLRMLRNGTTFGDLLVYGRMLLHTKYFSHDGISSQHNETPSEVLDAALAVWSIYGPMVTGMRHAQNLLQTSDDKESTIMQLINPTL-EHLKDNSIGVLSQIASIFGLDMSLADWITTVADAISGGGKTALHEIADQAAMWQSKVLEDRRQIVEYHAHTSKRMVLSQGITESEMSSKPVLKTIARITGAIVNSGVSIIKGRQNMVEPWLKDRVNQHQMPQPRQIGDKPEEVDRIHRVGVDIRDF----NVLIITTGSKGDVAPIIQLADWLSTIASGVAVLCPSHLVPTTKSF--SRIKFYPADFDTDKHLETMAKLKSSPIDNIDKLLHGFTEQ---LNFDTIDPALFKANQRFDLVLGTAITPQASTIAEYFDAR*VQVNMMPWFVRNIFGNDSWLTEKMMNLQEPMLDIMHIEGVNRLRSSIGLQ---PQQI</Hsp_qseq>
+      <Hsp_hseq>QITLTVPRL--NSSMIDGEVNVTSQEITVSRKLFRDCGLRLLRENHDIDSLLKHVRTKQHATYYSDSGSYRQYKETPGAAMDLCLAVYLRYNNKFTELFDTIKWLQPETVKQEGIFELLLDNLGSSAKEMVLNVVSKLSGIAGMNLPQKDFIKTIW------------KVVRNMAFHQEDMFTETMSVMNVEERISTRRLLMRGTKQILMTSG----------AASIDEGANKVTLQSKYLHKLFSNMSTLMQSVSAR------------HDPVTLMKDFTKPKSICCICIGSFGDITNHLQVANMAVHEGVKVSLIFPDSYLDQVRSIADSKVTLVPQRFSVDNHIKLLNELRT---DNLEVLMTAYTEEKGALLYNDFDYKILKP----DLVVGTCLTVQGPIIAKKFNANYLELNALPW---NLVRAENKRFDSLKNVLYRGYRAMQLETIIKQYAIAGLQNPTPQDI</Hsp_hseq>
+      <Hsp_midline>++T+ VP L  ++  +     +T++ + V+R+LF+   LR+LR       LL + R   H  Y+S  G   Q+ ETP   +D  LAV+  Y    T +      LQ    K+  I +L+   L    K+  + V+S+++ I G+++   D+I T+             ++    A  Q  +  +   ++      S R +L +G  +  M+S            A ++ G + +  +   +     +     Q    R            H     ++DF    ++  I  GS GD+   +Q+A+        V+++ P   +   +S   S++   P  F  D H++ + +L++   DN++ L+  +TE+   L ++  D  + K     DLV+GT +T Q   IA+ F+A  +++N +PW   N+   ++   + + N+       M +E + +  +  GLQ   PQ I</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>160</Statistics_hsp-len>
+      <Statistics_eff-space>9970807808494</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

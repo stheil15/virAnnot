@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Execution &mdash; VirAnnot 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="VirAnnot 0.0.1 documentation" href="index.html" />
+    <link rel="prev" title="Modules description" href="modules.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modules.html" title="Modules description"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="execution">
+<h1>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h1>
+<p>Create a directory for your experiment:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>mkdir test_virAnnot
+cd test_virAnnot
+</pre></div>
+</div>
+<p>Copy example read files, Illumina adapters fasta file, the sample id mapping file, the step and parameter file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>cp /path/to/virAnnot/examples/reads/*.fq .
+cp /path/to/virAnnot/examples/adapters.fa .
+cp /path/to/virAnnot/examples/map.txt .
+cp /path/to/virAnnot/examples/step.yaml .
+cp /path/to/virAnnot/examples/parameters.yaml .
+</pre></div>
+</div>
+<p>You have to modify this file to fit your configuration.</p>
+<p>This example contains all modules and options available and must be used as a template for your own analysis.</p>
+<div class="section" id="step-readsoustraction">
+<h2>Step <strong>ReadSoustraction</strong><a class="headerlink" href="#step-readsoustraction" title="Permalink to this headline">¶</a></h2>
+<p>This module uses bowtie2 to map reads against nucleotide sequence and Samtools to extract unmapped pairs.</p>
+<p>Corresponding <code class="docutils literal"><span class="pre">step.yaml</span></code> section:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ReadSoustraction_phiX:
+  i1: (file1)
+  i2: (file2)
+  db: phiX
+  o1: (library)_phiX.r1.fq
+  o2: (library)_phiX.r2.fq
+  sge: True
+  n_cpu: 5
+  iter: library
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n ReadSoustraction_phiX
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-demultiplex">
+<h2>Step <strong>Demultiplex</strong><a class="headerlink" href="#step-demultiplex" title="Permalink to this headline">¶</a></h2>
+<p>This module uses cutadapt demultiplex reads from library and also trim reads from adapters and chimeric reads.
+Each demultiplexing step are described in the module section.
+Corresponding <code class="docutils literal"><span class="pre">step.yaml</span></code> section:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Demultiplex:
+  i1: (library)_phiX.r1.fq
+  i2: (library)_phiX.r2.fq
+  adapters: adapters.fna
+  middle: 1
+  min_qual: 20
+  polyA: True
+  min_len: 70
+  iter: library
+  sge: True
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Demultiplex
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-demultiplexhtml">
+<h2>Step <strong>DemultiplexHtml</strong><a class="headerlink" href="#step-demultiplexhtml" title="Permalink to this headline">¶</a></h2>
+<p>This module gather all <code class="docutils literal"><span class="pre">*_demultiplex.stats.csv</span></code> files and create and html report.
+Corresponding <code class="docutils literal"><span class="pre">step.yaml</span></code> section:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>DemultiplexHtml:
+  csv: (library)_demultiplex.stats.csv
+  id: (library)
+  out: stat_demultiplex
+  iter: global
+  sge: True
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n DemultiplexHtml
+</pre></div>
+</div>
+<p>Output example:</p>
+<iframe src="stat_demultiplex/index.html" height="400px" width="100%"></iframe></div>
+<div class="section" id="step-diamond">
+<h2>Step <strong>Diamond</strong><a class="headerlink" href="#step-diamond" title="Permalink to this headline">¶</a></h2>
+<p>This module launch Diamond similarity search for reads and produce an XML file per sample.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Diamond:
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  n_cpu: 10
+  sge: True
+  score: 50
+  evalue: 0.0001
+  qov: 50
+  hov: 5
+  db: all_vir_prot
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Diamond
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-assembly">
+<h2>Step <strong>Assembly</strong><a class="headerlink" href="#step-assembly" title="Permalink to this headline">¶</a></h2>
+<p>This module simply launch udba_ud and metaspades assemblers in each sample folder, rename scaffolds id and move the resulting fasta file.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Assembly_idba:
+  prog: idba
+  n_cpu: 5
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  out: (SampleID)_idba.scaffold.fa
+  sge: True
+Assembly_spades:
+  prog: spades
+  n_cpu: 5
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  out: (SampleID)_spades.scaffold.fa
+  sge: True
+</pre></div>
+</div>
+<p>Test both idba and spades:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Assembly_idba
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Assembly_spades
+</pre></div>
+</div>
+<p>Example of idba assembly:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;ds2015-149_0
+GTGTAAGGTGGTGAAGG...
+&gt;ds2015-149_1
+CCTGCGAATTGGGCCAA...
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-map">
+<h2>Step <strong>Map</strong><a class="headerlink" href="#step-map" title="Permalink to this headline">¶</a></h2>
+<p>This module uses bowtie2 to map reads back on assemblies and samtools will count reads per contig.</p>
+<p>Step file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Map_idba:
+  contigs: (SampleID)_idba.scaffold.fa
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  bam: (SampleID)_idba.scaffold.bam
+  rn: (SampleID)_idba.scaffold.rn
+  sge: True
+  n_cpu: 16
+Map_spades:
+  contigs: (SampleID)_spades.scaffold.fa
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  bam: (SampleID)_spades.scaffold.bam
+  rn: (SampleID)_spades.scaffold.rn
+  sge: True
+  n_cpu: 16
+</pre></div>
+</div>
+<p>Command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Map_idba
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Map_spades
+</pre></div>
+</div>
+<p>Output a two column tabular file, column 1 sequence ID, column 2 number of reads.
+Example of <code class="docutils literal"><span class="pre">.rn</span></code> file produce:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ds2015-149_0    1179
+ds2015-149_1    444
+ds2015-149_10   26
+ds2015-149_11   44
+ds2015-149_12   14
+ds2015-149_13   4
+ds2015-149_14   6
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-blast">
+<h2>Step <strong>Blast</strong><a class="headerlink" href="#step-blast" title="Permalink to this headline">¶</a></h2>
+<p>This module is able to launch Blast(s) against provided databases localy or remotely.
+The script blast_launch.py must be present on distant servers and <code class="docutils literal"><span class="pre">parameter.yaml</span></code> modified to fit your servers.</p>
+<p>Step file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Blast_allvirTX:
+  type: tblastx
+  contigs: (SampleID)_idba.scaffold.fa
+  db: all_vir_nucl
+  out: (SampleID)_idba.scaffold.tbltx.all_vir.xml
+  evalue: 0.0001
+  server: genotoul
+  n_cpu: 8
+  sge: True
+  num_chunk: 1000
+  tc: 50
+Blast_nr:
+  type: blastx
+  contigs: (SampleID)_idba.scaffold.fa
+  db: nr
+  out: (SampleID)_idba.scaffold.bltx.nr.xml
+  evalue: 0.0001
+  server: genotoul
+  n_cpu: 8
+  tc: 50
+  num_chunk: 1000
+  max_target_seqs: 1
+  sge: True
+Blast_refvirTX:
+  type: tblastx
+  contigs: (SampleID)_idba.scaffold.fa
+  db: refseq_vir_nucl
+  out: (SampleID)_idba.scaffold.tbltx.refseq_vir.xml
+  evalue: 0.0001
+  server: genotoul
+  n_cpu: 8
+  tc: 50
+  num_chunk: 1000
+  sge: True
+Blast_RPS:
+  type: rpstblastn
+  contigs: (SampleID)_idba.scaffold.fa
+  db: pfam
+  evalue: 0.0001
+  out: (SampleID)_idba.scaffold.rps.pfam.xml
+  server: genotoul
+  n_cpu: 8
+  sge: True
+</pre></div>
+</div>
+<p>Commands:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast_nr
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast_refvirTX
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast_allvirTX
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast_RPS
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-blast2ecsv">
+<h2>Step <strong>Blast2ecsv</strong><a class="headerlink" href="#step-blast2ecsv" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>This module uses the XML file generated by the corresponding Blast module and the taxonomy contained in the SQLITE database to create a csv file containing match options, taxonomy string and sequences.</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast2ecsv_nr
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast2ecsv_refvirTX
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast2ecsv_allvirTX
+</pre></div>
+</div>
+<p>Example output of ds2015-149_idba.scaffold.tbltx.all_vir.csv:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#algo   query_id        nb_reads        query_length    accession       description     organism        percentIdentity nb_hsps queryOverlap    hitOverlap      evalue  score   tax_id  taxonomy        sequence</span>
+<span class="s2">&quot;TBLASTX&quot;</span>       <span class="s2">&quot;ds2015-149_52&quot;</span> <span class="s2">&quot;6&quot;</span>     <span class="s2">&quot;117&quot;</span>   <span class="s2">&quot;KX274275.1&quot;</span>    <span class="s2">&quot;Grapevine rupestris stem pitting associated virus isolate SK704 B, complete genome&quot;</span>    <span class="s2">&quot;Grapevine rupestris stem pitting-associated virus&quot;</span>     <span class="s2">&quot;95.8&quot;</span>  <span class="s2">&quot;3&quot;</span>     <span class="s2">&quot;100&quot;</span>   <span class="s2">&quot;3&quot;</span>     <span class="s2">&quot;7.55823333338424e-05&quot;</span>  <span class="s2">&quot;222.2257&quot;</span>      <span class="s2">&quot;196400&quot;</span>        <span class="s2">&quot;Viruses;ssRNA viruses;Betaflexiviridae;Foveavirus;Grapevine rupestris stem pitting-associated virus&quot;</span>   <span class="s2">&quot;GAACACTATGAACGACAACTGGAAATCTGAGCACGCTATAAACACCCACAAACTCAAACGTAGACAAAGCTTTAACTAAGTTATTCATAATAATCACACCATGCCAAACACTTAAGG&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-rps2ecsv">
+<h2>Step <strong>Rps2ecsv</strong><a class="headerlink" href="#step-rps2ecsv" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>This module uses the rpstblastn XML file and the PFAM taxonomy to annotate query sequences and produce a readable CSV file.</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Rps2ecsv
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Rps2ecsv:
+  b: (SampleID)_idba.scaffold.rps.pfam.xml
+  out: (SampleID)_idba.scaffold.rps.pfam.csv
+  evalue: 0.0001
+  sge: True
+</pre></div>
+</div>
+<p>Example output of ds2015-149_idba.scaffold.rps.pfam.csv:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#query_id       query_length    cdd_id  hit_id  evalue  startQ  endQ    frame   description     superkingdom    no rank family  genus</span>
+<span class="s2">&quot;ds2015-149_0&quot;</span>  <span class="s2">&quot;1428&quot;</span>  <span class="s2">&quot;pfam01443&quot;</span>     <span class="s2">&quot;gnl|CDD|279750&quot;</span>        <span class="s2">&quot;1.33194e-06&quot;</span>   <span class="s2">&quot;29&quot;</span>    <span class="s2">&quot;223&quot;</span>   <span class="s2">&quot;2&quot;</span>     <span class="s2">&quot;pfam01443, Viral_helicase1, Viral (Superfamily 1) RNA helicase.  Helicase activity for this family has been demonstrated and NTPase activity. This helicase has multiple roles at different stages of viral RNA replication, as dissected by mutational analysis.&quot;</span>     <span class="s2">&quot;Viruses(1.00);&quot;</span>        <span class="s2">&quot;ssRNA viruses(0.99);unclassified viruses(0.01);&quot;</span>       <span class="s2">&quot;Alphaflexiviridae(0.36);Virgaviridae(0.24);Betaflexiviridae(0.15);Tymoviridae(0.10);Bromoviridae(0.07);&quot;</span>       <span class="s2">&quot;Potexvirus(0.26);Allexivirus(0.10);Carlavirus(0.08);Tymovirus(0.08);Tobamovirus(0.08);&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-ecsv2excel">
+<h2>Step <strong>Ecsv2excel</strong><a class="headerlink" href="#step-ecsv2excel" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>This module takes all csv files and create a compile them in a single Excel file.</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Ecsv2excel
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Ecsv2excel:
+  b1: (SampleID)_idba.scaffold.tbltx.refseq_vir.csv
+  b2: (SampleID)_idba.scaffold.tbltx.all_vir.csv
+  b3: (SampleID)_idba.scaffold.bltx.nr.csv
+  r:  (SampleID)_idba.scaffold.rps.pfam.csv
+  out:  (SampleID)_idba.scaffold.xlsx
+  sge: True
+</pre></div>
+</div>
+<p>Example output of ds2015-149_idba.scaffold.xlsx:</p>
+<img alt="_images/ecsv2excel.png" src="_images/ecsv2excel.png" />
+</div>
+<div class="section" id="step-ecsv2krona">
+<h2>Step <strong>Ecsv2krona</strong><a class="headerlink" href="#step-ecsv2krona" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>This module uses CSV files from Blast2ecsv module to create Krona html file.</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Ecsv2krona
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Ecsv2krona_dmd
+</pre></div>
+</div>
+<p>Example output of Krona:</p>
+<iframe src="krona_blast/blast.global.krona.html" height="400px" width="100%"></iframe>
+<iframe src="krona_diamond/global_krona_dmd.html" height="400px" width="100%"></iframe></div>
+<div class="section" id="step-automapper">
+<h2>Step <strong>Automapper</strong><a class="headerlink" href="#step-automapper" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>This module uses Blast CSV annotation file to select reference sequences, map query sequences and produce png of identity plot and alignment file in fasta format.</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Automapper_nr
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Automapper_allvirTX
+virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Automapper_refseqTX
+</pre></div>
+</div>
+<p>Example output of ds2015-149/ds2015-149_autoMapper_nr:</p>
+<iframe src="results/index.html" height="400px" width="100%"></iframe></div>
+<div class="section" id="step-rps2tree">
+<h2>Step <strong>Rps2tree</strong><a class="headerlink" href="#step-rps2tree" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>This module use Rps2ecsv results of all sample to cut and group sequences based on identified domains and create OTUs, identity matrix, tree nexus files and png for each domains colored by SampleID.</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Rps2tree
+</pre></div>
+</div>
+<iframe src="rps2tree_global/index.html" height="400px" width="100%"></iframe></div>
+<div class="section" id="step-getresults">
+<h2>Step <strong>Getresults</strong><a class="headerlink" href="#step-getresults" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>This module simply copy important results file to a result directory.</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Getresults
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Execution</a><ul>
+<li><a class="reference internal" href="#step-readsoustraction">Step <strong>ReadSoustraction</strong></a></li>
+<li><a class="reference internal" href="#step-demultiplex">Step <strong>Demultiplex</strong></a></li>
+<li><a class="reference internal" href="#step-demultiplexhtml">Step <strong>DemultiplexHtml</strong></a></li>
+<li><a class="reference internal" href="#step-diamond">Step <strong>Diamond</strong></a></li>
+<li><a class="reference internal" href="#step-assembly">Step <strong>Assembly</strong></a></li>
+<li><a class="reference internal" href="#step-map">Step <strong>Map</strong></a></li>
+<li><a class="reference internal" href="#step-blast">Step <strong>Blast</strong></a></li>
+<li><a class="reference internal" href="#step-blast2ecsv">Step <strong>Blast2ecsv</strong></a></li>
+<li><a class="reference internal" href="#step-rps2ecsv">Step <strong>Rps2ecsv</strong></a></li>
+<li><a class="reference internal" href="#step-ecsv2excel">Step <strong>Ecsv2excel</strong></a></li>
+<li><a class="reference internal" href="#step-ecsv2krona">Step <strong>Ecsv2krona</strong></a></li>
+<li><a class="reference internal" href="#step-automapper">Step <strong>Automapper</strong></a></li>
+<li><a class="reference internal" href="#step-rps2tree">Step <strong>Rps2tree</strong></a></li>
+<li><a class="reference internal" href="#step-getresults">Step <strong>Getresults</strong></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">Modules description</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/execution.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modules.html" title="Modules description"
+             >previous</a> |</li>
+        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Sebastien Theil.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

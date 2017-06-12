@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>blastx</BlastOutput_program>
+  <BlastOutput_version>BLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/bank/blastdb/nr</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-58_190</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>161</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>23</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_63</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>543</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1145802036|gb|AQN80517.1|</Hit_id>
+  <Hit_def>replicase [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>AQN80517</Hit_accession>
+  <Hit_len>2161</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>337.035</Hsp_bit-score>
+      <Hsp_score>863</Hsp_score>
+      <Hsp_evalue>1.42663e-102</Hsp_evalue>
+      <Hsp_query-from>2</Hsp_query-from>
+      <Hsp_query-to>541</Hsp_query-to>
+      <Hsp_hit-from>1648</Hsp_hit-from>
+      <Hsp_hit-to>1827</Hsp_hit-to>
+      <Hsp_query-frame>2</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>179</Hsp_identity>
+      <Hsp_positive>180</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>180</Hsp_align-len>
+      <Hsp_qseq>VIRDLLPGEPSFFNGFNVSIGRNEGVREEKLCGDPWLKVMLFLGQXXXXXXXXXXXXXXXXXWFKTHIPLSNLESTRARWVGKMALKEHREVRCGYETTQQFFDEHRCGRSEQLSNACERFESIYPRHKGNDSVTFLMAVRKRLKFSKPQVEAAKLRRAKPYGKFLLDTFLSKVPLNASH</Hsp_qseq>
+      <Hsp_hseq>VIRDLLPGEPNFFNGFNVSIGRNEGVREEKLCGDPWLKVMLFLGQDEDCEVEELESECSNEEWFKTHIPLSNLESTRARWVGKMALKEHREVRCGYETTQQFFDEHRCGRSEQLSNACERFESIYPRHKGNDSVTFLMAVRKRLKFSKPQVEAAKLRRAKPYGKFLLDTFLSKVPLNASH</Hsp_hseq>
+      <Hsp_midline>VIRDLLPGEP+FFNGFNVSIGRNEGVREEKLCGDPWLKVMLFLGQDEDCEVEELESECSNEEWFKTHIPLSNLESTRARWVGKMALKEHREVRCGYETTQQFFDEHRCGRSEQLSNACERFESIYPRHKGNDSVTFLMAVRKRLKFSKPQVEAAKLRRAKPYGKFLLDTFLSKVPLNASH</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>141</Statistics_hsp-len>
+      <Statistics_eff-space>1113601076640</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>33</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_89</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>449</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|306920208|emb|CBX19981.1|</Hit_id>
+  <Hit_def>replicase [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>CBX19981</Hit_accession>
+  <Hit_len>2161</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>285.419</Hsp_bit-score>
+      <Hsp_score>729</Hsp_score>
+      <Hsp_evalue>4.95457e-85</Hsp_evalue>
+      <Hsp_query-from>22</Hsp_query-from>
+      <Hsp_query-to>444</Hsp_query-to>
+      <Hsp_hit-from>1071</Hsp_hit-from>
+      <Hsp_hit-to>1211</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>135</Hsp_identity>
+      <Hsp_positive>135</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>141</Hsp_align-len>
+      <Hsp_qseq>ISVPGHGNCFWHSDGFLLSTDGFALKAGIRPFVESERLISSDLSAPTISKQLEENAYAENEMIALFCIRHHVRLIVVTPEYEVSWKFGESEWPLCGILCLKSNHFQPCAPLNGCMITAIASALGRPEVDVLNYLCRPSTKH</Hsp_qseq>
+      <Hsp_hseq>FSVPGDGNCFWHSVGFLLSTDGFALKAGIRSFVESERLISSDLSAPTISKQLEENAYAENEMIALFCIRHHVRLIVVTPEYEVSWKFGESEWPLCGILCLKSNHFQPCAPLNGCMITAIASALGRREVDVLNYLCRPSTNH</Hsp_hseq>
+      <Hsp_midline> SVPG GNCFWHS GFLLSTDGFALKAGIR FVESERLISSDLSAPTISKQLEENAYAENEMIALFCIRHHVRLIVVTPEYEVSWKFGESEWPLCGILCLKSNHFQPCAPLNGCMITAIASALGR EVDVLNYLCRPST H</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>113</Statistics_hsp-len>
+      <Statistics_eff-space>1126343790000</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>34</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_5</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>1061</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1095833274|gb|APA22558.1|</Hit_id>
+  <Hit_def>replicase [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>APA22558</Hit_accession>
+  <Hit_len>2161</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>689.878</Hsp_bit-score>
+      <Hsp_score>1779</Hsp_score>
+      <Hsp_evalue>0</Hsp_evalue>
+      <Hsp_query-from>24</Hsp_query-from>
+      <Hsp_query-to>1049</Hsp_query-to>
+      <Hsp_hit-from>1207</Hsp_hit-from>
+      <Hsp_hit-to>1548</Hsp_hit-to>
+      <Hsp_query-frame>-1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>332</Hsp_identity>
+      <Hsp_positive>334</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>342</Hsp_align-len>
+      <Hsp_qseq>PSTNHIFEELCQGGGLNMMYLAETFEAFDICAKCDINGEIEVINPNGKISALFDITNEHIRHVEKIGNGPQSIKIDELRKVKRSALDLLSMNGSKITYFPNFERAEKLQGCLLGGLTGVISDEKFSDAKPWLSGISTADIKPRELTVVLGTFGAGKSFLYKSFMKRSEGKFVTFVSPRRALANSIKNDLEMDDGCKVAKAGKSKKEGWDVVTFEVFLRKVSGLKAGHCVIFDEVQLFPPGYIDLCLLVIRSDAFISLAGDPCQSTYDSQKDRAILGAEQSDILRLLEGKTYRYNIESRRFVNPMFESRLPCHFKKGSMTAAFADYAIFHNMHDFLLPTPNTP</Hsp_qseq>
+      <Hsp_hseq>PSTNHIFEELCQGGGLNMMYLAEAFEAFDICAKCDINGEIEVINPNGKISALFDITNEHIRHVEKIGNGPQSIKVDELRKVKRSALDLLSMNGSRITYFPNFERAEKLQGCLLGGLTGVISDEKFSDAKPWLSGISTADIKPRELTVVLGTFGAGKSFLYKSFMKRSEGKFVTFVSPRRALANSIKNDLEMDDSCKVAKAGKSKKEGWDVVTFEVFLRKVSSLKAGHCVIFDEVQLFPPGYIDLCLLVIRSDAFISLAGDPCQSTYDSQKDRAILGAEQSDILRLLEGKTYRYNIESRRFVNPMFESRLPCHFKKGSMTAAFADYAIFHNMHDFLLARSKGP</Hsp_hseq>
+      <Hsp_midline>PSTNHIFEELCQGGGLNMMYLAE FEAFDICAKCDINGEIEVINPNGKISALFDITNEHIRHVEKIGNGPQSIK+DELRKVKRSALDLLSMNGS+ITYFPNFERAEKLQGCLLGGLTGVISDEKFSDAKPWLSGISTADIKPRELTVVLGTFGAGKSFLYKSFMKRSEGKFVTFVSPRRALANSIKNDLEMDD CKVAKAGKSKKEGWDVVTFEVFLRKVS LKAGHCVIFDEVQLFPPGYIDLCLLVIRSDAFISLAGDPCQSTYDSQKDRAILGAEQSDILRLLEGKTYRYNIESRRFVNPMFESRLPCHFKKGSMTAAFADYAIFHNMHDFLL     P</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>155</Statistics_hsp-len>
+      <Statistics_eff-space>5171042571552</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>61</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_113</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>396</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|306920211|emb|CBX19984.1|</Hit_id>
+  <Hit_def>triple gene block protein 3 [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>CBX19984</Hit_accession>
+  <Hit_len>80</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>158.303</Hsp_bit-score>
+      <Hsp_score>399</Hsp_score>
+      <Hsp_evalue>8.56397e-47</Hsp_evalue>
+      <Hsp_query-from>137</Hsp_query-from>
+      <Hsp_query-to>376</Hsp_query-to>
+      <Hsp_hit-from>1</Hsp_hit-from>
+      <Hsp_hit-to>80</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>78</Hsp_identity>
+      <Hsp_positive>79</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>80</Hsp_align-len>
+      <Hsp_qseq>MYCLFGILVLVGIAIAIQILAHVDNSSGSHQGCFIRATGESILIENCGPSEALASTVREVLGGLKALGISHITEEIDYRC</Hsp_qseq>
+      <Hsp_hseq>MYCLFGILVLVGIAIAIQILAHVDNSSGSHQGCFIRATGESILIENCGPSEALASTVREVLGGLKALGVSHTTEEIDYRC</Hsp_hseq>
+      <Hsp_midline>MYCLFGILVLVGIAIAIQILAHVDNSSGSHQGCFIRATGESILIENCGPSEALASTVREVLGGLKALG+SH TEEIDYRC</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>98</Statistics_hsp-len>
+      <Statistics_eff-space>1126559252780</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>105</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_100</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>421</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1145802030|gb|AQN80512.1|</Hit_id>
+  <Hit_def>replicase [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>AQN80512</Hit_accession>
+  <Hit_len>2161</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>250.751</Hsp_bit-score>
+      <Hsp_score>639</Hsp_score>
+      <Hsp_evalue>4.33907e-73</Hsp_evalue>
+      <Hsp_query-from>27</Hsp_query-from>
+      <Hsp_query-to>395</Hsp_query-to>
+      <Hsp_hit-from>378</Hsp_hit-from>
+      <Hsp_hit-to>500</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>120</Hsp_identity>
+      <Hsp_positive>123</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>123</Hsp_align-len>
+      <Hsp_qseq>GSLLMPNISKLVISFLCRMMPNALARLSSSFRETSLDSFVYALEPFNFSVSLIDVTPDFFEHLFLFSCLNELIEEDIEEVMDSSWFGLGNVHFNRQRAPYSLGVSHWLNSPFSVEHKFAGAIS</Hsp_qseq>
+      <Hsp_hseq>GSLLMPNISKLVISFLCRMMPNALARLSSSFRETSLDSFVYALEPFNFSVNLIDVTPDFFEHLFLFSCLNELIEEDIEEVMDSSWFGLGNVHFNRQRAPYSLGISHWLNSPFSVEHKFAGAIN</Hsp_hseq>
+      <Hsp_midline>GSLLMPNISKLVISFLCRMMPNALARLSSSFRETSLDSFVYALEPFNFSV+LIDVTPDFFEHLFLFSCLNELIEEDIEEVMDSSWFGLGNVHFNRQRAPYSLG+SHWLNSPFSVEHKFAGAI+</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>105</Statistics_hsp-len>
+      <Statistics_eff-space>1129529468340</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>109</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_62</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>544</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|116078003|dbj|BAF34855.1|</Hit_id>
+  <Hit_def>24.4 kDa hypothetical protein [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>BAF34855</Hit_accession>
+  <Hit_len>221</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>295.819</Hsp_bit-score>
+      <Hsp_score>756</Hsp_score>
+      <Hsp_evalue>5.17719e-98</Hsp_evalue>
+      <Hsp_query-from>117</Hsp_query-from>
+      <Hsp_query-to>542</Hsp_query-to>
+      <Hsp_hit-from>80</Hsp_hit-from>
+      <Hsp_hit-to>221</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>142</Hsp_identity>
+      <Hsp_positive>142</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>142</Hsp_align-len>
+      <Hsp_qseq>NILDEYLSVQDISGFDVLFSDPYQNISIPKEAHFIKSKTCRFGVNTCKYLSSFGFKVSSDGLDDVIVGSPFTLDVEGVLICFGKEAVDLAVAHNSEFKLPCEVRGSTFNVVTLLKSRDPTPEDRHWFYIAATRHRKKLVIMQ</Hsp_qseq>
+      <Hsp_hseq>NILDEYLSVQDISGFDVLFSDPYQNISIPKEAHFIKSKTCRFGVNTCKYLSSFGFKVSSDGLDDVIVGSPFTLDVEGVLICFGKEAVDLAVAHNSEFKLPCEVRGSTFNVVTLLKSRDPTPEDRHWFYIAATRHRKKLVIMQ</Hsp_hseq>
+      <Hsp_midline>NILDEYLSVQDISGFDVLFSDPYQNISIPKEAHFIKSKTCRFGVNTCKYLSSFGFKVSSDGLDDVIVGSPFTLDVEGVLICFGKEAVDLAVAHNSEFKLPCEVRGSTFNVVTLLKSRDPTPEDRHWFYIAATRHRKKLVIMQ</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>141</Statistics_hsp-len>
+      <Statistics_eff-space>1113601076640</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>121</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_4</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>1158</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|116077997|dbj|BAF34850.1|</Hit_id>
+  <Hit_def>24.4 kDa hypothetical protein [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>BAF34850</Hit_accession>
+  <Hit_len>221</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>452.21</Hsp_bit-score>
+      <Hsp_score>1162</Hsp_score>
+      <Hsp_evalue>2.99695e-156</Hsp_evalue>
+      <Hsp_query-from>266</Hsp_query-from>
+      <Hsp_query-to>928</Hsp_query-to>
+      <Hsp_hit-from>1</Hsp_hit-from>
+      <Hsp_hit-to>221</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>218</Hsp_identity>
+      <Hsp_positive>221</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>221</Hsp_align-len>
+      <Hsp_qseq>MNNLVKALSTFEFVGVYSVLRFPVVVHSVPGSGKSSLIRELVTEDESFIAFTAGVPDTPNLSGRYIKPYSPGCAVKGRINILDEYLSVSDISGFDVLFSDPYQNVSVPREAHFIKSKTCRFGENTCKYLLSFGFNLHSDRSDEVITGSPFELDVEGVLICFGKEAVDLAAAHNSDFKLPCEVRGATFDVVTLLKSRDPTSDDKHWFYIAATRHRKKLIIMQ</Hsp_qseq>
+      <Hsp_hseq>MNNLVKALSTFEFVGIYSVLRFPVVVHSVPGSGKSSLIRELVTEDESFIAFTAGVPDTPNLSGRYIKPYSPGCAVKGKINILDEYLSVSDISGFDVLFSDPYQNISVPREAHFIKSKTCRFGENTCKYLLSFGFNLHSDRSDEVITGSPFELDVEGVLICFGKEAVDLAAAHNSDFKLPCEVRGATFDVVTLLKSRDPTSDDKHWFYIAATRHRKKLIIMQ</Hsp_hseq>
+      <Hsp_midline>MNNLVKALSTFEFVG+YSVLRFPVVVHSVPGSGKSSLIRELVTEDESFIAFTAGVPDTPNLSGRYIKPYSPGCAVKG+INILDEYLSVSDISGFDVLFSDPYQN+SVPREAHFIKSKTCRFGENTCKYLLSFGFNLHSDRSDEVITGSPFELDVEGVLICFGKEAVDLAAAHNSDFKLPCEVRGATFDVVTLLKSRDPTSDDKHWFYIAATRHRKKLIIMQ</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>156</Statistics_hsp-len>
+      <Statistics_eff-space>5978449511580</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>150</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_132</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>350</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|923717447|gb|ALB35654.1|</Hit_id>
+  <Hit_def>replication-associated polyprotein [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>ALB35654</Hit_accession>
+  <Hit_len>2161</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>225.328</Hsp_bit-score>
+      <Hsp_score>573</Hsp_score>
+      <Hsp_evalue>1.07674e-64</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>321</Hsp_query-to>
+      <Hsp_hit-from>1721</Hsp_hit-from>
+      <Hsp_hit-to>1827</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>106</Hsp_identity>
+      <Hsp_positive>107</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>107</Hsp_align-len>
+      <Hsp_qseq>ESTRARWVGKMALKEHREVRCGHETTQQFFDEHRGGMGEQLSNACERFESIYPRHKGNDSITFLMAVRKRLKFSKPQVEAAKLRRAKPYGKFLLDTFLSKVPLNASH</Hsp_qseq>
+      <Hsp_hseq>ESTRARWVGKMALKEHREVRCGYETTQQFFDEHRGGMGEQLSNACERFESIYPRHKGNDSITFLMAVRKRLKFSKPQVEAAKLRRAKPYGKFLLDTFLSKVPLNASH</Hsp_hseq>
+      <Hsp_midline>ESTRARWVGKMALKEHREVRCG+ETTQQFFDEHRGGMGEQLSNACERFESIYPRHKGNDSITFLMAVRKRLKFSKPQVEAAKLRRAKPYGKFLLDTFLSKVPLNASH</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>84</Statistics_hsp-len>
+      <Statistics_eff-space>1115447870784</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>151</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_44</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>625</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1145802031|gb|AQN80513.1|</Hit_id>
+  <Hit_def>triple gene block protein 1 [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>AQN80513</Hit_accession>
+  <Hit_len>221</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>233.802</Hsp_bit-score>
+      <Hsp_score>595</Hsp_score>
+      <Hsp_evalue>3.26511e-73</Hsp_evalue>
+      <Hsp_query-from>279</Hsp_query-from>
+      <Hsp_query-to>623</Hsp_query-to>
+      <Hsp_hit-from>1</Hsp_hit-from>
+      <Hsp_hit-to>115</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>114</Hsp_identity>
+      <Hsp_positive>115</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>115</Hsp_align-len>
+      <Hsp_qseq>MNNLVKALSAFEFVGVFCVLKFPVVVHSVPGSGKSSLIRELISEDESFVAFTAGVPDSPNLTGRYIKPYSPGCAVQGKINILDEYLSVSDIHGFDVLFSDPYQNINVPREAHFIK</Hsp_qseq>
+      <Hsp_hseq>MNNLVKALSAFEFVGVFCVLKFPVVVHSVPGSGKSSLIRELISEDESFVAFTAGVPDSPNLTGRYIKPYSPGCAVQGKINILDEYLSVSDIHGFDVLFSDPYQNISVPREAHFIK</Hsp_hseq>
+      <Hsp_midline>MNNLVKALSAFEFVGVFCVLKFPVVVHSVPGSGKSSLIRELISEDESFVAFTAGVPDSPNLTGRYIKPYSPGCAVQGKINILDEYLSVSDIHGFDVLFSDPYQNI+VPREAHFIK</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>147</Statistics_hsp-len>
+      <Statistics_eff-space>1653180498528</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>162</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_108</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>405</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1145802036|gb|AQN80517.1|</Hit_id>
+  <Hit_def>replicase [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>AQN80517</Hit_accession>
+  <Hit_len>2161</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>283.493</Hsp_bit-score>
+      <Hsp_score>724</Hsp_score>
+      <Hsp_evalue>1.09459e-84</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>404</Hsp_query-to>
+      <Hsp_hit-from>1071</Hsp_hit-from>
+      <Hsp_hit-to>1204</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>133</Hsp_identity>
+      <Hsp_positive>133</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>134</Hsp_align-len>
+      <Hsp_qseq>FPVPGDGNCFWHSVGFLLSTDGLALKAGIRSFVESESPVDSALSGPTIRKQLGENAYAENEMIALFCVRHHVRLIIITPEYEVSWKFGENEWPLCGILCLKSNHFQPCAPLNGCMITAIASALGRREVDVLNYL</Hsp_qseq>
+      <Hsp_hseq>FPVPGDGNCFWHSVGFLLSTDGLALKAGIRSFVESESPVDPALSGPTIRKQLGENAYAENEMIALFCVRHHVRLIIITPEYEVSWKFGENEWPLCGILCLKSNHFQPCAPLNGCMITAIASALGRREVDVLNYL</Hsp_hseq>
+      <Hsp_midline>FPVPGDGNCFWHSVGFLLSTDGLALKAGIRSFVESESPVD ALSGPTIRKQLGENAYAENEMIALFCVRHHVRLIIITPEYEVSWKFGENEWPLCGILCLKSNHFQPCAPLNGCMITAIASALGRREVDVLNYL</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>101</Statistics_hsp-len>
+      <Statistics_eff-space>1114001229224</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>168</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_58</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>546</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|116078002|dbj|BAF34854.1|</Hit_id>
+  <Hit_def>RNA-dependent RNA polymerase, partial [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>BAF34854</Hit_accession>
+  <Hit_len>266</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>209.149</Hsp_bit-score>
+      <Hsp_score>531</Hsp_score>
+      <Hsp_evalue>2.34789e-63</Hsp_evalue>
+      <Hsp_query-from>249</Hsp_query-from>
+      <Hsp_query-to>545</Hsp_query-to>
+      <Hsp_hit-from>168</Hsp_hit-from>
+      <Hsp_hit-to>266</Hsp_hit-to>
+      <Hsp_query-frame>-2</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>98</Hsp_identity>
+      <Hsp_positive>98</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>99</Hsp_align-len>
+      <Hsp_qseq>KVQFVSNPTFCGWCLFKEGTFKKPQLIWERICIAREMGNLENCIDNYAIEVSYAYRLGELSIEMMTEEEVEAHYNCVRFLVRNKHKMRCSISGLFEVVD</Hsp_qseq>
+      <Hsp_hseq>KVQFVSNPTFCGWCLFKEGIFKKPQLIWERICIAREMGNLENCIDNYAIEVSYAYRLGELSIEMMTEEEVEAHYNCVRFLVRNKHKMRCSISGLFEVVD</Hsp_hseq>
+      <Hsp_midline>KVQFVSNPTFCGWCLFKEG FKKPQLIWERICIAREMGNLENCIDNYAIEVSYAYRLGELSIEMMTEEEVEAHYNCVRFLVRNKHKMRCSISGLFEVVD</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>142</Statistics_hsp-len>
+      <Statistics_eff-space>1108676361520</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>172</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_10</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>915</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1145802036|gb|AQN80517.1|</Hit_id>
+  <Hit_def>replicase [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>AQN80517</Hit_accession>
+  <Hit_len>2161</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>624.78</Hsp_bit-score>
+      <Hsp_score>1610</Hsp_score>
+      <Hsp_evalue>0</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>915</Hsp_query-to>
+      <Hsp_hit-from>1236</Hsp_hit-from>
+      <Hsp_hit-to>1540</Hsp_hit-to>
+      <Hsp_query-frame>-1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>303</Hsp_identity>
+      <Hsp_positive>305</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>305</Hsp_align-len>
+      <Hsp_qseq>ICAKCDVNGEIEVINPGGRISALFDITNEHIRHVEKIGNGPQSIKVDELRKVKRSALDLLSLNGSKITYFPSFERAEKLQGCLLGGLTGVISDEKFNDSKPWLAGVSTSDIKQRELTVVLGTFGAGKSFLYKSFMKRSEGKFVTFVSPRRALANSIKRDLEMDEECKVVKAGKSKKEGWDVVTFEVFLRKVTGLKAGHCVIFDEVQLFPPGYIDLCLLVIRSDAFISLAGDPCQSTYDSQKDRAILGAEQSDILRLLEGKSYRYNLESRRFVNPMFESRLPCHFKKGSMTAAFADYAIFHNMHDF</Hsp_qseq>
+      <Hsp_hseq>ICAKCDVNGEIEVINPGGRISALFDITNEHIRHVEKIGNGPQSIKVDELRKVKRSALDLLSLNGSKITYFPSFERAEKLQGCLLGGLTGVISDEKFNDSKPWLAGVSTSDIKQRELTVVLGTFGAGKSFLYKSFMKRSEGKFVTFVSPRRALANSIKRDLEMDEECKVVKAGKSKKEGWDVVTFEVFLRKVTGLKAGHCVIFDEVQLFPPGYIDLCLLVIRSDAFISLAGDPCQSTYDSQKDRAILGAEQSDILRLLEGKSYRYNLESRRFVNPMFDSRLPCNFKKGSMTAAFADYAIFHNMHDF</Hsp_hseq>
+      <Hsp_midline>ICAKCDVNGEIEVINPGGRISALFDITNEHIRHVEKIGNGPQSIKVDELRKVKRSALDLLSLNGSKITYFPSFERAEKLQGCLLGGLTGVISDEKFNDSKPWLAGVSTSDIKQRELTVVLGTFGAGKSFLYKSFMKRSEGKFVTFVSPRRALANSIKRDLEMDEECKVVKAGKSKKEGWDVVTFEVFLRKVTGLKAGHCVIFDEVQLFPPGYIDLCLLVIRSDAFISLAGDPCQSTYDSQKDRAILGAEQSDILRLLEGKSYRYNLESRRFVNPMF+SRLPC+FKKGSMTAAFADYAIFHNMHDF</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>153</Statistics_hsp-len>
+      <Statistics_eff-space>4007117081760</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>185</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_79</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>483</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|33517425|gb|AAQ19969.1|</Hit_id>
+  <Hit_def>replicase, partial [Grapevine rupestris stem pitting-associated virus]</Hit_def>
+  <Hit_accession>AAQ19969</Hit_accession>
+  <Hit_len>276</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>287.345</Hsp_bit-score>
+      <Hsp_score>734</Hsp_score>
+      <Hsp_evalue>2.64025e-94</Hsp_evalue>
+      <Hsp_query-from>2</Hsp_query-from>
+      <Hsp_query-to>478</Hsp_query-to>
+      <Hsp_hit-from>35</Hsp_hit-from>
+      <Hsp_hit-to>193</Hsp_hit-to>
+      <Hsp_query-frame>2</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>136</Hsp_identity>
+      <Hsp_positive>148</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>159</Hsp_align-len>
+      <Hsp_qseq>MLFAPDGNWCEMYSQPLSSRYLLKARSVVLSDGSRYAVDVLHSKFCHHLLSFTPINNLLVSNIRCFSGFDAIGIKDLEPLSRGMHSCFPVHHDVVTKIYLYLRTLKKPDKESAEAKLRQLIDKPTGREIKFIEDFASLVISCGRSGSLLSSKHTQHILA</Hsp_qseq>
+      <Hsp_hseq>LLFAPDGNWSEMYSQPLSCRYLLKARSVVLPDGSRYSVDIIHSKFSHHLLSFTPMGNLLASNMRCFSGFDAIGIKDLEPLSRGMHSCFPVHHDVVTKIYLYLRTLKKPDKESAEAKLRQLIDKPTGREIKFIEDFSSLVISCGRSGSLLMPNISKLVIS</Hsp_hseq>
+      <Hsp_midline>+LFAPDGNW EMYSQPLS RYLLKARSVVL DGSRY+VD++HSKF HHLLSFTP+ NLL SN+RCFSGFDAIGIKDLEPLSRGMHSCFPVHHDVVTKIYLYLRTLKKPDKESAEAKLRQLIDKPTGREIKFIEDF+SLVISCGRSGSLL    ++ +++</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>124</Statistics_hsp-len>
+      <Statistics_eff-space>1107522141154</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

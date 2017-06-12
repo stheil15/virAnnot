@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>blastx</BlastOutput_program>
+  <BlastOutput_version>BLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/bank/blastdb/nr</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-55_2</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>1402</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>6</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_25</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>559</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1132372167|ref|YP_009337890.1|</Hit_id>
+  <Hit_def>hypothetical protein [Isaria javanica chrysovirus 1] &gt;gi|1127253881|gb|APR73430.1| hypothetical protein [Isaria javanica chrysovirus 1]</Hit_def>
+  <Hit_accession>YP_009337890</Hit_accession>
+  <Hit_len>977</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>140.584</Hsp_bit-score>
+      <Hsp_score>353</Hsp_score>
+      <Hsp_evalue>2.23836e-34</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>558</Hsp_query-to>
+      <Hsp_hit-from>641</Hsp_hit-from>
+      <Hsp_hit-to>828</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>67</Hsp_identity>
+      <Hsp_positive>108</Hsp_positive>
+      <Hsp_gaps>2</Hsp_gaps>
+      <Hsp_align-len>188</Hsp_align-len>
+      <Hsp_qseq>IGMELLSRWELEMDVDKRVARLLRSIAVRWYKASIIRDEWSDLVCRVLESGDTKMALAHGISAMLSCDIDTGTSGVDWSMRIFDALKSFMVCALVIEKDAYI-VMQDGRDGP-RPCILGITEAEIWSRIAKRNVPRSAMGYFAAGVGNIQRLMEVGVWSNSRTVMLMEMINARSWMPKITDRMLLSCL</Hsp_qseq>
+      <Hsp_hseq>LGLELCRRWGDNDSALERIPGITHKLITKWYKVCVLRDEWSDFINRIMAAEVRNFGLAQAIAKICSCDPQAGTSGLEWGVRVCEALKGFIVCSIVTLPGKLIGVVEDRATGQCRPCVGGIEEGDLWKAIIQSNIPRHALGVFGGTVSALSLANELCEWQDSPTVAILEMVNCHSWEPRIGPGRMATCI</Hsp_hseq>
+      <Hsp_midline>+G+EL  RW       +R+  +   +  +WYK  ++RDEWSD + R++ +      LA  I+ + SCD   GTSG++W +R+ +ALK F+VC++V      I V++D   G  RPC+ GI E ++W  I + N+PR A+G F   V  +    E+  W +S TV ++EM+N  SW P+I    + +C+</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>144</Statistics_hsp-len>
+      <Statistics_eff-space>1153768277844</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>8</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_34</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>500</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1132372165|ref|YP_009337889.1|</Hit_id>
+  <Hit_def>capsid protein [Isaria javanica chrysovirus 1] &gt;gi|1127253879|gb|APR73429.1| capsid protein [Isaria javanica chrysovirus 1]</Hit_def>
+  <Hit_accession>YP_009337889</Hit_accession>
+  <Hit_len>974</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>193.356</Hsp_bit-score>
+      <Hsp_score>490</Hsp_score>
+      <Hsp_evalue>2.49678e-53</Hsp_evalue>
+      <Hsp_query-from>6</Hsp_query-from>
+      <Hsp_query-to>464</Hsp_query-to>
+      <Hsp_hit-from>115</Hsp_hit-from>
+      <Hsp_hit-to>267</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>89</Hsp_identity>
+      <Hsp_positive>114</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>153</Hsp_align-len>
+      <Hsp_qseq>WERCEVAAGLYPGPLDEVQGREKLVAAAREGIPNRDDVSKVTSWSRDAVRALQDEDLSMFKVLLENVVVGQSKLTRLVKGFLMLLECMDRGSIDVDLDVQDYVIYNPRDVVNTFRHGDRSYVFNSRPSSNPHTAVLWRMCGAYPTNQTHPTHL</Hsp_qseq>
+      <Hsp_hseq>WEHLGIDVGLYPGPLDRLLARDKLTSAAREGIPDRDQVAKATGWNRNEVRGLQDADMSAFKGLLEQVRVGQSKLTRLVKGFLMLLECMERRHIDVVLQVQQTIVYGPQNVIQSFLADGRAYVYNSKPSQSVYSAVLWRMCEAYPPPELAGSHI</Hsp_hseq>
+      <Hsp_midline>WE   +  GLYPGPLD +  R+KL +AAREGIP+RD V+K T W+R+ VR LQD D+S FK LLE V VGQSKLTRLVKGFLMLLECM+R  IDV L VQ  ++Y P++V+ +F    R+YV+NS+PS + ++AVLWRMC AYP  +   +H+</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>128</Statistics_hsp-len>
+      <Statistics_eff-space>1118741254540</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>20</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_42</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>463</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1132372165|ref|YP_009337889.1|</Hit_id>
+  <Hit_def>capsid protein [Isaria javanica chrysovirus 1] &gt;gi|1127253879|gb|APR73429.1| capsid protein [Isaria javanica chrysovirus 1]</Hit_def>
+  <Hit_accession>YP_009337889</Hit_accession>
+  <Hit_len>974</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>92.0485</Hsp_bit-score>
+      <Hsp_score>227</Hsp_score>
+      <Hsp_evalue>6.42297e-18</Hsp_evalue>
+      <Hsp_query-from>2</Hsp_query-from>
+      <Hsp_query-to>343</Hsp_query-to>
+      <Hsp_hit-from>470</Hsp_hit-from>
+      <Hsp_hit-to>569</Hsp_hit-to>
+      <Hsp_query-frame>2</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>46</Hsp_identity>
+      <Hsp_positive>64</Hsp_positive>
+      <Hsp_gaps>14</Hsp_gaps>
+      <Hsp_align-len>114</Hsp_align-len>
+      <Hsp_qseq>VLAALSNGVYDMSGNVTSFDVVKREMDLGNIVYRERDIPHGSFTVRWVCVTKTDSCREVEPRKRVSKPMTLVHPCNKVPGSTLRSTKKKRFGPTQKEPARPSGHRRQGSVPIIP</Hsp_qseq>
+      <Hsp_hseq>VIESLVRGVSDMSQETTTYDVLKRELRLANVAFRERDLPRGEFTVGWVSVTRLDSFKTIKPRKRTVKPIELVRECD--------------FNPRLREIGRRRERFSRGKAPVTP</Hsp_hseq>
+      <Hsp_midline>V+ +L  GV DMS   T++DV+KRE+ L N+ +RERD+P G FTV WV VT+ DS + ++PRKR  KP+ LV  C+              F P  +E  R      +G  P+ P</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>118</Statistics_hsp-len>
+      <Statistics_eff-space>1104182571960</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>28</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_79</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>214</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1132372165|ref|YP_009337889.1|</Hit_id>
+  <Hit_def>capsid protein [Isaria javanica chrysovirus 1] &gt;gi|1127253879|gb|APR73429.1| capsid protein [Isaria javanica chrysovirus 1]</Hit_def>
+  <Hit_accession>YP_009337889</Hit_accession>
+  <Hit_len>974</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>53.1434</Hsp_bit-score>
+      <Hsp_score>126</Hsp_score>
+      <Hsp_evalue>1.11528e-05</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>174</Hsp_query-to>
+      <Hsp_hit-from>881</Hsp_hit-from>
+      <Hsp_hit-to>938</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>23</Hsp_identity>
+      <Hsp_positive>36</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>58</Hsp_align-len>
+      <Hsp_qseq>GASSSRFPMAIRRDELVGAGDPVTLPYRHAPASFGQREIPEDDGQWIMLAIRVQRPIY</Hsp_qseq>
+      <Hsp_hseq>GAYNDRFPSVLNRHDLDAIGEPMVLEYRKNPSSVGPRDPDDSDSRWLVLASRVNRKVF</Hsp_hseq>
+      <Hsp_midline>GA + RFP  + R +L   G+P+ L YR  P+S G R+  + D +W++LA RV R ++</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>43</Statistics_hsp-len>
+      <Statistics_eff-space>1117356210880</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>31</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_55</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>388</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1132372165|ref|YP_009337889.1|</Hit_id>
+  <Hit_def>capsid protein [Isaria javanica chrysovirus 1] &gt;gi|1127253879|gb|APR73429.1| capsid protein [Isaria javanica chrysovirus 1]</Hit_def>
+  <Hit_accession>YP_009337889</Hit_accession>
+  <Hit_len>974</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>81.2629</Hsp_bit-score>
+      <Hsp_score>199</Hsp_score>
+      <Hsp_evalue>1.41476e-14</Hsp_evalue>
+      <Hsp_query-from>34</Hsp_query-from>
+      <Hsp_query-to>330</Hsp_query-to>
+      <Hsp_hit-from>871</Hsp_hit-from>
+      <Hsp_hit-to>969</Hsp_hit-to>
+      <Hsp_query-frame>-2</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>38</Hsp_identity>
+      <Hsp_positive>59</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>99</Hsp_align-len>
+      <Hsp_qseq>DVHRIYLWIRGANPGYFPLDVTSIEIANLGEPETLAFKQNPASFGQRNVAEEDSRWIVMACRINRPVFTKELLITLTKEFILTPQMVNHLRRTYGLFER</Hsp_qseq>
+      <Hsp_hseq>DVRLMAMWLEGAYNDRFPSVLNRHDLDAIGEPMVLEYRKNPSSVGPRDPDDSDSRWLVLASRVNRKVFDFDYLRMLCSNFIVPAGMRANLREVYGLFDK</Hsp_hseq>
+      <Hsp_midline>DV  + +W+ GA    FP  +   ++  +GEP  L +++NP+S G R+  + DSRW+V+A R+NR VF  + L  L   FI+   M  +LR  YGLF++</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>95</Statistics_hsp-len>
+      <Statistics_eff-space>1139117276336</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>69</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_69</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>327</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1132372165|ref|YP_009337889.1|</Hit_id>
+  <Hit_def>capsid protein [Isaria javanica chrysovirus 1] &gt;gi|1127253879|gb|APR73429.1| capsid protein [Isaria javanica chrysovirus 1]</Hit_def>
+  <Hit_accession>YP_009337889</Hit_accession>
+  <Hit_len>974</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>55.8398</Hsp_bit-score>
+      <Hsp_score>133</Hsp_score>
+      <Hsp_evalue>2.98217e-06</Hsp_evalue>
+      <Hsp_query-from>13</Hsp_query-from>
+      <Hsp_query-to>243</Hsp_query-to>
+      <Hsp_hit-from>761</Hsp_hit-from>
+      <Hsp_hit-to>837</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>27</Hsp_identity>
+      <Hsp_positive>42</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>77</Hsp_align-len>
+      <Hsp_qseq>FINYTGEGMVGQSQVARHINELIDKGSSRNTFGSMRRAMLKDKVSWSGSVEDAPKDGLRYIVNSPTWLRYLEGHDVD</Hsp_qseq>
+      <Hsp_hseq>LINYKGDALPGNSTMAKEMNVLIEKGREKGEGSGLVDQARQKRRLWSGDVTALPTYAIKYIVNSESWETFLKGRGVD</Hsp_hseq>
+      <Hsp_midline> INY G+ + G S +A+ +N LI+KG  +     +     + +  WSG V   P   ++YIVNS +W  +L+G  VD</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>78</Statistics_hsp-len>
+      <Statistics_eff-space>1103490050130</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>75</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_70</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>326</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|1132372165|ref|YP_009337889.1|</Hit_id>
+  <Hit_def>capsid protein [Isaria javanica chrysovirus 1] &gt;gi|1127253879|gb|APR73429.1| capsid protein [Isaria javanica chrysovirus 1]</Hit_def>
+  <Hit_accession>YP_009337889</Hit_accession>
+  <Hit_len>974</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>58.151</Hsp_bit-score>
+      <Hsp_score>139</Hsp_score>
+      <Hsp_evalue>5.39703e-07</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>324</Hsp_query-to>
+      <Hsp_hit-from>729</Hsp_hit-from>
+      <Hsp_hit-to>836</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>29</Hsp_identity>
+      <Hsp_positive>53</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>108</Hsp_align-len>
+      <Hsp_qseq>LANILDHTGHSTITARAKQIDDVLNKMEEGGAFINYDREGMLGQSNIAKRINAMIDRGSNKNTFGSELRRMRDQKKDWVGNVEDAPKEGIRYIQNSASWMNYLEEKAI</Hsp_qseq>
+      <Hsp_hseq>ITRLVKDVGAVRILVASKDRHQFLKSIEQMQLLINYKGDALPGNSTMAKEMNVLIEKGREKGEGSGLVDQARQKRRLWSGDVTALPTYAIKYIVNSESWETFLKGRGV</Hsp_hseq>
+      <Hsp_midline>+  ++   G   I   +K     L  +E+    INY  + + G S +AK +N +I++G  K      + + R +++ W G+V   P   I+YI NS SW  +L+ + +</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>77</Statistics_hsp-len>
+      <Statistics_eff-space>1107306704348</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

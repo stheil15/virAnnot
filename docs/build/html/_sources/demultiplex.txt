@@ -1,0 +1,13 @@
+Demultiplex
+===========
+
+Warning: This demultiplex procedure is specifc to our sequencing methods.
+
+The demultiplex.pl script uses cutadapt to grap step by step sequences used by
+the sequencing technology and the dsRNA extraction protocol.
+
+Our protocol:
+
+
+Informations about indexes, common sequences, and sample ids are stored in the
+map.txt_ file which must be tab delimited file.

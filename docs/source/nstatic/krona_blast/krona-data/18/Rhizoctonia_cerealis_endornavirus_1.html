@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=generator content="blast2html; see https://github.com/thehyve/blast2html/">
+    
+    <title>Blast output</title>
+    
+    <style>
+      body {
+      color: #333333;
+      font-family: Arial,Sans-Serif;
+      }
+
+      :link {
+      color: #336699;
+      }
+
+      .right {
+      float: right;
+      }
+
+      /* Galaxy with html sanitization enabled strips the header of this html page. If so, show the user a warning.*/
+      #strip_html_warning {
+      display: none;
+      }
+      
+      #content {
+      margin: 0 2em;
+      padding: 0.5em;
+      border: 1px solid #888888;
+      background-color: #d3dff5;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+      color: #2A6979;
+      font-family: arial,verdana,sans-serif;
+      letter-spacing: -1px;
+      margin: 1.2em 0 0.3em;
+      }
+
+      h1 {
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 150%;
+      padding-bottom: 0.1em;
+      }
+
+      h2 {
+      font-size: 120%;
+      font-weight: bold;
+      }
+
+      h4.darkHeader {
+      color: #4D4D4D;
+      letter-spacing: 0;
+      font-weight: bold;
+      }
+
+      #nodata {
+      font-weight: bold;
+      }
+
+      .index {
+      margin-bottom: 3em;
+      }
+      .index div.indexentry {
+      margin: 1.2em 1.6em;
+      font-weight: bold;
+      font-size: 100%;
+      }
+      
+      .headerdata {
+      font-size: 90%;
+      }
+      .headerdata .param {
+      font-weight: bold;
+      text-align: right;
+      padding: 0 1em;
+      }
+
+      .grey {
+      background-color: #eeeeee;
+      border: 1px solid #cccccc;
+      padding: 1em;
+      }
+
+      .white {
+      background-color: white;
+      border: 1px solid #cccccc;
+      padding: 1.5em 2%;
+      }
+
+      .graphicrow {
+      clear: left;
+      width: 100%;
+      }
+
+      .graphicitem {
+      float: left;
+      }
+
+
+      
+      .graphics .grey {
+      text-align: center;
+      }
+
+      .graphic {
+      background-color: white;
+      border: 2px solid black;
+      padding: 1.5em;
+      margin: auto;
+      }
+
+      .centered, .defline, div.legend, div.tablewrapper {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .defline {
+      background-color: white;
+      border: 1px solid black;
+      margin: .5em auto;
+      padding-left: .2em;
+      padding-right: .2em;
+      max-width: 50em;
+      text-align: left;
+      height: 2.8em;
+      overflow-y: hidden;
+      }
+
+      div.legend {
+      max-width: 40em;
+      }
+      div.legend div {
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-spacing: 0;
+      }
+      div.legend div .graphicitem {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      }
+
+      div.tablewrapper {
+      width: 50%;
+      min-width: 60em;
+      }
+
+      /* For small widths we give the graphic 100% */
+      @media (max-width: 72.5em) {
+      div.tablewrapper {
+      width: 100%;
+      min-width: 0px;
+      }
+      }
+
+      .scale {
+      width: 100%;
+      margin: .5em 0;
+      font-weight: bold;
+      }
+      .scale div {
+      color: red;
+      text-align: left;
+      }
+      .scale .graphicrow {
+      margin: .5em 0 .5em 0;
+      color: white;
+      }
+      .scale .graphicitem {
+      position: relative;
+      }
+      .scale .graphicitem div {
+      margin: 0 1px;
+      padding: 0 2px;
+      text-align: right;
+      background-color: red;
+      color: white;
+      }
+      .scale .graphicitem:first-child div {
+      margin-left: 0px;
+      }
+      .scale .graphicitem:last-child div {
+      margin-right: 0px;
+      }
+      .scale .graphicitem .lastlabel {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      background-color: transparent;
+      color: red;
+      }
+
+      a.matchresult {
+      display: block;
+      margin: 0;
+      padding: 0;
+      }
+      div.matchrow {
+      margin-top: 4px;
+      }
+      div.matchrow, div.matchitem {
+      height: 4px;
+      }
+
+      
+      table.descriptiontable {
+      font-size: 85%;
+      border: 1px solid #97b0c8;
+      border-spacing: 0;
+      color: #222222;
+      line-height: 1.3em;
+      background-color: white;
+      }
+      table.descriptiontable col:first-child {
+      width: 100%;
+      }
+      table.descriptiontable tr:hover {
+      background-color: #D5DEE3;
+      }
+      table.descriptiontable th {
+      color: #14376C;
+      font-weight: normal;
+      background-color: #F0F0F0;
+      background: linear-gradient(#FFFFFF, #F0F0F0);
+      border-bottom: 1px solid #D4DFE9;
+      border-right: 1px solid #CFCFCF;
+      border-left: 0px solid black;
+      border-top: 0px solid black;
+      }
+      table.descriptiontable td {
+      overflow: hidden;
+      text-align: center;
+      padding: .4em .8em;
+      }
+      table.descriptiontable td div {
+      width: 1em;
+      overflow: visible;
+      white-space: nowrap;
+      text-align: left;
+      }
+
+
+      
+      .alignments .white {
+      padding: 1.5em 1em;
+      }
+      
+      .alignment {
+      border-top: 1px solid black;
+      padding-left: 1em;
+      padding-right: 1em;
+      }
+      
+      div.linkheader {
+      padding-top: .2em;
+      font-size: 85%;
+      color: #14376C;
+      }
+      div.linkheader a.linkheader {
+      margin-right: 1em;
+      }
+      div.linkheader .right a {
+      text-decoration: none;
+      }
+
+      .title .hittitle {
+      color: #222222;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo {
+      font-size: 80%;
+      margin-top: 0;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo .b {
+      color: #606060;
+      font-weight: bold;
+      font-size: 90%;
+      }
+
+      .moretitles {
+      margin: 1.2em;
+      }
+      .moretitles .titleinfo {
+      margin: 0;
+      padding: 0;
+      }
+      .moretitles .hittitle {
+      margin: .4em 0 .2em 0;
+      padding: 0;
+      }
+      
+      a.showmoretitles {
+      font-size: 75%;
+      color: #336699;
+      font-weight: bold;
+      margin-top: 0;
+      }
+      a.showmoretitles:hover {
+      }
+
+      .hotspot {
+      color: #606060;
+      font-family: verdana, arial, sans-serif;
+      margin-bottom: 2.5em;
+      }
+
+      .hotspot p.range {
+      font-size: 70%;
+      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: .2em;
+      }
+      .hotspot p.range span.range {
+      font-weight: bold;
+      }
+      .hotspot p.range a.range {
+      margin-left: .5em;
+      }
+
+      table.hotspotstable {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      text-align: left;
+      border-collapse: collapse;
+      }
+      table.hotspotstable th, table.hotspotstable td {
+      padding: .1em 1em;
+      }
+      table.hotspotstable th {
+      font-size: 70%;
+      }
+      table.hotspotstable td {
+      min-width: 7em;
+      color: #222222;
+      font-size: 80%;
+      }
+
+      pre.alignmentgraphic {
+      color: #222222;
+      }
+
+      footer {
+      text-align: center;
+      color: #cccccc;
+      font-size: 70%;
+      margin-top: 1em;
+      }
+      footer :link {
+      color: #5588cc;
+      }
+      
+    </style>
+
+    <script type="text/javascript">
+      function toggle_visibility(id) {
+          var e = document.getElementById(id);
+          if(e.style.display != 'block')
+              e.style.display = 'block';
+          else
+              e.style.display = 'none';
+      }
+    </script>
+
+  </head>
+
+  
+  <body>
+    
+    <div id="strip_html_warning">
+      <!-- This div should be hidden by the header css block. Galaxy
+      strips all css, breaking this page but making this warning
+      visible. This warning contains some ugly old skool tabular html
+      layout that is not stripped. -->
+      <table bgcolor="#FFE5C9"><tr><td><font color="red"><b>
+                <font size=5><center>This html page seems to have been stripped by Galaxy.</center></font>
+                Disable Galaxy's html sanitization feature to view the full page (see <font face=monospace>sanitize_all_html</font> in your galaxy's universe_wsgi.ini), or download this page instead of viewing it in Galaxy.
+      </b></font></td></tr></table>
+    </div>
+    
+    <div id=content>
+
+
+
+      
+      <section class=match id=match27>
+      
+        <h1>Nucleotide Sequence (1432 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-57_42</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>352</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/save/stheil/db/refseq_vir/viral.genomic.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 1 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline27>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.055865921787708%">
+                        <div>144</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.055865921787708%">
+                        <div>288</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.055865921787708%">
+                        <div>432</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.055865921787708%">
+                        <div>576</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.055865921787708%">
+                        <div>720</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.055865921787708%">
+                        <div>864</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.055865921787708%">
+                        <div>1008</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.055865921787708%">
+                        <div>1152</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.055865921787708%">
+                        <div>1296</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.497206703910614%">
+                        <div>1432</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit4"
+                   onmouseover='document.getElementById("defline27").innerHTML="Psophocarpus tetragonolobus endornavirus genomic RNA, complete genome"'
+                   onmouseout='document.getElementById("defline27").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Psophocarpus tetragonolobus endornavirus genomic RNA, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.13966480446927373%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: blue; width: 9.846368715083798%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 6.284916201117318%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: blue; width: 10.405027932960893%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.6983240223463687%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: red; width: 65.99162011173183%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 6.634078212290502%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit2"
+                   onmouseover='document.getElementById("defline27").innerHTML="Ceratobasidium endornavirus D isolate Murdoch-4 polyprotein gene, complete cds"'
+                   onmouseout='document.getElementById("defline27").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Ceratobasidium endornavirus D isolate Murdoch-4 polyprotein gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.06983240223463687%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: black; width: 0.06983240223463687%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 27.653631284916198%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: red; width: 65.57262569832402%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 6.634078212290502%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline27").innerHTML="Rhizoctonia cerealis endornavirus 1, complete genome"'
+                   onmouseout='document.getElementById("defline27").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Rhizoctonia cerealis endornavirus 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.06983240223463687%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: blue; width: 0.06983240223463687%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 12.569832402234637%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.4664804469273742%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 11.731843575418994%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.8854748603351954%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 0.2094972067039106%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: red; width: 64.94413407821229%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 7.053072625698324%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit3"
+                   onmouseover='document.getElementById("defline27").innerHTML="Phytophthora endornavirus 1"'
+                   onmouseout='document.getElementById("defline27").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Phytophthora endornavirus 1">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.13966480446927373%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 13.198324022346368%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.2569832402234635%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 12.360335195530725%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.2569832402234635%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: red; width: 64.73463687150837%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 7.053072625698324%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit5"
+                   onmouseover='document.getElementById("defline27").innerHTML="Shahe endorna-like virus 1 strain SHWC0209c12790 hypothetical protein gene, complete cds"'
+                   onmouseout='document.getElementById("defline27").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Shahe endorna-like virus 1 strain SHWC0209c12790 hypothetical protein gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.13966480446927373%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 25.768156424581004%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.8854748603351954%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: red; width: 64.31564245810056%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 7.891061452513966%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit4"
+                              title="Psophocarpus tetragonolobus endornavirus genomic RNA, complete genome"
+                              id="description4">
+                        Psophocarpus tetragonolobus endornavirus genomic RNA, complete genome
+                  </a></div></td>
+                  <td>308.5</td>
+                  <td>690.0</td>
+                  <td>36%</td>
+                  <td>8.202e-105</td>
+                  <td>32%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign">NC_031336</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit2"
+                              title="Ceratobasidium endornavirus D isolate Murdoch-4 polyprotein gene, complete cds"
+                              id="description2">
+                        Ceratobasidium endornavirus D isolate Murdoch-4 polyprotein gene, complete cds
+                  </a></div></td>
+                  <td>316.3</td>
+                  <td>724.9</td>
+                  <td>34%</td>
+                  <td>3.749e-110</td>
+                  <td>31%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign">NC_031449</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Rhizoctonia cerealis endornavirus 1, complete genome"
+                              id="description1">
+                        Rhizoctonia cerealis endornavirus 1, complete genome
+                  </a></div></td>
+                  <td>357.1</td>
+                  <td>1022.7</td>
+                  <td>30%</td>
+                  <td>1.768e-122</td>
+                  <td>33%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign">NC_022619</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit3"
+                              title="Phytophthora endornavirus 1"
+                              id="description3">
+                        Phytophthora endornavirus 1
+                  </a></div></td>
+                  <td>313.1</td>
+                  <td>563.4</td>
+                  <td>33%</td>
+                  <td>3.188e-105</td>
+                  <td>34%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=genbank&amp;log$=nuclalign">NC_007069</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit5"
+                              title="Shahe endorna-like virus 1 strain SHWC0209c12790 hypothetical protein gene, complete cds"
+                              id="description5">
+                        Shahe endorna-like virus 1 strain SHWC0209c12790 hypothetical protein gene, complete cds
+                  </a></div></td>
+                  <td>311.3</td>
+                  <td>756.6</td>
+                  <td>35%</td>
+                  <td>2.626e-103</td>
+                  <td>30%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign">NC_032798</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit4>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description4">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Psophocarpus tetragonolobus endornavirus genomic RNA, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 14623
+                    <span class=b>Number of Matches:</span> 9
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 13619 to 14563</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign&amp;from=13619&amp;to=14563">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign&amp;from=13619&amp;to=14563">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>308.5 bits(667)</td>
+                      <td>0.0</td>
+                      <td>132/315(42%)</td>
+                      <td>0/315(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      393  LTQQKIRIIVWQAKGICAIFAPVFIEAKKRLKSLLNDKTIYADGYTPDELAARLRIVTDCNWLLEDDLSKQDRQTDMDILHVEFLLYRYLGVGAKVLSLWQQVHRHWKYKGTNVSGILDGMRLTGQATTALGNFIVNMMVHWRVILPNLNRVCLVMMLGDDNIILSSTQIDSELLKKIGRDYYNMQCTSQHNKNVGVFLQLSVYRSSDGHMACGPDPRRLRLRFEFTNGVSRTNDDNMIARSMSYLMMLGKTKETDQVIAELKWPIKPLQWHNLQESIQASARRHGLDTTIIENDYTLLLNMIRSRKTYTISWQH  1337
+                L Q K R ++WQ KG C+IF+ +F E K RLKS+L    +Y DG   DEL++ +R V D +  LE+DL +QDRQTD +++  E  +Y+ LG  A V++LW   H HWKYK  +  GI D MRLTGQATTA+GN + N++VH +++    +++ L ++LGDD ++L    ++++ L +  + ++NM C  + +  VG F  + V ++  G    GPD  RLR RFE TNGVS  NDDN+ ARSMSYLM LG   E  + +A  K+ I+PL+W++   ++ A+A ++ +  T +EN+   LL MI +  TY     H
+Subject  13619  LKQVKARALMWQCKGYCSIFSHIFKEIKTRLKSVLKPNIVYTDGLRADELSSIVRNVKDFSHFLENDLVQQDRQTDHEVIKFEMQIYKLLGANADVINLWHNCHFHWKYKAASAMGIRDAMRLTGQATTAIGNCLTNLLVHMKLVKRLGSQLKLFLVLGDDGLMLIDGMVNTDSLNRELKVHHNMMCKPKLSSVVGTFCCMIVGKNHLGGATLGPDFVRLRRRFEVTNGVSEANDDNLRARSMSYLMFLGDIPEVRETVANKKFSIEPLKWYDYDSAVYATASKYAISETEVENNKLQLLAMINNPITYQTDVLH  14563</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 13463 to 13600</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign&amp;from=13463&amp;to=13600">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign&amp;from=13463&amp;to=13600">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>60.2 bits(125)</td>
+                      <td>0.0</td>
+                      <td>24/46(52%)</td>
+                      <td>0/46(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      234  EVKKWLKRRPGALQVNAELESVLREGLTIRRLNDVKVHAKLEALLK  371
+                +V  WL+ RP A ++  ELE +L EGL +  +ND+KVH KLE+LLK
+Subject  13463  KVLDWLRDRPDANKIAEELEMILAEGLEVHPINDIKVHLKLESLLK  13600</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 13235 to 13375</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign&amp;from=13235&amp;to=13375">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign&amp;from=13235&amp;to=13375">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>53.8 bits(111)</td>
+                      <td>0.0</td>
+                      <td>22/47(47%)</td>
+                      <td>0/47(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        3  KTAMTQYPEENRPVLTKGPNQTFKAVSTRLHSVVTMRKFSLNPEEEI  143
+                KT + +YP+  RPVLTK  NQ F A++ RL  V T RK++ + +E+I
+Subject  13235  KTTLVEYPKYARPVLTKAANQEFNAITGRLCKVETYRKYNYDIKEQI  13375</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 4: 13636 to 14037</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign&amp;from=13636&amp;to=14037">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign&amp;from=13636&amp;to=14037">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>93.2 bits(197)</td>
+                      <td>0.0</td>
+                      <td>57/134(43%)</td>
+                      <td>0/134(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      410  TIMFTIKFPSAVVACPVNLMPSKIPDTLVPLYFQCLCTCCHSDKTFAPTPKYL*SKNSTCNMSMSVCLSCFDKSSSSNQLQSVTILNLAASSSGVYPSA*MVLSFNNDLSRFLASMNTGAKMAQMPLACQTMIL  811
+                T  F  +FP AVVA PV+LM S IP     LYFQ     CH   T A  P  L*   S    S SVC SC  +S S   L+S T L +  SSS + PS   +L  +  LSR L S+N   K+ Q PL C    L
+Subject  13636  TSRFVRQFPIAVVA*PVSLMASLIPIAEAALYFQ*K*QLCHKFITSALAPSSL*ICISNLMTS*SVCRSCCTRSFSKKWLKSFTFLTIDDSSSALKPSVYTMLGLSTLLSRVLISLNMCEKILQYPLHCHIRAL  14037</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 5: 14092 to 14325</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign&amp;from=14092&amp;to=14325">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign&amp;from=14092&amp;to=14325">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>43.2 bits(88)</td>
+                      <td>0.0</td>
+                      <td>28/78(36%)</td>
+                      <td>0/78(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      866  SSFVRDTPLVNSKRNRSRLGSGPHAMCPSDDLYTDSCKNTPTFLLCWLVHCML**SLPIFFNSSLSICVELNMILSSP  1099
+                SSF   TP V S    +R  SGP    P     T   +N PT LL + +H +L *+    FN S+     +N+  SSP
+Subject  14092  SSFASLTPFVTSNLRLNRTKSGPSVAPPK*FFPTIIQQNVPTTLLSFGLHIILW*TFNSRFNESVFTIPSININPSSP  14325</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 6: 13486 to 13611</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign&amp;from=13486&amp;to=13611">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign&amp;from=13486&amp;to=13611">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>32.7 bits(65)</td>
+                      <td>0.0</td>
+                      <td>17/42(40%)</td>
+                      <td>0/42(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      257  AEAPFNKASNLACTLTSFNLLMVKPSRNTLSNSALTCSAPGL  382
+                A + FNK SN  CTL S       PS   +S+S+    A GL
+Subject  13486  AGSSFNKDSNFRCTLMSLIGCTSNPSAKIISSSSAILLASGL  13611</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 7: 13808 to 14002</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign&amp;from=13808&amp;to=14002">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign&amp;from=13808&amp;to=14002">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>35.4 bits(71)</td>
+                      <td>0.0</td>
+                      <td>21/65(32%)</td>
+                      <td>0/65(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      582  GRLSSQSHAIQNSRHIGSFVFPVSMHLLP*RQNLRSHAQISVEQKLHV*YVHVSLSILFRQIIFK  776
+                G L+  SH I ++   G FVFP+ M ++P   ++R   Q  V          + LSIL   +IF+
+Subject  13808  GCLTC*SHGIPDTHSGGCFVFPMKMTIVPQIYHVRISTQQFVNLHFEFNDFMIRLSILLH*VIFQ  14002</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 8: 13252 to 13353</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign&amp;from=13252&amp;to=13353">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign&amp;from=13252&amp;to=13353">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>32.2 bits(64)</td>
+                      <td>0.0</td>
+                      <td>18/34(53%)</td>
+                      <td>0/34(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       20  LNFRIVTTECNLVDTALKVWLGPLVSTGLFSSGY  121
+                L F  V+T  NL   AL  WL  LVSTGL   GY
+Subject  13252  LYFL*VSTLHNLPVIALNSWLAALVSTGLAYFGY  13353</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 9: 14276 to 14359</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=genbank&amp;log$=nuclalign&amp;from=14276&amp;to=14359">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031336.1?report=graph&amp;log$=nuclalign&amp;from=14276&amp;to=14359">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>30.9 bits(61)</td>
+                      <td>0.0</td>
+                      <td>12/28(43%)</td>
+                      <td>0/28(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query     1050  HQITHAACYHIIVICPRHTVSEFKT*SQ  1133
+                HQITH +   ++VIC   ++ +FK+ SQ
+Subject  14276  HQITHTSRS*VVVICFTDSICDFKSTSQ  14359</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit2>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description2">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Ceratobasidium endornavirus D isolate Murdoch-4 polyprotein gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 19406
+                    <span class=b>Number of Matches:</span> 9
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 18386 to 19324</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign&amp;from=18386&amp;to=19324">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign&amp;from=18386&amp;to=19324">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>316.3 bits(684)</td>
+                      <td>0.0</td>
+                      <td>130/313(42%)</td>
+                      <td>0/313(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      399  QQKIRIIVWQAKGICAIFAPVFIEAKKRLKSLLNDKTIYADGYTPDELAARLRIVTDCNWLLEDDLSKQDRQTDMDILHVEFLLYRYLGVGAKVLSLWQQVHRHWKYKGTNVSGILDGMRLTGQATTALGNFIVNMMVHWRVILPNLNRVCLVMMLGDDNIILSSTQIDSELLKKIGRDYYNMQCTSQHNKNVGVFLQLSVYRSSDGHMACGPDPRRLRLRFEFTNGVSRTNDDNMIARSMSYLMMLGKTKETDQVIAELKWPIKPLQWHNLQESIQASARRHGLDTTIIENDYTLLLNMIRSRKTYTISWQH  1337
+                QQK+RIIVWQ  G  AIF+P+FIE KKR KS+L D  +Y DGYTP +L+ARLR VT  N   E D SKQDRQ   ++  +E+L+Y  LG+  + L LW+     W++ G N+SG LD   +TG + TA+ N I N+++H  +++ N   + +V++LGDDN+++  T +D    KK   +YYNM  T   +++ G F Q+  Y + +G    GPD  RL  R+E TNGVS  + +N+ AR+MSY M LG   E  Q++ E  WPIKP+ W++    ++A A +H +    +      L+  +R+ +  T SWQH
+Subject  18386  QQKVRIIVWQRYGYAAIFSPIFIEIKKRFKSMLADHVLYTDGYTPADLSARLRTVTGGNRFFESDASKQDRQVTHELSEIEYLIYDLLGMSTEALQLWKHGSVKWRFDGVNMSGHLDARMMTGSSATAIKNVITNLIIHADMMIKNREHIKIVLVLGDDNLMVVDTVLDLRGYKKKAAEYYNMHMTPHSSEHYGTFCQMIAYFTPEGTAEIGPDYMRLTRRYEVTNGVSEASPENLTARAMSYAMWLGDIPEVQQLVEEKGWPIKPMAWYSPSLCLRAVASKHDMSEGHVLARLAALIESMRNPRPTTWSWQH  19324</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 18191 to 18394</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign&amp;from=18191&amp;to=18394">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign&amp;from=18191&amp;to=18394">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>63.8 bits(133)</td>
+                      <td>0.0</td>
+                      <td>26/68(38%)</td>
+                      <td>0/68(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      201  MNTDPIDFDTDEVKKWLKRRPGALQVNAELESVLREGLTIRRLNDVKVHAKLEALLKGASAEEPLTQQ  404
+                M + P+ +D    K+W+  RP  ++V  +L  +L EG+T   +N  KVHAKLE+LLK      P  Q+
+Subject  18191  MKSTPVGYDPQATKRWINERPDGVKVTDDLMEILDEGITHNPINAWKVHAKLESLLKEDPINAPQQQK  18394</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 17996 to 18202</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign&amp;from=17996&amp;to=18202">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign&amp;from=17996&amp;to=18202">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>60.2 bits(125)</td>
+                      <td>0.0</td>
+                      <td>26/69(38%)</td>
+                      <td>0/69(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        3  KTAMTQYPEENRPVLTKGPNQTFKAVSTRLHSVVTMRKFSLNPEEEIQGMSECFFRQDWRQQCDHWMNT  209
+                KT MT+YP  +RPV TK  +  F AVSTR  +V  + K  L+P+ E++  +E +F+  W +      +T
+Subject  17996  KTVMTRYPVWSRPVFTKVVHSVFNAVSTRHGTVEHLIKHKLDPKAELKRFAEAWFKPGWEESSKKMKST  18202</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 4: 18388 to 18795</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign&amp;from=18388&amp;to=18795">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign&amp;from=18388&amp;to=18795">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>84.9 bits(179)</td>
+                      <td>0.0</td>
+                      <td>51/136(38%)</td>
+                      <td>0/136(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      401  IMFTIKFPSAVVACPVNLMPSKIPDTLVPLYFQCLCTCCHSDKTFAPTPKYL*SKNSTCNMSMSVCLSCFDKSSSSNQLQSVTILNLAASSSGVYPSA*MVLSFNNDLSRFLASMNTGAKMAQMPLACQTMILIFC  808
+                I   I F  AV   PV +  S+ PD L P        C  S       P     + S  + S   C SC   S S N L  VT+LNLA  S+GVYPS *   S +  L+ FL S+  G  MA  P  CQT++  FC
+Subject  18388  IRLVITFLIAVALLPVIIRASRWPDMLTPSNRHLTEPCFQSCSASVDMPSKSYIRYSISDNS*VTCRSCLLASLSKNLLPPVTVLNLAERSAGVYPSV*RTWSASMLLNLFLISIKIGLNMAA*PYRCQTIMRTFC  18795</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 5: 18190 to 18381</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign&amp;from=18190&amp;to=18381">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign&amp;from=18190&amp;to=18381">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>35.9 bits(72)</td>
+                      <td>0.0</td>
+                      <td>23/64(36%)</td>
+                      <td>0/64(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      200  GSSAEAPFNKASNLACTLTSFNLLMVKPSRNTLSNSALTCSAPGLLLSHFLTSSVSKSIGSVFI  391
+                G+   + FN  SNLACT  +F  L V PS +    S++T +  G    H L +  S   G  FI
+Subject  18190  GAFIGSSFNNDSNLACTFHAFMGL*VIPSSSISMRSSVTLTPSGRSFIHRLVA*GS*PTGVDFI  18381</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 6: 17995 to 18081</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign&amp;from=17995&amp;to=18081">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign&amp;from=17995&amp;to=18081">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>27.2 bits(53)</td>
+                      <td>0.0</td>
+                      <td>15/29(52%)</td>
+                      <td>0/29(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        2  LVDTALKVWLGPLVSTGLFSSGY*VMAVL  88
+                LV TAL      LV+TGL  +GY V+ VL
+Subject  17995  LVLTALNTECTTLVNTGLDHTGYLVITVL  18081</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 7: 18386 to 18871</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign&amp;from=18386&amp;to=18871">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign&amp;from=18386&amp;to=18871">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>75.8 bits(159)</td>
+                      <td>0.0</td>
+                      <td>51/162(31%)</td>
+                      <td>0/162(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      399  YDIVVTQHHHKTHPVQVGQNDPPMHHHVHYKVPKRCGRLSSQSHAIQNSRHIGSFVFPVSMHLLP*RQNLRSHAQISVEQKLHV*YVHVSLSILFRQIIFK*PVAVSYNSQSRC*LIRCVSISVNGFVIQQRFESFLGFYEHWGKNGTNAFGLPNYDPDLLL  884
+                + IVV QH      + V  +   +   V Y V  R G  +     +Q +RH+     P    + P  Q    HA+  V Q L+ * +   L +L   I FK PVA    SQ    + RCV I V   V    FE FL F ++W + G     LPN + + LL
+Subject  18386  HQIVVAQHQDYLDMLSVLYHHVSVDDKVGYYVFDRSGAAACHHTGVQVARHVDPIKPPFDRAVFPELQCFS*HAEQVVYQVLNF*QLMSDLPVLLAGITFKEPVAACDRSQPCREVSRCVPIRVKDMVG*HAFEPFLNFNKNWAEYGCVTIPLPNDNANFLL  18871</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 8: 19000 to 19233</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign&amp;from=19000&amp;to=19233">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign&amp;from=19000&amp;to=19233">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>36.3 bits(73)</td>
+                      <td>0.0</td>
+                      <td>29/78(37%)</td>
+                      <td>0/78(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query     1013  CLRALA*IDSCRLCHCSGLIGHLSSAIT*SVSLVFPNXXXXXXXXXXXLSSFVRDTPLVNSKRNRSRLGSGPHAMCPS  1246
+                CL A A   S  L    G IG   S+ +   S + PN I * +  A+  S    DTP V S R   R+ SGP +  PS
+Subject  19000  CLLATALRHSEGLYQAIGFIGQPFSSTSCCTSGISPNHIA*DIALAVRFSGLASDTPFVTSYRRVRRM*SGPISAVPS  19233</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 9: 17996 to 18142</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=genbank&amp;log$=nuclalign&amp;from=17996&amp;to=18142">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_031449.1?report=graph&amp;log$=nuclalign&amp;from=17996&amp;to=18142">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>24.4 bits(47)</td>
+                      <td>0.0</td>
+                      <td>17/49(35%)</td>
+                      <td>0/49(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        3  SLNLLFGVQTEFSHRDNRM*PR*HSFKGLVRPFS*HWPILFRVLSHGGF  149
+                SL L  GVQ   +   +R  PR H  +  V     H P   RV  H  F
+Subject  17996  SLQLCLGVQFVLNQVLDRSVPRAHGVEH*VHHLGKHGPGPHRVPCHHSF  18142</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Rhizoctonia cerealis endornavirus 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 17486
+                    <span class=b>Number of Matches:</span> 12
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 16484 to 17413</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16484&amp;to=17413">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16484&amp;to=17413">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>357.1 bits(773)</td>
+                      <td>0.0</td>
+                      <td>153/310(49%)</td>
+                      <td>0/310(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      402  QKIRIIVWQAKGICAIFAPVFIEAKKRLKSLLNDKTIYADGYTPDELAARLRIVTDCNWLLEDDLSKQDRQTDMDILHVEFLLYRYLGVGAKVLSLWQQVHRHWKYKGTNVSGILDGMRLTGQATTALGNFIVNMMVHWRVILPNLNRVCLVMMLGDDNIILSSTQIDSELLKKIGRDYYNMQCTSQHNKNVGVFLQLSVYRSSDGHMACGPDPRRLRLRFEFTNGVSRTNDDNMIARSMSYLMMLGKTKETDQVIAELKWPIKPLQWHNLQESIQASARRHGLDTTIIENDYTLLLNMIRSRKTYTISW  1331
+                QK+RIIVWQ KG  AIF+PVFIEAKKRLK+LL    IYADGYTP EL+ARLR VT      E D++KQDRQTD + L VEF +Y+ LGV  ++LS+W+ VHR+W++K  ++SG LDGMR+TGQATTA+GN IVNM VH  +++ N +++ L+++LGDDN++L ST +D +  +K  ++ YNM+     N   G F+QL  Y + +G     PD  RL  RFE TNGVS   D+N+ AR MSY MMLG   E   ++    WPI    W+N   + QA A +HGL    +      L+ M+ S   YT SW
+Subject  16484  QKVRIIVWQRKGYAAIFSPVFIEAKKRLKTLLRKDVIYADGYTPQELSARLRTVTGSTRFFESDMAKQDRQTDQETLDVEFEVYKNLGVHPRLLSVWRSVHRNWRFKNAHMSGNLDGMRMTGQATTAIGNVIVNMAVHADLVINNRDKIQLILLLGDDNLMLCSTFLDLQKFRKDTKERYNMEVKPDSNSTHGTFIQLIAYHTPEGTCELAPDWIRLTRRFEVTNGVSEATDENLEARCMSYCMMLGNLPEVQSLVQA*GWPIWTEPWYNSGLASQAMAVKHGLSIHQVNGMLRHLIEMMASPTLYTQSW  17413</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 16091 to 16270</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16091&amp;to=16270">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16091&amp;to=16270">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>69.8 bits(146)</td>
+                      <td>0.0</td>
+                      <td>28/60(47%)</td>
+                      <td>0/60(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        3  KTAMTQYPEENRPVLTKGPNQTFKAVSTRLHSVVTMRKFSLNPEEEIQGMSECFFRQDWR  182
+                KT + +YP  +RPVLTK   QT+ AVSTRL SV T RK  L P  E++ +++ +F  +W+
+Subject  16091  KTTLVRYPVMSRPVLTKAVFQTYNAVSTRLGSVTTYRKVKLQPAMEMKKIAQAYFHDNWQ  16270</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 16289 to 16456</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16289&amp;to=16456">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16289&amp;to=16456">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>54.7 bits(113)</td>
+                      <td>0.0</td>
+                      <td>20/56(36%)</td>
+                      <td>0/56(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      204  NTDPIDFDTDEVKKWLKRRPGALQVNAELESVLREGLTIRRLNDVKVHAKLEALLK  371
+                N + I ++ + + +WL+  PG  ++  E++ +L EG     LN + VH KLE+LLK
+Subject  16289  NENMITYNAEAITQWLREHPGTDKIQKEVDEILAEGFLTNPLNKLNVHNKLESLLK  16456</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 4: 16486 to 16896</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16486&amp;to=16896">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16486&amp;to=16896">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>139.4 bits(298)</td>
+                      <td>0.0</td>
+                      <td>70/137(51%)</td>
+                      <td>0/137(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      404  CTIMFTIKFPSAVVACPVNLMPSKIPDTLVPLYFQCLCTCCHSDKTFAPTPKYL*SKNSTCNMSMSVCLSCFDKSSSSNQLQSVTILNLAASSSGVYPSA*MVLSFNNDLSRFLASMNTGAKMAQMPLACQTMILIF  814
+                CT M TI  P AVVA PV  +PSK+PD    L  Q   T   +D     TP++L + NST N+S SVCLSC   S S N +  VT+ NLA SS GVYPSA*+    N  LS F ASMNTG KMA  P  C T+I  F
+Subject  16486  CTAMLTITLPMAVVAWPVIRIPSKLPDIWAFLNRQFR*TERQTDNNLGCTPRFLYTSNSTSNVSWSVCLSCLAISDSKNLVDPVTVRNLADSSCGVYPSA*ITSFLNRVLSLFFASMNTGLKMAA*PFLCHTIIRTF  16896</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 5: 16090 to 16230</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16090&amp;to=16230">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16090&amp;to=16230">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>46.9 bits(96)</td>
+                      <td>0.0</td>
+                      <td>24/47(51%)</td>
+                      <td>0/47(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        2  ISSSGFKLNFRIVTTECNLVDTALKVWLGPLVSTGLFSSGY*VMAVL  142
+                IS +G  L FR V T  NLV+TAL VW    V+TGL  +GY    VL
+Subject  16090  ISMAGCSLTFRYVVTLPNLVETAL*VWNTAFVNTGLDMTGYLTKVVL  16230</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 6: 17132 to 17314</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=17132&amp;to=17314">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=17132&amp;to=17314">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>38.6 bits(78)</td>
+                      <td>0.0</td>
+                      <td>20/61(33%)</td>
+                      <td>0/61(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query     1050  CLN*FL*IVPLQRLDWPLKLSYHLICFFGFSQHHQITHAACYHIIVICPRHTVSEFKT*SQ  1232
+                CL     +VP    + P    +  + F+   QHH ITHA+   I++ C R+ V   K+ SQ
+Subject  17132  CLRCQTTVVPRFGPNGPPLCLHQTLYFW*IPQHHAITHASGLQILICCFRYAVRHLKSSSQ  17314</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 7: 16315 to 16455</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16315&amp;to=16455">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16315&amp;to=16455">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>33.1 bits(66)</td>
+                      <td>0.0</td>
+                      <td>17/47(36%)</td>
+                      <td>0/47(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      230  FNKASNLACTLTSFNLLMVKPSRNTLSNSALTCSAPGLLLSHFLTSS  370
+                F + S+L CT   F  L+ KPS    S S    S PG   +H + +S
+Subject  16315  FKRDSSLLCTFNLFRGLVRKPSARISSTSF*ILSVPGCSRNHCVIAS  16455</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 8: 16481 to 16897</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16481&amp;to=16897">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16481&amp;to=16897">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>95.9 bits(203)</td>
+                      <td>0.0</td>
+                      <td>55/139(40%)</td>
+                      <td>0/139(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      399  MHHHVHYKVPKRCGRLSSQSHAIQNSRHIGSFVFPVSMHLLP*RQNLRSHAQISVEQKLHV*YVHVSLSILFRQIIFK*PVAVSYNSQSRC*LIRCVSISVNGFVIQQRFESFLGFYEHWGKNGTNAFGLPNYDPDLLL  815
+                MH HV Y V     RL+S  H+IQ + H+G F  PVSM+  P  Q    + +I V  + +V    V LS+LF  I FK     SY++    * + CVS+S+N  + Q  FE FL FYE+W K+G   F LP  + + L+
+Subject  16481  MHSHVDYHVAYGRCRLASHPHSIQIT*HMGIFESPVSMNRTPN*Q*PWVYTKILVHFEFYVQRFLVRLSVLFSHIRFKKSR*PSYSA*PG**FLWCVSVSINNILPQ*SFEPFLCFYEYWAKDGCITFPLPYNNSNFLI  16897</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 9: 17095 to 17340</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=17095&amp;to=17340">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=17095&amp;to=17340">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>35.9 bits(72)</td>
+                      <td>0.0</td>
+                      <td>30/82(37%)</td>
+                      <td>0/82(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query     1013  VSRPCLRALA*IDSCRLCHCSGLIGHLSSAIT*SVSLVFPNXXXXXXXXXXXLSSFVRDTPLVNSKRNRSRLGSGPHAMCPS  1258
+                + +PC  A+A*     L   S  +GH  +      S  FPNI++*LM  A   SS   DTP V S    +R+ SG ++  PS
+Subject  17095  MDKPCFTAIA*DAKPLLYQGSVQMGHPYACTRLCTSGKFPNIMQ*LMHLASKFSSVASDTPFVTSNLLVNRIQSGANSHVPS  17340</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 10: 16503 to 16898</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16503&amp;to=16898">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16503&amp;to=16898">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>75.3 bits(158)</td>
+                      <td>0.0</td>
+                      <td>46/132(35%)</td>
+                      <td>0/132(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      421  FGRPKAFVPFLPQCS*KPRNDSNRC*MTKPFTLMDTHRMS*QRD*EL*LTATGYLKMICRNKIDRLTWTYYTWSFCSTDIWAWERRFCRYGNRCIDTGNTKEPMCREFWMA*D*LDRRPQRLGTL**T*WCI  816
+                +G+ K   P L Q S*K R  S   *    F L DTH  + Q    L*L    +L +I  N+ D+ T   +T +   T I  + + +C++G R I+TG++K P+C+  WM   *L +R +   T * T  C+
+Subject  16503  YGKGKVMQPSLAQYS*KQRKGSKLY*GRMLFMLTDTHHKNYQPGYAL*LGQRDFLNLIWLNRTDKRTKKRWT*NSKCTRILVYTQGYCQFGVRFIETGDSKMPICQVIWMECG*LAKRQRP*AT**STWLCM  16898</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 11: 16483 to 16647</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16483&amp;to=16647">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16483&amp;to=16647">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>42.8 bits(87)</td>
+                      <td>0.0</td>
+                      <td>20/55(36%)</td>
+                      <td>0/55(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      401  AKDQDHSLAGQRHLCHFCPSVHRSQETTQIVVE*QNHLR*WIHTG*ASSEIENCN  565
+                +K  ++ +A +R   H  PS+HRS+E  Q  +E   +L * IHT    S++ +CN
+Subject  16483  SKSSNYCMAKERLCSHL*PSIHRSKEKAQNSIEEGCYLC*RIHTTRTISQVTHCN  16647</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 12: 16765 to 16887</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=genbank&amp;log$=nuclalign&amp;from=16765&amp;to=16887">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_022619.1?report=graph&amp;log$=nuclalign&amp;from=16765&amp;to=16887">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>33.1 bits(66)</td>
+                      <td>0.0</td>
+                      <td>15/41(37%)</td>
+                      <td>0/41(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      683  VAMATGA*TLEIQRNQCVGNFGWHEIDWTGDHSAWELYSEH  805
+                V++A G+  L IQ+   V  FGW+  DW  D+   +  S+H
+Subject  16765  VSLAFGSSKLAIQKCPYVR*FGWNADDWPSDNGHRQRDSQH  16887</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit3>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description3">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Phytophthora endornavirus 1</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 13883
+                    <span class=b>Number of Matches:</span> 5
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 12899 to 13825</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=genbank&amp;log$=nuclalign&amp;from=12899&amp;to=13825">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=graph&amp;log$=nuclalign&amp;from=12899&amp;to=13825">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>313.1 bits(677)</td>
+                      <td>0.0</td>
+                      <td>132/309(43%)</td>
+                      <td>0/309(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      405  KIRIIVWQAKGICAIFAPVFIEAKKRLKSLLNDKTIYADGYTPDELAARLRIVTDCNWLLEDDLSKQDRQTDMDILHVEFLLYRYLGVGAKVLSLWQQVHRHWKYKGTNVSGILDGMRLTGQATTALGNFIVNMMVHWRVILPNLNRVCLVMMLGDDNIILSSTQIDSELLKKIGRDYYNMQCTSQHNKNVGVFLQLSVYRSSDGHMACGPDPRRLRLRFEFTNGVSRTNDDNMIARSMSYLMMLGKTKETDQVIAELKWPIKPLQWHNLQESIQASARRHGLDTTIIENDYTLLLNMIRSRKTYTISW  1331
+                K RIIVWQAKGICA+++  FI+ KKRLK LL  + +Y DG  P E+A  +R + D + L+EDDL++QD QTD D ++VEF +Y  LG+  +V + W++VH  W++KG +V G+   MRLTGQATTALGN +VN+ VHWR++      + + ++LGDD++  S T ID+  L++   DYYNM+  +   K+ G F  +  Y++  G    GPD  RL+ RFE  +GVS TN  N +AR MSY +MLG      +++ ++ WPI+  QW++    I +   ++ + +  +E+  T L++MIRSR  Y I +
+Subject  12899  KARIIVWQAKGICAMYSGTFIQIKKRLKKLLRAEIVYTDGLEPTEIADVVRGIKDFSVLIEDDLTRQDSQTDSDTINVEFGVYDLLGLDRRVAASWRRVHELWRFKGKDVRGVWQEMRLTGQATTALGNAVVNLAVHWRLVSQLGPAMKMYLLLGDDSLFFSRTTIDATSLRRNIADYYNMKSKAFVYKDHGTFCSMMAYKNPQGGAGIGPDFVRLKRRFEVPSGVSETNLTNTVARKMSYCLMLGNLPIVKKLVEDMGWPIELQQWYDPSPLIDSICDKYNMSSAEVESHITALVDMIRSRTMYEIDF  13825</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 12503 to 12691</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=genbank&amp;log$=nuclalign&amp;from=12503&amp;to=12691">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=graph&amp;log$=nuclalign&amp;from=12503&amp;to=12691">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>57.4 bits(119)</td>
+                      <td>0.0</td>
+                      <td>24/63(38%)</td>
+                      <td>0/63(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        3  KTAMTQYPEENRPVLTKGPNQTFKAVSTRLHSVVTMRKFSLNPEEEIQGMSECFFRQDWRQQC  191
+                K   T+YP ++R VLTK  NQ F AV+ R+ +   +RK++LN + E++ M    F  +W+  C
+Subject  12503  KMIYTKYPIQSRVVLTKAANQEFNAVTGRIGNASIIRKYNLNIQYELKNMCRELFVANWQSIC  12691</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 12707 to 12883</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=genbank&amp;log$=nuclalign&amp;from=12707&amp;to=12883">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=graph&amp;log$=nuclalign&amp;from=12707&amp;to=12883">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>53.3 bits(110)</td>
+                      <td>0.0</td>
+                      <td>20/59(34%)</td>
+                      <td>0/59(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      210  DPIDFDTDEVKKWLKRRPGALQVNAELESVLREGLTIRRLNDVKVHAKLEALLKGASAE  386
+                D +    + + +WL  +P  + +  EL+S + +G     ++DV VH KLEALLK    E
+Subject  12707  DQVSPSPENILEWLSEKPDGVNIGEELQSYIEDGFQTHPISDVNVHLKLEALLKDQPVE  12883</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 4: 12904 to 13317</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=genbank&amp;log$=nuclalign&amp;from=12904&amp;to=13317">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=graph&amp;log$=nuclalign&amp;from=12904&amp;to=13317">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>103.7 bits(220)</td>
+                      <td>0.0</td>
+                      <td>57/138(41%)</td>
+                      <td>0/138(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      410  TLQCTIMFTIKFPSAVVACPVNLMPSKIPDTLVPLYFQCLCTCCHSDKTFAPTPKYL*SKNSTCNMSMSVCLSCFDKSSSSNQLQSVTILNLAASSSGVYPSA*MVLSFNNDLSRFLASMNTGAKMAQMPLACQTMIL  823
+                +LQCT   T  FPSAVVA PV+L+    P T +PL     CT      T   +P    + NST  +S SV LSC  +SSS   L+S+  L  +A S G  PS * + + N+  + FL  +     MAQ+PLAC T+IL
+Subject  12904  SLQCTAKLTTAFPSAVVA*PVSLISCHTPRTSLPLNRHNSCTLLQEAATLLSSPNKSYTPNSTLMVSESV*LSCLVRSSSIKTLKSLIPLTTSAISVGSNPSV*TISALNSFFNLFLIWIKVPLYMAQIPLACHTIIL  13317</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 5: 13357 to 13587</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=genbank&amp;log$=nuclalign&amp;from=13357&amp;to=13587">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_007069.1?report=graph&amp;log$=nuclalign&amp;from=13357&amp;to=13587">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>35.9 bits(72)</td>
+                      <td>0.0</td>
+                      <td>31/77(40%)</td>
+                      <td>0/77(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      863  FVRDTPLVNSKRNRSRLGSGPHAMCPSDDLYTDSCKNTPTFLLCWLVHCML**SLPIFFNSSLSICVELNMILSSPN  1093
+                FV  TPL  SKR  S   SGP    P   LY    +N P  L       ML**S         SI V     LSSPN
+Subject  13357  FVSLTPLGTSKRLLSLTKSGPIPAPP*GFLYAIILQNVPWSLYTNAFDFML**SAMFLRRLVASIVVLEKKRLSSPN  13587</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit5>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description5">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Shahe endorna-like virus 1 strain SHWC0209c12790 hypothetical protein gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 15783
+                    <span class=b>Number of Matches:</span> 10
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 14731 to 15651</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=14731&amp;to=15651">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=14731&amp;to=15651">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>311.3 bits(673)</td>
+                      <td>0.0</td>
+                      <td>141/307(46%)</td>
+                      <td>0/307(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      399  QQKIRIIVWQAKGICAIFAPVFIEAKKRLKSLLNDKTIYADGYTPDELAARLRIVTDCNWLLEDDLSKQDRQTDMDILHVEFLLYRYLGVGAKVLSLWQQVHRHWKYKGTNVSGILDGMRLTGQATTALGNFIVNMMVHWRVILPNLNRVCLVMMLGDDNIILSSTQIDSELLKKIGRDYYNMQCTSQHNKNVGVFLQLSVYRSSDGHMACGPDPRRLRLRFEFTNGVSRTNDDNMIARSMSYLMMLGKTKETDQVIAELKWPIKPLQWHNLQESIQASARRHGLDTTIIENDYTLLLNMIRSRKTY  1319
+                QQ+ R IVWQ K I AIF+ VFI+AK RLK LL+DK +YADG+TP  L+AR+R V    W  E+DL+KQDRQTD +IL VE  +Y  LGV   V+S W  VHRHW+ KGT      D MR+TGQATTALGN I N  VH R +L N +R+  ++ LGDD ++  S + D + L+     Y+NMQ     N+  G F  +  Y +S+     GPD  RL+ RFE TNGV   +D NM  R+MSY MMLG   E   VI     PI+P+ W++   ++QA+A +H      I      L  M++  KT+
+Subject  14731  QQQSRPIVWQPKAIAAIFSAVFIKAKDRLKELLSDKVVYADGHTPASLSARVRNVKGTKWFYENDLTKQDRQTDEEILKVEMAMYELLGVHPLVISAWYSVHRHWRMKGTYTRSKRDFMRMTGQATTALGNVITNFQVHCRFVLRNQHRILFMLFLGDDMLMFFSEKPDIKGLRNEIAVYFNMQSKDSINELYGTFCGMLAYHTSETTCELGPDFMRLKYRFEVTNGVHEDSDLNMRMRTMSYCMMLGDISEVRHVIDSTGLPIQPVSWYSKPHAMQAAAHKHNSTPIQIGGVLHSLCQMMKDAKTF  15651</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 14341 to 14532</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=14341&amp;to=14532">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=14341&amp;to=14532">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>54.2 bits(112)</td>
+                      <td>0.0</td>
+                      <td>21/64(33%)</td>
+                      <td>0/64(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        3  KTAMTQYPEENRPVLTKGPNQTFKAVSTRLHSVVTMRKFSLNPEEEIQGMSECFFRQDWRQQCD  194
+                KT +T+YP  +RPVLTK   +  + V+ R+ S+  +RK ++   + +  +   +FR DW++ C+
+Subject  14341  KTTLTRYPLLSRPVLTKVAFEETRTVAGRMFSIQHIRKGTIPTAKMVNDICRAYFRPDWQELCN  14532</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 14518 to 14706</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=14518&amp;to=14706">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=14518&amp;to=14706">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>51.9 bits(107)</td>
+                      <td>0.0</td>
+                      <td>22/63(35%)</td>
+                      <td>0/63(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      183  QQCDHWMNTDPIDFDTDEVKKWLKRRPGALQVNAELESVLREGLTIRRLNDVKVHAKLEALLK  371
+                Q+  +    DPI +D   ++ W+  R GA ++  EL + L   L  + ++DV +H KLE+LLK
+Subject  14518  QELCNKFKADPIVYDPASIENWIMERKGAPEIIKELMTKLAGELMTKPISDVNIHLKLESLLK  14706</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 4: 14733 to 15152</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=14733&amp;to=15152">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=14733&amp;to=15152">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>120.2 bits(256)</td>
+                      <td>0.0</td>
+                      <td>64/140(46%)</td>
+                      <td>0/140(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      401  LQCTIMFTIKFPSAVVACPVNLMPSKIPDTLVPLYFQCLCTCCHSDKTFAPTPKYL*SKNSTCNMSMSVCLSCFDKSSSSNQLQSVTILNLAASSSGVYPSA*MVLSFNNDLSRFLASMNTGAKMAQMPLACQTMILIFC  820
+                LQ T  F I FP AVVA PV LM S      VP   QC CT  H++ T   TP       ST  +S SVCLSC  +S S N L  +T L LA S +GV+PSA   LS NN  +  LA +NT  K+A + L C T+ L  C
+Subject  14733  LQWT*KFVITFPRAVVAWPVILMKSLFDLVYVPFILQCRCTLYHAEMTRGWTPSNSYMAISTFRISSSVCLSCLVRSFS*NHLVPLTFLTLADSDAGVWPSAYTTLSLNNSFNLSLALINTAEKIAAIALGCHTIGLDCC  15152</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 5: 15198 to 15413</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=15198&amp;to=15413">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=15198&amp;to=15413">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>35.0 bits(70)</td>
+                      <td>0.0</td>
+                      <td>24/72(33%)</td>
+                      <td>0/72(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      866  TPLVNSKRNRSRLGSGPHAMCPSDDLYTDSCKNTPTFLLCWLVHCML**SLPIFFNSSLSICVELNMILSSP  1081
+                TP V S R  +R+ SGP +   S+       +N P   L   + CML  +   F    +S   E NM +SSP
+Subject  15198  TPFVTSNRYFNRMKSGPSSHVVSEVW*ASIPQNVPYNSLMESLDCMLKYTAISFLKPFMSGFSEKNMSMSSP  15413</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 6: 15433 to 15540</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=15433&amp;to=15540">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=15433&amp;to=15540">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>29.9 bits(59)</td>
+                      <td>0.0</td>
+                      <td>14/36(39%)</td>
+                      <td>0/36(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query     1101  VPLQRLDWPLKLSYHLICFFGFSQHHQITHAACYHI  1208
+                VP  RLDW  +   ++  F   S HH +TH    HI
+Subject  15433  VPTNRLDWQPRGIDNVTHFRYVS*HHTVTHCPHSHI  15540</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 7: 14544 to 14705</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=14544&amp;to=14705">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=14544&amp;to=14705">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>28.1 bits(55)</td>
+                      <td>0.0</td>
+                      <td>16/54(30%)</td>
+                      <td>0/54(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      209  FNKASNLACTLTSFNLLMVKPSRNTLSNSALTCSAPGLLLSHFLTSSVSKSIGS  370
+                FNK S+    LTS    ++    + + NS +   AP L +  F   + S ++GS
+Subject  14544  FNKLSSFK*MLTSLMGFVINSPASLVINSFMISGAPFLSMIQFSMEAGSYTMGS  14705</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 8: 14343 to 14453</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=14343&amp;to=14453">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=14343&amp;to=14453">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>24.9 bits(48)</td>
+                      <td>0.0</td>
+                      <td>17/37(46%)</td>
+                      <td>0/37(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        5  FRIVTTECNLVDTALKVWLGPLVSTGLFSSGY*VMAV  115
+                FR+   E  L  T L      LV TGL SSGY V  V
+Subject  14343  FRMCWMENILPATVLVSSNATLVKTGLDSSGYLVNVV  14453</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 9: 14731 to 15123</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=14731&amp;to=15123">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=14731&amp;to=15123">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>73.9 bits(155)</td>
+                      <td>0.0</td>
+                      <td>44/131(34%)</td>
+                      <td>0/131(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      399  VPKRCGRLSSQSHAIQNSRHIGSFVFPVSMHLLP*RQNLRSHAQISVEQKLHV*YVHVSLSILFRQIIFK*PVAVSYNSQSRC*LIRCVSISVNGFVIQQRFESFLGFYEHWGKNGTNAFGLPNYDPDLLL  791
+                VP+ CG L+S SH +     +  F  P+S+H +P   + R  AQ  +   L +  + + LS+L  +IIF  P        S  *  RCV+I ++ FV QQ F+      ++  K+   +FGLP+Y   LLL
+Subject  14731  VPESCGSLASHSHEVSL*PSVRPFHPPMSVHTVPCGDD*RVDAQ*FIHGHLDLQDLFICLSVLLGEIIFIKPFGAFNVPHSS***CRCVAICIHHFVTQQLFQPIFSLDKYC*KDCGYSFGLPHYRSRLLL  15123</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 10: 15166 to 15282</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=genbank&amp;log$=nuclalign&amp;from=15166&amp;to=15282">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_032798.1?report=graph&amp;log$=nuclalign&amp;from=15166&amp;to=15282">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>27.2 bits(53)</td>
+                      <td>0.0</td>
+                      <td>15/39(38%)</td>
+                      <td>0/39(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      834  LHVIIVSTYFL*QFTVNLRRAQYDIVVTQHHHKTHPVQV  950
+                LHV + S    * F V   R +++ VVTQ  H+ +PV +
+Subject  15166  LHVKVHSDLIP*TFYVWFLRKEHEHVVTQK*HE*YPVLI  15282</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+
+    </div>
+
+    <footer>
+      This page was generated by <a href="https://github.com/thehyve/blast2html/">blast2html</a>.
+    </footer>
+  </body>
+</html>
+

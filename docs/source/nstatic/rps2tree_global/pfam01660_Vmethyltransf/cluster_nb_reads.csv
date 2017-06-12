@@ -1,0 +1,7 @@
+#OTU_name	ds2015-149	ds2016-132	ds2016-133	ds2016-55	ds2016-56	ds2016-58	taxonomy	seq_list
+OTU_039	0	0	20	0	0	34	Viruses;ssRNA viruses;Closteroviridae;Ampelovirus;Grapevine leafroll-associated virus 1	ds2016-133_16,ds2016-58_16
+OTU_041	0	0	0	140	332	28	Viruses;ssRNA viruses;Closteroviridae;Ampelovirus;Grapevine leafroll-associated virus 3	ds2016-55_17,ds2016-55_58,ds2016-56_20,ds2016-56_5,ds2016-56_58,ds2016-58_72
+OTU_042	0	0	0	0	12	0	Viruses;ssRNA viruses;Closteroviridae;Ampelovirus;Grapevine leafroll-associated virus 3	ds2016-56_43
+OTU_043	170	74	0	0	0	12	Viruses;ssRNA viruses;Betaflexiviridae;Foveavirus;Grapevine rupestris stem pitting-associated virus	ds2015-149_3,ds2016-132_8,ds2016-58_79
+OTU_044	0	0	0	14	12	0	Viruses;ssRNA viruses;Betaflexiviridae;Vitivirus;Grapevine virus A	ds2016-55_45,ds2016-56_48
+OTU_106	4	0	0	0	0	0	Viruses;ssRNA viruses;Tymoviridae;Marafivirus;Grapevine rupestris vein feathering virus	ds2015-149_13

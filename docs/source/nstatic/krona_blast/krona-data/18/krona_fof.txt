@@ -1,0 +1,8 @@
+krona-data/18/Xinzhou_partiti_like_virus_1.csv	krona-data/18/Xinzhou_partiti_like_virus_1.xml
+krona-data/18/Fusarium_graminearum_dsRNA_mycovirus_4.csv	krona-data/18/Fusarium_graminearum_dsRNA_mycovirus_4.xml
+krona-data/18/Isaria_javanica_chrysovirus_1.csv	krona-data/18/Isaria_javanica_chrysovirus_1.xml
+krona-data/18/Pleospora_typhicola_fusarivirus_1.csv	krona-data/18/Pleospora_typhicola_fusarivirus_1.xml
+krona-data/18/Grapevine_rupestris_stem_pitting_associated_virus.csv	krona-data/18/Grapevine_rupestris_stem_pitting_associated_virus.xml
+krona-data/18/Penicillium_chrysogenum_virus.csv	krona-data/18/Penicillium_chrysogenum_virus.xml
+krona-data/18/Penicillium_aurantiogriseum_fusarivirus_1.csv	krona-data/18/Penicillium_aurantiogriseum_fusarivirus_1.xml
+krona-data/18/Rhizoctonia_cerealis_endornavirus_1.csv	krona-data/18/Rhizoctonia_cerealis_endornavirus_1.xml

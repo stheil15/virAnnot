@@ -1,0 +1,1142 @@
+<html>
+<head>
+<title>Demultiplex statistics</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['table']});
+google.charts.setOnLoadCallback(lib1_0);
+function lib1_0() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'total_reads');
+data.addColumn('number', 'reads_ok');
+data.addColumn('number', 'reads_with_adapters');
+data.addColumn('number', 'reads_too_short');
+data.addColumn('number', 'total_bases');
+data.addColumn('number', 'bases_ok');
+data.addColumn('number', 'bases_quality_trimmed');
+data.addRows([
+['STEP1','lib1_step.01_R1.log',47788,24498,24534,270,11947000,5782064,636741],['STEP1','lib1_step.01_R2.log',47788,22520,22697,3085,11947000,5015726,1785113],['STEP2','lib1_step.02_R1.log',24498,24493,23841,5,5782064,5352046,0],['STEP2','lib1_step.02_R2.log',22520,22517,17886,3,5015726,4691987,0],['STEP3','lib1_step.03_R1.log',24493,24482,1133,11,5352046,5322772,0],['STEP3','lib1_step.03_R2.log',22517,22509,2844,8,4691987,4638814,0],['STEP4','lib1_step.04_R1.log',24482,23670,13944,812,5322772,4088827,0],['STEP4','lib1_step.04_R2.log',22509,22506,543,3,4638814,4630570,0],['STEP5','lib1_step.05_R1.log',23670,22091,14204,1579,4088827,3624833,1982],['STEP5','lib1_step.05_R2.log',22506,20798,12963,1708,4630570,3480592,344],['STEP6','lib1_step.06_R1.log',23670,23627,244,43,4088827,4069672,1982],['STEP6','lib1_step.06_R2.log',22506,22465,7254,41,4630570,4385048,344]]);
+var table = new google.visualization.Table(document.getElementById('lib1_0_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib1_1);
+function lib1_1() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'ds2016-121(AACCGCAA)');
+data.addColumn('number', 'ds2016-132(AACTAGTA)');
+data.addRows([
+['STEP1','lib1_step.01_R1.log',10156,14378],['STEP1','lib1_step.01_R2.log',9409,13288]]);
+var table = new google.visualization.Table(document.getElementById('lib1_1_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib1_2);
+function lib1_2() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP2','lib1_step.02_R1.log',23841],['STEP2','lib1_step.02_R2.log',17886]]);
+var table = new google.visualization.Table(document.getElementById('lib1_2_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib1_3);
+function lib1_3() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP3','lib1_step.03_R1.log',1133],['STEP3','lib1_step.03_R2.log',2844]]);
+var table = new google.visualization.Table(document.getElementById('lib1_3_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib1_4);
+function lib1_4() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'bottom_adaptor(GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG)');
+data.addColumn('number', 'multiplex_idx(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'multiplex_pcr_primer(GTGACTGGAGTTCAGACGTGTGCTCTTCCGAT)');
+data.addColumn('number', 'multiplex_primer_1(ACACTCTTTCCCTACACGACGCTCTTCCGATCT)');
+data.addColumn('number', 'multiplex_primer_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTC)');
+data.addColumn('number', 'neb_adaptor_2(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'neb_index_1(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'neb_index_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'nextera_1(TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'nextera_2(GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'pcr_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACG)');
+data.addColumn('number', 'pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGA)');
+data.addColumn('number', 'pcr_primer_2(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'pe_pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'pe_pcr_primer_2(CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATC)');
+data.addColumn('number', 'top_adaptor(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'trueseq_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'trueseq_adaptor_2(ATCTCGTATGCCGTCTTCTGCTTG)');
+data.addColumn('number', 'trueseq_universal_adaptor(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addRows([
+['STEP4','lib1_step.04_R1.log',1,0,1,0,0,12,0,0,1,1,0,1,0,0,16,0,2,2,13909,30,0,0],['STEP4','lib1_step.04_R2.log',286,0,0,1,0,7,0,0,3,2,0,4,0,1,8,0,3,3,222,3,0,0]]);
+var table = new google.visualization.Table(document.getElementById('lib1_4_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib1_5);
+function lib1_5() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addColumn('number', 'COMMON-REVCOMP(CCAAACACACCCAACACA)');
+data.addRows([
+['STEP5','lib1_step.05_R1.log',0,14204],['STEP5','lib1_step.05_R2.log',2,12961]]);
+var table = new google.visualization.Table(document.getElementById('lib1_5_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib1_6);
+function lib1_6() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'polyA(AAAAAAAAAA)');
+data.addRows([
+['STEP6','lib1_step.06_R1.log',244],['STEP6','lib1_step.06_R2.log',7254]]);
+var table = new google.visualization.Table(document.getElementById('lib1_6_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib1_7);
+function lib1_7() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#index_id');
+data.addColumn('number', 'pairs');
+data.addColumn('number', 'singletons');
+data.addRows([
+['ds2016-121',5177,35739],['ds2016-132',4064,37965]]);
+var table = new google.visualization.Table(document.getElementById('lib1_7_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib2_0);
+function lib2_0() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'total_reads');
+data.addColumn('number', 'reads_ok');
+data.addColumn('number', 'reads_with_adapters');
+data.addColumn('number', 'reads_too_short');
+data.addColumn('number', 'total_bases');
+data.addColumn('number', 'bases_ok');
+data.addColumn('number', 'bases_quality_trimmed');
+data.addRows([
+['STEP1','lib2_step.01_R1.log',65147,40422,40968,816,16286750,9283523,683948],['STEP1','lib2_step.01_R2.log',65147,33834,35382,5584,16286750,7404981,2050836],['STEP2','lib2_step.02_R1.log',40422,40418,37224,4,9283523,8610686,0],['STEP2','lib2_step.02_R2.log',33834,33816,28406,18,7404981,6884677,0],['STEP3','lib2_step.03_R1.log',40418,40400,1984,18,8610686,8555650,0],['STEP3','lib2_step.03_R2.log',33816,33792,4311,24,6884677,6781843,0],['STEP4','lib2_step.04_R1.log',40400,36826,20764,3574,8555650,6700145,0],['STEP4','lib2_step.04_R2.log',33792,33792,622,0,6781843,6772536,0],['STEP5','lib2_step.05_R1.log',36826,35025,19084,1801,6700145,6091112,1719],['STEP5','lib2_step.05_R2.log',33792,31385,16569,2407,6772536,5308154,438],['STEP6','lib2_step.06_R1.log',36826,36721,506,105,6700145,6654547,1719],['STEP6','lib2_step.06_R2.log',33792,31923,12158,1869,6772536,6242414,438]]);
+var table = new google.visualization.Table(document.getElementById('lib2_0_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib2_1);
+function lib2_1() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'ds2016-122(AGGCGCCT)');
+data.addColumn('number', 'ds2016-133(ATTAGCTA)');
+data.addRows([
+['STEP1','lib2_step.01_R1.log',15792,25176],['STEP1','lib2_step.01_R2.log',15560,19822]]);
+var table = new google.visualization.Table(document.getElementById('lib2_1_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib2_2);
+function lib2_2() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP2','lib2_step.02_R1.log',37224],['STEP2','lib2_step.02_R2.log',28406]]);
+var table = new google.visualization.Table(document.getElementById('lib2_2_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib2_3);
+function lib2_3() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP3','lib2_step.03_R1.log',1984],['STEP3','lib2_step.03_R2.log',4311]]);
+var table = new google.visualization.Table(document.getElementById('lib2_3_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib2_4);
+function lib2_4() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'bottom_adaptor(GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG)');
+data.addColumn('number', 'multiplex_idx(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'multiplex_pcr_primer(GTGACTGGAGTTCAGACGTGTGCTCTTCCGAT)');
+data.addColumn('number', 'multiplex_primer_1(ACACTCTTTCCCTACACGACGCTCTTCCGATCT)');
+data.addColumn('number', 'multiplex_primer_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTC)');
+data.addColumn('number', 'neb_adaptor_2(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'neb_index_1(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'neb_index_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'nextera_1(TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'nextera_2(GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'pcr_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACG)');
+data.addColumn('number', 'pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGA)');
+data.addColumn('number', 'pcr_primer_2(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'pe_pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'pe_pcr_primer_2(CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATC)');
+data.addColumn('number', 'top_adaptor(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'trueseq_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'trueseq_adaptor_2(ATCTCGTATGCCGTCTTCTGCTTG)');
+data.addColumn('number', 'trueseq_universal_adaptor(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addRows([
+['STEP4','lib2_step.04_R1.log',47,0,2,0,0,1690,0,0,4,0,0,6,0,2,42,0,2,2,19004,40,5,0],['STEP4','lib2_step.04_R2.log',494,0,2,2,0,91,0,0,2,0,1,8,0,4,11,0,2,4,4,1,0,0]]);
+var table = new google.visualization.Table(document.getElementById('lib2_4_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib2_5);
+function lib2_5() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addColumn('number', 'COMMON-REVCOMP(CCAAACACACCCAACACA)');
+data.addRows([
+['STEP5','lib2_step.05_R1.log',27,19057],['STEP5','lib2_step.05_R2.log',345,16224]]);
+var table = new google.visualization.Table(document.getElementById('lib2_5_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib2_6);
+function lib2_6() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'polyA(AAAAAAAAAA)');
+data.addRows([
+['STEP6','lib2_step.06_R1.log',506],['STEP6','lib2_step.06_R2.log',12158]]);
+var table = new google.visualization.Table(document.getElementById('lib2_6_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib2_7);
+function lib2_7() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#index_id');
+data.addColumn('number', 'pairs');
+data.addColumn('number', 'singletons');
+data.addRows([
+['ds2016-133',7219,54206],['ds2016-122',875,66894]]);
+var table = new google.visualization.Table(document.getElementById('lib2_7_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib3_0);
+function lib3_0() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'total_reads');
+data.addColumn('number', 'reads_ok');
+data.addColumn('number', 'reads_with_adapters');
+data.addColumn('number', 'reads_too_short');
+data.addColumn('number', 'total_bases');
+data.addColumn('number', 'bases_ok');
+data.addColumn('number', 'bases_quality_trimmed');
+data.addRows([
+['STEP1','lib3_step.01_R1.log',75150,37359,37405,394,18787500,8801169,936499],['STEP1','lib3_step.01_R2.log',75150,32194,32392,5068,18787500,7149839,2842522],['STEP2','lib3_step.02_R1.log',37359,37358,36624,1,8801169,8140402,0],['STEP2','lib3_step.02_R2.log',32194,32190,25044,4,7149839,6694036,0],['STEP3','lib3_step.03_R1.log',37358,37333,1978,25,8140402,8083710,0],['STEP3','lib3_step.03_R2.log',32190,32173,4931,17,6694036,6597992,0],['STEP4','lib3_step.04_R1.log',37333,35431,20380,1902,8083710,6099982,0],['STEP4','lib3_step.04_R2.log',32173,32171,593,2,6597992,6588994,0],['STEP5','lib3_step.05_R1.log',35431,32258,17941,3173,6099982,5452452,2077],['STEP5','lib3_step.05_R2.log',32171,28597,15900,3574,6588994,4965065,477],['STEP6','lib3_step.06_R1.log',35431,35394,324,37,6099982,6077499,2077],['STEP6','lib3_step.06_R2.log',32171,32118,11524,53,6588994,6167967,477]]);
+var table = new google.visualization.Table(document.getElementById('lib3_0_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib3_1);
+function lib3_1() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'ds2016-123(CAAGAGTT)');
+data.addColumn('number', 'ds2016-55(CAAGCAGG)');
+data.addRows([
+['STEP1','lib3_step.01_R1.log',19078,18327],['STEP1','lib3_step.01_R2.log',15865,16527]]);
+var table = new google.visualization.Table(document.getElementById('lib3_1_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib3_2);
+function lib3_2() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP2','lib3_step.02_R1.log',36624],['STEP2','lib3_step.02_R2.log',25044]]);
+var table = new google.visualization.Table(document.getElementById('lib3_2_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib3_3);
+function lib3_3() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP3','lib3_step.03_R1.log',1978],['STEP3','lib3_step.03_R2.log',4931]]);
+var table = new google.visualization.Table(document.getElementById('lib3_3_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib3_4);
+function lib3_4() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'bottom_adaptor(GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG)');
+data.addColumn('number', 'multiplex_idx(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'multiplex_pcr_primer(GTGACTGGAGTTCAGACGTGTGCTCTTCCGAT)');
+data.addColumn('number', 'multiplex_primer_1(ACACTCTTTCCCTACACGACGCTCTTCCGATCT)');
+data.addColumn('number', 'multiplex_primer_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTC)');
+data.addColumn('number', 'neb_adaptor_2(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'neb_index_1(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'neb_index_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'nextera_1(TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'nextera_2(GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'pcr_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACG)');
+data.addColumn('number', 'pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGA)');
+data.addColumn('number', 'pcr_primer_2(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'pe_pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'pe_pcr_primer_2(CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATC)');
+data.addColumn('number', 'top_adaptor(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'trueseq_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'trueseq_adaptor_2(ATCTCGTATGCCGTCTTCTGCTTG)');
+data.addColumn('number', 'trueseq_universal_adaptor(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addRows([
+['STEP4','lib3_step.04_R1.log',2,18980,3,2,0,1341,8,11,0,0,12,0,0,1,0,2,0,0,0,43,0,0],['STEP4','lib3_step.04_R2.log',305,3,0,2,6,249,2,6,0,0,15,2,0,1,0,0,0,0,0,5,0,0]]);
+var table = new google.visualization.Table(document.getElementById('lib3_4_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib3_5);
+function lib3_5() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addColumn('number', 'COMMON-REVCOMP(CCAAACACACCCAACACA)');
+data.addRows([
+['STEP5','lib3_step.05_R1.log',9,17932],['STEP5','lib3_step.05_R2.log',33,15867]]);
+var table = new google.visualization.Table(document.getElementById('lib3_5_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib3_6);
+function lib3_6() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'polyA(AAAAAAAAAA)');
+data.addRows([
+['STEP6','lib3_step.06_R1.log',324],['STEP6','lib3_step.06_R2.log',11524]]);
+var table = new google.visualization.Table(document.getElementById('lib3_6_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib3_7);
+function lib3_7() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#index_id');
+data.addColumn('number', 'pairs');
+data.addColumn('number', 'singletons');
+data.addRows([
+['ds2016-55',4644,58224],['ds2016-123',2568,62376]]);
+var table = new google.visualization.Table(document.getElementById('lib3_7_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib4_0);
+function lib4_0() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'total_reads');
+data.addColumn('number', 'reads_ok');
+data.addColumn('number', 'reads_with_adapters');
+data.addColumn('number', 'reads_too_short');
+data.addColumn('number', 'total_bases');
+data.addColumn('number', 'bases_ok');
+data.addColumn('number', 'bases_quality_trimmed');
+data.addRows([
+['STEP1','lib4_step.01_R1.log',64414,32955,33063,319,16103500,7808998,648377],['STEP1','lib4_step.01_R2.log',64414,30110,30360,2944,16103500,6816058,1756984],['STEP2','lib4_step.02_R1.log',32955,32951,32155,4,7808998,7229319,0],['STEP2','lib4_step.02_R2.log',30110,30101,21416,9,6816058,6427568,0],['STEP3','lib4_step.03_R1.log',32951,32930,1156,21,7229319,7196999,0],['STEP3','lib4_step.03_R2.log',30101,30087,4427,14,6427568,6361310,0],['STEP4','lib4_step.04_R1.log',32930,32089,13639,841,7196999,6131281,0],['STEP4','lib4_step.04_R2.log',30087,30085,695,2,6361310,6350607,0],['STEP5','lib4_step.05_R1.log',32089,31033,11844,1056,6131281,5776894,1985],['STEP5','lib4_step.05_R2.log',30085,28660,13270,1425,6350607,5367975,507],['STEP6','lib4_step.06_R1.log',32089,32047,272,42,6131281,6111235,1985],['STEP6','lib4_step.06_R2.log',30085,30037,6031,48,6350607,6149035,507]]);
+var table = new google.visualization.Table(document.getElementById('lib4_0_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib4_1);
+function lib4_1() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'ds2016-124(CCAACCAT)');
+data.addColumn('number', 'ds2016-56(CGATAGAG)');
+data.addRows([
+['STEP1','lib4_step.01_R1.log',3263,29800],['STEP1','lib4_step.01_R2.log',3081,27279]]);
+var table = new google.visualization.Table(document.getElementById('lib4_1_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib4_2);
+function lib4_2() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP2','lib4_step.02_R1.log',32155],['STEP2','lib4_step.02_R2.log',21416]]);
+var table = new google.visualization.Table(document.getElementById('lib4_2_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib4_3);
+function lib4_3() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP3','lib4_step.03_R1.log',1156],['STEP3','lib4_step.03_R2.log',4427]]);
+var table = new google.visualization.Table(document.getElementById('lib4_3_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib4_4);
+function lib4_4() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'bottom_adaptor(GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG)');
+data.addColumn('number', 'multiplex_idx(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'multiplex_pcr_primer(GTGACTGGAGTTCAGACGTGTGCTCTTCCGAT)');
+data.addColumn('number', 'multiplex_primer_1(ACACTCTTTCCCTACACGACGCTCTTCCGATCT)');
+data.addColumn('number', 'multiplex_primer_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTC)');
+data.addColumn('number', 'neb_adaptor_2(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'neb_index_1(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'neb_index_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'nextera_1(TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'nextera_2(GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'pcr_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACG)');
+data.addColumn('number', 'pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGA)');
+data.addColumn('number', 'pcr_primer_2(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'pe_pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'pe_pcr_primer_2(CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATC)');
+data.addColumn('number', 'top_adaptor(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'trueseq_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'trueseq_adaptor_2(ATCTCGTATGCCGTCTTCTGCTTG)');
+data.addColumn('number', 'trueseq_universal_adaptor(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addRows([
+['STEP4','lib4_step.04_R1.log',42,13562,0,6,1,6,0,9,0,2,11,1,0,2,0,0,0,0,0,20,0,0],['STEP4','lib4_step.04_R2.log',562,82,0,7,1,1,0,5,0,1,25,0,1,3,0,0,1,0,0,10,0,0]]);
+var table = new google.visualization.Table(document.getElementById('lib4_4_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib4_5);
+function lib4_5() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addColumn('number', 'COMMON-REVCOMP(CCAAACACACCCAACACA)');
+data.addRows([
+['STEP5','lib4_step.05_R1.log',2,11842],['STEP5','lib4_step.05_R2.log',9,13261]]);
+var table = new google.visualization.Table(document.getElementById('lib4_5_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib4_6);
+function lib4_6() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'polyA(AAAAAAAAAA)');
+data.addRows([
+['STEP6','lib4_step.06_R1.log',272],['STEP6','lib4_step.06_R2.log',6031]]);
+var table = new google.visualization.Table(document.getElementById('lib4_6_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib4_7);
+function lib4_7() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#index_id');
+data.addColumn('number', 'pairs');
+data.addColumn('number', 'singletons');
+data.addRows([
+['ds2016-56',8055,45974],['ds2016-124',480,61124]]);
+var table = new google.visualization.Table(document.getElementById('lib4_7_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib5_0);
+function lib5_0() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'total_reads');
+data.addColumn('number', 'reads_ok');
+data.addColumn('number', 'reads_with_adapters');
+data.addColumn('number', 'reads_too_short');
+data.addColumn('number', 'total_bases');
+data.addColumn('number', 'bases_ok');
+data.addColumn('number', 'bases_quality_trimmed');
+data.addRows([
+['STEP1','lib5_step.01_R1.log',65617,31983,32080,404,16404250,7514352,826172],['STEP1','lib5_step.01_R2.log',65617,29624,29772,5405,16404250,6602616,2474453],['STEP2','lib5_step.02_R1.log',31983,31978,31159,5,7514352,6949754,0],['STEP2','lib5_step.02_R2.log',29624,29612,26185,12,6602616,6124721,0],['STEP3','lib5_step.03_R1.log',31978,31956,2486,22,6949754,6876282,0],['STEP3','lib5_step.03_R2.log',29612,29587,3860,25,6124721,6031126,0],['STEP4','lib5_step.04_R1.log',31956,30263,18508,1693,6876282,5080322,0],['STEP4','lib5_step.04_R2.log',29587,29585,611,2,6031126,6021875,0],['STEP5','lib5_step.05_R1.log',30263,27652,16390,2611,5080322,4482880,1871],['STEP5','lib5_step.05_R2.log',29585,26412,15548,3173,6021875,4390935,326],['STEP6','lib5_step.06_R1.log',30263,30245,289,18,5080322,5063387,1871],['STEP6','lib5_step.06_R2.log',29585,29567,11310,18,6021875,5642604,326]]);
+var table = new google.visualization.Table(document.getElementById('lib5_0_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib5_1);
+function lib5_1() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'ds2016-125(GCTCTACC)');
+data.addColumn('number', 'ds2016-57(GCTGCGGT)');
+data.addRows([
+['STEP1','lib5_step.01_R1.log',18604,13476],['STEP1','lib5_step.01_R2.log',16555,13217]]);
+var table = new google.visualization.Table(document.getElementById('lib5_1_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib5_2);
+function lib5_2() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP2','lib5_step.02_R1.log',31159],['STEP2','lib5_step.02_R2.log',26185]]);
+var table = new google.visualization.Table(document.getElementById('lib5_2_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib5_3);
+function lib5_3() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP3','lib5_step.03_R1.log',2486],['STEP3','lib5_step.03_R2.log',3860]]);
+var table = new google.visualization.Table(document.getElementById('lib5_3_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib5_4);
+function lib5_4() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'bottom_adaptor(GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG)');
+data.addColumn('number', 'multiplex_idx(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'multiplex_pcr_primer(GTGACTGGAGTTCAGACGTGTGCTCTTCCGAT)');
+data.addColumn('number', 'multiplex_primer_1(ACACTCTTTCCCTACACGACGCTCTTCCGATCT)');
+data.addColumn('number', 'multiplex_primer_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTC)');
+data.addColumn('number', 'neb_adaptor_2(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'neb_index_1(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'neb_index_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'nextera_1(TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'nextera_2(GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'pcr_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACG)');
+data.addColumn('number', 'pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGA)');
+data.addColumn('number', 'pcr_primer_2(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'pe_pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'pe_pcr_primer_2(CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATC)');
+data.addColumn('number', 'top_adaptor(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'trueseq_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'trueseq_adaptor_2(ATCTCGTATGCCGTCTTCTGCTTG)');
+data.addColumn('number', 'trueseq_universal_adaptor(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addRows([
+['STEP4','lib5_step.04_R1.log',2,0,1,1,0,12,0,0,1,0,5,0,0,0,16,0,4,1,18464,33,0,0],['STEP4','lib5_step.04_R2.log',331,0,1,0,0,14,0,0,3,0,5,0,0,0,5,0,4,3,245,1,0,0]]);
+var table = new google.visualization.Table(document.getElementById('lib5_4_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib5_5);
+function lib5_5() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addColumn('number', 'COMMON-REVCOMP(CCAAACACACCCAACACA)');
+data.addRows([
+['STEP5','lib5_step.05_R1.log',13,16377],['STEP5','lib5_step.05_R2.log',49,15499]]);
+var table = new google.visualization.Table(document.getElementById('lib5_5_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib5_6);
+function lib5_6() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'polyA(AAAAAAAAAA)');
+data.addRows([
+['STEP6','lib5_step.06_R1.log',289],['STEP6','lib5_step.06_R2.log',11310]]);
+var table = new google.visualization.Table(document.getElementById('lib5_6_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib5_7);
+function lib5_7() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#index_id');
+data.addColumn('number', 'pairs');
+data.addColumn('number', 'singletons');
+data.addRows([
+['ds2016-57',2195,55422],['ds2016-125',5692,48428]]);
+var table = new google.visualization.Table(document.getElementById('lib5_7_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib6_0);
+function lib6_0() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'total_reads');
+data.addColumn('number', 'reads_ok');
+data.addColumn('number', 'reads_with_adapters');
+data.addColumn('number', 'reads_too_short');
+data.addColumn('number', 'total_bases');
+data.addColumn('number', 'bases_ok');
+data.addColumn('number', 'bases_quality_trimmed');
+data.addRows([
+['STEP1','lib6_step.01_R1.log',53273,27799,27945,373,13318250,6567298,619937],['STEP1','lib6_step.01_R2.log',53273,24573,24729,4223,13318250,5569697,1861892],['STEP2','lib6_step.02_R1.log',27799,27795,27051,4,6567298,6079680,0],['STEP2','lib6_step.02_R2.log',24573,24563,20800,10,5569697,5192967,0],['STEP3','lib6_step.03_R1.log',27795,27784,1020,11,6079680,6054031,0],['STEP3','lib6_step.03_R2.log',24563,24554,2425,9,5192967,5144477,0],['STEP4','lib6_step.04_R1.log',27784,27092,12346,692,6054031,5026211,0],['STEP4','lib6_step.04_R2.log',24554,24553,523,1,5144477,5136465,0],['STEP5','lib6_step.05_R1.log',27092,26089,11983,1003,5026211,4667311,1253],['STEP5','lib6_step.05_R2.log',24553,23433,10122,1120,5136465,4309215,315],['STEP6','lib6_step.06_R1.log',27092,27052,213,40,5026211,5009014,1253],['STEP6','lib6_step.06_R2.log',24553,24515,5565,38,5136465,4956606,315]]);
+var table = new google.visualization.Table(document.getElementById('lib6_0_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib6_1);
+function lib6_1() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'ds2016-10(GGTACTCC)');
+data.addColumn('number', 'ds2016-58(GGCCAGAA)');
+data.addRows([
+['STEP1','lib6_step.01_R1.log',9080,18865],['STEP1','lib6_step.01_R2.log',6365,18364]]);
+var table = new google.visualization.Table(document.getElementById('lib6_1_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib6_2);
+function lib6_2() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP2','lib6_step.02_R1.log',27051],['STEP2','lib6_step.02_R2.log',20800]]);
+var table = new google.visualization.Table(document.getElementById('lib6_2_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib6_3);
+function lib6_3() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP3','lib6_step.03_R1.log',1020],['STEP3','lib6_step.03_R2.log',2425]]);
+var table = new google.visualization.Table(document.getElementById('lib6_3_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib6_4);
+function lib6_4() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'bottom_adaptor(GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG)');
+data.addColumn('number', 'multiplex_idx(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'multiplex_pcr_primer(GTGACTGGAGTTCAGACGTGTGCTCTTCCGAT)');
+data.addColumn('number', 'multiplex_primer_1(ACACTCTTTCCCTACACGACGCTCTTCCGATCT)');
+data.addColumn('number', 'multiplex_primer_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTC)');
+data.addColumn('number', 'neb_adaptor_2(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'neb_index_1(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'neb_index_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'nextera_1(TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'nextera_2(GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'pcr_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACG)');
+data.addColumn('number', 'pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGA)');
+data.addColumn('number', 'pcr_primer_2(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'pe_pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'pe_pcr_primer_2(CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATC)');
+data.addColumn('number', 'top_adaptor(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'trueseq_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'trueseq_adaptor_2(ATCTCGTATGCCGTCTTCTGCTTG)');
+data.addColumn('number', 'trueseq_universal_adaptor(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addRows([
+['STEP4','lib6_step.04_R1.log',5,0,0,0,5,1250,4,11,0,0,2,10,0,0,0,3,1,0,11028,71,0,0],['STEP4','lib6_step.04_R2.log',282,0,2,0,1,195,3,12,0,0,2,10,0,1,0,3,0,0,5,9,0,0]]);
+var table = new google.visualization.Table(document.getElementById('lib6_4_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib6_5);
+function lib6_5() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addColumn('number', 'COMMON-REVCOMP(CCAAACACACCCAACACA)');
+data.addRows([
+['STEP5','lib6_step.05_R1.log',4,11979],['STEP5','lib6_step.05_R2.log',35,10087]]);
+var table = new google.visualization.Table(document.getElementById('lib6_5_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib6_6);
+function lib6_6() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'polyA(AAAAAAAAAA)');
+data.addRows([
+['STEP6','lib6_step.06_R1.log',213],['STEP6','lib6_step.06_R2.log',5565]]);
+var table = new google.visualization.Table(document.getElementById('lib6_6_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib6_7);
+function lib6_7() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#index_id');
+data.addColumn('number', 'pairs');
+data.addColumn('number', 'singletons');
+data.addRows([
+['ds2016-58',7179,37209],['ds2016-10',1652,48263]]);
+var table = new google.visualization.Table(document.getElementById('lib6_7_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib7_0);
+function lib7_0() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'total_reads');
+data.addColumn('number', 'reads_ok');
+data.addColumn('number', 'reads_with_adapters');
+data.addColumn('number', 'reads_too_short');
+data.addColumn('number', 'total_bases');
+data.addColumn('number', 'bases_ok');
+data.addColumn('number', 'bases_quality_trimmed');
+data.addRows([
+['STEP1','lib7_step.01_R1.log',82590,43240,43259,294,20647500,10202127,822522],['STEP1','lib7_step.01_R2.log',82590,38275,38332,4396,20647500,8597797,2555507],['STEP2','lib7_step.02_R1.log',43240,43238,42614,2,10202127,9433653,0],['STEP2','lib7_step.02_R2.log',38275,38264,32988,11,8597797,8000358,0],['STEP3','lib7_step.03_R1.log',43238,43223,1703,15,9433653,9387349,0],['STEP3','lib7_step.03_R2.log',38264,38250,4111,14,8000358,7925915,0],['STEP4','lib7_step.04_R1.log',43223,41643,26288,1580,9387349,7071834,0],['STEP4','lib7_step.04_R2.log',38250,38250,1123,0,7925915,7908919,0],['STEP5','lib7_step.05_R1.log',41643,38776,25601,2867,7071834,6282501,2224],['STEP5','lib7_step.05_R2.log',38250,34725,25518,3525,7908919,5668253,719],['STEP6','lib7_step.06_R1.log',41643,41607,386,36,7071834,7045470,2224],['STEP6','lib7_step.06_R2.log',38250,38224,14000,26,7908919,7444814,719]]);
+var table = new google.visualization.Table(document.getElementById('lib7_0_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib7_1);
+function lib7_1() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'ds2015-149(TCTATGAC)');
+data.addColumn('number', 'ds2016-11(TCGGATGC)');
+data.addRows([
+['STEP1','lib7_step.01_R1.log',34728,8531],['STEP1','lib7_step.01_R2.log',31576,6756]]);
+var table = new google.visualization.Table(document.getElementById('lib7_1_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib7_2);
+function lib7_2() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP2','lib7_step.02_R1.log',42614],['STEP2','lib7_step.02_R2.log',32988]]);
+var table = new google.visualization.Table(document.getElementById('lib7_2_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib7_3);
+function lib7_3() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP3','lib7_step.03_R1.log',1703],['STEP3','lib7_step.03_R2.log',4111]]);
+var table = new google.visualization.Table(document.getElementById('lib7_3_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib7_4);
+function lib7_4() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'bottom_adaptor(GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG)');
+data.addColumn('number', 'multiplex_idx(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'multiplex_pcr_primer(GTGACTGGAGTTCAGACGTGTGCTCTTCCGAT)');
+data.addColumn('number', 'multiplex_primer_1(ACACTCTTTCCCTACACGACGCTCTTCCGATCT)');
+data.addColumn('number', 'multiplex_primer_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTC)');
+data.addColumn('number', 'neb_adaptor_2(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'neb_index_1(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'neb_index_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'nextera_1(TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'nextera_2(GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'pcr_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACG)');
+data.addColumn('number', 'pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGA)');
+data.addColumn('number', 'pcr_primer_2(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'pe_pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'pe_pcr_primer_2(CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATC)');
+data.addColumn('number', 'top_adaptor(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'trueseq_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'trueseq_adaptor_2(ATCTCGTATGCCGTCTTCTGCTTG)');
+data.addColumn('number', 'trueseq_universal_adaptor(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addRows([
+['STEP4','lib7_step.04_R1.log',3,0,3,0,0,15,0,13,1,0,1,5,0,0,0,0,4,3,26209,63,0,0],['STEP4','lib7_step.04_R2.log',667,0,4,1,0,14,0,11,4,3,0,6,1,0,0,0,3,3,397,11,0,0]]);
+var table = new google.visualization.Table(document.getElementById('lib7_4_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib7_5);
+function lib7_5() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addColumn('number', 'COMMON-REVCOMP(CCAAACACACCCAACACA)');
+data.addRows([
+['STEP5','lib7_step.05_R1.log',8,25593],['STEP5','lib7_step.05_R2.log',39,25479]]);
+var table = new google.visualization.Table(document.getElementById('lib7_5_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib7_6);
+function lib7_6() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'polyA(AAAAAAAAAA)');
+data.addRows([
+['STEP6','lib7_step.06_R1.log',386],['STEP6','lib7_step.06_R2.log',14000]]);
+var table = new google.visualization.Table(document.getElementById('lib7_6_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib7_7);
+function lib7_7() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#index_id');
+data.addColumn('number', 'pairs');
+data.addColumn('number', 'singletons');
+data.addRows([
+['ds2015-149',4493,70845],['ds2016-11',717,78397]]);
+var table = new google.visualization.Table(document.getElementById('lib7_7_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib8_0);
+function lib8_0() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'total_reads');
+data.addColumn('number', 'reads_ok');
+data.addColumn('number', 'reads_with_adapters');
+data.addColumn('number', 'reads_too_short');
+data.addColumn('number', 'total_bases');
+data.addColumn('number', 'bases_ok');
+data.addColumn('number', 'bases_quality_trimmed');
+data.addRows([
+['STEP1','lib8_step.01_R1.log',48074,31263,31265,322,12018500,7287531,780908],['STEP1','lib8_step.01_R2.log',48074,28524,28557,5004,12018500,6176247,2344566],['STEP2','lib8_step.02_R1.log',31263,31263,30880,0,7287531,6728797,0],['STEP2','lib8_step.02_R2.log',28524,28517,26241,7,6176247,5698608,0],['STEP3','lib8_step.03_R1.log',31263,31252,1784,11,6728797,6674286,0],['STEP3','lib8_step.03_R2.log',28517,28511,3238,6,5698608,5628921,0],['STEP4','lib8_step.04_R1.log',31252,29795,29897,1457,6674286,3752695,0],['STEP4','lib8_step.04_R2.log',28511,28510,767,1,5628921,5617525,0],['STEP5','lib8_step.05_R1.log',29795,25807,26097,3988,3752695,2755290,2260],['STEP5','lib8_step.05_R2.log',28510,24116,26179,4394,5617525,2682372,284],['STEP6','lib8_step.06_R1.log',29795,29788,355,7,3752695,3737279,2260],['STEP6','lib8_step.06_R2.log',28510,28484,19560,26,5617525,4987519,284]]);
+var table = new google.visualization.Table(document.getElementById('lib8_0_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib8_1);
+function lib8_1() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'ds2015-162(TTCTGGCT)');
+data.addColumn('number', 'ds2015-170(TTGCGTCA)');
+data.addRows([
+['STEP1','lib8_step.01_R1.log',16432,14833],['STEP1','lib8_step.01_R2.log',15876,12681]]);
+var table = new google.visualization.Table(document.getElementById('lib8_1_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib8_2);
+function lib8_2() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP2','lib8_step.02_R1.log',30880],['STEP2','lib8_step.02_R2.log',26241]]);
+var table = new google.visualization.Table(document.getElementById('lib8_2_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib8_3);
+function lib8_3() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addRows([
+['STEP3','lib8_step.03_R1.log',1784],['STEP3','lib8_step.03_R2.log',3238]]);
+var table = new google.visualization.Table(document.getElementById('lib8_3_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib8_4);
+function lib8_4() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'bottom_adaptor(GATCGGAAGAGCGGTTCAGCAGGAATGCCGAG)');
+data.addColumn('number', 'multiplex_idx(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'multiplex_pcr_primer(GTGACTGGAGTTCAGACGTGTGCTCTTCCGAT)');
+data.addColumn('number', 'multiplex_primer_1(ACACTCTTTCCCTACACGACGCTCTTCCGATCT)');
+data.addColumn('number', 'multiplex_primer_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTC)');
+data.addColumn('number', 'neb_adaptor_2(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'neb_index_1(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'neb_index_2(GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC)');
+data.addColumn('number', 'neb_universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'nextera_1(TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'nextera_2(GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG)');
+data.addColumn('number', 'pcr_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACG)');
+data.addColumn('number', 'pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGA)');
+data.addColumn('number', 'pcr_primer_2(CAAGCAGAAGACGGCATACGAGAT)');
+data.addColumn('number', 'pe_pcr_primer_1(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'pe_pcr_primer_2(CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATC)');
+data.addColumn('number', 'top_adaptor(ACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'trueseq_adaptor_1(GATCGGAAGAGCACACGTCTGAACTCCAGTCAC)');
+data.addColumn('number', 'trueseq_adaptor_2(ATCTCGTATGCCGTCTTCTGCTTG)');
+data.addColumn('number', 'trueseq_universal_adaptor(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addColumn('number', 'universal_primer(AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC)');
+data.addRows([
+['STEP4','lib8_step.04_R1.log',1,0,2,0,2,27,0,31,0,0,0,2,1,0,0,0,0,0,29796,102,0,0],['STEP4','lib8_step.04_R2.log',632,0,2,2,1,16,0,27,0,0,0,5,1,0,0,0,1,0,79,4,0,0]]);
+var table = new google.visualization.Table(document.getElementById('lib8_4_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib8_5);
+function lib8_5() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'COMMON(TGTGTTGGGTGTGTTTGG)');
+data.addColumn('number', 'COMMON-REVCOMP(CCAAACACACCCAACACA)');
+data.addRows([
+['STEP5','lib8_step.05_R1.log',2,26095],['STEP5','lib8_step.05_R2.log',39,26140]]);
+var table = new google.visualization.Table(document.getElementById('lib8_5_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib8_6);
+function lib8_6() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#step');
+data.addColumn('string', 'file');
+data.addColumn('number', 'polyA(AAAAAAAAAA)');
+data.addRows([
+['STEP6','lib8_step.06_R1.log',355],['STEP6','lib8_step.06_R2.log',19560]]);
+var table = new google.visualization.Table(document.getElementById('lib8_6_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+google.charts.setOnLoadCallback(lib8_7);
+function lib8_7() {
+var data = new google.visualization.DataTable();
+data.addColumn('string', '#index_id');
+data.addColumn('number', 'pairs');
+data.addColumn('number', 'singletons');
+data.addRows([
+['ds2015-162',1719,54834],['ds2015-170',870,56532]]);
+var table = new google.visualization.Table(document.getElementById('lib8_7_div'));
+table.draw(data, {showRowNumber: false, width: '70%', height: '70%'});
+
+}
+</script>
+</head>
+<div style="text-align:center">
+<h1 align=center>Demultiplex statistics</h1>
+<body>
+<h2>lib1_0</h2>
+<div id="lib1_0_div"></div>
+<h2>lib1_1</h2>
+<div id="lib1_1_div"></div>
+<h2>lib1_2</h2>
+<div id="lib1_2_div"></div>
+<h2>lib1_3</h2>
+<div id="lib1_3_div"></div>
+<h2>lib1_4</h2>
+<div id="lib1_4_div"></div>
+<h2>lib1_5</h2>
+<div id="lib1_5_div"></div>
+<h2>lib1_6</h2>
+<div id="lib1_6_div"></div>
+<h2>lib1_7</h2>
+<div id="lib1_7_div"></div>
+<h2>lib2_0</h2>
+<div id="lib2_0_div"></div>
+<h2>lib2_1</h2>
+<div id="lib2_1_div"></div>
+<h2>lib2_2</h2>
+<div id="lib2_2_div"></div>
+<h2>lib2_3</h2>
+<div id="lib2_3_div"></div>
+<h2>lib2_4</h2>
+<div id="lib2_4_div"></div>
+<h2>lib2_5</h2>
+<div id="lib2_5_div"></div>
+<h2>lib2_6</h2>
+<div id="lib2_6_div"></div>
+<h2>lib2_7</h2>
+<div id="lib2_7_div"></div>
+<h2>lib3_0</h2>
+<div id="lib3_0_div"></div>
+<h2>lib3_1</h2>
+<div id="lib3_1_div"></div>
+<h2>lib3_2</h2>
+<div id="lib3_2_div"></div>
+<h2>lib3_3</h2>
+<div id="lib3_3_div"></div>
+<h2>lib3_4</h2>
+<div id="lib3_4_div"></div>
+<h2>lib3_5</h2>
+<div id="lib3_5_div"></div>
+<h2>lib3_6</h2>
+<div id="lib3_6_div"></div>
+<h2>lib3_7</h2>
+<div id="lib3_7_div"></div>
+<h2>lib4_0</h2>
+<div id="lib4_0_div"></div>
+<h2>lib4_1</h2>
+<div id="lib4_1_div"></div>
+<h2>lib4_2</h2>
+<div id="lib4_2_div"></div>
+<h2>lib4_3</h2>
+<div id="lib4_3_div"></div>
+<h2>lib4_4</h2>
+<div id="lib4_4_div"></div>
+<h2>lib4_5</h2>
+<div id="lib4_5_div"></div>
+<h2>lib4_6</h2>
+<div id="lib4_6_div"></div>
+<h2>lib4_7</h2>
+<div id="lib4_7_div"></div>
+<h2>lib5_0</h2>
+<div id="lib5_0_div"></div>
+<h2>lib5_1</h2>
+<div id="lib5_1_div"></div>
+<h2>lib5_2</h2>
+<div id="lib5_2_div"></div>
+<h2>lib5_3</h2>
+<div id="lib5_3_div"></div>
+<h2>lib5_4</h2>
+<div id="lib5_4_div"></div>
+<h2>lib5_5</h2>
+<div id="lib5_5_div"></div>
+<h2>lib5_6</h2>
+<div id="lib5_6_div"></div>
+<h2>lib5_7</h2>
+<div id="lib5_7_div"></div>
+<h2>lib6_0</h2>
+<div id="lib6_0_div"></div>
+<h2>lib6_1</h2>
+<div id="lib6_1_div"></div>
+<h2>lib6_2</h2>
+<div id="lib6_2_div"></div>
+<h2>lib6_3</h2>
+<div id="lib6_3_div"></div>
+<h2>lib6_4</h2>
+<div id="lib6_4_div"></div>
+<h2>lib6_5</h2>
+<div id="lib6_5_div"></div>
+<h2>lib6_6</h2>
+<div id="lib6_6_div"></div>
+<h2>lib6_7</h2>
+<div id="lib6_7_div"></div>
+<h2>lib7_0</h2>
+<div id="lib7_0_div"></div>
+<h2>lib7_1</h2>
+<div id="lib7_1_div"></div>
+<h2>lib7_2</h2>
+<div id="lib7_2_div"></div>
+<h2>lib7_3</h2>
+<div id="lib7_3_div"></div>
+<h2>lib7_4</h2>
+<div id="lib7_4_div"></div>
+<h2>lib7_5</h2>
+<div id="lib7_5_div"></div>
+<h2>lib7_6</h2>
+<div id="lib7_6_div"></div>
+<h2>lib7_7</h2>
+<div id="lib7_7_div"></div>
+<h2>lib8_0</h2>
+<div id="lib8_0_div"></div>
+<h2>lib8_1</h2>
+<div id="lib8_1_div"></div>
+<h2>lib8_2</h2>
+<div id="lib8_2_div"></div>
+<h2>lib8_3</h2>
+<div id="lib8_3_div"></div>
+<h2>lib8_4</h2>
+<div id="lib8_4_div"></div>
+<h2>lib8_5</h2>
+<div id="lib8_5_div"></div>
+<h2>lib8_6</h2>
+<div id="lib8_6_div"></div>
+<h2>lib8_7</h2>
+<div id="lib8_7_div"></div>
+</body>
+</div>
+</html>

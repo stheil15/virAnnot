@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>tblastx</BlastOutput_program>
+  <BlastOutput_version>TBLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/home/stheil/save/db/all_vir/all_vir_nucl.fna</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-56_135</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>156</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>54</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-56_63</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>412</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>HE579578.1</Hit_id>
+  <Hit_def>Uncultured chrysovirus genomic RNA containing putative RdRp, contig 447Pv1_454_1</Hit_def>
+  <Hit_accession>HE579578.1</Hit_accession>
+  <Hit_len>2218</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>117.452</Hsp_bit-score>
+      <Hsp_score>250</Hsp_score>
+      <Hsp_evalue>9.25165e-25</Hsp_evalue>
+      <Hsp_query-from>100</Hsp_query-from>
+      <Hsp_query-to>324</Hsp_query-to>
+      <Hsp_hit-from>1362</Hsp_hit-from>
+      <Hsp_hit-to>1586</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>42</Hsp_identity>
+      <Hsp_positive>50</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>75</Hsp_align-len>
+      <Hsp_qseq>GKWITCLDYPDFNASHSCRMQRLVVECIADWCKSKGFKAHEDLDTVTDWYAKSFENQYFRVPTTGEWHRANSTMF</Hsp_qseq>
+      <Hsp_hseq>GRWILCLDYSDFNAQHSNAAQKAVITCITDWARKKGFVAHDDFDRVAQWYADSFENQWFQRPDTHTWEKITSGMF</Hsp_hseq>
+      <Hsp_midline>G+WI CLDY DFNA HS   Q+ V+ CI DW + KGF AH+D D V  WYA SFENQ+F+ P T  W +  S MF</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>60.1762</Hsp_bit-score>
+      <Hsp_score>125</Hsp_score>
+      <Hsp_evalue>1.59479e-07</Hsp_evalue>
+      <Hsp_query-from>108</Hsp_query-from>
+      <Hsp_query-to>326</Hsp_query-to>
+      <Hsp_hit-from>1370</Hsp_hit-from>
+      <Hsp_hit-to>1588</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>-1</Hsp_hit-frame>
+      <Hsp_identity>34</Hsp_identity>
+      <Hsp_positive>41</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>73</Hsp_align-len>
+      <Hsp_qseq>KNMVELALCHSPVVGTLKY*FSKLLAYQSVTVSKSSCALNPLLLHQSAIHSTTSLCILHEWLALKSG*SRHVI</Hsp_qseq>
+      <Hsp_hseq>ENIPDVIFSHVWVSGLWNH*FSKLSAYH*ATLSKSSWATKPFLRAQSVIHVITAF*AAFECCALKSE*SRHRI</Hsp_hseq>
+      <Hsp_midline>+N+ ++   H  V G   +*FSKL AY   T+SKSS A  P L  QS IH  T+     E  ALKS *SRH I</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>2</Hit_num>
+  <Hit_id>KT962972.1</Hit_id>
+  <Hit_def>Sclerotinia sclerotiorum botybirnavirus 2 segment RNA 1, complete sequence</Hit_def>
+  <Hit_accession>KT962972.1</Hit_accession>
+  <Hit_len>6159</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>106.455</Hsp_bit-score>
+      <Hsp_score>226</Hsp_score>
+      <Hsp_evalue>1.89081e-21</Hsp_evalue>
+      <Hsp_query-from>100</Hsp_query-from>
+      <Hsp_query-to>324</Hsp_query-to>
+      <Hsp_hit-from>4547</Hsp_hit-from>
+      <Hsp_hit-to>4771</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>38</Hsp_identity>
+      <Hsp_positive>51</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>75</Hsp_align-len>
+      <Hsp_qseq>GKWITCLDYPDFNASHSCRMQRLVVECIADWCKSKGFKAHEDLDTVTDWYAKSFENQYFRVPTTGEWHRANSTMF</Hsp_qseq>
+      <Hsp_hseq>GDWVVCLDYTDFNASHSLKLMRLIIEVATEWAISKGFKPTEEFLKISDWYAKSFENSWYYNPESKEWVRVLSGLF</Hsp_hseq>
+      <Hsp_midline>G W+ CLDY DFNASHS ++ RL++E   +W  SKGFK  E+   ++DWYAKSFEN ++  P + EW R  S +F</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>48.2628</Hsp_bit-score>
+      <Hsp_score>99</Hsp_score>
+      <Hsp_evalue>0.00061518</Hsp_evalue>
+      <Hsp_query-from>117</Hsp_query-from>
+      <Hsp_query-to>305</Hsp_query-to>
+      <Hsp_hit-from>4564</Hsp_hit-from>
+      <Hsp_hit-to>4752</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>-1</Hsp_hit-frame>
+      <Hsp_identity>30</Hsp_identity>
+      <Hsp_positive>35</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>63</Hsp_align-len>
+      <Hsp_qseq>LCHSPVVGTLKY*FSKLLAYQSVTVSKSSCALNPLLLHQSAIHSTTSLCILHEWLALKSG*SR</Hsp_qseq>
+      <Hsp_hseq>LTHSLLSGL*YHEFSKLFAYQSEILRNSSVGLNPLEMAHSVATSMINLISLSE*EALKSV*SR</Hsp_hseq>
+      <Hsp_midline>L HS + G   + FSKL AYQS  +  SS  LNPL +  S   S  +L  L E  ALKS *SR</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>3</Hit_num>
+  <Hit_id>KP774592.1</Hit_id>
+  <Hit_def>Sclerotinia sclerotiorum botybirnavirus 1 segment 1, complete sequence</Hit_def>
+  <Hit_accession>KP774592.1</Hit_accession>
+  <Hit_len>6457</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>102.79</Hsp_bit-score>
+      <Hsp_score>218</Hsp_score>
+      <Hsp_evalue>2.39952e-20</Hsp_evalue>
+      <Hsp_query-from>115</Hsp_query-from>
+      <Hsp_query-to>381</Hsp_query-to>
+      <Hsp_hit-from>4891</Hsp_hit-from>
+      <Hsp_hit-to>5157</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>1</Hsp_hit-frame>
+      <Hsp_identity>42</Hsp_identity>
+      <Hsp_positive>57</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>89</Hsp_align-len>
+      <Hsp_qseq>CLDYPDFNASHSCRMQRLVVECIADWCKSKGFKAHEDLDTVTDWYAKSFENQYFRVPTTGEWHRANSTMFLRDGQTHPTHSIEIGRASR</Hsp_qseq>
+      <Hsp_hseq>CADYPDFGATHSCRQQRLVLECILEVACAQGFLPDKEFLRIHEWYAKSFENQYWMRPDTYEWYRATTGMFSGVVQTTLINTVMNGALRR</Hsp_hseq>
+      <Hsp_midline>C DYPDF A+HSCR QRLV+ECI +   ++GF   ++   + +WYAKSFENQY+  P T EW+RA + MF    QT   +++  G   R</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>68.8822</Hsp_bit-score>
+      <Hsp_score>144</Hsp_score>
+      <Hsp_evalue>3.81899e-10</Hsp_evalue>
+      <Hsp_query-from>108</Hsp_query-from>
+      <Hsp_query-to>368</Hsp_query-to>
+      <Hsp_hit-from>4884</Hsp_hit-from>
+      <Hsp_hit-to>5144</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>-3</Hsp_hit-frame>
+      <Hsp_identity>36</Hsp_identity>
+      <Hsp_positive>47</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>87</Hsp_align-len>
+      <Hsp_qseq>PISIECVGCVWPSRKNMVELALCHSPVVGTLKY*FSKLLAYQSVTVSKSSCALNPLLLHQSAIHSTTSLCILHEWLALKSG*SRHVI</Hsp_qseq>
+      <Hsp_hseq>PFMTVLIKVVWTTPENIPVVALYHS*VSGLIQYWFSKLLAYHSWMRKNSLSGKNPWAQATSSMHSRTSRCWRQECVAPKSG*SAHTL</Hsp_hseq>
+      <Hsp_midline>P     +  VW + +N+  +AL HS V G ++Y FSKLLAY S     S    NP     S++HS TS C   E +A KSG*S H +</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>4</Hit_num>
+  <Hit_id>NC_027138.1</Hit_id>
+  <Hit_def>Sclerotinia sclerotiorum botybirnavirus 1 segment 1, complete sequence</Hit_def>
+  <Hit_accession>NC_027138.1</Hit_accession>
+  <Hit_len>6457</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>102.79</Hsp_bit-score>
+      <Hsp_score>218</Hsp_score>
+      <Hsp_evalue>2.39952e-20</Hsp_evalue>
+      <Hsp_query-from>115</Hsp_query-from>
+      <Hsp_query-to>381</Hsp_query-to>
+      <Hsp_hit-from>4891</Hsp_hit-from>
+      <Hsp_hit-to>5157</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>1</Hsp_hit-frame>
+      <Hsp_identity>42</Hsp_identity>
+      <Hsp_positive>57</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>89</Hsp_align-len>
+      <Hsp_qseq>CLDYPDFNASHSCRMQRLVVECIADWCKSKGFKAHEDLDTVTDWYAKSFENQYFRVPTTGEWHRANSTMFLRDGQTHPTHSIEIGRASR</Hsp_qseq>
+      <Hsp_hseq>CADYPDFGATHSCRQQRLVLECILEVACAQGFLPDKEFLRIHEWYAKSFENQYWMRPDTYEWYRATTGMFSGVVQTTLINTVMNGALRR</Hsp_hseq>
+      <Hsp_midline>C DYPDF A+HSCR QRLV+ECI +   ++GF   ++   + +WYAKSFENQY+  P T EW+RA + MF    QT   +++  G   R</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>68.8822</Hsp_bit-score>
+      <Hsp_score>144</Hsp_score>
+      <Hsp_evalue>3.81899e-10</Hsp_evalue>
+      <Hsp_query-from>108</Hsp_query-from>
+      <Hsp_query-to>368</Hsp_query-to>
+      <Hsp_hit-from>4884</Hsp_hit-from>
+      <Hsp_hit-to>5144</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>-3</Hsp_hit-frame>
+      <Hsp_identity>36</Hsp_identity>
+      <Hsp_positive>47</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>87</Hsp_align-len>
+      <Hsp_qseq>PISIECVGCVWPSRKNMVELALCHSPVVGTLKY*FSKLLAYQSVTVSKSSCALNPLLLHQSAIHSTTSLCILHEWLALKSG*SRHVI</Hsp_qseq>
+      <Hsp_hseq>PFMTVLIKVVWTTPENIPVVALYHS*VSGLIQYWFSKLLAYHSWMRKNSLSGKNPWAQATSSMHSRTSRCWRQECVAPKSG*SAHTL</Hsp_hseq>
+      <Hsp_midline>P     +  VW + +N+  +AL HS V G ++Y FSKLLAY S     S    NP     S++HS TS C   E +A KSG*S H +</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>5</Hit_num>
+  <Hit_id>NC_017990.1</Hit_id>
+  <Hit_def>Botrytis porri RNA virus 1 RNA 1, complete genome</Hit_def>
+  <Hit_accession>NC_017990.1</Hit_accession>
+  <Hit_len>6215</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>98.2075</Hsp_bit-score>
+      <Hsp_score>208</Hsp_score>
+      <Hsp_evalue>5.74737e-19</Hsp_evalue>
+      <Hsp_query-from>100</Hsp_query-from>
+      <Hsp_query-to>342</Hsp_query-to>
+      <Hsp_hit-from>4637</Hsp_hit-from>
+      <Hsp_hit-to>4879</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>38</Hsp_identity>
+      <Hsp_positive>50</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>81</Hsp_align-len>
+      <Hsp_qseq>GKWITCLDYPDFNASHSCRMQRLVVECIADWCKSKGFKAHEDLDTVTDWYAKSFENQYFRVPTTGEWHRANSTMFLRDGQT</Hsp_qseq>
+      <Hsp_hseq>GRWIVCLDYADFNAQHSGMAQRSVIRTLYKWAKMMGFQPTEEFNRISEWYADSFTNQWFQRPDNKQWVRAVSGMFSGVRQT</Hsp_hseq>
+      <Hsp_midline>G+WI CLDY DFNA HS   QR V+  +  W K  GF+  E+ + +++WYA SF NQ+F+ P   +W RA S MF    QT</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>2441847</Statistics_db-num>
+      <Statistics_db-len>4250264092</Statistics_db-len>
+      <Statistics_hsp-len>55</Statistics_hsp-len>
+      <Statistics_eff-space>105161155184</Statistics_eff-space>
+      <Statistics_kappa>0.133956144488482</Statistics_kappa>
+      <Statistics_lambda>0.317605957635731</Statistics_lambda>
+      <Statistics_entropy>0.401214524497119</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

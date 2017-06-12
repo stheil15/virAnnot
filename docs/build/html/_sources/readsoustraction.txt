@@ -1,0 +1,19 @@
+ReadSoustraction
+================
+
+ReadSoustraction module use bowtie2 to map reads against a reference. The output
+ is directly piped to samtools for bam convertion and again piped to samtools to
+ select unmapped paired reads (-f 12 -F 256). The pipe continues with bamtofastq
+ tool to create two fastq files (r1 and r2).
+
+.. code-block:: python3
+
+  def _create_cmd (self):
+    cmd = ''
+    cmd += self.params['bin']['bowtie'] + ' -p ' + str(self.n_cpu)
+    cmd += ' -x ' + self.db
+    cmd += ' -1 ' + self.i1 + ' -2 ' + self.i2 + ' | '
+    cmd += self.params['bin']['samtools'] + ' view -bS - '
+    cmd += ' | ' + self.params['bin']['samtools'] + ' view -u -f 12 -F 256 - | ' + self.params['bin']['bedtools'] + ' bamtofastq -i - -fq ' + self.o1 + ' -fq2 ' + self.o2
+    log.debug(cmd)
+    return cmd

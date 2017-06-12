@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>blastx</BlastOutput_program>
+  <BlastOutput_version>BLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/bank/blastdb/nr</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-58_190</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>161</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>12</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_61</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>545</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|389656397|ref|YP_006390636.1|</Hit_id>
+  <Hit_def>cap-pol fusion protein [Botrytis porri botybirnavirus 1] &gt;gi|379647710|gb|AFD04798.1| cap-pol fusion protein [Botrytis porri botybirnavirus 1]</Hit_def>
+  <Hit_accession>YP_006390636</Hit_accession>
+  <Hit_len>1902</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>126.716</Hsp_bit-score>
+      <Hsp_score>317</Hsp_score>
+      <Hsp_evalue>2.29511e-29</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>495</Hsp_query-to>
+      <Hsp_hit-from>1592</Hsp_hit-from>
+      <Hsp_hit-to>1755</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>66</Hsp_identity>
+      <Hsp_positive>97</Hsp_positive>
+      <Hsp_gaps>1</Hsp_gaps>
+      <Hsp_align-len>165</Hsp_align-len>
+      <Hsp_qseq>HGNVEANKPSVAAQRVTEFYSQWAMLARRGMDRQFCQRVFEQLAIFEIDKDNKVGKHTVLRFLYGTKRGTGLGLYPIAEMPDLRDRNEDGEVQEVDATVSEELKVAEIIQQNKATRKFKASGDFVSWIEEKYGVTWRHLGKQQAASLFAAANLMEGGAKANVQHQ</Hsp_qseq>
+      <Hsp_hseq>HGNVENKQASVGQQRITEMYSQACMLVRRGLDPARWQKVFEDLAIYEIGYTTQVSRGQCLKYLYGSKRSGGLGLMPLNTATDRVAKLPVEAEEAAEEVDVAQI-LADSLVEGRVANKFKASSDYVGTLEREYGVVWKHNGKIKATAQVAASNLVEGITNVGAEHE</Hsp_hseq>
+      <Hsp_midline>HGNVE  + SV  QR+TE YSQ  ML RRG+D    Q+VFE LAI+EI    +V +   L++LYG+KR  GLGL P+    D   +      +  +     ++ +A+ + + +   KFKAS D+V  +E +YGV W+H GK +A +  AA+NL+EG      +H+</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>141</Statistics_hsp-len>
+      <Statistics_eff-space>1113601076640</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>106</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_83</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>469</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|389656397|ref|YP_006390636.1|</Hit_id>
+  <Hit_def>cap-pol fusion protein [Botrytis porri botybirnavirus 1] &gt;gi|379647710|gb|AFD04798.1| cap-pol fusion protein [Botrytis porri botybirnavirus 1]</Hit_def>
+  <Hit_accession>YP_006390636</Hit_accession>
+  <Hit_len>1902</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>121.709</Hsp_bit-score>
+      <Hsp_score>304</Hsp_score>
+      <Hsp_evalue>6.45002e-28</Hsp_evalue>
+      <Hsp_query-from>29</Hsp_query-from>
+      <Hsp_query-to>469</Hsp_query-to>
+      <Hsp_hit-from>1199</Hsp_hit-from>
+      <Hsp_hit-to>1345</Hsp_hit-to>
+      <Hsp_query-frame>2</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>60</Hsp_identity>
+      <Hsp_positive>85</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>147</Hsp_align-len>
+      <Hsp_qseq>WAHSEDDFTQSLYIGNTVGRPHRDVDWDDETKKRSQPGKEIHVITSGGTRESTEQELRAMLMDTLEAEAVYKPGNSPSFADFYKKRANWMIRGSMSGEKNVAKDDKAVWLAINSEGLGVRINTTKTDVAEYVTAGQVWAVLENAPIH</Hsp_qseq>
+      <Hsp_hseq>FQHTPDDLVQCLYIANMVGRPHRECDWDDEVKKRTRNVGEIKIARNGKMVPADESQLEEEILQMLLKEGSIRVKKPKTFEQFYSSRGNWMIKGSASGERMLISEYKEIVGQVKGLGVELRERATKTDVAEYVSAQAVLALLDDMAIH</Hsp_hseq>
+      <Hsp_midline>+ H+ DD  Q LYI N VGRPHR+ DWDDE KKR++   EI +  +G    + E +L   ++  L  E   +     +F  FY  R NWMI+GS SGE+ +  + K +   +   G+ +R   TKTDVAEYV+A  V A+L++  IH</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>119</Statistics_hsp-len>
+      <Statistics_eff-space>1130298948584</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>169</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_139</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>345</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|389656397|ref|YP_006390636.1|</Hit_id>
+  <Hit_def>cap-pol fusion protein [Botrytis porri botybirnavirus 1] &gt;gi|379647710|gb|AFD04798.1| cap-pol fusion protein [Botrytis porri botybirnavirus 1]</Hit_def>
+  <Hit_accession>YP_006390636</Hit_accession>
+  <Hit_len>1902</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>67.0106</Hsp_bit-score>
+      <Hsp_score>162</Hsp_score>
+      <Hsp_evalue>8.11943e-10</Hsp_evalue>
+      <Hsp_query-from>48</Hsp_query-from>
+      <Hsp_query-to>341</Hsp_query-to>
+      <Hsp_hit-from>694</Hsp_hit-from>
+      <Hsp_hit-to>792</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>36</Hsp_identity>
+      <Hsp_positive>57</Hsp_positive>
+      <Hsp_gaps>3</Hsp_gaps>
+      <Hsp_align-len>100</Hsp_align-len>
+      <Hsp_qseq>MSLDVLCESVFTCFEENGVALSSQNFVAQAALRLGDVLPEGLSHLTMPVVEKLLGEKFPDVNQYIPHGPLELAQHLTA--NYNERPLRFSSYLYLEDQPE</Hsp_qseq>
+      <Hsp_hseq>MAEEVLTDSIVSTVVEAGIEYTNPAYTGTVEQELGRHLYHGYAHLIMPIVEKLLGDTFPELTQYLADSVLAL-EHCTTGRDLDRKKFRASSYLCMEETPE</Hsp_hseq>
+      <Hsp_midline>M+ +VL +S+ +   E G+  ++  +       LG  L  G +HL MP+VEKLLG+ FP++ QY+    L L +H T   + + +  R SSYL +E+ PE</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>83</Statistics_hsp-len>
+      <Statistics_eff-space>1119387642880</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=generator content="blast2html; see https://github.com/thehyve/blast2html/">
+    
+    <title>Blast output</title>
+    
+    <style>
+      body {
+      color: #333333;
+      font-family: Arial,Sans-Serif;
+      }
+
+      :link {
+      color: #336699;
+      }
+
+      .right {
+      float: right;
+      }
+
+      /* Galaxy with html sanitization enabled strips the header of this html page. If so, show the user a warning.*/
+      #strip_html_warning {
+      display: none;
+      }
+      
+      #content {
+      margin: 0 2em;
+      padding: 0.5em;
+      border: 1px solid #888888;
+      background-color: #d3dff5;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+      color: #2A6979;
+      font-family: arial,verdana,sans-serif;
+      letter-spacing: -1px;
+      margin: 1.2em 0 0.3em;
+      }
+
+      h1 {
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 150%;
+      padding-bottom: 0.1em;
+      }
+
+      h2 {
+      font-size: 120%;
+      font-weight: bold;
+      }
+
+      h4.darkHeader {
+      color: #4D4D4D;
+      letter-spacing: 0;
+      font-weight: bold;
+      }
+
+      #nodata {
+      font-weight: bold;
+      }
+
+      .index {
+      margin-bottom: 3em;
+      }
+      .index div.indexentry {
+      margin: 1.2em 1.6em;
+      font-weight: bold;
+      font-size: 100%;
+      }
+      
+      .headerdata {
+      font-size: 90%;
+      }
+      .headerdata .param {
+      font-weight: bold;
+      text-align: right;
+      padding: 0 1em;
+      }
+
+      .grey {
+      background-color: #eeeeee;
+      border: 1px solid #cccccc;
+      padding: 1em;
+      }
+
+      .white {
+      background-color: white;
+      border: 1px solid #cccccc;
+      padding: 1.5em 2%;
+      }
+
+      .graphicrow {
+      clear: left;
+      width: 100%;
+      }
+
+      .graphicitem {
+      float: left;
+      }
+
+
+      
+      .graphics .grey {
+      text-align: center;
+      }
+
+      .graphic {
+      background-color: white;
+      border: 2px solid black;
+      padding: 1.5em;
+      margin: auto;
+      }
+
+      .centered, .defline, div.legend, div.tablewrapper {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .defline {
+      background-color: white;
+      border: 1px solid black;
+      margin: .5em auto;
+      padding-left: .2em;
+      padding-right: .2em;
+      max-width: 50em;
+      text-align: left;
+      height: 2.8em;
+      overflow-y: hidden;
+      }
+
+      div.legend {
+      max-width: 40em;
+      }
+      div.legend div {
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-spacing: 0;
+      }
+      div.legend div .graphicitem {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      }
+
+      div.tablewrapper {
+      width: 50%;
+      min-width: 60em;
+      }
+
+      /* For small widths we give the graphic 100% */
+      @media (max-width: 72.5em) {
+      div.tablewrapper {
+      width: 100%;
+      min-width: 0px;
+      }
+      }
+
+      .scale {
+      width: 100%;
+      margin: .5em 0;
+      font-weight: bold;
+      }
+      .scale div {
+      color: red;
+      text-align: left;
+      }
+      .scale .graphicrow {
+      margin: .5em 0 .5em 0;
+      color: white;
+      }
+      .scale .graphicitem {
+      position: relative;
+      }
+      .scale .graphicitem div {
+      margin: 0 1px;
+      padding: 0 2px;
+      text-align: right;
+      background-color: red;
+      color: white;
+      }
+      .scale .graphicitem:first-child div {
+      margin-left: 0px;
+      }
+      .scale .graphicitem:last-child div {
+      margin-right: 0px;
+      }
+      .scale .graphicitem .lastlabel {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      background-color: transparent;
+      color: red;
+      }
+
+      a.matchresult {
+      display: block;
+      margin: 0;
+      padding: 0;
+      }
+      div.matchrow {
+      margin-top: 4px;
+      }
+      div.matchrow, div.matchitem {
+      height: 4px;
+      }
+
+      
+      table.descriptiontable {
+      font-size: 85%;
+      border: 1px solid #97b0c8;
+      border-spacing: 0;
+      color: #222222;
+      line-height: 1.3em;
+      background-color: white;
+      }
+      table.descriptiontable col:first-child {
+      width: 100%;
+      }
+      table.descriptiontable tr:hover {
+      background-color: #D5DEE3;
+      }
+      table.descriptiontable th {
+      color: #14376C;
+      font-weight: normal;
+      background-color: #F0F0F0;
+      background: linear-gradient(#FFFFFF, #F0F0F0);
+      border-bottom: 1px solid #D4DFE9;
+      border-right: 1px solid #CFCFCF;
+      border-left: 0px solid black;
+      border-top: 0px solid black;
+      }
+      table.descriptiontable td {
+      overflow: hidden;
+      text-align: center;
+      padding: .4em .8em;
+      }
+      table.descriptiontable td div {
+      width: 1em;
+      overflow: visible;
+      white-space: nowrap;
+      text-align: left;
+      }
+
+
+      
+      .alignments .white {
+      padding: 1.5em 1em;
+      }
+      
+      .alignment {
+      border-top: 1px solid black;
+      padding-left: 1em;
+      padding-right: 1em;
+      }
+      
+      div.linkheader {
+      padding-top: .2em;
+      font-size: 85%;
+      color: #14376C;
+      }
+      div.linkheader a.linkheader {
+      margin-right: 1em;
+      }
+      div.linkheader .right a {
+      text-decoration: none;
+      }
+
+      .title .hittitle {
+      color: #222222;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo {
+      font-size: 80%;
+      margin-top: 0;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo .b {
+      color: #606060;
+      font-weight: bold;
+      font-size: 90%;
+      }
+
+      .moretitles {
+      margin: 1.2em;
+      }
+      .moretitles .titleinfo {
+      margin: 0;
+      padding: 0;
+      }
+      .moretitles .hittitle {
+      margin: .4em 0 .2em 0;
+      padding: 0;
+      }
+      
+      a.showmoretitles {
+      font-size: 75%;
+      color: #336699;
+      font-weight: bold;
+      margin-top: 0;
+      }
+      a.showmoretitles:hover {
+      }
+
+      .hotspot {
+      color: #606060;
+      font-family: verdana, arial, sans-serif;
+      margin-bottom: 2.5em;
+      }
+
+      .hotspot p.range {
+      font-size: 70%;
+      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: .2em;
+      }
+      .hotspot p.range span.range {
+      font-weight: bold;
+      }
+      .hotspot p.range a.range {
+      margin-left: .5em;
+      }
+
+      table.hotspotstable {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      text-align: left;
+      border-collapse: collapse;
+      }
+      table.hotspotstable th, table.hotspotstable td {
+      padding: .1em 1em;
+      }
+      table.hotspotstable th {
+      font-size: 70%;
+      }
+      table.hotspotstable td {
+      min-width: 7em;
+      color: #222222;
+      font-size: 80%;
+      }
+
+      pre.alignmentgraphic {
+      color: #222222;
+      }
+
+      footer {
+      text-align: center;
+      color: #cccccc;
+      font-size: 70%;
+      margin-top: 1em;
+      }
+      footer :link {
+      color: #5588cc;
+      }
+      
+    </style>
+
+    <script type="text/javascript">
+      function toggle_visibility(id) {
+          var e = document.getElementById(id);
+          if(e.style.display != 'block')
+              e.style.display = 'block';
+          else
+              e.style.display = 'none';
+      }
+    </script>
+
+  </head>
+
+  
+  <body>
+    
+    <div id="strip_html_warning">
+      <!-- This div should be hidden by the header css block. Galaxy
+      strips all css, breaking this page but making this warning
+      visible. This warning contains some ugly old skool tabular html
+      layout that is not stripped. -->
+      <table bgcolor="#FFE5C9"><tr><td><font color="red"><b>
+                <font size=5><center>This html page seems to have been stripped by Galaxy.</center></font>
+                Disable Galaxy's html sanitization feature to view the full page (see <font face=monospace>sanitize_all_html</font> in your galaxy's universe_wsgi.ini), or download this page instead of viewing it in Galaxy.
+      </b></font></td></tr></table>
+    </div>
+    
+    <div id=content>
+
+
+      <section class=index>
+        <h1>Queries</h1>
+
+        <div class=indexentry><a href="#match14">
+            ds2016-58_146: No definition line
+            (335 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match87">
+            ds2016-58_107: No definition line
+            (405 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match127">
+            ds2016-58_88: No definition line
+            (453 letters, 2 hits)
+        </a></div>
+
+      </section>
+
+      
+      <section class=match id=match14>
+      
+        <h1>Nucleotide Sequence (335 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_76</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>489</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/save/stheil/db/refseq_vir/viral.genomic.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 3 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline14>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>34</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>68</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>102</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>136</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>170</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>204</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>238</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>272</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>306</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.656716417910447%">
+                        <div>335</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline14").innerHTML="Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds"'
+                   onmouseout='document.getElementById("defline14").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 79.70149253731343%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 20.298507462686565%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds"
+                              id="description1">
+                        Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds
+                  </a></div></td>
+                  <td>90.0</td>
+                  <td>90.0</td>
+                  <td>27%</td>
+                  <td>9.029e-18</td>
+                  <td>46%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign">NC_033494</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 1967
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 439 to 705</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign&amp;from=439&amp;to=705">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=graph&amp;log$=nuclalign&amp;from=439&amp;to=705">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>90.0 bits(190)</td>
+                      <td>0.0</td>
+                      <td>41/89(46%)</td>
+                      <td>0/89(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  TRLLILGSGASRVVTKYLVRGVSSVTFVDTSEDALSTLASHITSTGLEARV*AECVCQVAWSYLREYDEEPYDTVVATKCVGLILAHAP  267
+                +R+L+LGSG+SR +   L R  +S  FVDT++DAL TL  ++ S GL A + A  V Q AW YL   +   YD ++ATKC+GL+ A  P
+Subject    439  SRILVLGSGSSRGMIPILRRLPASAVFVDTNQDALDTLEDNLASVGLLAPIDATFVNQDAWEYLENAEVASYDLILATKCMGLVYAVDP  705</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match87>
+      
+        <h1>Nucleotide Sequence (405 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_76</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>489</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/save/stheil/db/refseq_vir/viral.genomic.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 3 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline87>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.123456790123456%">
+                        <div>41</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.123456790123456%">
+                        <div>82</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.123456790123456%">
+                        <div>123</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.123456790123456%">
+                        <div>164</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.123456790123456%">
+                        <div>205</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.123456790123456%">
+                        <div>246</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.123456790123456%">
+                        <div>287</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.123456790123456%">
+                        <div>328</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.123456790123456%">
+                        <div>369</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.88888888888889%">
+                        <div>405</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline87").innerHTML="Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds"'
+                   onmouseout='document.getElementById("defline87").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 48.888888888888886%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 23.456790123456788%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: black; width: 25.925925925925924%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.728395061728395%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds"
+                              id="description1">
+                        Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds
+                  </a></div></td>
+                  <td>53.3</td>
+                  <td>164.2</td>
+                  <td>31%</td>
+                  <td>5.047e-15</td>
+                  <td>33%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign">NC_033494</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Botryosphaeria dothidea virus 1 strain YZN115 segment RNA3 hypothetical protein gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 1967
+                    <span class=b>Number of Matches:</span> 4
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 802 to 996</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign&amp;from=802&amp;to=996">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=graph&amp;log$=nuclalign&amp;from=802&amp;to=996">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>53.3 bits(110)</td>
+                      <td>0.0</td>
+                      <td>25/65(38%)</td>
+                      <td>0/65(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        3  EWEGKPIATGMDPAMFDLATVGGRYDNDIGYSWDISHPDLDGVARFSSPFADHQVQVWHVFHFRA  197
+                E  G PI     P  F LAT+ GRY  D+ Y+   +   LD VA+ +     H VQ W  +H+RA
+Subject    802  ERHGTPIPDVTAPEDFALATIAGRYAGDVCYTAQTTCTALDLVAKLTFDSVGHGVQEWAAYHYRA  996</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 601 to 705</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign&amp;from=601&amp;to=705">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=graph&amp;log$=nuclalign&amp;from=601&amp;to=705">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>46.9 bits(96)</td>
+                      <td>0.0</td>
+                      <td>16/35(46%)</td>
+                      <td>0/35(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      294  YVCDDAWEYLKGLDTEQFDLIIALKCVGLILSSGP  398
+                +V  DAWEYL+  +   +DLI+A KC+GL+ +  P
+Subject    601  FVNQDAWEYLENAEVASYDLILATKCMGLVYAVDP  705</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 801 to 998</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign&amp;from=801&amp;to=998">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=graph&amp;log$=nuclalign&amp;from=801&amp;to=998">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>36.8 bits(74)</td>
+                      <td>0.0</td>
+                      <td>22/66(33%)</td>
+                      <td>0/66(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  RARK*KTCQTWT*WSAKGEEKRATPSRSGCEISQE*PMSLS*RPPTVARSNIAGSMPVAMGFPSHS  198
+                RAR      +WT W  + +   AT SR+   +   *  S +*RP  VAR+  +G++   +G P  S
+Subject    801  RAR*W*AAHSWTPWPTESKVSLATRSRAVQVVCAV*HTSPA*RPAMVARAKSSGAVTSGIGVPWRS  998</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 4: 612 to 686</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=genbank&amp;log$=nuclalign&amp;from=612&amp;to=686">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033494.1?report=graph&amp;log$=nuclalign&amp;from=612&amp;to=686">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>27.2 bits(53)</td>
+                      <td>0.0</td>
+                      <td>13/25(52%)</td>
+                      <td>0/25(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      313  SPTHLSAMMRSNCSVSRPLRYSHAS  387
+                SP H  A MRS  + S   +YSHAS
+Subject    612  SPMHFVARMRS*DATSAFSKYSHAS  686</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match127>
+      
+        <h1>Nucleotide Sequence (453 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_76</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>489</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/save/stheil/db/refseq_vir/viral.genomic.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 3 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline127>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.154525386313466%">
+                        <div>46</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.154525386313466%">
+                        <div>92</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.154525386313466%">
+                        <div>138</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.154525386313466%">
+                        <div>184</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.154525386313466%">
+                        <div>230</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.154525386313466%">
+                        <div>276</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.154525386313466%">
+                        <div>322</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.154525386313466%">
+                        <div>368</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.154525386313466%">
+                        <div>414</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.609271523178808%">
+                        <div>453</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit2"
+                   onmouseover='document.getElementById("defline127").innerHTML="Cladosporium cladosporioides virus 1 putative RNA-dependent RNA polymerase gene, complete cds"'
+                   onmouseout='document.getElementById("defline127").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Cladosporium cladosporioides virus 1 putative RNA-dependent RNA polymerase gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 84.7682119205298%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 15.231788079470197%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline127").innerHTML="Botryosphaeria dothidea virus 1 strain YZN115 RNA-dependent RNA polymerase (RdRp) gene, complete cds"'
+                   onmouseout='document.getElementById("defline127").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Botryosphaeria dothidea virus 1 strain YZN115 RNA-dependent RNA polymerase (RdRp) gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 80.79470198675496%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 2.649006622516556%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 16.556291390728475%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit2"
+                              title="Cladosporium cladosporioides virus 1 putative RNA-dependent RNA polymerase gene, complete cds"
+                              id="description2">
+                        Cladosporium cladosporioides virus 1 putative RNA-dependent RNA polymerase gene, complete cds
+                  </a></div></td>
+                  <td>117.0</td>
+                  <td>117.0</td>
+                  <td>28%</td>
+                  <td>1.057e-25</td>
+                  <td>34%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_024704.1?report=genbank&amp;log$=nuclalign">NC_024704</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Botryosphaeria dothidea virus 1 strain YZN115 RNA-dependent RNA polymerase (RdRp) gene, complete cds"
+                              id="description1">
+                        Botryosphaeria dothidea virus 1 strain YZN115 RNA-dependent RNA polymerase (RdRp) gene, complete cds
+                  </a></div></td>
+                  <td>165.6</td>
+                  <td>301.5</td>
+                  <td>49%</td>
+                  <td>2.53e-40</td>
+                  <td>37%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=genbank&amp;log$=nuclalign">NC_033476</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit2>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description2">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_024704.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_024704.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Cladosporium cladosporioides virus 1 putative RNA-dependent RNA polymerase gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_024704.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 2434
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1754 to 2137</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_024704.1?report=genbank&amp;log$=nuclalign&amp;from=1754&amp;to=2137">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_024704.1?report=graph&amp;log$=nuclalign&amp;from=1754&amp;to=2137">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>117.0 bits(249)</td>
+                      <td>0.0</td>
+                      <td>43/128(34%)</td>
+                      <td>0/128(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  SGITTNISRVRFCSRAVVRTPEGLLVTRTHTALYQKLAARPEHDPMTDKLYVRAIMADYMGTDPVAYEAFSQVDRQLDVALDISVVTPKIKKILAPTARSFYGAEDDQALLNVLASLRAGQIDRRALL  384
+                +G+++ +  VRFCSR  + TP GL + R+HT+++ K+  R E DP+ +KLYVRA+M D +GTDP+ Y     ++  +DV  D  +   ++ K++ P A+  YG    +++ + ++ L++     R +L
+Subject   1754  TGVSSQLGDVRFCSRGALLTPHGLAIVRSHTSIFHKIGGRAEVDPVINKLYVRALMVDLLGTDPILYHGLQHLEASIDVPGDARLSEHRLHKMVEPFAKKLYGNSSPESVASFVSLLKSPSAPDRGVL  2137</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Botryosphaeria dothidea virus 1 strain YZN115 RNA-dependent RNA polymerase (RdRp) gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=genbank&amp;log$=nuclalign"></a>
+                    <span class=b>Length:</span> 2397
+                    <span class=b>Number of Matches:</span> 3
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1773 to 2138</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=genbank&amp;log$=nuclalign&amp;from=1773&amp;to=2138">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=graph&amp;log$=nuclalign&amp;from=1773&amp;to=2138">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>165.6 bits(355)</td>
+                      <td>0.0</td>
+                      <td>66/122(54%)</td>
+                      <td>0/122(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  ISRVRFCSRAVVRTPEGLLVTRTHTALYQKLAARPEHDPMTDKLYVRAIMADYMGTDPVAYEAFSQVDRQLDVALDISVVTPKIKKILAPTARSFYGAEDDQALLNVLASLRAGQIDRRALL  366
+                +   RFCSRA V+TP GL+VTR HT++YQKLA RP HDP  DKLYVRA+M D+MGTDP+A+E    VD  +DV L    +TP ++ +L   A+SFYG   D +L  VL +L   ++DRRALL
+Subject   1773  VGDARFCSRAAVQTPYGLIVTRPHTSIYQKLAGRPRHDPAIDKLYVRALMMDHMGTDPIAFEIMDSVDSMVDVDLSTVGLTPAVRSVLTDAAKSFYGDASDDSLSRVLEALSTSRVDRRALL  2138</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 1790 to 2092</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=genbank&amp;log$=nuclalign&amp;from=1790&amp;to=2092">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=graph&amp;log$=nuclalign&amp;from=1790&amp;to=2092">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>82.2 bits(173)</td>
+                      <td>0.0</td>
+                      <td>49/101(49%)</td>
+                      <td>0/101(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       47  TLRRAWSSSAP*KLRAVGARIFLIFGVTTEMSNATSNCLSTWENASYATGSVPM*SAIIARTYSLSVIGSCSGRAASFW*RAVCVRVTSRPSGVLTTAREQ  349
+                TL R  S ++P*   A         GV+  +  +TS   ST    S A GSVPM S + ART SLS+ GS  GR ASFW*  V  RVT RP GV T AREQ
+Subject   1790  TLERLSSLASP*NDLAASVSTERTAGVSPTVDRSTSTIESTLSMISKAMGSVPMWSIMSART*SLSIAGSWRGRPASFW*IEVWGRVTIRP*GVWTAAREQ  2092</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 1761 to 1997</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=genbank&amp;log$=nuclalign&amp;from=1761&amp;to=1997">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_033476.1?report=graph&amp;log$=nuclalign&amp;from=1761&amp;to=1997">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>53.8 bits(111)</td>
+                      <td>0.0</td>
+                      <td>29/79(37%)</td>
+                      <td>0/79(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      142  QRHIQLPVNLGECLIRDGISAHVVCHYCADIQLIRHRVMFRACRKLLVEGCMRAGDEQAFWCSDYCPRAEPNTADVRSN  378
+                Q H+   VN    L  DG+  HVV H  A ++L+  RVM RA  +LLV   M   D++   C D   RAE    + R++
+Subject   1761  QVHVNHRVNAIHDLEGDGVGTHVVHHERAHVELVNSRVMARATCELLVN*GMGPRDDKTIGCLDSSTRAEARVPNPRAD  1997</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+
+    </div>
+
+    <footer>
+      This page was generated by <a href="https://github.com/thehyve/blast2html/">blast2html</a>.
+    </footer>
+  </body>
+</html>
+

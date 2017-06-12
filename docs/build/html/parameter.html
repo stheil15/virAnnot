@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Parameters files &mdash; VirAnnot 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="VirAnnot 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Modules description" href="modules.html" />
+    <link rel="prev" title="Prerequisite" href="prerequisite.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modules.html" title="Modules description"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="prerequisite.html" title="Prerequisite"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="parameters-files">
+<h1>Parameters files<a class="headerlink" href="#parameters-files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="parameters-yaml">
+<h2>parameters.yaml<a class="headerlink" href="#parameters-yaml" title="Permalink to this headline">¶</a></h2>
+<p>Defines paths for both local and remote binaries and databases. A template is provided in the <code class="docutils literal"><span class="pre">examples</span></code> directory.</p>
+</div>
+<div class="section" id="step-yaml">
+<h2>step.yaml<a class="headerlink" href="#step-yaml" title="Permalink to this headline">¶</a></h2>
+<p>Defines the steps that the pipeline will execute. A template is provided in the <code class="docutils literal"><span class="pre">/examples</span></code> directory.</p>
+<p>Step names correspond to a python module that will launch the step. Step names are split based on the &#8216;_&#8217; character so you can launch multiple instance. For example you might want to launch blastx and blastn, so step names could be &#8216;Blast_N&#8217; and &#8216;Blast_X&#8217;. What is after the underscore do not matters, it is just used to differanciate the two steps.</p>
+<p>Special words in bracket are used as substitution string.
+- (file), (file1) and (file2)
+- (SampleID)
+- (library)</p>
+</div>
+<div class="section" id="map-txt">
+<span id="id1"></span><h2>map.txt<a class="headerlink" href="#map-txt" title="Permalink to this headline">¶</a></h2>
+<p>The map file describe the experiment. It is a tabulated file with the first line containing headers starting with &#8216;#&#8217;. It must contain at least two column: SampleID and file.
+A template is provided in the <code class="docutils literal"><span class="pre">examples</span></code> directory.
+This is a minimum map.txt file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>#SampleID file1 file2
+C1B   C1B_r1.fa       C1B_r2.fa
+C2B   C2B_r1.fa       C2B_r2.fa
+</pre></div>
+</div>
+<p>You can add categories for each sample so they can be used when coloring sequences in trees from the Rps2tree module.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Parameters files</a><ul>
+<li><a class="reference internal" href="#parameters-yaml">parameters.yaml</a></li>
+<li><a class="reference internal" href="#step-yaml">step.yaml</a></li>
+<li><a class="reference internal" href="#map-txt">map.txt</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="prerequisite.html"
+                        title="previous chapter">Prerequisite</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="next chapter">Modules description</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/parameter.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modules.html" title="Modules description"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="prerequisite.html" title="Prerequisite"
+             >previous</a> |</li>
+        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Sebastien Theil.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

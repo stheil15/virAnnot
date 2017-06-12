@@ -1,0 +1,9 @@
+krona-data/3/Grapevine_leafroll_associated_virus_3.csv	krona-data/3/Grapevine_leafroll_associated_virus_3.xml
+krona-data/3/Wuhan_insect_virus_26.csv	krona-data/3/Wuhan_insect_virus_26.xml
+krona-data/3/Sclerotinia_sclerotiorum_botybirnavirus_1.csv	krona-data/3/Sclerotinia_sclerotiorum_botybirnavirus_1.xml
+krona-data/3/Grapevine_rupestris_stem_pitting_associated_virus.csv	krona-data/3/Grapevine_rupestris_stem_pitting_associated_virus.xml
+krona-data/3/Grapevine_virus_A.csv	krona-data/3/Grapevine_virus_A.xml
+krona-data/3/Isaria_javanica_chrysovirus_1.csv	krona-data/3/Isaria_javanica_chrysovirus_1.xml
+krona-data/3/Botryosphaeria_dothidea_virus_1.csv	krona-data/3/Botryosphaeria_dothidea_virus_1.xml
+krona-data/3/Fusarium_graminearum_dsRNA_mycovirus_4.csv	krona-data/3/Fusarium_graminearum_dsRNA_mycovirus_4.xml
+krona-data/3/Xanthophyllomyces_dendrorhous_virus_L1A.csv	krona-data/3/Xanthophyllomyces_dendrorhous_virus_L1A.xml

@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Prerequisite &mdash; VirAnnot 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="VirAnnot 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Parameters files" href="parameter.html" />
+    <link rel="prev" title="Welcome to VirAnnot’s documentation!" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="parameter.html" title="Parameters files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to VirAnnot’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="prerequisite">
+<h1>Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="external-programs">
+<h2>External programs<a class="headerlink" href="#external-programs" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>NCBI Blast+ suite (<a class="reference external" href="ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST">ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST</a>)</li>
+<li>SQLite (<a class="reference external" href="https://www.sqlite.org/">https://www.sqlite.org/</a>)</li>
+<li>Mummer3 (<a class="reference external" href="http://mummer.sourceforge.net/">http://mummer.sourceforge.net/</a>)</li>
+<li>Bowtie2 (<a class="reference external" href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">http://bowtie-bio.sourceforge.net/bowtie2/index.shtml</a>)</li>
+<li>Cutadapt (<a class="reference external" href="https://github.com/marcelm/cutadapt">https://github.com/marcelm/cutadapt</a>)</li>
+<li>ETE tree (<a class="reference external" href="http://etetoolkit.org/">http://etetoolkit.org/</a>)</li>
+<li>IDBA-UD (<a class="reference external" href="https://github.com/loneknightpy/idba">https://github.com/loneknightpy/idba</a>)</li>
+<li>drVM (<a class="reference external" href="https://sourceforge.net/projects/sb2nhri/files/drVM/">https://sourceforge.net/projects/sb2nhri/files/drVM/</a>)</li>
+<li>Open Grid Scheduler (<a class="reference external" href="http://gridscheduler.sourceforge.net/">http://gridscheduler.sourceforge.net/</a>)</li>
+<li>Diamond ()</li>
+</ul>
+</div>
+<div class="section" id="external-databases">
+<h2>External databases<a class="headerlink" href="#external-databases" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>NCBI nr, nt (<a class="reference external" href="ftp://ftp.ncbi.nlm.nih.gov/blast/db/">ftp://ftp.ncbi.nlm.nih.gov/blast/db/</a>)</li>
+<li>NCBI Taxonomy (<a class="reference external" href="ftp://ftp.ncbi.nih.gov/pub/taxonomy">ftp://ftp.ncbi.nih.gov/pub/taxonomy</a>)</li>
+<li>PFAM (<a class="reference external" href="ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/">ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/</a>) (rpsblast files, fasta files, and smp files)</li>
+</ul>
+</div>
+<div class="section" id="perl-external-libraries">
+<h2>Perl external libraries<a class="headerlink" href="#perl-external-libraries" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Getopt::Long</li>
+<li>File::Basename</li>
+<li>DBI</li>
+<li>Data::Dumper</li>
+<li>Bioperl</li>
+<li>Color::Rgb</li>
+<li>List::Util</li>
+<li>Excel::Writer</li>
+</ul>
+</div>
+<div class="section" id="perl-included-libraries">
+<h2>Perl included libraries<a class="headerlink" href="#perl-included-libraries" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Tools::Fasta</li>
+<li>Tools::Fastq</li>
+<li>Tools::Blast</li>
+<li>Tools::Taxonomy</li>
+<li>Logger::Logger</li>
+</ul>
+</div>
+<div class="section" id="python-library">
+<h2>Python library<a class="headerlink" href="#python-library" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>os</li>
+<li>call</li>
+<li>logging</li>
+<li>random</li>
+<li>string</li>
+<li>argparse</li>
+<li>re</li>
+<li>sys</li>
+<li>Bio</li>
+<li>time</li>
+<li>glob</li>
+<li>shutil</li>
+<li>yaml</li>
+<li>csv</li>
+<li>importlib</li>
+<li>matplotlib</li>
+</ul>
+</div>
+</div>
+<div class="section" id="install">
+<h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
+<p>Add tools and launchers folders to your $PATH.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/path/to/tools:/path/to/launchers:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+<p>Add lib folder to your $PERL5LIB.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PERL5LIB</span><span class="o">=</span>/path/to/lib:<span class="nv">$PERL5LIB</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="database">
+<h1>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h1>
+<img src="taxo_sql.svg" /><div class="section" id="taxonomy">
+<h2>Taxonomy<a class="headerlink" href="#taxonomy" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Download and extract NCBI taxonomy files.</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz <span class="p">;</span> gunzip taxdump.tar.gz<span class="p">;</span> tar -xf taxdump.tar<span class="p">;</span>
+wget ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz <span class="p">;</span> gunzip prot.accession2taxid.gz<span class="p">;</span>
+wget ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/nucl_gb.accession2taxid.gz <span class="p">;</span> gunzip nucl_gb.accession2taxid.gz<span class="p">;</span>
+</pre></div>
+</div>
+<p>Optionally you can combine multiple accession2taxid file with a simple cat. But keep separated nucl and prot accessions as they will be loaded in two different tables.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/dead_prot.accession2taxid.gz <span class="p">;</span> gunzip dead_prot.accession2taxid.gz<span class="p">;</span>
+cat prot.accession2taxid dead_prot.accession2taxid &gt; acc2taxid.prot
+
+wget ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/nucl_wgs.accession2taxid.gz <span class="p">;</span> gunzip nucl_wgs.accession2taxid.gz<span class="p">;</span>
+wget ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/dead_wgs.accession2taxid.gz <span class="p">;</span> gunzip dead_wgs.accession2taxid.gz
+cat nucl_wgs.accession2taxid nucl_gb.accession2taxid dead_wgs.accession2taxid &gt; acc2taxid.nucl
+</pre></div>
+</div>
+<p>Launch the loadTaxonomy.pl script that will create the sqlite database. The script needs two provided sqlite files: <code class="docutils literal"><span class="pre">taxonomyIndex.sql</span></code> and <code class="docutils literal"><span class="pre">taxonomyStructure.sql</span></code> that describe the database struture.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>loadTaxonomy.pl -struct taxonomyStructure.sql -index taxonomyIndex.sql -acc_prot acc2taxid.prot -acc_nucl acc2taxid.nucl -names names.dmp -nodes nodes.dmp
+</pre></div>
+</div>
+</div>
+<div class="section" id="ncbi-blast-database">
+<h2>NCBI Blast database<a class="headerlink" href="#ncbi-blast-database" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Download NCBI nr et nt Blast files.</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nr.*.tar.gz
+wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.*.tar.gz
+</pre></div>
+</div>
+<ul class="simple">
+<li>Download PFAM files for RPSBLAST.</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/little_endian/Pfam_LE.tar.gz
+wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/fasta.tar.gz
+wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/cdd.tar.gz
+</pre></div>
+</div>
+<p>Here I use only PFAM domains but <code class="docutils literal"><span class="pre">fasta.tar.gz</span></code> and <code class="docutils literal"><span class="pre">cdd.tar.gz</span></code> contains files for the entire CDD database. You can either delete files that are not from PFAM database or use the complete CDD.</p>
+<ul class="simple">
+<li>Delete file that are not from PFAM:</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\l</span>s -1 <span class="p">|</span> grep -v <span class="s1">&#39;pfam&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s,^.*$,rm &amp;,&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Download entire CDD database:</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/little_endian/CDD_LE.tar.gz
+</pre></div>
+</div>
+<ul class="simple">
+<li>Reduced databases.</li>
+</ul>
+<p>Get all viroids nucleotide sequence from genbank:
+esearch -db &#8220;nucleotide&#8221; -query &#8220;txid12884[Organism]&#8221; | efetch -format fasta &gt; viroids_nucl.fna</p>
+<p>Get all viruses nucleotide sequences from genbank:
+esearch -db &#8220;nucleotide&#8221; -query &#8220;txid10239[Organism]&#8221; | efetch -format fasta &gt; viruses_nucl.fna</p>
+<p>Create Blast DB:
+makeblastdb -in viruses_nucl.fna -parse_seqids -dbtype nucl</p>
+</div>
+<div class="section" id="pfam-taxonomy">
+<h2>PFAM taxonomy<a class="headerlink" href="#pfam-taxonomy" title="Permalink to this headline">¶</a></h2>
+<p>The pipeline modules <code class="docutils literal"><span class="pre">rps2ecsv</span></code> and <code class="docutils literal"><span class="pre">rps2tree</span></code> need taxonomic information of the PFAM domains to work.
+You need to extract these informations and load it into the sqlite database.</p>
+<ul class="simple">
+<li>Extract taxonomic information for each sequence of each PFAM domain and store it in <code class="docutils literal"><span class="pre">*.tax.txt</span></code> files:</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\l</span>s -1 *.FASTA <span class="p">|</span> sed <span class="s1">&#39;s,^\(.*\)\.FASTA,gi2taxonomy.pl -i &amp; -o \1.tax.txt -r,&#39;</span> <span class="p">|</span> bash
+</pre></div>
+</div>
+<ul class="simple">
+<li>Create a file of file for the <code class="docutils literal"><span class="pre">*.tax.txt</span></code> files:</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>listPath.pl -d . <span class="p">|</span> grep <span class="s1">&#39;tax.txt&#39;</span> &gt; idx
+</pre></div>
+</div>
+<ul class="simple">
+<li>Compute taxonomy statistic for each domain and create a sql file to load into the database:</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>taxo_profile_to_sql.pl -i idx -o taxo_profile.sql
+</pre></div>
+</div>
+<ul class="simple">
+<li>Load into the database:</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sqlite3 taxonomy.tmp.sqlite &lt; taxo_profile.sql
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Prerequisite</a><ul>
+<li><a class="reference internal" href="#external-programs">External programs</a></li>
+<li><a class="reference internal" href="#external-databases">External databases</a></li>
+<li><a class="reference internal" href="#perl-external-libraries">Perl external libraries</a></li>
+<li><a class="reference internal" href="#perl-included-libraries">Perl included libraries</a></li>
+<li><a class="reference internal" href="#python-library">Python library</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#install">Install</a></li>
+<li><a class="reference internal" href="#database">Database</a><ul>
+<li><a class="reference internal" href="#taxonomy">Taxonomy</a></li>
+<li><a class="reference internal" href="#ncbi-blast-database">NCBI Blast database</a></li>
+<li><a class="reference internal" href="#pfam-taxonomy">PFAM taxonomy</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to VirAnnot&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="parameter.html"
+                        title="next chapter">Parameters files</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/prerequisite.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="parameter.html" title="Parameters files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to VirAnnot’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Sebastien Theil.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

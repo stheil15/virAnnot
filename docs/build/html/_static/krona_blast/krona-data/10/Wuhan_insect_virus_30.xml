@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>tblastx</BlastOutput_program>
+  <BlastOutput_version>TBLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/home/stheil/save/db/all_vir/all_vir_nucl.fna</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-55_46</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>439</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>39</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_19</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>626</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>KX882984.1</Hit_id>
+  <Hit_def>Wuhan insect virus 30 strain WHZM9752 hypothetical protein gene, complete cds</Hit_def>
+  <Hit_accession>KX882984.1</Hit_accession>
+  <Hit_len>3414</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>137.613</Hsp_bit-score>
+      <Hsp_score>294</Hsp_score>
+      <Hsp_evalue>1.45983e-30</Hsp_evalue>
+      <Hsp_query-from>9</Hsp_query-from>
+      <Hsp_query-to>518</Hsp_query-to>
+      <Hsp_hit-from>2882</Hsp_hit-from>
+      <Hsp_hit-to>3391</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>63</Hsp_identity>
+      <Hsp_positive>96</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>170</Hsp_align-len>
+      <Hsp_qseq>FGLVMPKPSLYAKKMAEDQFNYAERSSTAEWEDVFDYTYRVVGKRFVLDGRDDNQHFKEMMRFDERNYDPTLLKVAQTYSEMAGFVTLNGKVLDKAEIVELVSNGRVKYEALEFKGDSHFRRLVPDTWGFRITNYCVAAINQGSMKMADAETAFRNLCWMVKKEFAHMM*</Hsp_qseq>
+      <Hsp_hseq>FALEIQRREELADKYAEDAFSFEERADHLKWQKLLNFRTEIVGKEKVIAPKHNEQLFGLFTEYETDLADGAKFMSVGKVSELEGFLTRNDRVLTRAEIIEIVSNGEVKEEALDFKGNLYYRRLVPEFIALRITTFCRELLNREIATPDGAEDIFETLCYMSKECYGHMM*</Hsp_hseq>
+      <Hsp_midline>F L + +    A K AED F++ ER+   +W+ + ++   +VGK  V+  + + Q F     ++    D          SE+ GF+T N +VL +AEI+E+VSNG VK EAL+FKG+ ++RRLVP+    RIT +C   +N+       AE  F  LC+M K+ + HMM*</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>52.3867</Hsp_bit-score>
+      <Hsp_score>108</Hsp_score>
+      <Hsp_evalue>6.6088e-05</Hsp_evalue>
+      <Hsp_query-from>248</Hsp_query-from>
+      <Hsp_query-to>517</Hsp_query-to>
+      <Hsp_hit-from>3121</Hsp_hit-from>
+      <Hsp_hit-to>3390</Hsp_hit-to>
+      <Hsp_query-frame>-2</Hsp_query-frame>
+      <Hsp_hit-frame>-1</Hsp_hit-frame>
+      <Hsp_identity>36</Hsp_identity>
+      <Hsp_positive>45</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>90</Hsp_align-len>
+      <Hsp_qseq>YIMCANSFLTIQHKFLNAVSASAIFMLP*LIAATQ*FVILNPHVSGTSLLKWLSPLNSSASYFTRPLLTSSTISALSKTFPFSVTKPAIS</Hsp_qseq>
+      <Hsp_hseq>YIIWP*HSLLI*HRVSNISSAPSGVAISRFNSSLQNVVILRAINSGTNRR*YRFPLKSSASSLTSPLLTISIISALVSTLSFRVKNPSNS</Hsp_hseq>
+      <Hsp_midline>YI+     L I H+  N  SA +   +    ++ Q  VIL    SGT+   +  PL SSAS  T PLLT S ISAL  T  F V  P+ S</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>2</Hit_num>
+  <Hit_id>KX898416.1</Hit_id>
+  <Hit_def>Isaria javanica chrysovirus 1 isolate IjCV 1 RNA dependent RNA polymerase (RdRp) gene, complete cds</Hit_def>
+  <Hit_accession>KX898416.1</Hit_accession>
+  <Hit_len>3593</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>132.573</Hsp_bit-score>
+      <Hsp_score>283</Hsp_score>
+      <Hsp_evalue>4.80377e-29</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>518</Hsp_query-to>
+      <Hsp_hit-from>3013</Hsp_hit-from>
+      <Hsp_hit-to>3528</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>1</Hsp_hit-frame>
+      <Hsp_identity>53</Hsp_identity>
+      <Hsp_positive>98</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>172</Hsp_align-len>
+      <Hsp_qseq>KRFGLVMPKPSLYAKKMAEDQFNYAERSSTAEWEDVFDYTYRVVGKRFVLDGRDDNQHFKEMMRFDERNYDPTLLKVAQTYSEMAGFVTLNGKVLDKAEIVELVSNGRVKYEALEFKGDSHFRRLVPDTWGFRITNYCVAAINQGSMKMADAETAFRNLCWMVKKEFAHMM*</Hsp_qseq>
+      <Hsp_hseq>EQFSLVLERQEELARKLAEDSYDIEKTLDRVQWRELLSFDCKVLGKRPVIEVMEDQAVFESFLEFEPDEDMATKFNKAARFQEYCGNLSFNGMPITKEELVDLMSDGEVSVEAIEFTGDIYYQRLVPEFIANRAVTFCRAAINGNYLTVKEADRCYKIVCWMASRVYRHMV*</Hsp_hseq>
+      <Hsp_midline>++F LV+ +    A+K+AED ++  +     +W ++  +  +V+GKR V++  +D   F+  + F+      T    A  + E  G ++ NG  + K E+V+L+S+G V  EA+EF GD +++RLVP+    R   +C AAIN   + + +A+  ++ +CWM  + + HM+*</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>48.721</Hsp_bit-score>
+      <Hsp_score>100</Hsp_score>
+      <Hsp_evalue>0.000838684</Hsp_evalue>
+      <Hsp_query-from>98</Hsp_query-from>
+      <Hsp_query-to>427</Hsp_query-to>
+      <Hsp_hit-from>3108</Hsp_hit-from>
+      <Hsp_hit-to>3437</Hsp_hit-to>
+      <Hsp_query-frame>-2</Hsp_query-frame>
+      <Hsp_hit-frame>-1</Hsp_hit-frame>
+      <Hsp_identity>39</Hsp_identity>
+      <Hsp_positive>49</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>110</Hsp_align-len>
+      <Hsp_qseq>IAATQ*FVILNPHVSGTSLLKWLSPLNSSASYFTRPLLTSSTISALSKTFPFSVTKPAISE*VCATFSNVGS*FRSSNLIISLKCWLSSLPSSTNLFPTTRYV*SNTSSH</Hsp_qseq>
+      <Hsp_hseq>IAALQKVTALFAMNSGTSLW*YISPVNSMASTLTSPSDIRSTSSSLVMGIPLKLKLPQYS*NLAALLNFVAMSSSGSNSRKLSKTA*SSITSITGRFPSTLQSKLSNSRH</Hsp_hseq>
+      <Hsp_midline>IAA Q    L    SGTSL  ++SP+NS AS  T P    ST S+L    P  +  P  S  + A  + V      SN     K   SS+ S T  FP+T     + S H</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>3</Hit_num>
+  <Hit_id>NC_033277.1</Hit_id>
+  <Hit_def>Isaria javanica chrysovirus 1 isolate IjCV 1 RNA dependent RNA polymerase (RdRp) gene, complete cds</Hit_def>
+  <Hit_accession>NC_033277.1</Hit_accession>
+  <Hit_len>3593</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>132.573</Hsp_bit-score>
+      <Hsp_score>283</Hsp_score>
+      <Hsp_evalue>4.80377e-29</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>518</Hsp_query-to>
+      <Hsp_hit-from>3013</Hsp_hit-from>
+      <Hsp_hit-to>3528</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>1</Hsp_hit-frame>
+      <Hsp_identity>53</Hsp_identity>
+      <Hsp_positive>98</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>172</Hsp_align-len>
+      <Hsp_qseq>KRFGLVMPKPSLYAKKMAEDQFNYAERSSTAEWEDVFDYTYRVVGKRFVLDGRDDNQHFKEMMRFDERNYDPTLLKVAQTYSEMAGFVTLNGKVLDKAEIVELVSNGRVKYEALEFKGDSHFRRLVPDTWGFRITNYCVAAINQGSMKMADAETAFRNLCWMVKKEFAHMM*</Hsp_qseq>
+      <Hsp_hseq>EQFSLVLERQEELARKLAEDSYDIEKTLDRVQWRELLSFDCKVLGKRPVIEVMEDQAVFESFLEFEPDEDMATKFNKAARFQEYCGNLSFNGMPITKEELVDLMSDGEVSVEAIEFTGDIYYQRLVPEFIANRAVTFCRAAINGNYLTVKEADRCYKIVCWMASRVYRHMV*</Hsp_hseq>
+      <Hsp_midline>++F LV+ +    A+K+AED ++  +     +W ++  +  +V+GKR V++  +D   F+  + F+      T    A  + E  G ++ NG  + K E+V+L+S+G V  EA+EF GD +++RLVP+    R   +C AAIN   + + +A+  ++ +CWM  + + HM+*</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>48.721</Hsp_bit-score>
+      <Hsp_score>100</Hsp_score>
+      <Hsp_evalue>0.000838684</Hsp_evalue>
+      <Hsp_query-from>98</Hsp_query-from>
+      <Hsp_query-to>427</Hsp_query-to>
+      <Hsp_hit-from>3108</Hsp_hit-from>
+      <Hsp_hit-to>3437</Hsp_hit-to>
+      <Hsp_query-frame>-2</Hsp_query-frame>
+      <Hsp_hit-frame>-1</Hsp_hit-frame>
+      <Hsp_identity>39</Hsp_identity>
+      <Hsp_positive>49</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>110</Hsp_align-len>
+      <Hsp_qseq>IAATQ*FVILNPHVSGTSLLKWLSPLNSSASYFTRPLLTSSTISALSKTFPFSVTKPAISE*VCATFSNVGS*FRSSNLIISLKCWLSSLPSSTNLFPTTRYV*SNTSSH</Hsp_qseq>
+      <Hsp_hseq>IAALQKVTALFAMNSGTSLW*YISPVNSMASTLTSPSDIRSTSSSLVMGIPLKLKLPQYS*NLAALLNFVAMSSSGSNSRKLSKTA*SSITSITGRFPSTLQSKLSNSRH</Hsp_hseq>
+      <Hsp_midline>IAA Q    L    SGTSL  ++SP+NS AS  T P    ST S+L    P  +  P  S  + A  + V      SN     K   SS+ S T  FP+T     + S H</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>4</Hit_num>
+  <Hit_id>AF296439.1</Hit_id>
+  <Hit_def>Penicillium chrysogenum virus segment 1 RNA dependent RNA polymerase gene, complete cds</Hit_def>
+  <Hit_accession>AF296439.1</Hit_accession>
+  <Hit_len>3562</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>131.657</Hsp_bit-score>
+      <Hsp_score>281</Hsp_score>
+      <Hsp_evalue>9.06674e-29</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>521</Hsp_query-to>
+      <Hsp_hit-from>2983</Hsp_hit-from>
+      <Hsp_hit-to>3501</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>1</Hsp_hit-frame>
+      <Hsp_identity>51</Hsp_identity>
+      <Hsp_positive>97</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>173</Hsp_align-len>
+      <Hsp_qseq>KRFGLVMPKPSLYAKKMAEDQFNYAERSSTAEWEDVFDYTYRVVGKRFVLDGRDDNQHFKEMMRFDERNYDPTLLKVAQTYSEMAGFVTLNGKVLDKAEIVELVSNGRVKYEALEFKGDSHFRRLVPDTWGFRITNYCVAAINQGSMKMADAETAFRNLCWMVKKEFAHMM*I</Hsp_qseq>
+      <Hsp_hseq>EKFSLVIEEREKLARKLSEDSYDIEKSVDHERWKHLLNFRTRVIAKELAVEPMEDSVVFEGFLEYEVEEGTEKKFDLASRYQEFVSYLSLNGRAITKEELLDLMSDGEVCLEAIEFQGDIYYARLVPEFIAYRATMFCKEAINKGVCDAISAQLFFRTICWMSASVFEHAI*V</Hsp_hseq>
+      <Hsp_midline>++F LV+ +    A+K++ED ++  +      W+ + ++  RV+ K   ++  +D+  F+  + ++          +A  Y E   +++LNG+ + K E+++L+S+G V  EA+EF+GD ++ RLVP+   +R T +C  AIN+G      A+  FR +CWM    F H +*+</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>5</Hit_num>
+  <Hit_id>NC_007539.1</Hit_id>
+  <Hit_def>Penicillium chrysogenum virus segment 1, complete genome</Hit_def>
+  <Hit_accession>NC_007539.1</Hit_accession>
+  <Hit_len>3562</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>131.657</Hsp_bit-score>
+      <Hsp_score>281</Hsp_score>
+      <Hsp_evalue>9.06674e-29</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>521</Hsp_query-to>
+      <Hsp_hit-from>2983</Hsp_hit-from>
+      <Hsp_hit-to>3501</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>1</Hsp_hit-frame>
+      <Hsp_identity>51</Hsp_identity>
+      <Hsp_positive>97</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>173</Hsp_align-len>
+      <Hsp_qseq>KRFGLVMPKPSLYAKKMAEDQFNYAERSSTAEWEDVFDYTYRVVGKRFVLDGRDDNQHFKEMMRFDERNYDPTLLKVAQTYSEMAGFVTLNGKVLDKAEIVELVSNGRVKYEALEFKGDSHFRRLVPDTWGFRITNYCVAAINQGSMKMADAETAFRNLCWMVKKEFAHMM*I</Hsp_qseq>
+      <Hsp_hseq>EKFSLVIEEREKLARKLSEDSYDIEKSVDHERWKHLLNFRTRVIAKELAVEPMEDSVVFEGFLEYEVEEGTEKKFDLASRYQEFVSYLSLNGRAITKEELLDLMSDGEVCLEAIEFQGDIYYARLVPEFIAYRATMFCKEAINKGVCDAISAQLFFRTICWMSASVFEHAI*V</Hsp_hseq>
+      <Hsp_midline>++F LV+ +    A+K++ED ++  +      W+ + ++  RV+ K   ++  +D+  F+  + ++          +A  Y E   +++LNG+ + K E+++L+S+G V  EA+EF+GD ++ RLVP+   +R T +C  AIN+G      A+  FR +CWM    F H +*+</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>2441847</Statistics_db-num>
+      <Statistics_db-len>4250264092</Statistics_db-len>
+      <Statistics_hsp-len>56</Statistics_hsp-len>
+      <Statistics_eff-space>194561712280</Statistics_eff-space>
+      <Statistics_kappa>0.133956144488482</Statistics_kappa>
+      <Statistics_lambda>0.317605957635731</Statistics_lambda>
+      <Statistics_entropy>0.401214524497119</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>79</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_73</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>314</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>KX882985.1</Hit_id>
+  <Hit_def>Wuhan insect virus 30 strain WHZM9934 hypothetical protein gene, complete cds</Hit_def>
+  <Hit_accession>KX882985.1</Hit_accession>
+  <Hit_len>3175</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>79.8792</Hsp_bit-score>
+      <Hsp_score>168</Hsp_score>
+      <Hsp_evalue>2.96823e-21</Hsp_evalue>
+      <Hsp_query-from>115</Hsp_query-from>
+      <Hsp_query-to>312</Hsp_query-to>
+      <Hsp_hit-from>1974</Hsp_hit-from>
+      <Hsp_hit-to>2171</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>28</Hsp_identity>
+      <Hsp_positive>42</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>66</Hsp_align-len>
+      <Hsp_qseq>DGDIKLPQLFLVLPYSHSPDSAWGLLRNWNGRGHMMLDEKRDRIRKEQKTASLTWAMGIRKQRPRV</Hsp_qseq>
+      <Hsp_hseq>DIDLLMPQIMSTIPYTHTPNTAWGYCRGWEGLGRPTIDNKKDIATKQLKLASFGWMVGITPKRPKV</Hsp_hseq>
+      <Hsp_midline>D D+ +PQ+   +PY+H+P++AWG  R W G G   +D K+D   K+ K AS  W +GI  +RP+V</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>44.5971</Hsp_bit-score>
+      <Hsp_score>91</Hsp_score>
+      <Hsp_evalue>2.96823e-21</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>99</Hsp_query-to>
+      <Hsp_hit-from>1869</Hsp_hit-from>
+      <Hsp_hit-to>1967</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>15</Hsp_identity>
+      <Hsp_positive>21</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>33</Hsp_align-len>
+      <Hsp_qseq>VLLKNWRAVTGMPLQWGFGKMLKEYIMGLCDRM</Hsp_qseq>
+      <Hsp_hseq>VLLLNWASISGSPISWGFGDATKAYVVQLASYM</Hsp_hseq>
+      <Hsp_midline>VLL NW +++G P+ WGFG   K Y++ L   M</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>2</Hit_num>
+  <Hit_id>KP900889.2</Hit_id>
+  <Hit_def>Macrophomina phaseolina chrysovirus 1 isolate TN263 P4 gene, complete cds</Hit_def>
+  <Hit_accession>KP900889.2</Hit_accession>
+  <Hit_len>2985</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>70.715</Hsp_bit-score>
+      <Hsp_score>148</Hsp_score>
+      <Hsp_evalue>1.03829e-20</Hsp_evalue>
+      <Hsp_query-from>121</Hsp_query-from>
+      <Hsp_query-to>312</Hsp_query-to>
+      <Hsp_hit-from>1659</Hsp_hit-from>
+      <Hsp_hit-to>1850</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>24</Hsp_identity>
+      <Hsp_positive>40</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>64</Hsp_align-len>
+      <Hsp_qseq>DIKLPQLFLVLPYSHSPDSAWGLLRNWNGRGHMMLDEKRDRIRKEQKTASLTWAMGIRKQRPRV</Hsp_qseq>
+      <Hsp_hseq>DIRMPQIMALIPYCSTPNTVWGYSRGWTGTSDLLELSKKARREQTNKLAAVAWVLGIREVRPRV</Hsp_hseq>
+      <Hsp_midline>DI++PQ+  ++PY  +P++ WG  R W G   ++   K+ R  +  K A++ W +GIR+ RPRV</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>51.9285</Hsp_bit-score>
+      <Hsp_score>107</Hsp_score>
+      <Hsp_evalue>1.03829e-20</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>105</Hsp_query-to>
+      <Hsp_hit-from>1548</Hsp_hit-from>
+      <Hsp_hit-to>1652</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>17</Hsp_identity>
+      <Hsp_positive>26</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>35</Hsp_align-len>
+      <Hsp_qseq>VLLKNWRAVTGMPLQWGFGKMLKEYIMGLCDRMYN</Hsp_qseq>
+      <Hsp_hseq>VLLQGWNSISGTVIKWGFGKMLKDYCVGLAGEIQN</Hsp_hseq>
+      <Hsp_midline>VLL+ W +++G  ++WGFGKMLK+Y +GL   + N</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>3</Hit_num>
+  <Hit_id>JX658567.1</Hit_id>
+  <Hit_def>Grapevine chrysovirus isolate 3138 03 3959 putative protease gene, complete cds</Hit_def>
+  <Hit_accession>JX658567.1</Hit_accession>
+  <Hit_len>2762</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>54.2195</Hsp_bit-score>
+      <Hsp_score>112</Hsp_score>
+      <Hsp_evalue>1.78941e-14</Hsp_evalue>
+      <Hsp_query-from>121</Hsp_query-from>
+      <Hsp_query-to>312</Hsp_query-to>
+      <Hsp_hit-from>1490</Hsp_hit-from>
+      <Hsp_hit-to>1681</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>24</Hsp_identity>
+      <Hsp_positive>33</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>64</Hsp_align-len>
+      <Hsp_qseq>DIKLPQLFLVLPYSHSPDSAWGLLRNWNGRGHMMLDEKRDRIRKEQKTASLTWAMGIRKQRPRV</Hsp_qseq>
+      <Hsp_hseq>DIILPQILHAIPSLTAVNTAYGLSRGWKGPKHMLESTKTERRDNSDGLAAFAWMMGERNVRPPV</Hsp_hseq>
+      <Hsp_midline>DI LPQ+   +P   + ++A+GL R W G  HM+   K +R       A+  W MG R  RP V</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>47.3464</Hsp_bit-score>
+      <Hsp_score>97</Hsp_score>
+      <Hsp_evalue>1.78941e-14</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>105</Hsp_query-to>
+      <Hsp_hit-from>1379</Hsp_hit-from>
+      <Hsp_hit-to>1483</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>14</Hsp_identity>
+      <Hsp_positive>24</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>35</Hsp_align-len>
+      <Hsp_qseq>VLLKNWRAVTGMPLQWGFGKMLKEYIMGLCDRMYN</Hsp_qseq>
+      <Hsp_hseq>ILLRNWDIMAGRPMTWDFGPILKDYVLSLAEMIIN</Hsp_hseq>
+      <Hsp_midline>+LL+NW  + G P+ W FG +LK+Y++ L + + N</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>4</Hit_num>
+  <Hit_id>KX898419.1</Hit_id>
+  <Hit_def>Isaria javanica chrysovirus 1 isolate IjCV 1 putative protease gene, complete cds</Hit_def>
+  <Hit_accession>KX898419.1</Hit_accession>
+  <Hit_len>2874</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>51.9285</Hsp_bit-score>
+      <Hsp_score>107</Hsp_score>
+      <Hsp_evalue>4.54978e-14</Hsp_evalue>
+      <Hsp_query-from>121</Hsp_query-from>
+      <Hsp_query-to>312</Hsp_query-to>
+      <Hsp_hit-from>1578</Hsp_hit-from>
+      <Hsp_hit-to>1769</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>20</Hsp_identity>
+      <Hsp_positive>34</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>64</Hsp_align-len>
+      <Hsp_qseq>DIKLPQLFLVLPYSHSPDSAWGLLRNWNGRGHMMLDEKRDRIRKEQKTASLTWAMGIRKQRPRV</Hsp_qseq>
+      <Hsp_hseq>DIQMPQLLTTVPSLMANNTAYGMCRGWRGPKHLLNSSKIEVAEASDQLCSIAWLVGDRSVRPPV</Hsp_hseq>
+      <Hsp_midline>DI++PQL   +P   + ++A+G+ R W G  H++   K +      +  S+ W +G R  RP V</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>48.2628</Hsp_bit-score>
+      <Hsp_score>99</Hsp_score>
+      <Hsp_evalue>4.54978e-14</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>105</Hsp_query-to>
+      <Hsp_hit-from>1467</Hsp_hit-from>
+      <Hsp_hit-to>1571</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>16</Hsp_identity>
+      <Hsp_positive>23</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>35</Hsp_align-len>
+      <Hsp_qseq>VLLKNWRAVTGMPLQWGFGKMLKEYIMGLCDRMYN</Hsp_qseq>
+      <Hsp_hseq>ILLRNWEIMAGRPICWEFGVYLKEYLLGLATNIIN</Hsp_hseq>
+      <Hsp_midline>+LL+NW  + G P+ W FG  LKEY++GL   + N</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>5</Hit_num>
+  <Hit_id>NC_033278.1</Hit_id>
+  <Hit_def>Isaria javanica chrysovirus 1 isolate IjCV 1 putative protease gene, complete cds</Hit_def>
+  <Hit_accession>NC_033278.1</Hit_accession>
+  <Hit_len>2874</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>51.9285</Hsp_bit-score>
+      <Hsp_score>107</Hsp_score>
+      <Hsp_evalue>4.54978e-14</Hsp_evalue>
+      <Hsp_query-from>121</Hsp_query-from>
+      <Hsp_query-to>312</Hsp_query-to>
+      <Hsp_hit-from>1578</Hsp_hit-from>
+      <Hsp_hit-to>1769</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>20</Hsp_identity>
+      <Hsp_positive>34</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>64</Hsp_align-len>
+      <Hsp_qseq>DIKLPQLFLVLPYSHSPDSAWGLLRNWNGRGHMMLDEKRDRIRKEQKTASLTWAMGIRKQRPRV</Hsp_qseq>
+      <Hsp_hseq>DIQMPQLLTTVPSLMANNTAYGMCRGWRGPKHLLNSSKIEVAEASDQLCSIAWLVGDRSVRPPV</Hsp_hseq>
+      <Hsp_midline>DI++PQL   +P   + ++A+G+ R W G  H++   K +      +  S+ W +G R  RP V</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>48.2628</Hsp_bit-score>
+      <Hsp_score>99</Hsp_score>
+      <Hsp_evalue>4.54978e-14</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>105</Hsp_query-to>
+      <Hsp_hit-from>1467</Hsp_hit-from>
+      <Hsp_hit-to>1571</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>16</Hsp_identity>
+      <Hsp_positive>23</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>35</Hsp_align-len>
+      <Hsp_qseq>VLLKNWRAVTGMPLQWGFGKMLKEYIMGLCDRMYN</Hsp_qseq>
+      <Hsp_hseq>ILLRNWEIMAGRPICWEFGVYLKEYLLGLATNIIN</Hsp_hseq>
+      <Hsp_midline>+LL+NW  + G P+ W FG  LKEY++GL   + N</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>2441847</Statistics_db-num>
+      <Statistics_db-len>4250264092</Statistics_db-len>
+      <Statistics_hsp-len>53</Statistics_hsp-len>
+      <Statistics_eff-space>65654177106</Statistics_eff-space>
+      <Statistics_kappa>0.133956144488482</Statistics_kappa>
+      <Statistics_lambda>0.317605957635731</Statistics_lambda>
+      <Statistics_entropy>0.401214524497119</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

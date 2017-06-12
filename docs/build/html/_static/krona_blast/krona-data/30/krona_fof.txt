@@ -1,0 +1,2 @@
+krona-data/30/Lettuce_mosaic_virus.csv	krona-data/30/Lettuce_mosaic_virus.xml
+krona-data/30/Fig_cryptic_virus.csv	krona-data/30/Fig_cryptic_virus.xml

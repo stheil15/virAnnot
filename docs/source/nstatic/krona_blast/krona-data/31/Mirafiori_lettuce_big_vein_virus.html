@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=generator content="blast2html; see https://github.com/thehyve/blast2html/">
+    
+    <title>Blast output</title>
+    
+    <style>
+      body {
+      color: #333333;
+      font-family: Arial,Sans-Serif;
+      }
+
+      :link {
+      color: #336699;
+      }
+
+      .right {
+      float: right;
+      }
+
+      /* Galaxy with html sanitization enabled strips the header of this html page. If so, show the user a warning.*/
+      #strip_html_warning {
+      display: none;
+      }
+      
+      #content {
+      margin: 0 2em;
+      padding: 0.5em;
+      border: 1px solid #888888;
+      background-color: #d3dff5;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+      color: #2A6979;
+      font-family: arial,verdana,sans-serif;
+      letter-spacing: -1px;
+      margin: 1.2em 0 0.3em;
+      }
+
+      h1 {
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 150%;
+      padding-bottom: 0.1em;
+      }
+
+      h2 {
+      font-size: 120%;
+      font-weight: bold;
+      }
+
+      h4.darkHeader {
+      color: #4D4D4D;
+      letter-spacing: 0;
+      font-weight: bold;
+      }
+
+      #nodata {
+      font-weight: bold;
+      }
+
+      .index {
+      margin-bottom: 3em;
+      }
+      .index div.indexentry {
+      margin: 1.2em 1.6em;
+      font-weight: bold;
+      font-size: 100%;
+      }
+      
+      .headerdata {
+      font-size: 90%;
+      }
+      .headerdata .param {
+      font-weight: bold;
+      text-align: right;
+      padding: 0 1em;
+      }
+
+      .grey {
+      background-color: #eeeeee;
+      border: 1px solid #cccccc;
+      padding: 1em;
+      }
+
+      .white {
+      background-color: white;
+      border: 1px solid #cccccc;
+      padding: 1.5em 2%;
+      }
+
+      .graphicrow {
+      clear: left;
+      width: 100%;
+      }
+
+      .graphicitem {
+      float: left;
+      }
+
+
+      
+      .graphics .grey {
+      text-align: center;
+      }
+
+      .graphic {
+      background-color: white;
+      border: 2px solid black;
+      padding: 1.5em;
+      margin: auto;
+      }
+
+      .centered, .defline, div.legend, div.tablewrapper {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .defline {
+      background-color: white;
+      border: 1px solid black;
+      margin: .5em auto;
+      padding-left: .2em;
+      padding-right: .2em;
+      max-width: 50em;
+      text-align: left;
+      height: 2.8em;
+      overflow-y: hidden;
+      }
+
+      div.legend {
+      max-width: 40em;
+      }
+      div.legend div {
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-spacing: 0;
+      }
+      div.legend div .graphicitem {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      }
+
+      div.tablewrapper {
+      width: 50%;
+      min-width: 60em;
+      }
+
+      /* For small widths we give the graphic 100% */
+      @media (max-width: 72.5em) {
+      div.tablewrapper {
+      width: 100%;
+      min-width: 0px;
+      }
+      }
+
+      .scale {
+      width: 100%;
+      margin: .5em 0;
+      font-weight: bold;
+      }
+      .scale div {
+      color: red;
+      text-align: left;
+      }
+      .scale .graphicrow {
+      margin: .5em 0 .5em 0;
+      color: white;
+      }
+      .scale .graphicitem {
+      position: relative;
+      }
+      .scale .graphicitem div {
+      margin: 0 1px;
+      padding: 0 2px;
+      text-align: right;
+      background-color: red;
+      color: white;
+      }
+      .scale .graphicitem:first-child div {
+      margin-left: 0px;
+      }
+      .scale .graphicitem:last-child div {
+      margin-right: 0px;
+      }
+      .scale .graphicitem .lastlabel {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      background-color: transparent;
+      color: red;
+      }
+
+      a.matchresult {
+      display: block;
+      margin: 0;
+      padding: 0;
+      }
+      div.matchrow {
+      margin-top: 4px;
+      }
+      div.matchrow, div.matchitem {
+      height: 4px;
+      }
+
+      
+      table.descriptiontable {
+      font-size: 85%;
+      border: 1px solid #97b0c8;
+      border-spacing: 0;
+      color: #222222;
+      line-height: 1.3em;
+      background-color: white;
+      }
+      table.descriptiontable col:first-child {
+      width: 100%;
+      }
+      table.descriptiontable tr:hover {
+      background-color: #D5DEE3;
+      }
+      table.descriptiontable th {
+      color: #14376C;
+      font-weight: normal;
+      background-color: #F0F0F0;
+      background: linear-gradient(#FFFFFF, #F0F0F0);
+      border-bottom: 1px solid #D4DFE9;
+      border-right: 1px solid #CFCFCF;
+      border-left: 0px solid black;
+      border-top: 0px solid black;
+      }
+      table.descriptiontable td {
+      overflow: hidden;
+      text-align: center;
+      padding: .4em .8em;
+      }
+      table.descriptiontable td div {
+      width: 1em;
+      overflow: visible;
+      white-space: nowrap;
+      text-align: left;
+      }
+
+
+      
+      .alignments .white {
+      padding: 1.5em 1em;
+      }
+      
+      .alignment {
+      border-top: 1px solid black;
+      padding-left: 1em;
+      padding-right: 1em;
+      }
+      
+      div.linkheader {
+      padding-top: .2em;
+      font-size: 85%;
+      color: #14376C;
+      }
+      div.linkheader a.linkheader {
+      margin-right: 1em;
+      }
+      div.linkheader .right a {
+      text-decoration: none;
+      }
+
+      .title .hittitle {
+      color: #222222;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo {
+      font-size: 80%;
+      margin-top: 0;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo .b {
+      color: #606060;
+      font-weight: bold;
+      font-size: 90%;
+      }
+
+      .moretitles {
+      margin: 1.2em;
+      }
+      .moretitles .titleinfo {
+      margin: 0;
+      padding: 0;
+      }
+      .moretitles .hittitle {
+      margin: .4em 0 .2em 0;
+      padding: 0;
+      }
+      
+      a.showmoretitles {
+      font-size: 75%;
+      color: #336699;
+      font-weight: bold;
+      margin-top: 0;
+      }
+      a.showmoretitles:hover {
+      }
+
+      .hotspot {
+      color: #606060;
+      font-family: verdana, arial, sans-serif;
+      margin-bottom: 2.5em;
+      }
+
+      .hotspot p.range {
+      font-size: 70%;
+      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: .2em;
+      }
+      .hotspot p.range span.range {
+      font-weight: bold;
+      }
+      .hotspot p.range a.range {
+      margin-left: .5em;
+      }
+
+      table.hotspotstable {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      text-align: left;
+      border-collapse: collapse;
+      }
+      table.hotspotstable th, table.hotspotstable td {
+      padding: .1em 1em;
+      }
+      table.hotspotstable th {
+      font-size: 70%;
+      }
+      table.hotspotstable td {
+      min-width: 7em;
+      color: #222222;
+      font-size: 80%;
+      }
+
+      pre.alignmentgraphic {
+      color: #222222;
+      }
+
+      footer {
+      text-align: center;
+      color: #cccccc;
+      font-size: 70%;
+      margin-top: 1em;
+      }
+      footer :link {
+      color: #5588cc;
+      }
+      
+    </style>
+
+    <script type="text/javascript">
+      function toggle_visibility(id) {
+          var e = document.getElementById(id);
+          if(e.style.display != 'block')
+              e.style.display = 'block';
+          else
+              e.style.display = 'none';
+      }
+    </script>
+
+  </head>
+
+  
+  <body>
+    
+    <div id="strip_html_warning">
+      <!-- This div should be hidden by the header css block. Galaxy
+      strips all css, breaking this page but making this warning
+      visible. This warning contains some ugly old skool tabular html
+      layout that is not stripped. -->
+      <table bgcolor="#FFE5C9"><tr><td><font color="red"><b>
+                <font size=5><center>This html page seems to have been stripped by Galaxy.</center></font>
+                Disable Galaxy's html sanitization feature to view the full page (see <font face=monospace>sanitize_all_html</font> in your galaxy's universe_wsgi.ini), or download this page instead of viewing it in Galaxy.
+      </b></font></td></tr></table>
+    </div>
+    
+    <div id=content>
+
+
+
+      
+      <section class=match id=match22>
+      
+        <h1>Nucleotide Sequence (372 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-121_50</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>130</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/home/stheil/save/db/all_vir/all_vir_nucl.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 1 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline22>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.21505376344086%">
+                        <div>38</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21505376344086%">
+                        <div>76</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21505376344086%">
+                        <div>114</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21505376344086%">
+                        <div>152</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21505376344086%">
+                        <div>190</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21505376344086%">
+                        <div>228</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21505376344086%">
+                        <div>266</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21505376344086%">
+                        <div>304</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21505376344086%">
+                        <div>342</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.064516129032258%">
+                        <div>372</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline22").innerHTML="Mirafiori lettuce big vein virus isolate LS301 O putative RNA polymerase and 25K protein genes, complete cds"'
+                   onmouseout='document.getElementById("defline22").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Mirafiori lettuce big vein virus isolate LS301 O putative RNA polymerase and 25K protein genes, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.5376344086021505%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: black; width: 0.26881720430107525%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 90.86021505376344%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: blue; width: 1.3440860215053763%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 6.989247311827956%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit2"
+                   onmouseover='document.getElementById("defline22").innerHTML="Lettuce ring necrosis virus segment RNA 1, complete sequence"'
+                   onmouseout='document.getElementById("defline22").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Lettuce ring necrosis virus segment RNA 1, complete sequence">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.8064516129032258%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 76.61290322580645%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 22.58064516129032%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit3"
+                   onmouseover='document.getElementById("defline22").innerHTML="Lettuce ring necrosis virus RNA 1, complete genome"'
+                   onmouseout='document.getElementById("defline22").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Lettuce ring necrosis virus RNA 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.8064516129032258%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 76.61290322580645%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 22.58064516129032%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Mirafiori lettuce big vein virus isolate LS301 O putative RNA polymerase and 25K protein genes, complete cds"
+                              id="description1">
+                        Mirafiori lettuce big vein virus isolate LS301 O putative RNA polymerase and 25K protein genes, complete cds
+                  </a></div></td>
+                  <td>200.4</td>
+                  <td>873.9</td>
+                  <td>33%</td>
+                  <td>8.432e-50</td>
+                  <td>62%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign">AF525933.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit2"
+                              title="Lettuce ring necrosis virus segment RNA 1, complete sequence"
+                              id="description2">
+                        Lettuce ring necrosis virus segment RNA 1, complete sequence
+                  </a></div></td>
+                  <td>50.1</td>
+                  <td>50.1</td>
+                  <td>26%</td>
+                  <td>0.0001495</td>
+                  <td>32%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/AY535016.1?report=genbank&amp;log$=nuclalign">AY535016.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit3"
+                              title="Lettuce ring necrosis virus RNA 1, complete genome"
+                              id="description3">
+                        Lettuce ring necrosis virus RNA 1, complete genome
+                  </a></div></td>
+                  <td>50.1</td>
+                  <td>50.1</td>
+                  <td>26%</td>
+                  <td>0.0001495</td>
+                  <td>32%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_006051.1?report=genbank&amp;log$=nuclalign">NC_006051.1</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Mirafiori lettuce big vein virus isolate LS301 O putative RNA polymerase and 25K protein genes, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign">AF525933.1</a>
+                    <span class=b>Length:</span> 7794
+                    <span class=b>Number of Matches:</span> 10
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 7108 to 7443</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7108&amp;to=7443">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7108&amp;to=7443">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>200.4 bits(431)</td>
+                      <td>0.0</td>
+                      <td>97/112(87%)</td>
+                      <td>0/112(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        4  LLFAEKLDPPFNMKAVIIIETDQELVDVADFEGIEIILGNNIQSCLDSFYMHVYKEDXXXXXXXXXXXXXXDNFKIPKYFAKLDINQARLKKTIEKKYMSVIKTGKL*WFNK  339
+                LLFAEKL PPFNMKA+IIIETDQELVDVADFEGIEI+LGNNIQSCLDSFYM  YKEDLIL NT  ELLLL DNFKIPKYFAKLD+NQ RLKK IEKKYMS+IK GKL* FNK
+Subject   7108  LLFAEKLIPPFNMKAIIIIETDQELVDVADFEGIEILLGNNIQSCLDSFYMRFYKEDLILYNTANELLLLIDNFKIPKYFAKLDMNQVRLKKIIEKKYMSLIKAGKL*CFNK  7443</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 7246 to 7443</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7246&amp;to=7443">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7246&amp;to=7443">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>96.4 bits(204)</td>
+                      <td>0.0</td>
+                      <td>41/66(62%)</td>
+                      <td>0/66(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        4  FSSSVEKYQVFFVDVHIK*IQARLNIVTKYDFYSLEVGNIN*FLICFDYYYRLHIKRRVQLLCKKQ  201
+                F SSV KYQVFFV+ HIK*IQARLNIV K D YS +V N++*FL+ F+YYY  H+K   Q  C++Q
+Subject   7246  FVSSVVKYQVFFVEAHIK*IQARLNIVPK*DLYSFKVSNVD*FLVRFNYYYCFHVKGWNQFFCEEQ  7443</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 7106 to 7225</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7106&amp;to=7225">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7106&amp;to=7225">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>72.1 bits(151)</td>
+                      <td>0.0</td>
+                      <td>30/40(75%)</td>
+                      <td>0/40(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      222  FLLNHQSFPVFITDMYFFSIVFFSLAWLISNLAKYFGILK  341
+                FLL H SFP FI DMYFFSI+FF+    ISNLAKYFGILK
+Subject   7106  FLLKH*SFPAFIKDMYFFSIIFFNRT*FISNLAKYFGILK  7225</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 4: 7107 to 7442</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7107&amp;to=7442">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7107&amp;to=7442">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>143.1 bits(306)</td>
+                      <td>0.0</td>
+                      <td>72/112(64%)</td>
+                      <td>0/112(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        5  CFLQRSWTRLLI*RR***SKQIKN*LMLPTSRE*KSYLVTIFNLAWIHFICTSTKKT*YFSTLLENYFY*LTISRYQSILLN*ISTKQD*RKRLRKSTCL**KQENFDGLIK  340
+                C  Q++    L *++*** K+ +N*  L T +E*+SYL TIF+LAWIHFIC STKKT*YF+TLL N + *L IS+YQ+ILLN*I  K D*RK LR+STCL**+QENF+ LIK
+Subject   7107  CSSQKN*FHPLT*KQ***LKRTRN*STLLTLKE*RSYLGTIFSLAWIHFICASTKKT*YFTTLLTNCYC*LIISKYQNILLN*I*IKYD*RK*LRRSTCL**RQENFNALIK  7442</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 5: 7106 to 7345</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7106&amp;to=7345">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7106&amp;to=7345">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>117.5 bits(250)</td>
+                      <td>0.0</td>
+                      <td>53/80(66%)</td>
+                      <td>0/80(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      102  NRNHTW*QYSILLGFILYARLQRRLDTSQHYWRTTSTN*QFQDTKVFC*IRYQPSKTKEND*EKVHVCNKNRKTLMV**K  341
+                NR+ TW QYS+LLGFILYA LQRR DT QH  RT + +* FQ+TK+FC*IRY+ S  +EN+*E+VHV +K RKTLM+**K
+Subject   7106  NRDLTWEQYSVLLGFILYALLQRRPDTLQHC*RTATVD**FQNTKIFC*IRYESSTIEENN*EEVHVFDKGRKTLML**K  7345</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 6: 7108 to 7233</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7108&amp;to=7233">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7108&amp;to=7233">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>67.0 bits(140)</td>
+                      <td>0.0</td>
+                      <td>28/42(67%)</td>
+                      <td>0/42(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      214  FIKPSKFSCFYYRHVLFLNRFL*SCLVDI*FSKILWYLEIVS  339
+                FIK  KFSC Y RHVL LN FL S L+ I*FSKI WY EI++
+Subject   7108  FIKALKFSCLYQRHVLLLNYFLQSYLIHI*FSKIFWYFEIIN  7233</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 7: 7281 to 7367</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7281&amp;to=7367">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7281&amp;to=7367">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>46.9 bits(96)</td>
+                      <td>0.0</td>
+                      <td>19/29(66%)</td>
+                      <td>0/29(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       80  CRRAYKMNPSKIEYCYQV*FLFPRSRQHQ  166
+                CR AYKMNPSK EYC QV  LF +S+Q +
+Subject   7281  CRSAYKMNPSKTEYCSQVRSLFLQSQQRR  7367</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 8: 7400 to 7444</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7400&amp;to=7444">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7400&amp;to=7444">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>32.7 bits(65)</td>
+                      <td>0.0</td>
+                      <td>13/15(87%)</td>
+                      <td>0/15(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        3  AFILKGGSNFSAKSN  47
+                AF+LKGG NFSAKSN
+Subject   7400  AFMLKGGINFSAKSN  7444</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 9: 7101 to 7226</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7101&amp;to=7226">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7101&amp;to=7226">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>54.2 bits(112)</td>
+                      <td>0.0</td>
+                      <td>27/42(64%)</td>
+                      <td>0/42(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      221  IVFY*TIKVFLFLLQTCTFSQSFSLVLLG*YLI*QNTLVS*N  346
+                + FY*+IKVFL L +TCT SQ FS ++L  YLI*QN LV *N
+Subject   7101  LCFY*SIKVFLPLSKTCTSSQLFSSIVLDSYLI*QNILVF*N  7226</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 10: 7268 to 7348</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=genbank&amp;log$=nuclalign&amp;from=7268&amp;to=7348">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AF525933.1?report=graph&amp;log$=nuclalign&amp;from=7268&amp;to=7348">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>43.7 bits(89)</td>
+                      <td>0.0</td>
+                      <td>22/27(81%)</td>
+                      <td>0/27(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       99  IKSSL*TCI*NESKQD*ILLPSMISIP  179
+                I+SSL*  I*NESKQD*IL PS ISIP
+Subject   7268  IRSSL*KRI*NESKQD*ILFPSKISIP  7348</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit2>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description2">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/AY535016.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/AY535016.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Lettuce ring necrosis virus segment RNA 1, complete sequence</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/AY535016.1?report=genbank&amp;log$=nuclalign">AY535016.1</a>
+                    <span class=b>Length:</span> 7651
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 7126 to 7410</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AY535016.1?report=genbank&amp;log$=nuclalign&amp;from=7126&amp;to=7410">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/AY535016.1?report=graph&amp;log$=nuclalign&amp;from=7126&amp;to=7410">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>50.1 bits(103)</td>
+                      <td>0.0</td>
+                      <td>30/95(32%)</td>
+                      <td>0/95(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        4  LLFAEKLDPPFNMKAVIIIETDQELVDVADFEGIEIILGNNIQSCLDSFYMHVYKEDXXXXXXXXXXXXXXDNFKIPKYFAKLDINQARLKKTIE  288
+                LL ++K+   F+ KAVIII+T    VDV  ++ I I L   I     S +  +YK D ++     ++  L + + IP Y   L   + R K+ +E
+Subject   7126  LLTSDKVPRIFDKKAVIIIKTLNSFVDVVLYDDIFISLTQKICDIFTSLFFQLYKVDAMISFGDKKIYRLENGYTIPHYSMILSKEEERSKRNLE  7410</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit3>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description3">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_006051.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_006051.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Lettuce ring necrosis virus RNA 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_006051.1?report=genbank&amp;log$=nuclalign">NC_006051.1</a>
+                    <span class=b>Length:</span> 7651
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 7126 to 7410</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_006051.1?report=genbank&amp;log$=nuclalign&amp;from=7126&amp;to=7410">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_006051.1?report=graph&amp;log$=nuclalign&amp;from=7126&amp;to=7410">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>50.1 bits(103)</td>
+                      <td>0.0</td>
+                      <td>30/95(32%)</td>
+                      <td>0/95(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        4  LLFAEKLDPPFNMKAVIIIETDQELVDVADFEGIEIILGNNIQSCLDSFYMHVYKEDXXXXXXXXXXXXXXDNFKIPKYFAKLDINQARLKKTIE  288
+                LL ++K+   F+ KAVIII+T    VDV  ++ I I L   I     S +  +YK D ++     ++  L + + IP Y   L   + R K+ +E
+Subject   7126  LLTSDKVPRIFDKKAVIIIKTLNSFVDVVLYDDIFISLTQKICDIFTSLFFQLYKVDAMISFGDKKIYRLENGYTIPHYSMILSKEEERSKRNLE  7410</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+
+    </div>
+
+    <footer>
+      This page was generated by <a href="https://github.com/thehyve/blast2html/">blast2html</a>.
+    </footer>
+  </body>
+</html>
+

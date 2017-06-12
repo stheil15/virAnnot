@@ -1,0 +1,15 @@
+krona-data/19/Isaria_javanica_chrysovirus_1.csv	krona-data/19/Isaria_javanica_chrysovirus_1.xml
+krona-data/19/Grapevine_rupestris_stem_pitting_associated_virus.csv	krona-data/19/Grapevine_rupestris_stem_pitting_associated_virus.xml
+krona-data/19/Vicia_faba_endornavirus.csv	krona-data/19/Vicia_faba_endornavirus.xml
+krona-data/19/Agaricus_bisporus_endornavirus_1.csv	krona-data/19/Agaricus_bisporus_endornavirus_1.xml
+krona-data/19/Ceratobasidium_endornavirus_C.csv	krona-data/19/Ceratobasidium_endornavirus_C.xml
+krona-data/19/Macrophomina_phaseolina_single_stranded_RNA_virus_1.csv	krona-data/19/Macrophomina_phaseolina_single_stranded_RNA_virus_1.xml
+krona-data/19/Brassica_campestris_chrysovirus_1.csv	krona-data/19/Brassica_campestris_chrysovirus_1.xml
+krona-data/19/Grapevine_associated_chrysovirus_3.csv	krona-data/19/Grapevine_associated_chrysovirus_3.xml
+krona-data/19/dsRNA_virus_environmental_sample.csv	krona-data/19/dsRNA_virus_environmental_sample.xml
+krona-data/19/Wuhan_insect_virus_30.csv	krona-data/19/Wuhan_insect_virus_30.xml
+krona-data/19/Penicillium_chrysogenum_virus.csv	krona-data/19/Penicillium_chrysogenum_virus.xml
+krona-data/19/Rhizoctonia_cerealis_endornavirus_1.csv	krona-data/19/Rhizoctonia_cerealis_endornavirus_1.xml
+krona-data/19/Alternaria_alternata_partitivirus_1.csv	krona-data/19/Alternaria_alternata_partitivirus_1.xml
+krona-data/19/Grapevine_associated_chrysovirus_1.csv	krona-data/19/Grapevine_associated_chrysovirus_1.xml
+krona-data/19/Grapevine_chrysovirus.csv	krona-data/19/Grapevine_chrysovirus.xml

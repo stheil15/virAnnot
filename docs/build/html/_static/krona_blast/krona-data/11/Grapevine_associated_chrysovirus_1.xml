@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>blastx</BlastOutput_program>
+  <BlastOutput_version>BLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/bank/blastdb/nr</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-55_2</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>1402</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>1</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_2</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>1402</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|309256198|gb|ADO60926.1|</Hit_id>
+  <Hit_def>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</Hit_def>
+  <Hit_accession>ADO60926</Hit_accession>
+  <Hit_len>957</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>939.873</Hsp_bit-score>
+      <Hsp_score>2428</Hsp_score>
+      <Hsp_evalue>0</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>1395</Hsp_query-to>
+      <Hsp_hit-from>180</Hsp_hit-from>
+      <Hsp_hit-to>644</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>439</Hsp_identity>
+      <Hsp_positive>458</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>465</Hsp_align-len>
+      <Hsp_qseq>VLRGDRAGDRDVNIHDLVRMFEQGMVPKECVDYYVRHSYVPTQFDFGVSMFEWSVAMAEIPPKLNKPREFDVTADMVDVFAPRGSKELYRANVTIRQLIQTFDIFSHADAYEIASQHVGEPQVFVTSILCAWKGILQNTSVNFIVKKWMGVNFHYWSDIMKSLHSYIRCSRFLMNTEITEQERQSLMYMDLLVGRGEYQIDEMAEVTLRQSDTYSSKHLSYNPDLRAFTNEQYIKDFSRSVQIAHMRIKHNPKPIQFTTFTEFYRARHTWITKGGLVSNTLPKGMKQFSAQIFDAVAATVEEIEGRHNKKSLFEMNEPYDILVGVNRHNFNITKTMIKYEVGKKDRTLLPGSLAHFIVFCYILMLAEKQEQIGSVRLNAMGDGDIRYFDKKMSTGTFHVLYDWADFNEQHSAWEMAQVIQELENVMPDTPDYHLFCSAIVEGMYEMGLQDKDGHLHKLWRGLYSG</Hsp_qseq>
+      <Hsp_hseq>VLRGERAGDRDVNIHDLVRMFENGMVPKECVDYYVRHSYVPTQFDFGVSMFEWSVAMAEIPPKLNKPEKFDVSADMIEVFAPRGSKELHRSNVTMRQLIQTFDIFSHDDAYEIASMHVGEPQVFVTSVLSAWKGILQNTSVNFIVKKWMGVNFHHWSDVMKSLHSYIRCSRFLMNTEITEQDRQSLMYMDLLVGRGEYQIDEMAEVSLRQSDTYSSKHLSYNPDLKAFTNEQYIKDFSRSVQIAHMRIKHNPKPLQFTTFTDFYRARHTWITKGGLVSNTLPKGMKQFSAQIFDAVAATVEEIEGRHNKKSLFEMNELYDILVGVNRHNFNVTKTMIKYEVGKKDRTLLPGSLAHFIVFCYILMLAEKQEQIGSVRLNAMGDGDIRYFDKKMSTGTFHVLYDWADFNEQHSAWEMAQVIKELETVMPDTPDYHLFCSAIVEGMYEMGLQDKEGHLHKLWRGLYSG</Hsp_hseq>
+      <Hsp_midline>VLRG+RAGDRDVNIHDLVRMFE GMVPKECVDYYVRHSYVPTQFDFGVSMFEWSVAMAEIPPKLNKP +FDV+ADM++VFAPRGSKEL+R+NVT+RQLIQTFDIFSH DAYEIAS HVGEPQVFVTS+L AWKGILQNTSVNFIVKKWMGVNFH+WSD+MKSLHSYIRCSRFLMNTEITEQ+RQSLMYMDLLVGRGEYQIDEMAEV+LRQSDTYSSKHLSYNPDL+AFTNEQYIKDFSRSVQIAHMRIKHNPKP+QFTTFT+FYRARHTWITKGGLVSNTLPKGMKQFSAQIFDAVAATVEEIEGRHNKKSLFEMNE YDILVGVNRHNFN+TKTMIKYEVGKKDRTLLPGSLAHFIVFCYILMLAEKQEQIGSVRLNAMGDGDIRYFDKKMSTGTFHVLYDWADFNEQHSAWEMAQVI+ELE VMPDTPDYHLFCSAIVEGMYEMGLQDK+GHLHKLWRGLYSG</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>158</Statistics_hsp-len>
+      <Statistics_eff-space>7955830103910</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>5</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_31</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>511</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|309256198|gb|ADO60926.1|</Hit_id>
+  <Hit_def>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</Hit_def>
+  <Hit_accession>ADO60926</Hit_accession>
+  <Hit_len>957</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>305.064</Hsp_bit-score>
+      <Hsp_score>780</Hsp_score>
+      <Hsp_evalue>7.11705e-94</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>503</Hsp_query-to>
+      <Hsp_hit-from>788</Hsp_hit-from>
+      <Hsp_hit-to>956</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>144</Hsp_identity>
+      <Hsp_positive>158</Hsp_positive>
+      <Hsp_gaps>2</Hsp_gaps>
+      <Hsp_align-len>169</Hsp_align-len>
+      <Hsp_qseq>CVG--CVW*EGEEWMNLPEAVLHGVEEQGGLGVPDASNQVWILDKPVPEVNEEWYKVVVPDYKASKDYVKVLSDEMARFSIVIERQEELAQKLAVDSYDLDKSIDRMAWKKLLQFDGKPVGFRNVIEPMVNDDLMSSFIDFQIDESVTRKFDKASRYQEYINYLTVDSH</Hsp_qseq>
+      <Hsp_hseq>CISHWCKIKDGEEWMNLPEAVLHGVEEQGGLGVPDAANQVWILDKNVPEVNEEWYKVVVPDYKASKDYVKVLSDEMARFSIVIQRQEELAQKLAVDSYDLDKSVDRIAWRKLLQFDGKAIAYRNIIEPMVNDDIMSSFVDFQIDEEMTRKFDKASRYQEYINYLTVEDH</Hsp_hseq>
+      <Hsp_midline>C+   C   +GEEWMNLPEAVLHGVEEQGGLGVPDA+NQVWILDK VPEVNEEWYKVVVPDYKASKDYVKVLSDEMARFSIVI+RQEELAQKLAVDSYDLDKS+DR+AW+KLLQFDGK + +RN+IEPMVNDD+MSSF+DFQIDE +TRKFDKASRYQEYINYLTV+ H</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>131</Statistics_hsp-len>
+      <Statistics_eff-space>1133777022144</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>12</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_60</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>366</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|309256198|gb|ADO60926.1|</Hit_id>
+  <Hit_def>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</Hit_def>
+  <Hit_accession>ADO60926</Hit_accession>
+  <Hit_len>957</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>239.195</Hsp_bit-score>
+      <Hsp_score>609</Hsp_score>
+      <Hsp_evalue>9.92026e-71</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>365</Hsp_query-to>
+      <Hsp_hit-from>10</Hsp_hit-from>
+      <Hsp_hit-to>130</Hsp_hit-to>
+      <Hsp_query-frame>-2</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>111</Hsp_identity>
+      <Hsp_positive>118</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>121</Hsp_align-len>
+      <Hsp_qseq>HGKTTIAHKYGFIDVDMLVTRKEHDDLAEDRASILAGQQNWLAHNTKWYARLNETLDLLDYSMPVIILVHTEELALELGARPIGCLKLKREVFERNIRDRDDLGKTFSRLNYTTLHTSKQV</Hsp_qseq>
+      <Hsp_hseq>HGKTTIAHKYGFVDVDMLVTRKEHDDLAEDRASILAGQQTWMEHNTKWYARLNQTLDLLDYSMPVIILVHTEEIALELGARPIGCLKLRRDIFETNIRDRDDLGKTFSRLNYTTLHTSKQV</Hsp_hseq>
+      <Hsp_midline>HGKTTIAHKYGF+DVDMLVTRKEHDDLAEDRASILAGQQ W+ HNTKWYARLN+TLDLLDYSMPVIILVHTEE+ALELGARPIGCLKL+R++FE NIRDRDDLGKTFSRLNYTTLHTSKQV</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>89</Statistics_hsp-len>
+      <Statistics_eff-space>1129991166876</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>43</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_74</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>312</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|309256198|gb|ADO60926.1|</Hit_id>
+  <Hit_def>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</Hit_def>
+  <Hit_accession>ADO60926</Hit_accession>
+  <Hit_len>957</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>186.422</Hsp_bit-score>
+      <Hsp_score>472</Hsp_score>
+      <Hsp_evalue>5.49343e-52</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>312</Hsp_query-to>
+      <Hsp_hit-from>329</Hsp_hit-from>
+      <Hsp_hit-to>432</Hsp_hit-to>
+      <Hsp_query-frame>-1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>83</Hsp_identity>
+      <Hsp_positive>96</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>104</Hsp_align-len>
+      <Hsp_qseq>GVNFSAWSDLMKSLHSYVRCSRFLMNTEISEQDRQALMYLDLNVGRGEYQIDEMAEVTVRSAETYSSKHLSYDSDLKLFTNEQYVTDFSRGIQLAHMRIKHNPK</Hsp_qseq>
+      <Hsp_hseq>GVNFHHWSDVMKSLHSYIRCSRFLMNTEITEQDRQSLMYMDLLVGRGEYQIDEMAEVSLRQSDTYSSKHLSYNPDLKAFTNEQYIKDFSRSVQIAHMRIKHNPK</Hsp_hseq>
+      <Hsp_midline>GVNF  WSD+MKSLHSY+RCSRFLMNTEI+EQDRQ+LMY+DL VGRGEYQIDEMAEV++R ++TYSSKHLSY+ DLK FTNEQY+ DFSR +Q+AHMRIKHNPK</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>73</Statistics_hsp-len>
+      <Statistics_eff-space>1122573321220</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>
