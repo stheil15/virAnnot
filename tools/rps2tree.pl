@@ -26,7 +26,7 @@ my @input_files;
 my @id_samples;
 my $db = '/media/data/db/taxonomy/taxonomy.sqlite';
 my $cdd_fasta_path = '/media/data/db/ncbi/cdd/fasta/';
-my $nr_db_path = '/media/data/db/ncbi/nr/nr';
+my $blast_db_path = '/media/data/db/ncbi/nr/nr';
 my $verbosity=1;
 my @seq_fasta;
 my @ecsv_files;
@@ -74,16 +74,151 @@ sub main {
   _cut_sequences($self);
   _align_with_ref($self);
 
-  _global_stats($self,$outdir . '/rps2tree_stats.xlsx');
+  my $data = _get_global_stats($self,);
+  _print_excel($self,$outdir . '/rps2tree_stats.xlsx',$data);
+  _print_csv($self,'cluster_nb_reads.csv',$data);
+  _print_map_file($self,$outdir.'/map.txt',$data);
+  _create_html($self,$outdir.'/map.txt',$outdir);
 }
 
 
-sub _global_stats {
-  my ($self,$excel_file)=@_;
+sub _create_html {
+  my ($self,$map_file,$outdir)=@_;
+  my $cmd = 'rps2tree_html.py -m ' . $map_file . ' -o ' . $outdir;
+  $logger->debug($cmd);
+  `$cmd`;
+}
+
+
+sub _print_map_file {
+  my ($self,$map_file,$data)=@_;
+  open(MAP,">$map_file");
+  my @headers = ('cdd_id','align_files','tree_files','cluster_files','cluster_nb_reads_files','pairwise_files','description','full_description');
+  print MAP '#' . join("\t",@headers) . "\n";
+  foreach my $cdd_id (sort(keys(%{$data}))){
+    print MAP $cdd_id ;
+    if(defined($self->{_align_files}->{$cdd_id})){
+      my @s = split('/',$self->{_align_files}->{$cdd_id});
+      print MAP "\t" . $s[$#s-1] . '/' . $s[$#s];
+    }
+    else{
+      print MAP "\t" . '.';
+    }
+
+    if(defined($self->{_tree_files}->{$cdd_id})){
+      my @s = split('/',$self->{_tree_files}->{$cdd_id});
+      print MAP "\t" . $s[$#s-1] . '/' . $s[$#s];
+    }
+    else{
+      print MAP "\t" . '.';
+    }
+
+    if(defined($self->{_cluster_files}->{$cdd_id})){
+      my @s = split('/',$self->{_cluster_files}->{$cdd_id});
+      print MAP "\t" . $s[$#s-1] . '/' . $s[$#s];
+    }
+    else{
+      print MAP "\t" . '.';
+    }
+
+    if(defined($self->{_cluster_nb_reads_files}->{$cdd_id})){
+      my @s = split('/',$self->{_cluster_nb_reads_files}->{$cdd_id});
+      print MAP "\t" . $s[$#s-1] . '/' . $s[$#s];
+    }
+    else{
+      print MAP "\t" . '.';
+    }
+
+    if(defined($self->{_pairwise_files}->{$cdd_id})){
+      my @s = split('/',$self->{_pairwise_files}->{$cdd_id});
+      print MAP "\t" . $s[$#s-1] . '/' . $s[$#s];
+    }
+    else{
+      print MAP "\t" . '.';
+    }
+
+    if(defined($self->{cdd_info}->{$cdd_id}->{description})){
+      print MAP "\t" . $self->{cdd_info}->{$cdd_id}->{description};
+    }
+    else{
+      print MAP "\t" . '.';
+    }
+
+    if(defined($self->{cdd_info}->{$cdd_id}->{full_description})){
+      print MAP "\t" . $self->{cdd_info}->{$cdd_id}->{full_description};
+    }
+    else{
+      print MAP "\t" . '.';
+    }
+
+    print MAP "\n";
+  }
+  close MAP;
+}
+
+sub _print_excel {
+  my ($self,$excel_file,$data)=@_;
   my $workbook = Excel::Writer::XLSX->new( $excel_file );
+  foreach my $cdd_id (sort(keys(%{$data}))){
+    my $worksheet = $workbook->add_worksheet($cdd_id . '_' . $self->{cdd_info}->{$cdd_id}->{description});
+    my @headers = ('#OTU_name');
+    push(@headers,sort(keys(%{$data->{$cdd_id}->{sample_present}})));
+    $worksheet->write(0,0,\@headers);
+    $worksheet->set_column(0,$#headers,12);
+    my $row=1;
+    foreach my $otu (sort(keys(%{$data->{$cdd_id}->{otu_matrix}}))){
+      $worksheet->write($row,0,$otu);
+      my $col=1;
+      for(my $i=1;$i<=$#headers;$i++){
+        if(defined($data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]})){
+          $worksheet->write($row,$col,$data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]});
+        }
+        else{
+          $worksheet->write($row,$col,'0');
+        }
+        $col++;
+      }
+      my @tax = split(';',$data->{$cdd_id}->{otu_annot}->{$otu});
+      foreach my $t (@tax) {
+        $worksheet->write($row,$col,$t);
+        $worksheet->set_column($col,$col,length($t));
+        $col++;
+      }
+      $row++;
+    }
+  }
+}
+
+sub _print_csv {
+  my ($self,$csv_file,$data)=@_;
+  foreach my $cdd_id (sort(keys(%{$data}))){
+    my @headers = ('#OTU_name');
+    push(@headers,sort(keys(%{$data->{$cdd_id}->{sample_present}})));
+    $self->{_cluster_nb_reads_files}->{$cdd_id} = $self->{cdd_folders}->{$cdd_id}.'/'.$csv_file;
+    open(CSV,">$self->{cdd_folders}->{$cdd_id}/$csv_file");
+    print CSV join("\t",@headers) . "\t" . 'taxonomy' . "\t" . 'seq_list' . "\n";
+    foreach my $otu (sort(keys(%{$data->{$cdd_id}->{otu_matrix}}))){
+      print CSV $otu;
+      for(my $i=1;$i<=$#headers;$i++){
+        if(defined($data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]})){
+          print CSV "\t" . $data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]};
+        }
+        else{
+          print CSV "\t" . '0';
+        }
+      }
+      print CSV "\t" . $data->{$cdd_id}->{otu_annot}->{$otu}->{taxonomy};
+      print CSV "\t" . join(',',@{$data->{$cdd_id}->{otu_annot}->{$otu}->{seq_list}});
+      print CSV "\n";
+    }
+    close CSV;
+  }
+}
+
+sub _get_global_stats {
+  my ($self)=@_;
+  my $cdd_info;
   foreach my $cdd_id (keys(%{$self->{_cluster_files}})){
-    my $cdd_info;
-    print $cdd_id . "\t" . $self->{_cluster_files}->{$cdd_id} . "\n";
     open(CLUST,$self->{_cluster_files}->{$cdd_id});
     while(<CLUST>){
       chomp;
@@ -94,13 +229,15 @@ sub _global_stats {
             if(defined($self->{collection}->{$cdd_id}->[$j]->{$l[$i]})){
               if(defined($self->{_query_annotation}->{$l[$i]})){
                 if(defined($self->{_query_annotation}->{$l[$i]}->{nb_reads})){
-                  $cdd_info->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += $self->{_query_annotation}->{$l[$i]}->{nb_reads};
+                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += $self->{_query_annotation}->{$l[$i]}->{nb_reads};
                 }
                 else{
-                  $cdd_info->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]}++;
+                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]}++;
                 }
-                $cdd_info->{sample_present}->{$self->{id_samples}->[$j]}++;
-                $cdd_info->{otu_annot}->{$l[0]} = $self->{_query_annotation}->{$l[$i]}->{taxonomy};
+
+                $cdd_info->{$cdd_id}->{sample_present}->{$self->{id_samples}->[$j]}++;
+                $cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{taxonomy} = $self->{_query_annotation}->{$l[$i]}->{taxonomy};
+                push(@{$cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{seq_list}},$l[$i]);
               }
             }
           }
@@ -108,34 +245,8 @@ sub _global_stats {
       }
     }
     close CLUST;
-    # print Dumper $cdd_info;
-    my $worksheet = $workbook->add_worksheet($cdd_id . '_' . $self->{cdd_info}->{$cdd_id}->{description});
-    my @headers = ['#OTU_name'];
-    push(@headers,sort(keys(%{$cdd_info->{sample_present}})));
-    $worksheet->write(0,0,\@headers);
-    $worksheet->set_column(0,$#headers,12);
-    my $row=1;
-    foreach my $otu (sort(keys(%{$cdd_info->{otu_matrix}}))){
-      $worksheet->write($row,0,$otu);
-      my $col=1;
-      for(my $i=1;$i<=$#headers;$i++){
-        if(defined($cdd_info->{otu_matrix}->{$otu}->{$headers[$i]})){
-          $worksheet->write($row,$col,$cdd_info->{otu_matrix}->{$otu}->{$headers[$i]});
-        }
-        else{
-          $worksheet->write($row,$col,'0');
-        }
-        $col++;
-      }
-      my @tax = split(';',$cdd_info->{otu_annot}->{$otu});
-      foreach my $t (@tax) {
-        $worksheet->write($row,$col,$t);
-        $worksheet->set_column($col,$col,length($t));
-        $col++;
-      }
-      $row++;
-    }
   }
+  return $cdd_info;
 }
 
 
@@ -257,7 +368,7 @@ sub _seek_ref {
     open(REF_ACC,">$ref_acc_file");
     print REF_ACC join("\n",keys(%{$ref_acc}));
     close REF_ACC;
-    my $fastacmd = 'fastacmd -d ' . $nr_db_path . ' -p T -i ' . $ref_acc_file . ' > ' . $self->{_cdd_folder} . '/ref.fasta' ;
+    my $fastacmd = 'fastacmd -d ' . $blast_db_path . ' -p T -i ' . $ref_acc_file . ' > ' . $self->{_cdd_folder} . '/ref.fasta' ;
     $logger->debug($fastacmd);
     `$fastacmd`;
     $clean_cmd .= 'rm ' . $self->{_cdd_folder} . '/ref.fasta' . "\n";
@@ -316,6 +427,7 @@ sub _align_with_ref {
     if(-e $self->{_cdd_fasta_path} . '/' . $cdd_id . '.FASTA'){
       my $ori_cdd_fasta = $self->{_cdd_fasta_path} . '/' . $cdd_id . '.FASTA';
       $self->{_cdd_folder} = $rps2tree_folder . '/' . $cdd_id . '_' . $self->{cdd_info}->{$cdd_id}->{description};
+      $self->{cdd_folders}->{$cdd_id} = $self->{_cdd_folder};
       if(! -e $self->{_cdd_folder}){
         `mkdir $self->{_cdd_folder}`;
       }
@@ -366,24 +478,36 @@ sub _align_with_ref {
         $clean_cmd .= 'rm -r ' . $self->{_cdd_folder} . '/ete3' . "\n";
         $logger->debug($mv_ete_cmd);
         `$mv_ete_cmd`;
+        $self->{_align_files}->{$cdd_id} = $align_fasta;
+      }
+      else{
+        $self->{_align_files}->{$cdd_id} = $align_fasta;
       }
 
       if(! -e $tree_file . '.png'){
         my $ete_tree_cmd = 'ete_tree.py' . ' -f ' . $align_fasta . ' -t ' . $tree_file . ' -c ' . $config_file . ' -o ' . $tree_file . '.png';
         $logger->debug($ete_tree_cmd);
         `$ete_tree_cmd`;
+        if(-e $tree_file . '.png'){
+          $self->{_tree_files}->{$cdd_id} = $tree_file . '.png';
+        }
+      }
+      else{
+        $self->{_tree_files}->{$cdd_id} = $tree_file . '.png';
       }
 
       my $matrix_file = $self->{_cdd_folder} . '/' . 'identity_matrix.csv';
       my $cluster_file = $self->{_cdd_folder} . '/' . 'clusters.csv';
       if(! -e $cluster_file && -e $align_fasta){
         &_compute_pairwise_distance($self,$align_fasta,$matrix_file,$cluster_file,1,'90');
+        $self->{_cluster_files}->{$cdd_id} = $cluster_file;
+        $self->{_pairwise_files}->{$cdd_id} = $matrix_file;
       }
-      $self->{_cluster_files}->{$cdd_id} = $cluster_file;
+      else{
+        $self->{_cluster_files}->{$cdd_id} = $cluster_file;
+        $self->{_pairwise_files}->{$cdd_id} = $matrix_file;
+      }
 
-      # my $pairwise_distance_cmd = 'pairwiseDistance.pl ' . ' -matrix ' . $matrix_file . ' -i ' . $align_fasta . ' -id ' . '90' . ' -nogap ' . ' -clust ' . $cluster_file;
-      # $logger->debug($pairwise_distance_cmd);
-      # `$pairwise_distance_cmd`;
     }
     $logger->debug($clean_cmd);
   }
@@ -508,6 +632,7 @@ sub _cut_sequences {
   my ($self)=@_;
   for(my $i=0;$i<=$#{$self->{_pfam_hits}};$i++){
     for(my $j=0;$j<=$#{$self->{_pfam_hits}->[$i]};$j++){
+      if(!defined($self->{_pfam_hits}->[$i]->[$j]->{superkingdom})){next;}
       if($self->{_pfam_hits}->[$i]->[$j]->{superkingdom} =~ /Viruses\((\d+\.\d+)\);/){
         my $vir_percent = $1;
         if($vir_percent >= $self->{_viral_portion}){
@@ -520,6 +645,7 @@ sub _cut_sequences {
           my $prot = $subseq->translate();
           if(length($prot->seq) > $self->{_min_prot_length}){
             $self->{collection}->{$self->{_pfam_hits}->[$i]->[$j]->{cdd_id}}->[$i]->{$self->{_pfam_hits}->[$i]->[$j]->{query_id}} = $prot->seq;
+            $self->{cdd_info}->{$self->{_pfam_hits}->[$i]->[$j]->{cdd_id}}->{full_description} = $self->{_pfam_hits}->[$i]->[$j]->{description};
             my @a = split(',',$self->{_pfam_hits}->[$i]->[$j]->{description});
             $self->{cdd_info}->{$self->{_pfam_hits}->[$i]->[$j]->{cdd_id}}->{description} = $a[1];
             $self->{cdd_info}->{$self->{_pfam_hits}->[$i]->[$j]->{cdd_id}}->{description} =~ s/^\s//;
@@ -591,7 +717,6 @@ sub _set_options {
 }
 
 
-
 sub help {
 my $prog = basename($0) ;
 print STDERR <<EOF ;
@@ -603,14 +728,20 @@ print STDERR <<EOF ;
 # PURPOSE:    This script is used to parse csv file containing tax_id field and creates Krona charts.
 #
 
-USAGE: perl $prog -i blast_csv_extended_1 -i blast_csv_extended_2 ... -i blast_csv_extended_n [OPTIONS]
+USAGE: perl $prog -i rspblast_csv_1 -id id_sample1 -e blast_cvs_1 ... -i rpsblast_csv_n -id id_sampleN -e blast_csv_n [OPTIONS]
 
        ### OPTIONS ###
-       -i|input        <BLAST CSV>=<GROUP FILE>  Blast CSV extended file and CSV group file corresponding to blast (optional)
-       -m|merge        <NAME>  Merge the inputs csv files and generate a common Krona file
-                       If no name is provided, the default name will be merged.html
-       -s              Sequences in fasta.
-       -help|h				 Print this help and exit
+       -i|input           <RPSBLAST CSV>  Rpsblast CSV file from rps2csv.pl script.
+       -id                Sample ID.
+       -e|ecsv            <BLAST CSV> Blast CSV with taxonomy field from blast2ecsv.pl script.
+       -o|outdir          Output directory.
+       -s                 Sequences in fasta.
+       -mp|min_prot       Minimum query protein length.
+       -vp|viral_portion  Minimun portion of viral sequences in PFAM domain to be included.
+       -db                NCBI Taxonomy SqliteDB.
+       -v|verbosity       1 -> 3
+
+       -help|h				    Print this help and exit
 EOF
 exit(1) ;
 }

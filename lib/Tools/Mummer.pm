@@ -1313,6 +1313,7 @@ sub generateMultiFastaAlignment {
     }
   }
   if($lastRef){
+    $lastRef =~ s/\|/_/g;
     open(FILE, '> '.$outputDirectory.'/'.$lastRef.'.fasta');
     push (@fileList, $outputDirectory.'/'.$lastRef.'.fasta');
     foreach my $query (@order){

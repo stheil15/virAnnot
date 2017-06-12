@@ -1,9 +1,7 @@
 import os.path
 from subprocess import call
 import logging as log
-from fabric.api import env
-from fabric.operations import run as fabric_run
-from fabric.context_managers import settings, hide
+import sys
 
 class Automapper:
 
@@ -14,7 +12,8 @@ class Automapper:
 
 
     def create_cmd (self):
-        cmd = 'autoMapper_v2.pl'
+        cmd = 'autoMapper.pl'
+        cmd += ' -r ' + self.ref
         cmd += ' -q ' + self.contigs
         cmd += ' -b ' + self.ecsv
         if self.reads != '':
@@ -30,20 +29,40 @@ class Automapper:
 
 
     def check_args (self, args: dict):
+        self.execution=1
         if 'sample' in args:
             self.sample = args['sample']
         self.wd = os.getcwd() + '/' + self.sample
         self.cmd_file = self.wd + '/' + 'autoMapper_cmd.txt'
+        if 'params' in args:
+            self.params = args['params']
+        else:
+            sys.exit('Parameters not found.')
         if 'out' in args:
             self.out = self.wd + '/' + args['out']
         if 'sge' in args:
             self.sge = bool(args['sge'])
         else:
             self.sge = False
+        if 'ref' in args:
+            if args['ref'] in self.params['AutoMapper']['db']:
+                self.ref = self.params['AutoMapper']['db'][args['ref']]
+            else:
+                sys.exit('Database ' + args['ref'] + ' not in parameters.yaml.')
+        else:
+            sys.exit('You must provide a reference Blast database.')
         if 'contigs' in args:
-            self.contigs = self.wd + '/' + args['contigs']
+            if os.path.exists(self.wd + '/' + args['contigs']):
+                self.contigs = self.wd + '/' + args['contigs']
+            else:
+                self.contigs=''
+                self.execution=0
         if 'ecsv' in args:
-            self.ecsv = self.wd + '/' + args['ecsv']
+            if os.path.exists(self.wd + '/' + args['ecsv']):
+                self.ecsv = self.wd + '/' + args['ecsv']
+            else:
+                self.ecsv=''
+                self.execution=0
         if 'i1' in args:
             self.i1 = self.check_seq_format(self.wd + '/' + args['i1'])
         else:
@@ -69,7 +88,7 @@ class Automapper:
             for el in self.cmd:
                 fw.write(el + "\n")
             fw.close()
-            qsub_call =   "qsub -wd " + self.wd + " -V -N " + self.sample + '_rps2tree' + ' ' + self.cmd_file
+            qsub_call =   "qsub -wd " + self.wd + " -V -N " + self.sample + '_automapper' + ' ' + self.cmd_file
             log.debug(qsub_call)
             os.system(qsub_call)
 

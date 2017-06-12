@@ -1,6 +1,7 @@
 import os.path
 from subprocess import call
 import logging as log
+import sys
 
 class drVM:
 
@@ -12,7 +13,7 @@ class drVM:
         self._create_cmd()
 
     def _create_cmd (self):
-        cmd = 'drVM.py'
+        cmd = 'drVM.py -keep'
         cmd += ' -1 ' + str(self.i1)
         cmd += ' -2 ' + str(self.i2)
         cmd += ' -t ' + str(self.n_cpu)
@@ -34,17 +35,23 @@ class drVM:
                 log.debug(str(cmd))
                 self.cmd.append(cmd)
             return out
-        else:
-            log.debug('Format seems to be fasta.')
+        elif: in_file.lower().endswith('.fq') or in_file.lower().endswith('.fastq'):
+            log.debug('Format seems to be fastq.')
             return in_file
+        else:
+            log.debug('Read format not known.')
+            sys.exit(1)
 
 
 
     def check_args (self, args: dict):
+        if 'sample' in args:
+            self.sample = str(args['sample'])
+        self.wd = os.getcwd() + '/' + self.sample
         if 'i1' in args:
-            self.i1 = self.check_seq_format(args['i1'])
+            self.i1 = self.check_seq_format(self.wd + '/' + args['i1'])
         if 'i2' in args:
-            self.i2 = self.check_seq_format(args['i2'])
+            self.i2 = self.check_seq_format(self.wd + '/' + args['i2'])
         if 'n_cpu' in args:
             self.n_cpu = str(args['n_cpu'])
         else:
@@ -73,11 +80,12 @@ class drVM:
             for el in self.cmd:
                 fw.write(el + "\n")
             fw.close()
-            qsub_call =   "qsub -wd " + os.getcwd() + " -V -N " + self.sample + '_drVM' + ' ' + self.cmd_file
+            qsub_call =   "qsub -wd " + os.getcwd() + " -V -N " + self.sample + '_drVM' + ' -pe multithread ' + self.n_cpu + ' ' + self.cmd_file
             log.debug(qsub_call)
             os.system(qsub_call)
         else:
             for el in self.cmd:
+                log.debug(el)
                 os.system (el)
 
     def _check_file (self,f):

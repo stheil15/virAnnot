@@ -4,7 +4,7 @@ VirAnnot was build to ease the assembly, blast search and taxonomic annotation o
 
 It is designed to identify viruses in plants but it can be used to assemble and annotate any sequences with the NCBI taxonomy.
 
-NR and NT must be present localy and NCBI taxonomy is loaded in SQLITE database with a provided script.
+NR and NT must be present localy and NCBI taxonomy is loaded in an SQLITE database with a provided script.
 
 ## Prerequisite
 
@@ -14,6 +14,10 @@ NR and NT must be present localy and NCBI taxonomy is loaded in SQLITE database 
 * Mummer
 * Cutadapt ()
 * ETE tree
+* idba ud
+* Bowtie2
+* Prinseq
+
 
 #### External databases:
 * NCBI [nr, nt](ftp://ftp.ncbi.nlm.nih.gov/blast/db/)
@@ -72,8 +76,12 @@ Download PFAM files for RPSBLAST.
 ```bash
 wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/little_endian/Pfam_LE.tar.gz
 wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/fasta.tar.gz
+wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/cdd.tar.gz
 ```
-Create Taxonomy statistic for each PFAM profile.
+Create Taxonomy statistic for each PFAM profile and load it inta the sqlite database.
 ```bash
-blast2ecsv.pl
+\ls -1 *.FASTA | sed 's,^\(.*\)\.FASTA,gi2taxonomy.pl -i & -o \1.tax.txt -r,' | bash
+listPath.pl -d . | grep 'tax.txt' > idx
+taxo_profile_to_sql.pl -i idx -o taxo_profile.sql
+sqlite3 taxonomy.tmp.sqlite < taxo_profile.sql
 ```

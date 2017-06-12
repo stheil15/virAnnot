@@ -19,7 +19,7 @@ my %blastOptions;
 my $db = '/media/data/db/taxonomy/taxonomy.sqlite';
 my $dbType = 'ncbi';
 my $verbosity = 1;
-my $parseMethod = 'local';
+my $parseMethod = 'global';
 my $seqFile;
 my $readNumber;
 my @blastFiles;
@@ -72,7 +72,7 @@ sub main {
   my $self={};
   bless $self;
 
-  $self->_set_options();
+  _set_options($self);
   my $fileInfos;
   my $fasta_tool;
   foreach my $file (@blastFiles){
@@ -237,15 +237,23 @@ sub printCSVExcel {
       foreach my $field (@$headers){
         if($field eq 'sequence' && !defined($already_printed_sequences->{$line->{'query_id'}})){
 					if($self->{_print_only_virus_seq} == 1){
-						if($line->{'taxonomy'} =~ /Virus/){
+						if($line->{'taxonomy'} =~ /Virus/ || $line->{'taxonomy'} =~ /Viroid/){
 							push(@fields, '"' . $self->{fasta_tool}->retrieveFastaSequence($line->{'query_id'})->{$line->{'query_id'}} . '"');
 							$already_printed_sequences->{$line->{'query_id'}}=1;
 						}
+            else{
+              push(@fields, '""');
+							$already_printed_sequences->{$line->{'query_id'}}=1;
+            }
 					}
 					else{
             if(length($self->{fasta_tool}->retrieveFastaSequence($line->{'query_id'})->{$line->{'query_id'}})>= 500){
               push(@fields, '"' . $self->{fasta_tool}->retrieveFastaSequence($line->{'query_id'})->{$line->{'query_id'}} . '"');
               $already_printed_sequences->{$line->{'query_id'}}=1;
+            }
+            else{
+              push(@fields, '""');
+							$already_printed_sequences->{$line->{'query_id'}}=1;
             }
 					}
         }
@@ -262,6 +270,9 @@ sub printCSVExcel {
         }
         else{
           if (!defined $line->{$field}){
+            $line->{$field} = "";
+          }
+          elsif(defined($line->{'no_hit'}) && $field !~ /algo|query_id|nb_reads|taxonomy/){
             $line->{$field} = "";
           }
           push(@fields, '"' . $line->{$field} . '"');
@@ -415,7 +426,7 @@ sub _set_options {
 
   if(defined($readNumber)){
     if(-e $readNumber){
-      $self->{read_numbers} = $self->_readNumber($readNumber);
+      $self->{read_numbers} = _readNumber($self,$readNumber);
     }
     else{
       $logger->error('Read Number file not found.' . $readNumber)

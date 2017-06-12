@@ -2,44 +2,107 @@ ReadSoustraction_phiX:
   i1: (file1)
   i2: (file2)
   db: phiX
-  o1: (SampleID)_phiX.r1.fq
-  o2: (SampleID)_phiX.r2.fq
+  o1: (library)_phiX.r1.fq
+  o2: (library)_phiX.r2.fq
   sge: True
   n_cpu: 5
   iter: library
 Demultiplex:
-  i1: (library)_vitis.r1.fq
-  i2: (library)_vitis.r2.fq
+  i1: (library)_phiX.r1.fq
+  i2: (library)_phiX.r2.fq
   adapters: adapters.fna
-  tmp_prefix: (library)
   middle: 1
-  min_qual: 30
+  min_qual: 20
   polyA: True
   min_len: 70
   iter: library
   sge: True
+DemultiplexHtml:
+  csv: (library)_demultiplex.stats.csv
+  id: (library)
+  out: stat_demultiplex
+  iter: global
+  sge: True
 drVM:
-  i1: (SampleID)/(SampleID)_r1.fa
-  i2: (SampleID)/(SampleID)_r2.fa
-  n_cpu: 8
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  n_cpu: 20
   identity: 70
   min_len: 300
   sge: True
-Assembly:
+Assembly_idba:
   prog: idba
   n_cpu: 5
-  i1: (SampleID)_R1.truePairs.fasta
-  i2: (SampleID)_R2.truePairs.fasta
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
   out: (SampleID)_idba.scaffold.fa
   sge: True
-Map:
+Assembly_spades:
+  prog: spades
+  n_cpu: 5
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  out: (SampleID)_spades.scaffold.fa
+  sge: True
+Map_idba:
   contigs: (SampleID)_idba.scaffold.fa
-  i1: (SampleID)_R1.truePairs.fq
-  i2: (SampleID)_R2.truePairs.fq
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
   bam: (SampleID)_idba.scaffold.bam
   rn: (SampleID)_idba.scaffold.rn
   sge: True
-Blast_X:
+  n_cpu: 16
+Map_spades:
+  contigs: (SampleID)_spades.scaffold.fa
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  bam: (SampleID)_spades.scaffold.bam
+  rn: (SampleID)_spades.scaffold.rn
+  sge: True
+  n_cpu: 16
+Diamond:
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  n_cpu: 10
+  sge: True
+  score: 50
+  evalue: 0.0001
+  qov: 50
+  hov: 5
+  db: all_vir_prot
+Blast2ecsv_dmd:
+  evalue: 0.01
+  fhit: True
+  pm: global
+  if: xml
+  r: True
+  b: (SampleID)_dmd.xml
+  out: (SampleID)_dmd.allVirProt.csv
+  sge: True
+  type: BLASTX
+  pd: True
+Ecsv2krona_dmd:
+  id1: (SampleID)
+  b1: (SampleID)_dmd.allVirProt.csv
+  outdir: krona_diamond
+  out: global_krona_dmd.html
+  data: contig
+  r: True
+  c: identity
+  iter: global
+  sge: True
+Blast_allvirTX:
+  type: tblastx
+  contigs: (SampleID)_idba.scaffold.fa
+  db: all_vir_nucl
+  out: (SampleID)_idba.scaffold.tbltx.all_vir.xml
+  evalue: 0.0001
+  server: genotoul
+  n_cpu: 8
+  sge: True
+  num_chunk: 1000
+  tc: 50
+Blast_nr:
   type: blastx
   contigs: (SampleID)_idba.scaffold.fa
   db: nr
@@ -47,15 +110,20 @@ Blast_X:
   evalue: 0.0001
   server: genotoul
   n_cpu: 8
+  tc: 50
+  num_chunk: 1000
+  max_target_seqs: 1
   sge: True
-Blast_N:
-  type: blastn
+Blast_refvirTX:
+  type: tblastx
   contigs: (SampleID)_idba.scaffold.fa
-  db: nt
-  out: (SampleID)/(SampleID)_idba.scaffold.bltn.nt.xml
+  db: refseq_vir_nucl
+  out: (SampleID)_idba.scaffold.tbltx.refseq_vir.xml
   evalue: 0.0001
   server: genotoul
   n_cpu: 8
+  tc: 50
+  num_chunk: 1000
   sge: True
 Blast_RPS:
   type: rpstblastn
@@ -66,9 +134,40 @@ Blast_RPS:
   server: genotoul
   n_cpu: 8
   sge: True
-Blast2ecsv_X:
+Blast2ecsv_allvirTX:
+  contigs: (SampleID)_idba.scaffold.fa
+  evalue: 0.001
+  fhit: True
+  pm: global
+  if: xml
+  rn: (SampleID)_idba.scaffold.rn
+  r: True
+  b: (SampleID)_idba.scaffold.tbltx.all_vir.xml
+  vs: True
+  out: (SampleID)_idba.scaffold.tbltx.all_vir.csv
+  sge: True
+  type: TBLASTX
+  score: 50
+  qov: 20
+Blast2ecsv_refvirTX:
   contigs: (SampleID)_idba.scaffold.fa
   evalue: 0.0001
+  fhit: True
+  pm: global
+  if: xml
+  rn: (SampleID)_idba.scaffold.rn
+  r: True
+  b: (SampleID)_idba.scaffold.tbltx.refseq_vir.xml
+  vs: True
+  out: (SampleID)_idba.scaffold.tbltx.refseq_vir.csv
+  sge: True
+  type: TBLASTX
+  score: 50
+  qov: 50
+  hov: 5
+Blast2ecsv_nr:
+  contigs: (SampleID)_idba.scaffold.fa
+  evalue: 0.001
   fhit: True
   pm: global
   if: xml
@@ -79,48 +178,74 @@ Blast2ecsv_X:
   out: (SampleID)_idba.scaffold.bltx.nr.csv
   sge: True
   type: BLASTX
-Blast2ecsv_N:
-  contigs: (SampleID)_idba.scaffold.fa
-  evalue: 0.0001
-  fhit: True
-  pm: global
-  if: xml
-  rn: (SampleID)_idba.scaffold.rn
-  r: True
-  b: (SampleID)_idba.scaffold.bltn.nt.xml
-  vs: True
-  out: (SampleID)_idba.scaffold.bltn.nt.csv
-  sge: True
-  type: BLASTN
+  score: 50
+  qov: 5
+  hov: 5
 Rps2ecsv:
   b: (SampleID)_idba.scaffold.rps.pfam.xml
   out: (SampleID)_idba.scaffold.rps.pfam.csv
   evalue: 0.0001
   sge: True
 Ecsv2excel:
-  b1: (SampleID)_idba.scaffold.bltx.nr.csv
-  b2: (SampleID)_idba.scaffold.bltn.nt.csv
+  b1: (SampleID)_idba.scaffold.tbltx.refseq_vir.csv
+  b2: (SampleID)_idba.scaffold.tbltx.all_vir.csv
+  b3: (SampleID)_idba.scaffold.bltx.nr.csv
   r:  (SampleID)_idba.scaffold.rps.pfam.csv
   out:  (SampleID)_idba.scaffold.xlsx
+  sge: True
+Blast2hist:
+  id1: (SampleID)_refseq_tbltx
+  b1: (SampleID)_idba.scaffold.tbltx.refseq_vir.csv
+  id2: (SampleID)_allvir_tbltx
+  b2: (SampleID)_idba.scaffold.tbltx.all_vir.csv
+  id3: (SampleID)_nr_bltx
+  b3: (SampleID)_idba.scaffold.bltx.nr.csv
+  id4: (SampleID)_dmd
+  b4: (SampleID)_dmd.allVirProt.csv
+  iter: global
+  sge: True
+  out: blast_hist
 Ecsv2krona:
-  id1: (SampleID)_nr
-  b1: (SampleID)_idba.scaffold.bltx.nr.csv
-  id2: (SampleID)_nt
-  b2: (SampleID)_idba.scaffold.bltn.nt.csv
-  out: radis.global.krona.html
+  id1: (SampleID)_refseq_tbltx
+  b1: (SampleID)_idba.scaffold.tbltx.refseq_vir.csv
+  x1: (SampleID)_idba.scaffold.tbltx.refseq_vir.xml
+  id2: (SampleID)_allvir_tbltx
+  b2: (SampleID)_idba.scaffold.tbltx.all_vir.csv
+  x2: (SampleID)_idba.scaffold.tbltx.all_vir.xml
+  id3: (SampleID)_nr_bltx
+  b3: (SampleID)_idba.scaffold.bltx.nr.csv
+  x3: (SampleID)_idba.scaffold.bltx.nr.xml
+  outdir: krona_blast
+  out: blast.global.krona.html
   data: both
   r: True
   c: identity
-  id: (SampleID)
   iter: global
   sge: True
-Automapper:
+Automapper_nr:
   contigs: (SampleID)_idba.scaffold.fa
   ecsv: (SampleID)_idba.scaffold.bltx.nr.csv
-  i1: (SampleID)_R1.truePairs.fq
-  i2: (SampleID)_R2.truePairs.fq
-  out: (SampleID)_autoMapper
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  out: (SampleID)_autoMapper_nr
   sge: True
+  ref: nt
+Automapper_allvirTX:
+  contigs: (SampleID)_idba.scaffold.fa
+  ecsv: (SampleID)_idba.scaffold.tbltx.all_vir.csv
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  out: (SampleID)_autoMapper_allvir
+  sge: True
+  ref: all_vir_nucl
+Automapper_refseqTX:
+  contigs: (SampleID)_idba.scaffold.fa
+  ecsv: (SampleID)_idba.scaffold.tbltx.refseq_vir.csv
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  out: (SampleID)_autoMapper_refseq
+  sge: True
+  ref: refseq_vir_nucl
 Rps2tree:
   pfam: (SampleID)_idba.scaffold.rps.pfam.csv
   contigs: (SampleID)_idba.scaffold.fa
@@ -132,13 +257,17 @@ Rps2tree:
   iter: global
   sge: True
 Getresults:
-    rps2tree: rps2tree_global
-    autoMapper: (SampleID)_autoMapper
-    excel: (SampleID)_idba.scaffold.xlsx
-    contigs: (SampleID)_idba.scaffold.fa
-    krona: radis.global.krona.html
-    i1: (SampleID)_R1.truePairs.fq
-    i2: (SampleID)_R2.truePairs.fq
-    iter: global
-    out: results_radis
-    drVM: (SampleID)_drVM
+  global_dir1: rps2tree_global
+  global_dir2: krona_blast
+  global_dir3: krona_diamond
+  global_dir4: blast_hist
+  global_dir5: stat_demultiplex
+  sample_dir1: (SampleID)_autoMapper_nr
+  sample_dir2: (SampleID)_autoMapper_refseq
+  sample_dir3r: (SampleID)_autoMapper_allvir
+  sample_file1: (SampleID)_idba.scaffold.xlsx
+  sample_file2: (SampleID)_idba.scaffold.fa
+  sample_file3: (SampleID)_spades.scaffold.fa
+  sample_file4: (SampleID)_truePairs_r1.fq
+  sample_file5: (SampleID)_truePairs_r2.fq
+  out: results

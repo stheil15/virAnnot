@@ -10,11 +10,12 @@ use SQL::SplitStatement;
 
 
 my $taxo_struct_dmp = 'taxonomyStructure.sql';
-my $taxo_index_dmp = 'taxonomyIndex.sql';
 my $data_acc_prot = 'prot.accession2taxid';
 my $data_dead_acc_prot = 'dead_prot.accession2taxid';
+my $data_dead_acc_nucl = 'dead_nucl.accession2taxid';
 my $data_acc_wgs = 'nucl_wgs.accession2taxid';
 my $data_acc_gb = 'nucl_gb.accession2taxid';
+my $data_acc_gss = 'nucl_gss.accession2taxid';
 my $data_nodes = 'nodes.dmp';
 my $data_names = 'names.dmp';
 my $dir = '.';
@@ -109,7 +110,7 @@ sub _create_sqlite_db {
 	if(! -e $file){
 		`touch $file`;
 		my $dbh = DBI->connect("dbi:SQLite:dbname=$file","","");
-		_executeSQLFiles($self,$dbh,($self->{_taxo_struct_dmp},$self->{_taxo_index_dmp}));
+		_executeSQLFiles($self,$dbh,($self->{_taxo_struct_dmp}));
 		$dbh->disconnect;
 	}
 	else{
@@ -149,13 +150,7 @@ sub _set_options {
     $logger->error($taxo_struct_dmp . ' taxo_struct_dmp file not found.');
     &help;
   }
-  if(-e $taxo_index_dmp){
-    $self->{_taxo_index_dmp} = $taxo_index_dmp;
-  }
-  else{
-    $logger->error($taxo_index_dmp . ' taxo_index_dmp file not found.');
-    &help;
-  }
+
 
   if(-e $data_nodes){
     push(@{$self->{_data}->{nodes}},$data_nodes);
@@ -185,11 +180,25 @@ sub _set_options {
     $logger->error($data_dead_acc_prot . ' data_acc_prot file not found.');
     &help;
   }
+  if(-e $data_dead_acc_nucl){
+    push(@{$self->{_data}->{nucl_accession2taxid}},$data_dead_acc_nucl);
+  }
+  else{
+    $logger->error($data_dead_acc_nucl . ' data_acc_nucl file not found.');
+    &help;
+  }
   if(-e $data_acc_wgs){
     push(@{$self->{_data}->{nucl_accession2taxid}},$data_acc_wgs);
   }
   else{
     $logger->error($data_acc_wgs . ' data_acc_wgs file not found.');
+    &help;
+  }
+  if(-e $data_acc_gss){
+    push(@{$self->{_data}->{nucl_accession2taxid}},$data_acc_gss);
+  }
+  else{
+    $logger->error($data_acc_gss . ' data_acc_wgs file not found.');
     &help;
   }
   if(-e $data_acc_gb){

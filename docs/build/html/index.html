@@ -23,7 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="VirAnnot 0.0.1 documentation" href="#" /> 
+    <link rel="top" title="VirAnnot 0.0.1 documentation" href="#" />
+    <link rel="next" title="Prerequisite" href="prerequisite.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,6 +33,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="prerequisite.html" title="Prerequisite"
+             accesskey="N">next</a> |</li>
         <li><a href="#">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -43,63 +47,74 @@
             
   <div class="section" id="welcome-to-virannot-s-documentation">
 <h1>Welcome to VirAnnot&#8217;s documentation!<a class="headerlink" href="#welcome-to-virannot-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>VirAnnot was build to ease the assembly, blast search and taxonomic annotation of metagenomic NGS data. It is used in Virologie team of <a class="reference external" href="http://www6.bordeaux-aquitaine.inra.fr/bfp">UMR1332 BFP</a> laboratory at INRA.</p>
+<p>VirAnnot was build to ease the assembly, blast search and taxonomic annotation of metagenomic multi-sample datasets. It is used in the Virologie team of <a class="reference external" href="http://www6.bordeaux-aquitaine.inra.fr/bfp">UMR1332 BFP</a> laboratory at INRA.</p>
 <p>It was designed to identify viruses in plants but it can be used to assemble and then annotate any sequences with the NCBI taxonomy.</p>
-<p>NR and NT must be present localy and NCBI taxonomy is loaded in SQLITE database with a provided script.</p>
+<p>NR and NT must be present localy and/or on distant servers and NCBI taxonomy is loaded in SQLITE database with a provided script.</p>
+<p>Blast step is the most time consumming step and the use of large computer cluster is clearly an advantage.
+Here we used two clusters :</p>
+<p><a class="reference external" href="https://redmine.mcia.univ-bordeaux.fr/">AVAKAS</a> at Bordeaux University.</p>
+<p><a class="reference external" href="http://www.genotoul.fr//">GENOTOUL</a> at Toulouse INRA datacenter.</p>
+</div>
+<div class="section" id="guide">
+<h1>Guide<a class="headerlink" href="#guide" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prerequisite.html">Prerequisite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prerequisite.html#external-programs">External programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisite.html#external-databases">External databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisite.html#perl-external-libraries">Perl external libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisite.html#perl-included-libraries">Perl included libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisite.html#python-library">Python library</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisite.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisite.html#database">Database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prerequisite.html#taxonomy">Taxonomy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisite.html#ncbi-blast-database">NCBI Blast database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisite.html#pfam-taxonomy">PFAM taxonomy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parameter.html">Parameters files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parameter.html#parameters-yaml">parameters.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameter.html#step-yaml">step.yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameter.html#map-txt">map.txt</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#readsoustraction">ReadSoustraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#demultiplex">Demultiplex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#assembly">Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#map">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#diamond">Diamond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#blast">Blast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#blast2ecsv">Blast2ecsv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#ecsv2excel">Ecsv2excel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#ecsv2krona">Ecsv2krona</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#rps2ecsv">Rps2ecsv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#rps2tree">Rps2tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#automapper">AutoMapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#blast2hits">Blast2hits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="execution.html">Execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-readsoustraction">Step <strong>ReadSoustraction</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-demultiplex">Step <strong>Demultiplex</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-demultiplexhtml">Step <strong>DemultiplexHtml</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-diamond">Step <strong>Diamond</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-assembly">Step <strong>Assembly</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-map">Step <strong>Map</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-blast">Step <strong>Blast</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-blast2ecsv">Step <strong>Blast2ecsv</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-rps2ecsv">Step <strong>Rps2ecsv</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-ecsv2excel">Step <strong>Ecsv2excel</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-ecsv2krona">Step <strong>Ecsv2krona</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-automapper">Step <strong>Automapper</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-rps2tree">Step <strong>Rps2tree</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="execution.html#step-getresults">Step <strong>Getresults</strong></a></li>
+</ul>
+</li>
 </ul>
 </div>
-</div>
-<div class="section" id="prerequisite">
-<h1>Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="external-programs">
-<h2>External programs<a class="headerlink" href="#external-programs" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>NCBI Blast+ suite</li>
-<li>SQLite</li>
-<li>Mummer</li>
-<li>Blat</li>
-<li>Bowtie2</li>
-<li>Cutadapt ()</li>
-<li>ETE tree</li>
-</ul>
-</div>
-<div class="section" id="external-databases">
-<h2>External databases<a class="headerlink" href="#external-databases" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>NCBI nr, nt (<a class="reference external" href="ftp://ftp.ncbi.nlm.nih.gov/blast/db/">ftp://ftp.ncbi.nlm.nih.gov/blast/db/</a>)</li>
-<li>NCBI Taxonomy (<a class="reference external" href="ftp://ftp.ncbi.nih.gov/pub/taxonomy">ftp://ftp.ncbi.nih.gov/pub/taxonomy</a>)</li>
-<li>PFAM (<a class="reference external" href="ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/">ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/</a>) (rpsblast files, fasta files, and smp files)</li>
-</ul>
-</div>
-<div class="section" id="perl-external-libraries">
-<h2>Perl external libraries<a class="headerlink" href="#perl-external-libraries" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Getopt::Long</li>
-<li><a class="reference external" href="File::Basename">File::Basename</a></li>
-<li>DBI</li>
-<li><a class="reference external" href="Data::Dumper">Data::Dumper</a></li>
-<li>Bioperl</li>
-<li>Color::Rgb</li>
-<li>List::Util</li>
-<li>Excel::Writer</li>
-</ul>
-</div>
-<div class="section" id="perl-included-libraries">
-<h2>Perl included libraries<a class="headerlink" href="#perl-included-libraries" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Tools::Fasta</li>
-<li>Tools::Fastq</li>
-<li>Tools::Blast</li>
-<li>Tools::Taxonomy</li>
-<li>Logger::Logger</li>
-</ul>
-</div>
-</div>
-<div class="section" id="install">
-<h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
-<p>Add tools and launchers folders to your $PATH.</p>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
 <li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
@@ -116,16 +131,12 @@
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to VirAnnot&#8217;s documentation!</a></li>
-<li><a class="reference internal" href="#prerequisite">Prerequisite</a><ul>
-<li><a class="reference internal" href="#external-programs">External programs</a></li>
-<li><a class="reference internal" href="#external-databases">External databases</a></li>
-<li><a class="reference internal" href="#perl-external-libraries">Perl external libraries</a></li>
-<li><a class="reference internal" href="#perl-included-libraries">Perl included libraries</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#install">Install</a></li>
+<li><a class="reference internal" href="#guide">Guide</a></li>
 </ul>
 
+  <h4>Next topic</h4>
+  <p class="topless"><a href="prerequisite.html"
+                        title="next chapter">Prerequisite</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -156,6 +167,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="prerequisite.html" title="Prerequisite"
+             >next</a> |</li>
         <li><a href="#">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>

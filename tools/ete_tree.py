@@ -47,9 +47,5 @@ def _set_options ():
 	return options
 
 
-def _help ():
-	print 'pfam2tree.py -f seq.fasta -c color.txt'
-
-
 if __name__ == "__main__":
 	main()

@@ -15,14 +15,12 @@ use Getopt::Long;
 # );
 
 my $fof='';
-my $outputFile='';
 my $verbosity=1;
 my $help;
 
 
 GetOptions(
   "i|fof=s"               => \$fof,
-  "o|output=s"            => \$outputFile,
 	"v|verbosity=i"         => \$verbosity,
   "h|help"                => \$help,
 );
@@ -40,27 +38,29 @@ sub main {
 	my $self={};
   bless $self;
 	open(FOF,$fof);
+  print 'begin transaction;' . "\n";
 	while(<FOF>){
 		chomp;
 		my $file = $_;
 		$self->_compute_frequency($file);
 	}
 	close FOF;
+  print 'end transaction;' . "\n";
 }
 
 
 sub _compute_frequency {
 	my ($self,$file)=@_;
 	my @ranks = ('superkingdom','no rank','family','genus','specie');
-	$file =~ /.*\/(.*)\.FASTA\.tax\.txt/;
+	$file =~ /.*\/(.*)\.tax\.txt/;
 	my $profile_name = $1;
 	open(FILE,$file);
 	my $h;
 	while(<FILE>){
 		chomp;
 		my @line = split(/\t/,$_);
-		if($line[0] ne 'unknown'){
-			my @taxo = split(/;/,$line[0]);
+		if($line[1] ne 'unknown'){
+			my @taxo = split(/;/,$line[1]);
 			if(scalar(@taxo) == 4 || scalar(@taxo) == 5){
 				for(my $i=0;$i<=$#taxo;$i++){
 					$h->{$ranks[$i]}->{$taxo[$i]}++;

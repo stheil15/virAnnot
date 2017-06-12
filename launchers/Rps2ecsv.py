@@ -1,9 +1,6 @@
 import os.path
 from subprocess import call
 import logging as log
-from fabric.api import env
-from fabric.operations import run as fabric_run
-from fabric.context_managers import settings, hide
 
 class Rps2ecsv:
 
@@ -11,7 +8,7 @@ class Rps2ecsv:
         self.check_args(args)
         self.cmd = []
         self.create_cmd()
-        
+
 
     def create_cmd (self):
         cmd = 'rps2ecsv.pl'
@@ -22,6 +19,7 @@ class Rps2ecsv:
 
 
     def check_args (self, args: dict):
+        self.execution=1
         if 'sample' in args:
             self.sample = str(args['sample'])
         self.wd = os.getcwd() + '/' + self.sample
@@ -41,7 +39,11 @@ class Rps2ecsv:
         else:
             self.evalue = 0.0001
         if 'b' in args:
-            self.b = self.wd + '/' + args['b']
+            if os.path.exists(self.wd + '/' + args['b']):
+                self.b = self.wd + '/' + args['b']
+            else:
+                self.b = ''
+                self.execution=0
         else:
             log.critical('You must provide a blast file.')
 

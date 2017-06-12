@@ -1,9 +1,6 @@
 import os.path
 from subprocess import call
 import logging as log
-from fabric.api import env
-from fabric.operations import run as fabric_run
-from fabric.context_managers import settings, hide
 import sys
 
 class Ecsv2excel:
@@ -18,16 +15,18 @@ class Ecsv2excel:
         cmd = 'ecsv2excel.pl'
         for c in self.blast_files:
             cmd += ' -b ' + str(c)
-        cmd += ' -r ' + self.r
+        if self.r != '':
+            cmd += ' -r ' + self.r
         cmd += ' -o ' + self.out
         log.debug(cmd)
         self.cmd.append(cmd)
 
 
     def check_args (self, args: dict):
+        self.execution=1
         self.sample = args['sample']
         self.wd = os.getcwd() + '/' + self.sample
-        self.cmd_file = self.wd + '/' + self.sample + '/' + 'ecsv2excel_cmd.txt'
+        self.cmd_file = self.wd + '/' + 'ecsv2excel_cmd.txt'
         if 'out' in args:
             self.out = self.wd + '/' + args['out']
         if 'sge' in args:
@@ -38,9 +37,17 @@ class Ecsv2excel:
         for i in range(1, 10, 1):
             opt_name = 'b' + str(object=i)
             if opt_name in args:
-                self.blast_files.append(self._check_file(self.wd + '/' + args[opt_name]))
+                if os.path.exists(self.wd + '/' + args[opt_name]):
+                    self.blast_files.append(self.wd + '/' + args[opt_name])
         if 'r' in args:
-            self.r = self._check_file(self.wd + '/' + args['r'])
+            if os.path.exists(self.wd + '/' + args['r']):
+                self.r = self._check_file(self.wd + '/' + args['r'])
+            else:
+                self.r = ''
+        else:
+            self.r = ''
+        if len(self.blast_files) == 0:
+            self.execution=0
 
 
 
@@ -53,7 +60,7 @@ class Ecsv2excel:
             for el in self.cmd:
                 fw.write(el + "\n")
             fw.close()
-            qsub_call =   "qsub -wd " + self.wd + " -V -N " + self.sample + '_rps2ecsv' + ' ' + self.cmd_file
+            qsub_call =   "qsub -wd " + self.wd + " -V -N " + self.sample + '_ecsv2excel' + ' ' + self.cmd_file
             log.debug(qsub_call)
             os.system(qsub_call)
 

@@ -109,7 +109,7 @@ sub indexFastaFile {
     }
     else{
       $self->{index}->{$id}{'sequence_end_position'} += length $line;
-			$logger->trace('TRACE: Indexing sequence' . $id . ' (id_begin_position : '. $self->{index}->{$id}{'id_begin_position'} . ', sequence_end_position : '. $self->{index}->{$id}{'sequence_end_position'} .') from ' . $self->{file} . "\n");
+			# $logger->trace('TRACE: Indexing sequence' . $id . ' (id_begin_position : '. $self->{index}->{$id}{'id_begin_position'} . ', sequence_end_position : '. $self->{index}->{$id}{'sequence_end_position'} .') from ' . $self->{file} . "\n");
     }
     $id_begin_position = tell($fh);
   }
@@ -236,9 +236,9 @@ sub retrieveFastaSequence {
   foreach my $id (@$ids){
 		my $cleanedId = $id;
 		if($id =~ /^>?(\S*)/){$cleanedId = $1}
-      $logger->trace('DEBUG: retrieving informations of id ' . $cleanedId. " from index\n");
+      # $logger->trace('DEBUG: retrieving informations of id ' . $cleanedId. " from index\n");
       if(exists $self->{index}->{$cleanedId}){
-        $logger->trace('DEBUG: id ' . $cleanedId . ' is present in index (id_begin_position : '. $self->{index}->{$cleanedId}{'id_begin_position'}. ', sequence_end_position : '. $self->{index}->{$cleanedId}{'sequence_end_position'}.")\n");
+        # $logger->trace('DEBUG: id ' . $cleanedId . ' is present in index (id_begin_position : '. $self->{index}->{$cleanedId}{'id_begin_position'}. ', sequence_end_position : '. $self->{index}->{$cleanedId}{'sequence_end_position'}.")\n");
         seek($fh, $self->{index}->{$cleanedId}{'id_begin_position'}, 0);
         my $sequence = <$fh>;
         read($fh, $sequence, $self->{index}->{$cleanedId}{'sequence_end_position'});
@@ -247,10 +247,10 @@ sub retrieveFastaSequence {
         $nbSequences++;
 			}
     	else{
-				$logger->trace('DEBUG: id ' . $cleanedId. " not found in index\n");
+				# $logger->trace('DEBUG: id ' . $cleanedId. " not found in index\n");
 			}
 	}
-  $logger->trace($nbSequences.'/'.scalar(@$ids).' sequences has been retrieved from indexed file ' . $self->{file} . "\n");
+  # $logger->trace($nbSequences.'/'.scalar(@$ids).' sequences has been retrieved from indexed file ' . $self->{file} . "\n");
 	return $data;
 }
 
@@ -294,15 +294,15 @@ sub retrieveFastaBlock {
   foreach my $id (@$ids){
 		my $cleanedId = $id;
 		if($id =~ /^>?(\S*)/){$cleanedId = $1}
-  	$logger->trace('TRACE: retrieving informations of id ' . $cleanedId. " from index\n");
+  	# $logger->trace('TRACE: retrieving informations of id ' . $cleanedId. " from index\n");
     if(exists $self->{index}->{$cleanedId}){
-      $logger->trace('TRACE: id ' . $cleanedId . ' is present in index (id_begin_position : '. $self->{index}->{$cleanedId}{'id_begin_position'}. ', sequence_end_position : '. $self->{index}->{$cleanedId}{'sequence_end_position'}.")\n");
+      # $logger->trace('TRACE: id ' . $cleanedId . ' is present in index (id_begin_position : '. $self->{index}->{$cleanedId}{'id_begin_position'}. ', sequence_end_position : '. $self->{index}->{$cleanedId}{'sequence_end_position'}.")\n");
       seek($fh, $self->{index}->{$cleanedId}{'id_begin_position'}, 0);
       my $blockId = <$fh>;
       read($fh, my $sequence, $self->{index}->{$cleanedId}{'sequence_end_position'});
     	$data .= $blockId . $sequence ;
       $nbSequences++;
-      $logger->trace('TRACE: fasta block of id ' . $cleanedId . ' is : ' . "\n" . $blockId.$sequence . "\n")
+      # $logger->trace('TRACE: fasta block of id ' . $cleanedId . ' is : ' . "\n" . $blockId.$sequence . "\n")
     }
     else{
 			$logger->warn('WARN: id ' . $cleanedId. " not found in index\n");

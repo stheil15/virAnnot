@@ -40,18 +40,47 @@ def _create_folders (maps):
 
 def _launch_step (s_n,s,m,p):
     module_name = s_n.split('_')[0]
-    if('iter' in s[s_n]):
-        if(s[s_n]['iter'] == 'library'):
-             _launch_by_library(s_n,s,m,p,module_name)
-        elif(s[s_n]['iter'] == 'SampleID'):
-            _launch_by_sample_id(s_n,s,m,p,module_name)
-        elif(s[s_n]['iter'] == 'global'):
-            _launch_global(s_n,s,m,p,module_name)
-        else:
-            raise Error
+    if module_name == 'Getresults':
+        _launch_getresults(s_n,s,m,p,module_name)
     else:
-        _launch_by_sample_id(s_n,s,m,p,module_name)
+        if('iter' in s[s_n]):
+            if(s[s_n]['iter'] == 'library'):
+                 _launch_by_library(s_n,s,m,p,module_name)
+            elif(s[s_n]['iter'] == 'SampleID'):
+                _launch_by_sample_id(s_n,s,m,p,module_name)
+            elif(s[s_n]['iter'] == 'global'):
+                _launch_global(s_n,s,m,p,module_name)
+            else:
+                raise Error
+        else:
+            _launch_by_sample_id(s_n,s,m,p,module_name)
 
+
+def _launch_getresults(s_n,s,m,p,module_name):
+    args={}
+    args['global_dir']=[]
+    args['sample_dir']={}
+    args['global_files']=[]
+    args['sample_files']={}
+    for key in s[s_n]:
+        if 'global_dir' in key:
+            args['global_dir'].append(s[s_n][key])
+        if 'global_file' in key:
+            args['global_files'].append(s[s_n][key])
+        if key == 'out':
+            args['out'] = s[s_n][key]
+        if 'sample' in key:
+            for i in range(0,len(m)):
+                tmp = _replace_sample_name(s[s_n],m[i])
+                if 'dir' in key:
+                    if m[i]['SampleID'] not in args['sample_dir']:
+                        args['sample_dir'][m[i]['SampleID']]=[]
+                    args['sample_dir'][m[i]['SampleID']].append(tmp[key])
+                if 'file' in key:
+                    if m[i]['SampleID'] not in args['sample_files']:
+                        args['sample_files'][m[i]['SampleID']]=[]
+                    args['sample_files'][m[i]['SampleID']].append(tmp[key])
+    _launch_module(args,module_name)
 
 def _launch_global (s_n,s,m,p,module_name):
     global_input = {}
@@ -63,6 +92,10 @@ def _launch_global (s_n,s,m,p,module_name):
             if j == 'out':
                 if 'out' not in global_input:
                     global_input['out'] = tmp[j]
+                    continue
+            elif j == 'outdir':
+                if 'outdir' not in global_input:
+                    global_input['outdir'] = tmp[j]
                     continue
             elif j == 'sge':
                 if 'sge' not in global_input:
@@ -91,14 +124,6 @@ def _launch_global (s_n,s,m,p,module_name):
             elif j == 'min_prot':
                 if 'min_prot' not in global_input:
                     global_input['min_prot'] = tmp[j]
-                    continue
-            elif j == 'rps2tree':
-                if 'rps2tree' not in global_input:
-                    global_input['rps2tree'] = tmp[j]
-                    continue
-            elif j == 'krona':
-                if 'krona' not in global_input:
-                    global_input['krona'] = tmp[j]
                     continue
             else:
                 global_input['args'][m[i]['SampleID']][j] = tmp[j]
@@ -134,8 +159,6 @@ def _launch_by_library(s_n,s,m,p,module_name):
             args[m[i]['library']]['mid'][m[i]['SampleID']] = m[i]['mid']
             args[m[i]['library']]['common'] = m[i]['common']
         for k in tmp:
-            if(k=='iter'):
-                continue
             if (k not in args[m[i]['library']]):
                 args[m[i]['library']][k] = tmp[k]
     for library in args:
@@ -146,7 +169,10 @@ def _launch_by_library(s_n,s,m,p,module_name):
 
 def _launch_module(args,module_name):
     module = _create_module(module_name,args)
-    module.launch()
+    if module.execution == 1:
+        module.launch()
+    else:
+        log.critical('Skip execution for sample ' + module.sample)
 
 
 def _replace_sample_name (step_args,sample_map):
@@ -155,12 +181,16 @@ def _replace_sample_name (step_args,sample_map):
         if(isinstance(step_args[k], str)):
             if(re.search('(file1)',step_args[k])):
                 args[k] = step_args[k].replace('(file1)',sample_map['file1'])
+
             elif(re.search('(file2)',step_args[k])):
                 args[k] = step_args[k].replace('(file2)',sample_map['file2'])
+
             elif(re.search('(file)',step_args[k])):
                 args[k] = step_args[k].replace('(file)',sample_map['file'])
+
             elif(re.search('(SampleID)',step_args[k])):
                 args[k] = step_args[k].replace('(SampleID)',sample_map['SampleID'])
+
             elif(re.search('(library)',step_args[k])):
                 args[k] = step_args[k].replace('(library)',sample_map['library'])
             else:
@@ -178,6 +208,7 @@ def _create_module (name,param):
         instance = _class(param)
         return instance
     except Exception as e:
+        print("error")
         print(str(e))
 
 
@@ -212,10 +243,6 @@ def _set_options ():
     parser.add_argument('-v','--verbosity',help='Verbose level', action='store',type=int,choices=[1,2,3,4])
     args = parser.parse_args()
     return args
-
-
-def _help ():
-    print('coverage_plot.py -t ref.bam')
 
 
 if __name__ == "__main__":

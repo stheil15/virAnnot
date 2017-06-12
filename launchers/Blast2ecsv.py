@@ -1,9 +1,6 @@
 import os.path
 from subprocess import call
 import logging as log
-from fabric.api import env
-from fabric.operations import run as fabric_run
-from fabric.context_managers import settings, hide
 
 class Blast2ecsv:
 
@@ -21,7 +18,8 @@ class Blast2ecsv:
         cmd += ' -pm ' + self.pm
         if self.fhit:
             cmd += ' -fhit '
-        cmd += ' -seq ' + self.contigs
+        if self.contigs != '':
+            cmd += ' -seq ' + self.contigs
         if self.vs:
             cmd += ' -vs '
         if self.r:
@@ -29,16 +27,29 @@ class Blast2ecsv:
         cmd += ' -o ' + self.out
         if self.rn != '':
             cmd += ' -rn ' + self.rn
+        if self.score != '':
+            cmd += ' -s ' + self.score
+        if self.qov != 0:
+            cmd += ' -qov ' + self.qov
+        if self.hov != 0:
+            cmd += ' -hov ' + self.hov
+        if self.identity != 0:
+            cmd += ' -identity ' + self.identity
+        if self.pd:
+            cmd += ' -pd '
         self.cmd.append(cmd)
 
 
     def check_args (self, args: dict):
+        self.execution=1
         if 'sample' in args:
             self.sample = str(args['sample'])
         self.wd = os.getcwd() + '/' + self.sample
         self.cmd_file = self.wd + '/' + self.sample + '_blast2ecsv_cmd.txt'
         if 'contigs' in args:
             self.contigs = self.wd + '/' + args['contigs']
+        else:
+            self.contigs=''
         if 'sge' in args:
             self.sge = bool(args['sge'])
         else:
@@ -55,6 +66,10 @@ class Blast2ecsv:
             self.fhit = bool(args['fhit'])
         else:
             self.fhit = False
+        if 'fhsp' in args:
+            self.fhit = bool(args['fhsp'])
+        else:
+            self.fhsp = False
         if 'pm' in args:
             self.pm = args['pm']
         else:
@@ -72,19 +87,52 @@ class Blast2ecsv:
         else:
             self.vs = False
         if 'b' in args:
-            self.b = self.wd + '/' + args['b']
+            if os.path.exists(self.wd + '/' + args['b']):
+                self.b = self.wd + '/' + args['b']
+            else:
+                self.b=''
+                self.execution=0;
         else:
             log.critical('You must provide a blast file.')
+            sys.exit(1)
         if 'rn' in args:
             self.rn = self.wd + '/' + args['rn']
         else:
             self.rn = ''
         if 'type' in args:
             self.type = args['type']
+        else:
+            log.error('You must provide a Blast type.')
+            sys.exit(1)
+        if 'score' in args:
+            self.score = str(args['score'])
+        else:
+            self.score = '0'
+        if 'identity' in args:
+            self.identity = str(args['identity'])
+        else:
+            self.identity = '0'
+        if 'qov' in args:
+            self.qov = str(args['qov'])
+        else:
+            self.qov = '0'
+        if 'hov' in args:
+            self.hov = str(args['hov'])
+        else:
+            self.hov = '0'
+        if 'pd' in args:
+            self.pd = True
+        else:
+            self.pd = False
+
+
+
+
 
 
     def launch (self):
         if not self.sge:
+            os.chdir(self.wd)
             for el in self.cmd:
                 os.system (el)
         else:

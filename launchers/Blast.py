@@ -1,17 +1,18 @@
 import os.path
 from subprocess import call
 import logging as log
-from fabric.api import env
-from fabric.operations import run as fabric_run
-from fabric.context_managers import settings, hide
-
+import random
+import string
 class Blast:
 
     def __init__ (self, args):
         self.check_args(args)
         self.cmd = []
         self.ssh_cmd = []
-        self.create_cmd()
+        if self.execution == 1:
+            self.create_cmd()
+
+
 
     def create_cmd (self):
         cmd=''
@@ -43,9 +44,14 @@ class Blast:
         ssh_cmd += 'fi' + "\n"
         ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + "\n"
         # ssh_cmd += 'mkdir ' + self.params['servers'][self.server]['scratch'] + '/' + self.sample + '_' + self.type + '_split' + "\n"
-        ssh_cmd += 'echo "' + 'blast_launch.py -c ' + self.server + ' -n 100 --n_cpu ' + self.n_cpu + ' -d ' + self.params['servers'][self.server]['db'][self.db]
-        ssh_cmd += ' -s ' + self.params['servers'][self.server]['scratch'] + '/' + os.path.basename(self.contigs) + ' --prefix ' + self.sample + '_' + self.type
-        ssh_cmd += ' -p ' + self.type + ' -o ' + os.path.basename(self.out) + '"'
+        if self.server != 'avakas':
+            ssh_cmd += 'echo "'
+        ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu ' + self.n_cpu + ' --tc ' + self.tc + ' -d ' + self.params['servers'][self.server]['db'][self.db]
+        ssh_cmd += ' -s ' + self.params['servers'][self.server]['scratch'] + '/' + os.path.basename(self.contigs) + ' --prefix ' + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4)) + '_' + self.sample + '_' + self.type
+        ssh_cmd += ' -p ' + self.type + ' -o ' + os.path.basename(self.out) + ' -r ' + ' --outfmt 5'
+        ssh_cmd += ' --max_target_seqs ' + self.max_target_seqs
+        if self.server != 'avakas':
+            ssh_cmd += '"'
         qsub_cmd=''
         if self.server == 'enki':
             qsub_cmd = ' | ' + 'qsub -V -wd ' + self.params['servers'][self.server]['scratch'] + ' -N ' + self.sample
@@ -64,11 +70,14 @@ class Blast:
         if 'sample' in args:
             self.sample = str(args['sample'])
         self.wd = os.getcwd() + '/' + self.sample
-        self.cmd_file = self.wd + '/' + self.sample + '_blast_cmd.txt'
-        self.remote_cmd_file = self.wd + '/' + self.sample + '_remote_blast_cmd.txt'
-        accepted_type = ['blastx','blastn','blastp','blastn','rpstblastn']
+        accepted_type = ['tblastx','blastx','blastn','blastp','rpstblastn']
         if 'contigs' in args:
-            self.contigs = self.wd + '/' + args['contigs']
+            if os.path.exists(self.wd + '/' + args['contigs']):
+                self.contigs = self.wd + '/' + args['contigs']
+                self.execution = 1;
+            else:
+                self.execution = 0;
+                log.critical('Input fasta file do not exists.')
         if 'type' in args:
             if args['type'] in accepted_type:
                 self.type = args['type']
@@ -85,6 +94,19 @@ class Blast:
             self.sge = bool(args['sge'])
         else:
             self.sge = False
+        if 'tc' in args:
+            self.tc = str(args['tc'])
+        else:
+            self.tc = '5'
+        if 'max_target_seqs' in args:
+            self.max_target_seqs = str(args['max_target_seqs'])
+        else:
+            self.max_target_seqs = '5'
+
+        if 'num_chunk' in args:
+            self.num_chunk = str(args['num_chunk'])
+        else:
+            self.num_chunk = '100'
         if 'out' in args:
             self.out = args['out']
         if 'params' in args:
@@ -98,9 +120,11 @@ class Blast:
                 self.db = args['db']
         else:
             log.critical('You must provide a database name.')
+        self.cmd_file = self.wd + '/' + self.sample + '_' + self.type + '_' + self.db + '_blast_cmd.txt'
+        self.remote_cmd_file = self.wd + '/' + self.sample + '_' + self.type + '_' + self.db + '_remote_blast_cmd.txt'
 
 
-
+#TODO: move launch method in virAnnot.py.. every module has the same launch method....
     def launch (self):
         if not self.sge:
             for el in self.cmd:
@@ -110,7 +134,11 @@ class Blast:
             for el in self.cmd:
                 fw.write(el + "\n")
             fw.close()
-            qsub_call =   "qsub -wd " + self.wd + " -V -N " + self.sample + '_blast' + ' ' + self.cmd_file
+            qsub_call=''
+            if self.server != 'localhost':
+                qsub_call =   "qsub -wd " + os.getcwd() + " -V -N " + self.sample + '_' + self.type + '_' + self.db + ' ' + self.cmd_file
+            else:
+                qsub_call =   "qsub -wd " + os.getcwd() + " -V -N " + self.sample + '_' + self.type + '_' + self.db + ' -pe multithread ' + self.n_cpu + ' ' + self.cmd_file
             log.debug(qsub_call)
             os.system(qsub_call)
 
@@ -121,6 +149,7 @@ class Blast:
             return f
         except IOError:
             print('File not found ' + f)
+
 
     def check_seq_format (self, in_file):
         in_file = str(object=in_file)

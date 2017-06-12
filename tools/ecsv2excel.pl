@@ -25,7 +25,6 @@ my $lastmodif = '2015-10-27' ;
 
 GetOptions( "b|blast=s"				=> \@blastFiles,
 						"r|rps=s"				  => \@rpsFiles,
-						"i|info=s"				=> \@infoFiles,
 						"c|clean"				  => \$clean,
 						"o|output=s"			=> \$outputFile,
 						"v|verbosity=i" 	=> \$verbosity,
@@ -37,21 +36,14 @@ if($verbosity > 1){
 }
 
 my @colors = (
-	['merge', 'taxonomy', 'Viruses;.*', 'red'],
-	['nr', 'taxonomy', 'Viruses;.*', 'red'],
-	['merge', 'taxonomy', 'Viruses;dsRNA viruses.*', 'blue'],
-	['nr', 'taxonomy', 'Viruses;dsRNA viruses.*', 'blue'],
-	['merge', 'taxonomy', 'Viruses;ssRNA viruses.*', 'cyan'],
-	['nr', 'taxonomy', 'Viruses;ssRNA viruses.*', 'cyan'],
-	['merge', 'taxonomy', 'Viruses;Retro-transcribing viruses.*', 'green'],
-	['nr', 'taxonomy', 'Viruses;Retro-transcribing viruses.*', 'green'],
-	['merge', 'taxonomy', 'Viruses;dsDNA viruses.*', 'green'],
-	['nr', 'taxonomy', 'Viruses;dsDNA viruses.*', 'green'],
-	['merge', 'taxonomy', 'Viruses;ssDNA viruses.*', 'lime'],
-	['nr', 'taxonomy', 'Viruses;ssDNA viruses.*', 'lime'],
-	['merge', 'taxonomy', 'Viroid', 'yellow'],
-	['nr', 'taxonomy', 'Viroid', 'yellow'],
-	['pfam', 'superkingdom', 'Viruses', 'red'],
+	['taxonomy', 'Viruses;.*', 'red'],
+	['taxonomy', 'Viruses;dsRNA viruses.*', 'blue'],
+	['taxonomy', 'Viruses;ssRNA viruses.*', 'cyan'],
+	['taxonomy', 'Viruses;Retro-transcribing viruses.*', 'green'],
+	['taxonomy', 'Viruses;dsDNA viruses.*', 'orange'],
+	['taxonomy', 'Viruses;ssDNA viruses.*', 'lime'],
+	['taxonomy', 'Viroid', 'yellow'],
+	['superkingdom', 'Viruses', 'red'],
 );
 
 &main;
@@ -80,13 +72,6 @@ sub main {
 		$self->printCSVExcel($hits, $worksheet, \@blastExtentedHeaders, \@excelColors, ['algo', 'query_id']);
 
 	}
-
-	# $fileInfos = $self->mergeBlastCSV($fileInfos, $clean);
-	# my $workbook = Excel::Writer::XLSX->new( $outputFile );
-	# my $worksheet = $workbook->add_worksheet('blast');
-
-
-	# $self->printExcelTaxoStats($fileInfos, $workbook, 'blast_stats');
 
 	foreach my $rpsFile (@{$self->{rpsFiles}}){
 		my ($rpsHits, $headers) = Tools::Taxonomy->readCSVextended($rpsFile, "\t");
@@ -133,6 +118,11 @@ sub printCSVExcel {
 		@lastFields{@$groupByFields} = ();
 	}
 	foreach my $hit (@{$hits}){
+    if(defined($hit->{'taxonomy'})){
+      if($hit->{'taxonomy'} eq 'unknown' || $hit->{'taxonomy'} eq ''){
+        next;
+      }
+    }
 		my ($color, $level) = (undef, defined $groupByFields);
 		if(! $headers || ! @$headers){
 			$headers = [keys %$hit];
@@ -152,7 +142,6 @@ sub printCSVExcel {
 			push(@fields,$hit->{$field});
 			if(! defined $color){
         if($field eq 'taxonomy'){
-
           $color = $self->getRowColor($colors, $worksheet, $field, $hit->{$field},$hit->{'query_id'});
         }
 			}
@@ -161,21 +150,20 @@ sub printCSVExcel {
 				$lastFields{$field} = $hit->{$field};
 			}
 		}
-		$worksheet->write($nbLines,0,\@fields);
+    if($color){
+      $worksheet->write($nbLines,0,\@fields,$color);
+    }
+    else{
+      $worksheet->write($nbLines,0,\@fields);
+    }
 
-		if($color || $level){
-			$worksheet->set_row($nbLines, undef, $color, $level, $level);
+		if($level){
+			$worksheet->set_row($nbLines, undef, undef, $level, $level);
 		}
 		$nbLines++;
 	}
-	# foreach my $file ( @$files ){
 
-		# foreach my $line ( @$files ){
-		#
-
-		# }
-	# }
-	my $maxCell = xl_rowcol_to_cell($nbLines-1, scalar @$headers - 1);
+	my $maxCell = xl_rowcol_to_cell($nbLines-1, scalar(@$headers) - 1);
 	my $table = 'A1:' . $maxCell ;
 	$worksheet->autofilter( $table );
 	$worksheet->freeze_panes( 1, 1 );
@@ -190,12 +178,12 @@ sub setExcelColor {
 
 	foreach my $rule (@{$colors}){
     # print Dumper @$rule . "\n";
-		my ($sheet, $field, $regexp, $color) = @$rule;
+		my ($field, $regexp, $color) = @$rule;
 
 		if(! exists $formatList{$color}){
 		  $formatList{$colors} = $workbook->add_format(bg_color => $color);
 		}
-		push(@excelColors, [$sheet, $field, $regexp, $formatList{$colors}]);
+		push(@excelColors, [$field, $regexp, $formatList{$colors}]);
 	}
 	return @excelColors;
 }
@@ -206,8 +194,8 @@ sub getRowColor {
 	my $color;
   # print $sheet->get_name() . "\t" . $value . "\n";
 	foreach my $rule (@$excelColors){
-		my ($sheetRule, $fieldRule, $valueRule, $colorRule) = @$rule;
-		if(defined $value && $sheet->get_name() =~ /$sheetRule/ && $field =~ /^$fieldRule$/ && $value =~ /$valueRule/){
+		my ($fieldRule, $valueRule, $colorRule) = @$rule;
+		if(defined $value && $field =~ /^$fieldRule$/ && $value =~ /$valueRule/){
 			if($sheet->get_name() =~ /rps/){
 				if(! defined($self->{_virus_seq_id}->{$query_id})){
 					$color = $colorRule;
@@ -220,43 +208,6 @@ sub getRowColor {
 	}
   # print $color . "\n";
 	return $color;
-}
-
-
-sub printExcelTaxoStats {
-	my ($self, $matches, $workbook, $filename) = @_;
-
-	if(!$filename){
-		$filename = '';
-	}
-
-	my $worksheet = $workbook->add_worksheet('stats_blast_taxo');
-	my $format = $workbook->add_format(valign => 'vcenter', align  => 'center');
-
-	my $lastLine = 3;
-
-	$worksheet->merge_range( 'A1:A3', 'File', $format );
-	$worksheet->merge_range( 'B1:B3', 'No_hit', $format );
-	$worksheet->merge_range( 'C1:O1', 'Annotated', $format );
-	$worksheet->merge_range( 'C2:C3', 'No taxonomy', $format );
-	$worksheet->merge_range( 'D2:D3', 'Viroids', $format );
-	$worksheet->merge_range( 'E2:G2', 'Cellular organisms', $format );
-	$worksheet->merge_range( 'H2:L2', 'Viral taxonomy', $format );
-	$worksheet->merge_range( 'M2:M3', 'Other', $format );
-	$worksheet->merge_range( 'N2:N3', 'Total viruses', $format );
-	$worksheet->merge_range( 'O2:O3', 'Total no viruses', $format );
-	$worksheet->write(2,4,['Eukaryota', 'Archaea', 'Bacteria']);
-	$worksheet->write(2,7,['dsRNA', 'ssRNA', 'dsDNA', 'ssDNA', 'Undeterminated']);
-
-	my @keys = ('no_hit', 'no_taxonomy', 'viroids', 'eukaryota', 'archaea', 'bacteria', 'dsRNA_viruses', 'ssRNA_viruses', 'dsDNA_viruses', 'ssDNA_viruses', 'undeterminated_viruses', 'other', 'viruses', 'no_viruses');
-
-	my $stats = Tools::Blast->getBlastStats($matches);
-	my @line;
-	push(@line,$filename);
-	foreach my $field (@keys){
-		push(@line,$stats->{$field});
-	}
-	$worksheet->write($lastLine,0,\@line);
 }
 
 
@@ -286,15 +237,6 @@ sub _set_options {
     }
   }
 
-	@{$self->{infoFiles}} = map{glob $_} @infoFiles;
-	if(scalar(@{$self->{infoFiles}}) > 0){
-		foreach my $file (@{$self->{infoFiles}}){
-			if(! -e $file){
-				$logger->error('Info file not found. ' . $file);
-        &help;
-			}
-		}
-	}
 }
 
 
@@ -315,8 +257,7 @@ USAGE: perl $prog -b blast_csv_extended_1 -b blast_csv_extended_2 ... -b blast_c
           ### OPTIONS ###
           -b|blast  <BLAST ECSV>  Blast ECSV file.
 					-o|output
-          -i|info   <CSV FILE>    Supplementary csv info file (rsp blast ...).
-          Info files will be added in all the excel files and the sheet name will be equal to the filename
+          -r|rps    <CSV FILE>    Supplementary csv info file (rsp blast ...).
           -c|clean	      If multiple blast are provided and a query match, keep only one hit.
           -v|verbosity    Verbosity level.
           -help|h         Print this help and exit.

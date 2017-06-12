@@ -1,7 +1,7 @@
 ReadSoustraction:
   db:
     vitis: '/media/data/db/ncbi/vitis/vitis'
-    phiX:  '/media/data/db/ncbi/phiX/phiX'
+    phiX:  '/media/data/db/ncbi/phiX/phiX174'
 bin:
   bowtie: '/usr/local/bin/bowtie2'
   samtools: '/usr/bin/samtools'
@@ -14,9 +14,11 @@ servers:
     db:
       nr: '/bank/blastdb/nr'
       nt: '/bank/blastdb/nt'
-      vitis: '/save/stheil/db/vitis/vitis'
-      vir: '/save/stheil/db/vir/vir'
+      refseq_vir_nucl: '/save/stheil/db/refseq_vir/viral.genomic.fna'
+      refseq_vir_prot: '/save/stheil/db/refseq_vir/viral.protein.faa'
       pfam: '/home/stheil/save/db/pfam/pfam_viruses_rpsdb'
+      all_vir_nucl: '/home/stheil/save/db/all_vir/all_vir_nucl.fna'
+      all_vir_prot: '/home/stheil/save/db/all_vir/all_vir_prot.faa'
     scratch: '/work/stheil'
     bin:
       blastx: 'blastx+'
@@ -27,10 +29,17 @@ servers:
     db:
       nr: '/home/stheil/db/nr/nr'
       nt: '/home/stheil/db/nt/nt'
-      vitis: '/home/stheil/db/vitis/vitis'
-      vir: '/home/stheil/db/vir/vir'
+      all_vir_nucl: '/home/stheil/scratch/db/all_vir/all_vir_nucl.fna'
+      all_vir_prot: '/home/stheil/scratch/db/all_vir/all_vir_prot.faa'
+      refseq_vir_nucl: '/home/stheil/scratch/db/refseq_vir/viral.genomic.fna'
+      refseq_vir_prot: '/home/stheil/scratch/db/refseq_vir/viral.protein.faa'
       pfam: '/home/stheil/db/pfam/pfam_viruses_rpsdb'
     scratch: '/scratch/stheil'
     bin:
       blastx: 'blastx'
       blastn: 'blastn'
+AutoMapper:
+  db:
+    nt: /media/data/db/ncbi/nt/nt
+    refseq_vir_nucl: /media/data/db/ncbi/refseq_vir/viral.genomic.fna
+    all_vir_nucl: /media/data/db/ncbi/all_vir/all_vir_nucl.fna

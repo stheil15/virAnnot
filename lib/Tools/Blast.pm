@@ -93,7 +93,7 @@ sub new {
 	my ($class, %attrs) = @_;
 	my $self = {};
 	bless $self;
-	my %processedParameters = $self->_merge_parameters($self->getDefaultParameters, \%attrs);
+	my %processedParameters = _merge_parameters($self,$self->getDefaultParameters, \%attrs);
 	# print Dumper %processedParameters;
 	$self->file($processedParameters{'file'});
 	$self->algo($processedParameters{'algo'});
@@ -137,14 +137,14 @@ sub parse_description {
 	my ($self, $param) = @_;
 	if(defined($param)){
 		if($param == 1 || $param == 0){
-			$self->{parse_description} = $param;
+			$self->{'parse_description'} = $param;
 		}
 		else{
 			$logger->error('Value provided from option parse_description is: ' . $param . '. Must be 0 or 1.');
 		}
 	}
 	else{
-		return $self->{parse_description};
+		return $self->{'parse_description'};
 	}
 }
 
@@ -233,13 +233,13 @@ sub algo {
 	);
 	if(defined $algo){
 		if(! ref $algo && exists $validAlgo{uc($algo)}){
-			$self->{'algo'} = $validAlgo{uc($algo)};
+			$self->{'_algo'} = $validAlgo{uc($algo)};
 		}
 		else{
 			$logger->warn("Invalid blast algorithm provided. Must be " . join(', ', sort {$a cmp $b} keys %validAlgo) . " . No change done");
 		}
 	}
-	return $self->{'algo'}
+	return $self->{'_algo'}
 }
 
 =head2 format
@@ -428,13 +428,13 @@ sub max_evalue {
 	my ($self, $cutoff) = @_;
 	if(defined $cutoff){
 		if(! ref $cutoff && $cutoff >= 0){
-			$self->{'max_evalue'} = $cutoff;
+			$self->{'_max_evalue'} = $cutoff;
 		}
 		else{
 			$logger->warn("Invalid evalue cutoff provided. Must be a positive number. No change done");
 		}
 	}
-	return $self->{'max_evalue'}
+	return $self->{'_max_evalue'}
 }
 
 =head2 min_identity
@@ -471,13 +471,13 @@ sub min_identity {
 	my ($self, $cutoff) = @_;
 	if(defined $cutoff){
 		if(! ref $cutoff && $cutoff >= 0){
-			$self->{'min_identity'} = $cutoff;
+			$self->{'_min_identity'} = $cutoff;
 		}
 		else{
 			$logger->warn("Invalid identity cutoff provided. Must be a positive number. No change done");
 		}
 	}
-	return $self->{'min_identity'}
+	return $self->{'_min_identity'}
 }
 
 =head2 min_score
@@ -643,13 +643,13 @@ sub min_hsp_length {
 	my ($self, $cutoff) = @_;
 	if(defined $cutoff){
 		if(! ref $cutoff && $cutoff =~ /[0-9]+/ && $cutoff >= 1){
-			$self->{'min_hsp_length'} = $cutoff;
+			$self->{'_min_hsp_length'} = $cutoff;
 		}
 		else{
 			$logger->warn("Invalid hsp length cutoff provided. Must be a positive integer >= 1. No change done");
 		}
 	}
-	return $self->{'min_hsp_length'}
+	return $self->{'_min_hsp_length'}
 }
 
 =head2 keep_first_hit_only
@@ -996,12 +996,12 @@ sub _readInputFile {
 	while($self->{_result} = $self->{_searchioObj}->next_result()){
 		#~ Getting the BLAST algo type. Used for the calculation of the coverage.
 		my $algo = $self->{_result}->algorithm();
-		if(defined $algo && ! $self->algo){
+		if(defined $algo && ! $self->{'_algo'}){
 			$self->algo($algo);
 		}
 		$self->{_queryCounter} += 1;
 		my $oldQueryId='';
-		while ($self->{_currentHit} = $self->{_result}->next_hit() || ! $self->{_result}->num_hits()){
+    while ($self->{_currentHit} = $self->{_result}->next_hit() || ! $self->{_result}->num_hits()){
 			my $match = {};
 
 			if($oldQueryId ne $self->{_result}->query_name()){
@@ -1012,8 +1012,9 @@ sub _readInputFile {
 				$match->{tax_id} = 0 ;
 				$match->{no_hit} = 1 ;
 				$match->{taxonomy} = 'unknown';
+        $oldQueryId = $self->{_result}->query_name();
 			}
-			if($self->{parse_description} == 1){
+			if($self->{'parse_description'} == 1){
 				$match->{query_id} = $self->{_result}->query_description();
 			}
 			else{
@@ -1025,7 +1026,7 @@ sub _readInputFile {
 			}
 			$match->{query_length} = $self->{_result}->query_length();
 			$match->{nb_hits}      = $self->{_result}->num_hits();
-			$match->{algo}         = $self->algo;
+			$match->{'algo'}         = $self->{'_algo'};
 
 			#~ Removing match against itself. Just in case.
 			if(! $match->{no_hit} && $self->remove_self_match) {
@@ -1034,7 +1035,7 @@ sub _readInputFile {
 
 			#~ Parsing all the hsps. They are stored in @{$match->{hsps}}
 			if(! $match->{no_hit}){
-				$self->_parseHsp($match);
+				_parseHsp($self,$match);
 			}
 			#~ Retieving the taxonomy.
 			if(! $match->{no_hit}){
@@ -1049,7 +1050,6 @@ sub _readInputFile {
 				$match->{hit_id} = $self->{_currentHit}->name;
 				# $match->{gi} = $self->_parseGi($match);
         $match->{accession} = $self->{_currentHit}->accession;
-
 				if($taxonomyTools){
 					if(! defined($taxonomyTools->{gg})){
 						$taxonomyTools->_getNCBITaxonomy($match);
@@ -1060,6 +1060,9 @@ sub _readInputFile {
 				}
 				$self->{_hitAboveCutoff}++;
 			}
+      else{
+        $match->{'taxonomy'} = 'unknown'
+      }
 			push(@matches,$match);
 			if($self->keep_first_hit_only || $match->{no_hit}){
 				$logger->trace('FirstHit : last.');
@@ -1170,6 +1173,7 @@ A hash reference containing hit informations (must contains at least a hit_id ke
 
 sub _parseHsp {
 	my ($self,$match) = @_;
+  $logger->debug('Parsing HSPs for ' . $self->{_result}->query_name());
 	my @hsps = $self->{_currentHit}->hsps();
 	$match->{hsps} = [];
 	my $aboveCutoff = 0;
@@ -1211,23 +1215,23 @@ sub _parseHsp {
 		my @identical = $self->{_hsp}->matches();
 		$hsp->{mismatches} = ( $hsp->{hsp_length} - ($identical[0]) );
 		$match->{mismatches} += $hsp->{mismatches};
-		if(defined $self->max_evalue){
-			if( $hsp->{evalue} >= $self->max_evalue ){
-				$logger->trace($match->{query_id} . ' | ' . $self->{_currentHit}->name . ' under evalue threshold ' . $hsp->{evalue} . ' >= ' . $self->max_evalue);
+		if(defined($self->{_max_evalue})){
+			if( $hsp->{evalue} >= $self->{_max_evalue} ){
+				$logger->trace($match->{query_id} . ' | ' . $self->{_currentHit}->name . ' under evalue threshold ' . $hsp->{evalue} . ' >= ' . $self->{_max_evalue});
 				next;
 			}
 		}
 		#~ All threshold tests for hsps.
-		if(defined $self->min_identity){
-			if($hsp->{percentIdentity} < $self->min_identity){
-				$logger->trace($match->{query_id} . ' | ' . $self->{_currentHit}->name . ' under identity threshold ' . $hsp->{percentIdentity} . ' < ' . $self->min_identity);
+		if(defined($self->{_min_identity})){
+			if($hsp->{percentIdentity} < $self->{_min_identity}){
+				$logger->trace($match->{query_id} . ' | ' . $self->{_currentHit}->name . ' under identity threshold ' . $hsp->{percentIdentity} . ' < ' . $self->{_min_identity});
 				next;
 			}
 		}
 
-		if($self->min_score){
-			if($hsp->{score} < $self->min_score){
-				$logger->trace($match->{query_id} . ' | ' . $self->{_currentHit}->name . ' under score threshold ' . $hsp->{score} . ' < ' . $self->min_score);
+		if($self->{_min_score}){
+			if($hsp->{score} < $self->{_min_score}){
+				$logger->trace($match->{query_id} . ' | ' . $self->{_currentHit}->name . ' under score threshold ' . $hsp->{score} . ' < ' . $self->{_min_score});
 				next;
 			}
 		}
@@ -1258,7 +1262,7 @@ sub _parseHsp {
 		$match->{score} += $hsp->{score};
 		$aboveCutoff+=1 ;
 		push(@{$match->{hsps}},$hsp);
-		last if ($self->keep_first_hsp_only); # print only the first HSP
+		last if ($self->{_keep_first_hsp_only}); # print only the first HSP
 	} # END OF foreach hsp
 
 	#~ Test if the hsp's array is not empty.
@@ -1273,14 +1277,36 @@ sub _parseHsp {
 	$match->{evalue} = $self->{_cumulEvalue} / scalar(@{$match->{hsps}});
 	$match->{hsp_length} = $self->{_cumulHspLength}->{query} ;
 	# test cutoff for length and identity [ONLY FOR QUERY values !!!]
-	if(defined $self->min_hsp_length)  { $match->{hsp_length} < $self->min_hsp_length and return 0; }
-	if(defined $self->min_identity){ $match->{percentIdentity} < $self->min_identity and return 0; }
+	if(defined($self->{_min_hsp_length})){
+    if($match->{hsp_length} < $self->{_min_hsp_length}){
+      $match->{no_hit} = 1 ;
+      return 0;
+    }
+  }
+	if(defined($self->{_min_identity})){
+    if($match->{percentIdentity} < $self->{_min_identity}){
+      $match->{no_hit} = 1 ;
+      return 0;
+    }
+  }
 
 	($match->{queryOverlap}, $match->{hitOverlap}) = ("NA.", "NA.");
 	unless($self->format eq 'blasttable'){ # No query_length and hit_length available when inFormat is 'm8'
 		$self->getOverlapValues($match, 'hit',$match->{query_length});
-		if(defined $self->min_query_overlap){ $match->{queryOverlap} < $self->min_query_overlap and return 0; }
-		if(defined $self->min_hit_overlap){ $match->{hitOverlap} < $self->min_hit_overlap and return 0; }
+		if(defined($self->{'min_query_overlap'})){
+      if($match->{queryOverlap} < $self->{'min_query_overlap'}){
+        $match->{no_hit} = 1 ;
+        $logger->debug('excluded min_query_overlap: ' . $match->{queryOverlap});
+        return 0;
+      }
+    }
+		if(defined($self->{'min_hit_overlap'})){
+      if($match->{hitOverlap} < $self->{'min_hit_overlap'}){
+        $match->{no_hit} = 1 ;
+        $logger->debug('excluded min_hit_overlap: ' . $match->{queryOverlap});
+        return 0;
+      }
+    }
 	}
 	$self->getMinMaxCoordsOfHsp($match);
 	return 1;
@@ -1391,15 +1417,15 @@ sub getOverlapValues {
 		$hAlignLen = $self->{_cumulHspLength}->{hit};
 	}
 
-	if ($self->algo eq 'BLASTX') {
+	if ($self->{'_algo'} eq 'BLASTX') {
 		if ($qLength){ $match->{queryOverlap} = sprintf "%.0f", (($qAlignLen*3/$qLength)*100) }
 		if ($self->{_currentHit}->length){ $match->{hitOverlap} = sprintf "%.0f", (($hAlignLen/$self->{_currentHit}->length)*100) }
 	}
-	elsif ($self->algo eq 'TBLASTN') {
+	elsif ($self->{'_algo'} eq 'TBLASTN') {
 		if ($qLength){ $match->{queryOverlap} = sprintf "%.0f", (($qAlignLen/$qLength)*100) }
 		if ($self->{_currentHit}->length){ $match->{hitOverlap} = sprintf "%.0f", (($hAlignLen*3/$self->{_currentHit}->length)*100) }
 	}
-	elsif ($self->algo eq 'TBLASTX') {
+	elsif ($self->{'_algo'} eq 'TBLASTX') {
 		if ($qLength){ $match->{queryOverlap} = sprintf "%.0f", (($qAlignLen*3/$qLength)*100) }
 		if ($self->{_currentHit}->length){ $match->{hitOverlap} = sprintf "%.0f", (($hAlignLen*3/$self->{_currentHit}->length)*100) }
 	}

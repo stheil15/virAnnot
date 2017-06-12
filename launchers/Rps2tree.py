@@ -1,9 +1,6 @@
 import os.path
 from subprocess import call
 import logging as log
-from fabric.api import env
-from fabric.operations import run as fabric_run
-from fabric.context_managers import settings, hide
 
 class Rps2tree:
 
@@ -31,6 +28,7 @@ class Rps2tree:
 
 
     def check_args (self, args: dict):
+        self.execution=1
         self.wd = os.getcwd()
         self.cmd_file = self.wd + '/' + 'rps2tree_cmd.txt'
         if 'out' in args:
@@ -49,15 +47,16 @@ class Rps2tree:
                 self.blast_files = {}
                 for s_id in args['args']:
                     if s_id not in self.blast_files:
-                        self.blast_files[s_id] = {}
-                        for p in args['args'][s_id]:
-                            if p != 'id':
-                                fp = self.wd + '/' + s_id + '/' + args['args'][s_id][p]
-                                self.blast_files[s_id][p] = self._check_file( fp )
-                            else:
-                                self.blast_files[s_id][p] = args['args'][s_id][p]
+                        if os.path.exists(self.wd + '/' + s_id + '/' + args['args'][s_id]['pfam']) and os.path.exists(self.wd + '/' + s_id + '/' + args['args'][s_id]['ecsv']) and os.path.exists(self.wd + '/' + s_id + '/' + args['args'][s_id]['contigs']):
+                            self.blast_files[s_id] = {}
+                            self.blast_files[s_id]['pfam'] = self.wd + '/' + s_id + '/' + args['args'][s_id]['pfam']
+                            self.blast_files[s_id]['ecsv'] = self.wd + '/' + s_id + '/' + args['args'][s_id]['ecsv']
+                            self.blast_files[s_id]['contigs'] = self.wd + '/' + s_id + '/' + args['args'][s_id]['contigs']
+                            self.blast_files[s_id]['id'] = args['args'][s_id]['id']
         else:
             log.critical('No iter parameters.')
+        if len(self.blast_files.keys()) == 0:
+            self.execution=0
 
 
     def launch (self):

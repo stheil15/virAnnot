@@ -11,10 +11,6 @@ use Cwd;
 use Cwd 'abs_path', 'cwd';
 
 my $blast_ecsv_file='';
-my $blat_psl_file='';
-my $read_file='';
-my $coverage_threshold=60;
-my $identity_threshold=95;
 my $selected_taxo_rank=2;
 my $seek_up_or_down='up';
 my $out_path='assembly_by_taxon';
@@ -27,15 +23,15 @@ my $singletons='';
 my $read_norm=0;
 my $mega_merge=0;
 my $verbosity=1;
+my $n_cpu=10;
+my $VERSION = '1.2';
+my $lastmodif = '2016-10-27';
+
 
 
 GetOptions(
 	"ecsv|e=s"         => \$blast_ecsv_file,
-	"psl|p=s"          => \$blat_psl_file,
 	"bam|b=s"          => \$bam_file,
-	"read|r=s"         => \$read_file,
-	"cov=i"            => \$coverage_threshold,
-	"id=i"             => \$identity_threshold,
 	"s=s"              => \$sample_id,
 	"o=s"              => \$output,
 	"1=s"              => \$pair_R1,
@@ -44,6 +40,7 @@ GetOptions(
   "seek=s"           => \$seek_up_or_down,
   "singletons=s"     => \$singletons,
   "mm|megamerge"     => \$mega_merge,
+  "n_cpu=i"          => \$n_cpu,
 	"v|verbosity=i"    => \$verbosity
 );
 
@@ -51,7 +48,9 @@ if($verbosity > 1){
     Logger::Logger->changeMode($verbosity);
 }
 
+
 &main;
+
 
 sub main {
 	my $self={};
@@ -60,35 +59,30 @@ sub main {
 	$self->{taxoTools} = Tools::Taxonomy->new();
 	$self->{_blast_annotation} = $self->{taxoTools}->readCSVextended($self->{_blast_ecsv_file},"\t");
 	_sort_by_rank($self,$self->{_selected_taxo_rank},$self->{_seek_up_or_down});
-	if(defined($self->{_blat_psl_file})){
-		$self->{_blat_mapping} = _parseBlat($self,$self->{_blat_psl_file});
-		$self->{_reads_index} = Tools::Fasta->new( file => $self->{_read_file});
-		_dispatch_reads($self);
-	}
-	if(defined($self->{_bam_file})){
-		_dispatch_reads_from_bam($self);
-    _build_assembly_cmd_fastq($self);
-    if($self->{_mega_merging}==1){
-      _launch_mega_merge($self);
-      my $mega_merging_path = cwd() . '/' . $out_path . '/mega_merge/MergedContigs.fasta';
-      my @a = split('/',cwd());
-      my $cmd = 'sed -i \'s,^>Contig_\([0-9]*\),>' . substr($a[$#a],0,8) . '_\1,\' ' . $mega_merging_path . "\n";
-      $cmd .= 'mv ' . $mega_merging_path . ' ' . $self->{_output} ;
-      $logger->debug($cmd);
-      system($cmd);
-    }
-    else{
-      foreach my $rank (keys(%{$self->{_assembly_info}})){
-    		if(defined($self->{_assembly_info}->{$rank}->{scaffolds})){
-    			my $cmd = 'cat ' . $self->{_assembly_info}->{$rank}->{scaffolds} . ' >> ' . $self->{_output};
-    			$logger->debug($cmd);
-    			`$cmd`;
-    		}
-    	}
-    }
-	}
-	# _launch_cmd($self);
+
+	_dispatch_reads_from_bam($self);
+  _build_assembly_cmd_fastq($self);
+
+  if($self->{_mega_merging}==1){
+    _launch_mega_merge($self);
+    my $mega_merging_path = cwd() . '/' . $out_path . '/mega_merge/MergedContigs.fasta';
+    my @a = split('/',cwd());
+    my $cmd = 'sed -i \'s,^>Contig_\([0-9]*\),>' . substr($a[$#a],0,8) . '_\1,\' ' . $mega_merging_path . "\n";
+    $cmd .= 'mv ' . $mega_merging_path . ' ' . $self->{_output} ;
+    $logger->debug($cmd);
+    system($cmd);
+  }
+  else{
+    foreach my $rank (keys(%{$self->{_assembly_info}})){
+  		if(defined($self->{_assembly_info}->{$rank}->{scaffolds})){
+  			my $cmd = 'cat ' . $self->{_assembly_info}->{$rank}->{scaffolds} . ' >> ' . $self->{_output};
+  			$logger->debug($cmd);
+  			`$cmd`;
+  		}
+  	}
+  }
 }
+
 
 sub _launch_mega_merge {
   my ($self)=@_;
@@ -192,7 +186,7 @@ sub _build_assembly_cmd_fastq {
           $cmd .= ' -s ' . $final_single;
         }
         $cmd .= ' -o ' . 'spades' ;
-      	$cmd .= ' -t 10';
+      	$cmd .= ' -t ' . $self->{_n_cpu};
         $logger->debug($cmd);
 
       }
@@ -211,14 +205,10 @@ sub _build_assembly_cmd_fastq {
         $cmd .= ' -s ' . $rank .'_singletons.fastq';
       }
       $cmd .= ' -o ' . 'spades' ;
-      $cmd .= ' -t 10';
+      $cmd .= ' -t ' . $self->{_n_cpu};
       $logger->debug($cmd);
     }
-    `$cmd`;
-    $self->{_assembly_info}->{$rank} = _get_assembly_info($self,$rank_path . '/spades/spades.log');
-    if(defined($self->{_assembly_info}->{$rank}->{scaffolds})){
-      _rename_scaff($self,$rank,$self->{_assembly_info}->{$rank}->{scaffolds});
-    }
+    $self->{_cmd}->{$rank} = $cmd;
   }
 }
 
@@ -250,9 +240,9 @@ sub _launch_cmd {
 			_rename_scaff($self,$rank,$self->{_assembly_info}->{$rank}->{scaffolds});
 		}
 	}
-	# if(-e $self->{_output}){
-	# 	`rm $self->{_output}`;
-	# }
+	if(-e $self->{_output}){
+		`rm $self->{_output}`;
+	}
 	foreach my $rank (keys(%{$self->{_assembly_info}})){
 		if(defined($self->{_assembly_info}->{$rank}->{scaffolds})){
 			my $cmd = 'cat ' . $self->{_assembly_info}->{$rank}->{scaffolds} . ' >> ' . $self->{_output};
@@ -304,15 +294,6 @@ sub _parse_spades_exec_log {
 		}
 	}
 	return 0;
-}
-
-
-sub _dispatch_reads {
-	my ($self)=@_;
-	foreach my $rank (keys(%{$self->{_scaffold_by_taxo_rank}})){
-		$logger->info($rank . ' containing ' . scalar(@{$self->{_scaffold_by_taxo_rank}->{$rank}}) . ' scaffolds.');
-		_print_reads($self,$rank);
-	}
 }
 
 
@@ -527,77 +508,9 @@ sub _sort_by_rank {
 }
 
 
-# sub _sort_by_rank {
-# 	my ($self)=@_;
-# 	foreach my $hit (@{$self->{_blast_annotation}}){
-# 		my @taxo = split(';',$hit->{taxonomy});
-# 		if($hit->{taxonomy} =~ /Virus/){
-# 			if(!defined($taxo[$self->{_selected_taxo_rank}])){
-# 				$logger->warn('No taxo rank defined for ' . $hit->{taxonomy});
-# 			}
-# 			if($taxo[$self->{_selected_taxo_rank}] eq ''){
-# 				for(my $i = $self->{_selected_taxo_rank}+1; $i <= $#taxo ; $i++){
-# 					if(defined($taxo[$i])){
-# 						if($taxo[$i] ne ''){
-# 							my $rank_wo_spaces = $taxo[$i] =~ s/ /_/gr;
-# 							push(@{$self->{_scaffold_by_taxo_rank}->{$rank_wo_spaces}},$hit->{query_id});
-# 							last;
-# 						}
-# 					}
-# 					else{
-# 						push(@{$self->{_scaffold_by_taxo_rank}->{'no_rank'}},$hit->{query_id});
-# 					}
-# 				}
-# 			}
-# 			else{
-# 				my $rank_wo_spaces = $taxo[$self->{_selected_taxo_rank}] =~ s/ /_/gr;
-# 				push(@{$self->{_scaffold_by_taxo_rank}->{$rank_wo_spaces}},$hit->{query_id});
-# 			}
-# 		}
-# 		elsif($hit->{taxonomy} =~ /unknown/){
-# 			push(@{$self->{_scaffold_by_taxo_rank}->{'unknown'}},$hit->{query_id});
-# 		}
-# 		else{
-# 			# do nothing
-# 		}
-# 	}
-# }
-
-
-sub _parseBlat {
-	my ($self,$file) = @_;
-	open(PSL,$file) || $logger->logdie('Cant read psl file ' . $file);
-	my $already_seen={};
-	my $h;
-	while(my $l =<PSL>){
-		chomp $l;
-		my @line = split(/\t/,$l);
-		if(defined($already_seen->{$line[13]})){
-			next;
-		}
-		$already_seen->{$line[13]}++;
-		my $tSize = $line[14];
-		my $tStart = $line[15];
-		my $tEnd = $line[16];
-		my $identity = (100 *($line[0]+$line[2])/($line[0]+$line[1]+$line[2]));
-		my $coverage = (($tEnd-$tStart)/$tSize) * 100;
-		# $logger->debug($line[13] . ' id: ' . $identity . ' cov: ' . $coverage);
-		if($coverage >= $self->{_covThreshold} && $identity >= $self->{_idThreshold}){
-			push(@{$h->{$line[9]}},$line[13]);
-		}
-		else{
-			next;
-		}
-	}
-	close PSL;
-	return $h;
-}
-
-
 sub _set_options {
 	my ($self)=@_;
-	$self->{_covThreshold} = $coverage_threshold;
-	$self->{_idThreshold} = $identity_threshold;
+
 	$self->{_selected_taxo_rank} = $selected_taxo_rank;
 
 	if(-e $blast_ecsv_file){
@@ -607,7 +520,7 @@ sub _set_options {
 		$logger->error('You must provide a ecsv blast annotation file.');
 		exit;
 	}
-	if($bam_file eq '' && $blat_psl_file eq ''){
+	if($bam_file eq ''){
 		$logger->error('You must provide one mapping file, either psl or bam.');
 		exit;
 	}
@@ -627,22 +540,6 @@ sub _set_options {
 			else{
 				$self->{_pair_R1} = abs_path($pair_R1);
 				$self->{_pair_R2} = abs_path($pair_R2);
-			}
-		}
-		if($blat_psl_file ne ''){
-			if(-e $blat_psl_file){
-				$self->{_blat_psl_file} = abs_path($blat_psl_file);
-			}
-			else{
-				$logger->error('You must provide a blat psl file.');
-				exit;
-			}
-			if(-e $read_file){
-				$self->{_read_file} = abs_path($read_file);
-			}
-			else{
-				$logger->error('You must provide a fasta file of reads.');
-				exit;
 			}
 		}
 	}
@@ -690,5 +587,38 @@ sub _set_options {
 	else{
 		$self->{_output} = $self->{_sample_id} . '_scaffold.abt.fna'
 	}
+  $self->{_n_cpu} = $n_cpu;
   $self->{_read_norm} = $read_norm;
+}
+
+
+sub help {
+my $prog = basename($0) ;
+print STDERR <<EOF ;
+### $prog $VERSION ###
+#
+# AUTHOR:     Sebastien THEIL
+# VERSION:    $VERSION
+# LAST MODIF: $lastmodif
+# PURPOSE:    Based on annotation provided, this script will split input reads by viral family and launch assembly.
+#
+
+USAGE: perl $prog -e ecsv_file -b bam_file -1 reads.r1.fq -2 reads.r2.fq[OPTIONS]
+
+          -e|ecsv      [EXTENDED BLAST FILE] At least two fields: query_id & taxonomy.
+          -b|bam       [BAM FILE] Alignment of reads on scaffolds.
+          -1           [FASTQ FILE] Pair R1.
+          -2           [FASTQ FILE] Pair R2.
+          ### OPTIONS ###
+
+          -singletons  [FASTQ FILE] Single reads.
+          -rn          Read normalization method.
+          -seek        [up|down] If selected rank has no clade, seek for valid one up (superkingdom) or down (specie).
+          -mm|megamerge          Use MegaMerge tool to merge all assemblies.
+          -n_cpu       [INT] Number of CPU to use in Spades.
+          -v|verbosity [INTEGER]
+          -help|h      Print this help and exit.
+
+EOF
+exit(1);
 }

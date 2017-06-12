@@ -14,13 +14,15 @@ use XML::Writer;
 use Data::Dumper;
 use Math::Round;
 
-my $VERSION = '1.2' ;
-my $lastmodif = '2015-10-27' ;
+my $VERSION = '2.0' ;
+my $lastmodif = '2017-05-30' ;
 
 my @input_files;
+my @xml_files;
 my @id_samples;
 my @group_file;
 my $output = '';
+my $outdir = '';
 my $merge;
 my $mergeType=1;
 my $help;
@@ -34,9 +36,11 @@ my $reduceTaxo;
 
 GetOptions(
           "i|input:s"      => \@input_files,
+          "x|xml:s"        => \@xml_files,
           "g|group:s"      => \@group_file,
           "id:s"           => \@id_samples,
           "o|output=s"     => \$output,
+          "outdir=s"       => \$outdir,
           "m|merge"        => \$merge,
           "mt|mergeType:i" => \$mergeType,
           "db=s"           => \$db,
@@ -63,9 +67,27 @@ sub main {
 
   _set_options($self);
 
+  if(! -e $self->{_krona_out_dir}){
+    $logger->info('Creating ' . $self->{_krona_out_dir} . ' folder.');
+    mkdir $self->{_krona_out_dir};
+    chdir $self->{_krona_out_dir};
+  }
+  else{
+    chdir $self->{_krona_out_dir};
+  }
+  if(defined($self->{xml_files})){
+    if(! -e $self->{_out_dir}){
+      mkdir $self->{_out_dir};
+    }
+  }
+
   for(my $i=0;$i<=$#{$self->{filesList}};$i++){
     $logger->debug('Loading file ' . $self->{filesList}->[$i]);
     $self->{_hits}->[$i] = $self->{taxoTools}->readCSVextended($self->{filesList}->[$i],"\t");
+    if(defined($self->{xml_files})){
+      $self->{_qry_lst}->[$i] = _get_qry_list($self,$self->{_hits}->[$i]);
+      $self->{_html_files}->[$i] = _extract_blast($self,$i);
+    }
     # my $fileInfos;
     # if(defined($self->{group_file}->[$i])){
     #   $fileInfos = parseGroupFile($self->{group_file}->[$i]);
@@ -81,22 +103,22 @@ sub main {
       delete $self->{_hits}->[$i];
     }
     $logger->info('Building taxonomy tree...');
-    $tree->[0] = $self->{taxoTools}->_buildFullTaxo( $self->{_merged_hits} );
-    $self->_printXML($tree, [0], $color, $data);
+    $tree->[0] = $self->{taxoTools}->buildFullTaxo( $self->{_merged_hits} );
+    printXML($self, $tree, [0], $color, $data);
   }
   else{
     for(my $i=0;$i<=$#{$self->{filesList}};$i++){
       if(defined($self->{group_file}->[$i]) && $self->{group_file}->[$i] ne ''){
-        $tree->[$i] = $self->{taxoTools}->_buildFullTaxo( $self->{_hits}->[$i], 1 );
+        $tree->[$i] = $self->{taxoTools}->buildFullTaxo( $self->{_hits}->[$i], 1 );
       }
       else{
-        $tree->[$i] = $self->{taxoTools}->_buildFullTaxo( $self->{_hits}->[$i] );
+        $tree->[$i] = $self->{taxoTools}->buildFullTaxo( $self->{_hits}->[$i] );
       }
     }
   }
   if(! defined($merge)){
     for(my $i=0;$i<=$#{$self->{filesList}};$i++){
-      $self->_printXML($tree, [$i], $color, $data);
+      printXML($self, $tree, [$i], $color, $data);
     }
   }
   else{
@@ -104,8 +126,20 @@ sub main {
     for(my $i=0;$i<=$#{$self->{filesList}};$i++){
       push(@{$index_list},$i);
     }
-    $self->_printXML($tree, $index_list, $color, $data);
+    printXML($self, $tree, $index_list, $color, $data);
   }
+}
+
+sub _get_qry_list {
+  my ($self,$hits)=@_;
+  my $h={};
+  foreach my $hit (@{$hits}){
+    if($hit->{'taxonomy'} =~ /Viruses/ || $hit->{'taxonomy'} =~ /Viroids/){
+      $h->{$hit->{'tax_id'}}->{$hit->{query_id}}++;
+    }
+  }
+  $logger->debug('Selected ' . scalar(%{$h}) . ' hits.');
+  return $h;
 }
 
 
@@ -171,7 +205,7 @@ sub getDeconvolutedHit {
 }
 
 
-sub _printXML {
+sub printXML {
   my ($self, $tree, $index_list, $color, $data) = @_;
   my $output = IO::File->new(">$self->{_krona_file_name}");
   my $writer = XML::Writer->new(OUTPUT => $output, DATA_INDENT => " ", DATA_MODE => 1);
@@ -194,7 +228,11 @@ sub _printXML {
   $writer->startTag('attribute', 'display' => 'Total');
   $writer->characters("magnitude");
   $writer->endTag('attribute');
-
+  if(defined($self->{_qry_lst})){
+    $writer->startTag('attribute', 'display' => 'Blast results', 'hrefBase' => './');
+    $writer->characters("blast");
+    $writer->endTag('attribute');
+  }
   if ($color eq 'taxid' ) {
     $writer->startTag('attribute', 'display' => 'taxId');
     $writer->characters("taxid");
@@ -313,7 +351,7 @@ sub _printXML {
   }
 
   $writer->endTag('magnitude');
-  XMLPrinter($tree,$writer,$color,$data, $index_list);
+  XMLPrinter($self,$tree,$writer,$color,$data, $index_list);
   $writer->endTag('node');
   $writer->endTag('krona');
   print $output '</div></body></html>' . "\n";
@@ -322,7 +360,7 @@ sub _printXML {
 
 
 sub XMLPrinter {
-  my ($tree,$writer,$color,$data, $index_list) = @_;
+  my ($self,$tree,$writer,$color,$data, $index_list) = @_;
   my %keysList;
   foreach my $i (@{$index_list}){
     if(exists $tree->[$i]){
@@ -341,6 +379,7 @@ sub XMLPrinter {
       if(exists $tree->[$i]->{$k} && defined $tree->[$i]->{$k}){
         $newHash->[$i] = $tree->[$i]->{$k};
       }
+
       if($data eq 'contigs'){
         if(exists $tree->[$i]->{$k}->{number} && defined $tree->[$i]->{$k}->{number}){
           $writer->dataElement(val => nearest(0.00001, $tree->[$i]->{$k}->{number}));
@@ -381,6 +420,43 @@ sub XMLPrinter {
       }
     }
     $writer->endTag('magnitude');
+    if(defined($self->{_qry_lst})){
+      $writer->startTag('blast');
+      my $name_s = $k;
+      $name_s =~ s/[^A-Za-z0-9]/_/g;
+      for(my $i=0;$i<=$#{$index_list};$i++){
+        if(defined($self->{_html_files}->[$i]->{$name_s})){
+          if($data eq 'contigs'){
+            $writer->startTag('val','href' => $self->{_html_files}->[$i]->{$name_s});
+            $writer->characters('link');
+            $writer->endTag('val');
+          }
+          elsif($data eq 'reads'){
+            $writer->dataElement(val => '');
+          }
+          elsif($data eq 'both'){
+            $writer->startTag('val','href' => $self->{_html_files}->[$i]->{$name_s});
+            $writer->characters('link');
+            $writer->endTag('val');
+            $writer->startTag('val');
+            $writer->endTag('val');
+          }
+          else{
+
+          }
+        }
+        else{
+          if($data eq 'contigs' || $data eq 'reads'){
+            $writer->dataElement(val => '');
+          }
+          elsif($data eq 'both'){
+            $writer->dataElement(val => '');
+            $writer->dataElement(val => '');
+          }
+        }
+      }
+      $writer->endTag('blast');
+    }
     if ( $color eq 'taxid' ) {
       $writer->startTag('taxid');
       for(my $i=0;$i<=$#{$index_list};$i++){
@@ -402,7 +478,7 @@ sub XMLPrinter {
             $writer->dataElement(val => '');
           }
         }
-        if($data eq 'reads'){
+        elsif($data eq 'reads'){
           if(exists $tree->[$i]->{$k} && defined($tree->[$i]->{$k}->{identity_r})){
             $writer->dataElement(val => $tree->[$i]->{$k}->{identity_r} / $tree->[$i]->{$k}->{number_r});
           }
@@ -434,8 +510,9 @@ sub XMLPrinter {
         }
       }
       $writer->endTag('identity');
+
     }
-    XMLPrinter($newHash,$writer,$color,$data, $index_list);
+    XMLPrinter($self,$newHash,$writer,$color,$data, $index_list);
     $writer->endTag('node');
   }
 }
@@ -457,6 +534,11 @@ sub _set_options {
   else{
     $logger->error('You must provide at least one csv file.');
     &help;
+  }
+
+  if(scalar(@xml_files) > 0){
+    $self->{xml_files} = \@xml_files;
+    $self->{_out_dir} = 'krona-data';
   }
 
   if(scalar(@group_file) > 0){
@@ -493,6 +575,12 @@ sub _set_options {
     $taxonomyParams{_dbFormat} = 'normal';
   }
   $self->{taxoTools} = Tools::Taxonomy->new(%taxonomyParams);
+  if($outdir ne ''){
+    $self->{_krona_out_dir} = $outdir;
+  }
+  else{
+    $self->{_krona_out_dir} = 'krona_out_dir';
+  }
 	if($output ne ''){
 		$self->{_krona_file_name} = $output;
 	}
@@ -508,12 +596,73 @@ sub _set_options {
 }
 
 
+sub _extract_blast {
+  my ($self,$index)=@_;
+  if(! -e $self->{_out_dir} . '/' . $index){
+    mkdir $self->{_out_dir} . '/' . $index;
+  }
+  my $krona_fof = $self->{_out_dir} . '/' . $index . '/' . 'krona_fof.txt';
+  open(FOF,">$krona_fof");
+  my @clean;
+  for my $tax_id (keys(%{$self->{_qry_lst}->[$index]})){
+    my $name_s = $self->{taxoTools}->retrieveNameFromTaxId($tax_id);
+    $name_s =~ s/[^A-Za-z0-9]/_/g;
+    my $html_out = $self->{_out_dir} . '/' . $index . '/' . $name_s . '.html';
+    if(! -e $html_out){
+      my $csv_out = $self->{_out_dir} . '/' . $index . '/' . $name_s . '.csv';
+      if(! -e $csv_out){
+        open(CSV,">$csv_out") || $logger->logdie('Cannot create file ' . $csv_out);
+        foreach my $id (keys(%{$self->{_qry_lst}->[$index]->{$tax_id}})){
+          print CSV $id . "\n";
+        }
+        close CSV;
+        my $xml_out = $self->{_out_dir} . '/' . $index . '/' . $name_s . '.xml';
+        print FOF $csv_out . "\t" . $xml_out . "\n";
+        push(@clean,$csv_out);
+        push(@clean,$xml_out);
+      }
+    }
+  }
+  close FOF;
+
+  my $cmd = 'demultiplex-BLAST-results --fof ' . $krona_fof . ' -i ' . $self->{xml_files}->[$index];
+  $logger->debug($cmd);
+  if(! -z $krona_fof){
+    `$cmd`;
+  }
+  my $h={};
+  for my $tax_id (keys(%{$self->{_qry_lst}->[$index]})){
+    my $name_s = $self->{taxoTools}->retrieveNameFromTaxId($tax_id);
+    $name_s =~ s/[^A-Za-z0-9]/_/g;
+    my $xml_out = $self->{_out_dir} . '/' . $index . '/' . $name_s . '.xml';
+    my $html_out = $self->{_out_dir} . '/' . $index . '/' . $name_s . '.html';
+    if(! -e $html_out){
+      if(! -z $xml_out){
+        $cmd = 'blast2html.py -i ' . $xml_out . ' -o ' . $html_out;
+        $logger->debug($cmd);
+        `$cmd`;
+      }
+      else{
+        $logger->debug('XML file empty. ' . $xml_out);
+      }
+
+    }
+    $h->{$name_s} = $html_out;
+  }
+  push(@clean,$krona_fof);
+  foreach my $el (@clean){
+    # `rm $el`;
+  }
+  return $h;
+}
+
+
 sub help {
 my $prog = basename($0) ;
 print STDERR <<EOF ;
 ### $prog $VERSION ###
 #
-# AUTHOR:     Sebastien THEIL
+# AUTHOR:     Sandy Contreras & Sebastien THEIL
 # VERSION:    $VERSION
 # LAST MODIF: $lastmodif
 # PURPOSE:    This script is used to parse csv file containing tax_id field and creates Krona charts.

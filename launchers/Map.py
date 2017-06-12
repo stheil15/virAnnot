@@ -14,6 +14,8 @@ class Map:
         log.debug(cmd)
         self.cmd.append(cmd)
         cmd = 'bowtie2 -p ' + self.n_cpu + ' -x ' + self.contigs + ' -1 ' + self.i1 + ' -2 ' + self.i2
+        if self.ising != '':
+            cmd += ' -U ' + self.ising
         cmd += ' | samtools view -bS - > ' + self.bam
         log.debug(cmd)
         self.cmd.append(cmd)
@@ -43,6 +45,10 @@ class Map:
             self.i2 = self.check_seq_format(self.wd + '/' + args['i2'])
         else:
             log.critical('Need r2 file.')
+        if 'ising' in args:
+            self.ising = self._check_file(self.wd + '/' + args['ising'])
+        else:
+            self.ising=''
         if 'n_cpu' in args:
             self.n_cpu = str(args['n_cpu'])
         else:
@@ -52,8 +58,6 @@ class Map:
             self.sge = bool(args['sge'])
         else:
             self.sge = False
-        if 'out' in args:
-            self.out = args['out']
         if 'bam' in args:
             self.bam = self.wd + '/' + args['bam']
         if 'rn' in args:
@@ -66,7 +70,7 @@ class Map:
             for el in self.cmd:
                 fw.write(el + "\n")
             fw.close()
-            qsub_call =   "qsub -wd " + self.wd + " -V -N " + self.sample + '_drVM' + ' ' + self.cmd_file
+            qsub_call =   "qsub -wd " + self.wd + " -V -N " + self.sample + '_map' + ' -pe multithread ' + self.n_cpu + ' ' + self.cmd_file
             log.debug(qsub_call)
             os.system(qsub_call)
         else:

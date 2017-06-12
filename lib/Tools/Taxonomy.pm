@@ -50,10 +50,10 @@ sub new {
   elsif(defined($attrs{gg})){
     $self->{gg} = 1;
     if($attrs{gg} != 1){
-      $self->_loadGgTaxonomy($attrs{gg});
+      _loadGgTaxonomy($self,$attrs{gg});
     }
     else{
-      $self->_loadGgTaxonomy($GG_DB);
+      _loadGgTaxonomy($self,$GG_DB);
     }
   }
   else{
@@ -69,18 +69,18 @@ sub new {
 }
 
 sub gi2taxonomy {
-	my ($self,$gi)=@_;
-	my $tax_id = $self->retrieveTaxIdFromGi($gi,'BLASTP');
-	my $taxo = $self->_retrieveNCBITaxonomy($tax_id);
-	my $string = $self->_getTaxonomyString($taxo);
+	my ($self,$gi,$algo)=@_;
+	my $tax_id = retrieveTaxIdFromGi($self,$gi,$algo);
+	my $taxo = _retrieveNCBITaxonomy($self,$tax_id);
+	my $string = _getTaxonomyString($self,$taxo);
 	return $string;
 }
 
 sub acc2taxonomy {
-  my ($self,$acc)=@_;
-  my $tax_id = $self->retrieveTaxIdFromAcc($acc,'BLASTP');
-  my $taxo = $self->_retrieveNCBITaxonomy($tax_id);
-  my $string = $self->_getTaxonomyString($taxo);
+  my ($self,$acc,$algo)=@_;
+  my $tax_id = retrieveTaxIdFromAcc($self,$acc,$algo);
+  my $taxo = _retrieveNCBITaxonomy($self,$tax_id);
+  my $string = _getTaxonomyString($self,$taxo);
 	return $string;
 }
 
@@ -91,7 +91,7 @@ sub _loadGgTaxonomy {
   $logger->debug('Loading GreenGenes Taxonomy...');
   if(-e $ggTaxoFile . '.perl'){
     $logger->debug($ggTaxoFile . '.perl found, loading object...');
-    $self->{gg_taxonomy} = $self->_loadGgIndexFile($ggTaxoFile . '.perl');
+    $self->{gg_taxonomy} = _loadGgIndexFile($self,$ggTaxoFile . '.perl');
   }
   else{
     open(FILE,$ggTaxoFile) || $logger->logdie('GreenGenes taxonomy file not found. ' . $ggTaxoFile);
@@ -113,7 +113,7 @@ sub _loadGgTaxonomy {
         }
       }
     }
-    $self->_writeGgObject($self->{gg_taxonomy},$ggTaxoFile . '.perl' );
+    _writeGgObject($self,$self->{gg_taxonomy},$ggTaxoFile . '.perl' );
   }
   $logger->debug('Done.');
 }
@@ -142,10 +142,10 @@ sub retrieveTaxonomy {
   my ($self,$taxId) = @_;
   my $taxo;
   if(defined($self->{gg_taxonomy})){
-    $taxo = $self->_retrieveGreenGenesTaxonomy($taxId);
+    $taxo = _retrieveGreenGenesTaxonomy($self,$taxId);
   }
   else{
-    $taxo = $self->_retrieveNCBITaxonomy($taxId);
+    $taxo = _retrieveNCBITaxonomy($self,$taxId);
   }
   return $taxo;
 }
@@ -288,6 +288,9 @@ sub retrieveTaxIdFromGi {
 sub retrieveTaxIdFromAcc {
   my ($self,$acc,$algo) = @_;
   my $type;
+  if ($acc =~ /(\w+)\.\d+/){
+    $acc = $1
+  }
   if(defined $algo && ($algo eq 'BLASTX' || $algo eq 'BLASTP')){
     $type = 'prot_accession2taxid';
   }
@@ -295,6 +298,7 @@ sub retrieveTaxIdFromAcc {
     $type = 'nucl_accession2taxid';
   }
   my $NameQuery = 'SELECT taxid FROM ' . $type . ' WHERE accession="' . $acc . '"';
+  $logger->debug($NameQuery);
   my $sth=$self->{dbh}->prepare($NameQuery);
   $sth->execute();
   my @res = $sth->fetchrow_array();
@@ -444,7 +448,7 @@ sub _getNCBITaxonomy {
   else{
     $m->{taxoTree} = [{rank => 'unknown', name => 'unknown', 'taxId' => 0 }];
   }
-  $m->{taxonomy} = $self->_getTaxonomyString($m->{taxoTree});
+  $m->{taxonomy} = _getTaxonomyString($self,$m->{taxoTree});
 
   return $m->{taxoTree};
 }
@@ -454,8 +458,8 @@ sub _getGreenGenesTaxonomy {
   my ($self,$m) = @_;
   $m->{tax_id} = $m->{gi} ;
   $m->{taxoTree} = $self->retrieveTaxonomy($m->{tax_id} );
-  $m->{taxonomy} = $self->_getTaxonomyString($m->{taxoTree});
-  $m->{organism} = $self->_getGgOrganism($m->{taxoTree});
+  $m->{taxonomy} = _getTaxonomyString($self,$m->{taxoTree});
+  $m->{organism} = _getGgOrganism($self,$m->{taxoTree});
 }
 
 
@@ -473,46 +477,19 @@ sub _getTaxonomyString {
   my ($self,$t) = @_;
   my $s='';
   my $p=0;
-  # if(defined $self->{_dbFormat} && $self->{_dbFormat} eq 'reduced'){
-  #   # my @ranks = ('superkingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species');
-  #   my @ranks = ('superkingdom','no rank','family','genus','species');
-  #   foreach my $r (@ranks){
-  #     my $found=0;
-  #     for(my $i=0;$i<=$#{$t};$i++){
-  #       if($t->[$i]->{rank} eq $r){
-  #         if($t->[$i]->{rank} eq 'no rank' && $i > 1){
-  #           $found=1;
-  #           next;
-  #         }
-  #         $p = 1;
-  #         $found=1;
-  #         $s .= $t->[$i]->{'name'};
-  #       }
-  #       if($p==1){
-  #         $p = 0;
-  #         $s .= ';';
-  #       }
-  #     }
-  #     if($found==0){
-  #       $s.=';';
-  #     }
-  #   }
-  # }
-  # else{
-    $s = join(';', map {$_->{'name'}} @$t) ;
-  # }
+  $s = join(';', map {$_->{'name'}} @$t) ;
   return $s;
 }
 
 
-sub _buildFullTaxo {
+sub buildFullTaxo {
   my ($self, $matches, $addQueryIdAsLeaf) = @_;
   my $tree ={};
 
   foreach my $x (@{$matches}){
     my $parent = $tree;
 
-    my $taxoTree = $self->_getNCBITaxonomy($x);
+    my $taxoTree = _getNCBITaxonomy($self,$x);
     if($addQueryIdAsLeaf){
       push(@$taxoTree, {rank => 'unknown', name => $x->{query_id}, 'taxId' => 0 })
     }
