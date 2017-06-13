@@ -33,7 +33,7 @@ Demultiplex
 -----------
 
 .. image:: demultiplex_0.png
-    :scale: 5 %
+    :scale: 15 %
 
 Warning: This demultiplex procedure is specifc to our sequencing methods.
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Execution &mdash; VirAnnot 0.0.1 documentation</title>
+    <title>Example execution &mdash; VirAnnot 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -45,8 +45,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="execution">
-<h1>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="example-execution">
+<h1>Example execution<a class="headerlink" href="#example-execution" title="Permalink to this headline">¶</a></h1>
 <p>Create a directory for your experiment:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>mkdir test_virAnnot
 cd test_virAnnot
@@ -118,7 +118,7 @@ Corresponding <code class="docutils literal"><span class="pre">step.yaml</span><
 </pre></div>
 </div>
 <p>Output example:</p>
-<iframe src="stat_demultiplex/index.html" height="400px" width="100%"></iframe></div>
+<iframe src="_static/stat_demultiplex/index.html" height="400px" width="100%"></iframe></div>
 <div class="section" id="step-diamond">
 <h2>Step <strong>Diamond</strong><a class="headerlink" href="#step-diamond" title="Permalink to this headline">¶</a></h2>
 <p>This module launch Diamond similarity search for reads and produce an XML file per sample.</p>
@@ -330,8 +330,8 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Ecsv2krona_dmd
 </pre></div>
 </div>
 <p>Example output of Krona:</p>
-<iframe src="krona_blast/blast.global.krona.html" height="400px" width="100%"></iframe>
-<iframe src="krona_diamond/global_krona_dmd.html" height="400px" width="100%"></iframe></div>
+<iframe src="_static/krona_blast/blast.global.krona.html" height="400px" width="100%"></iframe>
+<iframe src="_static/krona_diamond/global_krona_dmd.html" height="400px" width="100%"></iframe></div>
 <div class="section" id="step-automapper">
 <h2>Step <strong>Automapper</strong><a class="headerlink" href="#step-automapper" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -342,7 +342,7 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Automapper_refseqTX
 </pre></div>
 </div>
 <p>Example output of ds2015-149/ds2015-149_autoMapper_nr:</p>
-<iframe src="results/index.html" height="400px" width="100%"></iframe></div>
+<iframe src="_static/results/index.html" height="400px" width="100%"></iframe></div>
 <div class="section" id="step-rps2tree">
 <h2>Step <strong>Rps2tree</strong><a class="headerlink" href="#step-rps2tree" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -350,7 +350,7 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Automapper_refseqTX
 <div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Rps2tree
 </pre></div>
 </div>
-<iframe src="rps2tree_global/index.html" height="400px" width="100%"></iframe></div>
+<iframe src="_static/rps2tree_global/index.html" height="400px" width="100%"></iframe></div>
 <div class="section" id="step-getresults">
 <h2>Step <strong>Getresults</strong><a class="headerlink" href="#step-getresults" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -369,7 +369,7 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Automapper_refseqTX
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Execution</a><ul>
+<li><a class="reference internal" href="#">Example execution</a><ul>
 <li><a class="reference internal" href="#step-readsoustraction">Step <strong>ReadSoustraction</strong></a></li>
 <li><a class="reference internal" href="#step-demultiplex">Step <strong>Demultiplex</strong></a></li>
 <li><a class="reference internal" href="#step-demultiplexhtml">Step <strong>DemultiplexHtml</strong></a></li>

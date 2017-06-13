@@ -17,6 +17,9 @@ Special words in bracket are used as substitution string.
 - (SampleID)
 - (library)
 
+.. literalinclude:: ../../examples/step.yaml
+
+
 .. _map.txt:
 
 map.txt
@@ -25,10 +28,6 @@ The map file describe the experiment. It is a tabulated file with the first line
 A template is provided in the ``examples`` directory.
 This is a minimum map.txt file:
 
-::
-
-  #SampleID file1 file2
-  C1B	C1B_r1.fa	C1B_r2.fa
-  C2B	C2B_r1.fa	C2B_r2.fa
+.. literalinclude:: ../../examples/map.txt
 
 You can add categories for each sample so they can be used when coloring sequences in trees from the Rps2tree module.

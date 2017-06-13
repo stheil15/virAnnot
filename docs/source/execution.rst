@@ -1,5 +1,5 @@
-Execution
-=========
+Example execution
+=================
 
 Create a directory for your experiment::
 
@@ -63,7 +63,7 @@ Output example:
 
 .. raw:: html
 
-  <iframe src="stat_demultiplex/index.html" height="400px" width="100%"></iframe>
+  <iframe src="_static/stat_demultiplex/index.html" height="400px" width="100%"></iframe>
 
 
 Step **Diamond**
@@ -214,8 +214,8 @@ Example output of Krona:
 
 .. raw:: html
 
-  <iframe src="krona_blast/blast.global.krona.html" height="400px" width="100%"></iframe>
-  <iframe src="krona_diamond/global_krona_dmd.html" height="400px" width="100%"></iframe>
+  <iframe src="_static/krona_blast/blast.global.krona.html" height="400px" width="100%"></iframe>
+  <iframe src="_static/krona_diamond/global_krona_dmd.html" height="400px" width="100%"></iframe>
 
 
 Step **Automapper**
@@ -233,7 +233,7 @@ Example output of ds2015-149/ds2015-149_autoMapper_nr:
 
 .. raw:: html
 
-  <iframe src="results/index.html" height="400px" width="100%"></iframe>
+  <iframe src="_static/results/index.html" height="400px" width="100%"></iframe>
 
 
 Step **Rps2tree**
@@ -247,7 +247,7 @@ Step **Rps2tree**
 
 .. raw:: html
 
-  <iframe src="rps2tree_global/index.html" height="400px" width="100%"></iframe>
+  <iframe src="_static/rps2tree_global/index.html" height="400px" width="100%"></iframe>
 
 Step **Getresults**
 *******************

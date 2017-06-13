@@ -11,7 +11,7 @@ External programs
 * IDBA-UD (https://github.com/loneknightpy/idba)
 * drVM (https://sourceforge.net/projects/sb2nhri/files/drVM/)
 * Open Grid Scheduler (http://gridscheduler.sourceforge.net/)
-* Diamond ()
+* Diamond (https://github.com/bbuchfink/diamond)
 
 External databases
 ------------------
@@ -82,8 +82,8 @@ Database
 .. image:: taxo_sql.svg
 
 
-Taxonomy
---------
+NCBI Taxonomy
+-------------
 
 - Download and extract NCBI taxonomy files.
 
@@ -136,7 +136,9 @@ Here I use only PFAM domains but ``fasta.tar.gz`` and ``cdd.tar.gz`` contains fi
 
 .. code-block:: bash
 
- \ls -1 | grep -v 'pfam' | sed 's,^.*$,rm &,'
+ \\ls -1 | grep -v 'pfam' | sed 's,^.*$,rm &,'
+
+Add '| bash' if correct.
 
 - Download entire CDD database:
 
@@ -144,16 +146,19 @@ Here I use only PFAM domains but ``fasta.tar.gz`` and ``cdd.tar.gz`` contains fi
 
  wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/little_endian/CDD_LE.tar.gz
 
-- Reduced databases.
+- Reduced NCBI databases:
 
-Get all viroids nucleotide sequence from genbank:
-esearch -db "nucleotide" -query "txid12884[Organism]" | efetch -format fasta > viroids_nucl.fna
+Get all viroids nucleotide sequence from genbank::
 
-Get all viruses nucleotide sequences from genbank:
-esearch -db "nucleotide" -query "txid10239[Organism]" | efetch -format fasta > viruses_nucl.fna
+  esearch -db "nucleotide" -query "txid12884[Organism]" | efetch -format fasta > viroids_nucl.fna
 
-Create Blast DB:
-makeblastdb -in viruses_nucl.fna -parse_seqids -dbtype nucl
+Get all viruses nucleotide sequences from genbank::
+
+  esearch -db "nucleotide" -query "txid10239[Organism]" | efetch -format fasta > viruses_nucl.fna
+
+Create Blast DB::
+
+  makeblastdb -in viruses_nucl.fna -parse_seqids -dbtype nucl
 
 PFAM taxonomy
 -------------
@@ -165,7 +170,7 @@ You need to extract these informations and load it into the sqlite database.
 
 .. code-block:: bash
 
- \ls -1 *.FASTA | sed 's,^\(.*\)\.FASTA,gi2taxonomy.pl -i & -o \1.tax.txt -r,' | bash
+ \\ls -1 *.FASTA | sed 's,^\(.*\)\.FASTA,gi2taxonomy.pl -i & -o \1.tax.txt -r,' | bash
 
 - Create a file of file for the ``*.tax.txt`` files:
 

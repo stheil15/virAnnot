@@ -63,7 +63,7 @@
 <li>IDBA-UD (<a class="reference external" href="https://github.com/loneknightpy/idba">https://github.com/loneknightpy/idba</a>)</li>
 <li>drVM (<a class="reference external" href="https://sourceforge.net/projects/sb2nhri/files/drVM/">https://sourceforge.net/projects/sb2nhri/files/drVM/</a>)</li>
 <li>Open Grid Scheduler (<a class="reference external" href="http://gridscheduler.sourceforge.net/">http://gridscheduler.sourceforge.net/</a>)</li>
-<li>Diamond ()</li>
+<li>Diamond (<a class="reference external" href="https://github.com/bbuchfink/diamond">https://github.com/bbuchfink/diamond</a>)</li>
 </ul>
 </div>
 <div class="section" id="external-databases">
@@ -132,8 +132,8 @@
 </div>
 <div class="section" id="database">
 <h1>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h1>
-<img src="taxo_sql.svg" /><div class="section" id="taxonomy">
-<h2>Taxonomy<a class="headerlink" href="#taxonomy" title="Permalink to this headline">¶</a></h2>
+<img src="_images/taxo_sql.svg" /><div class="section" id="ncbi-taxonomy">
+<h2>NCBI Taxonomy<a class="headerlink" href="#ncbi-taxonomy" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Download and extract NCBI taxonomy files.</li>
 </ul>
@@ -177,9 +177,10 @@ wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/cdd.tar.gz
 <ul class="simple">
 <li>Delete file that are not from PFAM:</li>
 </ul>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\l</span>s -1 <span class="p">|</span> grep -v <span class="s1">&#39;pfam&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s,^.*$,rm &amp;,&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\\</span>ls -1 <span class="p">|</span> grep -v <span class="s1">&#39;pfam&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s,^.*$,rm &amp;,&#39;</span>
 </pre></div>
 </div>
+<p>Add &#8216;| bash&#8217; if correct.</p>
 <ul class="simple">
 <li>Download entire CDD database:</li>
 </ul>
@@ -187,14 +188,20 @@ wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/cdd.tar.gz
 </pre></div>
 </div>
 <ul class="simple">
-<li>Reduced databases.</li>
+<li>Reduced NCBI databases:</li>
 </ul>
-<p>Get all viroids nucleotide sequence from genbank:
-esearch -db &#8220;nucleotide&#8221; -query &#8220;txid12884[Organism]&#8221; | efetch -format fasta &gt; viroids_nucl.fna</p>
-<p>Get all viruses nucleotide sequences from genbank:
-esearch -db &#8220;nucleotide&#8221; -query &#8220;txid10239[Organism]&#8221; | efetch -format fasta &gt; viruses_nucl.fna</p>
-<p>Create Blast DB:
-makeblastdb -in viruses_nucl.fna -parse_seqids -dbtype nucl</p>
+<p>Get all viroids nucleotide sequence from genbank:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>esearch -db &quot;nucleotide&quot; -query &quot;txid12884[Organism]&quot; | efetch -format fasta &gt; viroids_nucl.fna
+</pre></div>
+</div>
+<p>Get all viruses nucleotide sequences from genbank:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>esearch -db &quot;nucleotide&quot; -query &quot;txid10239[Organism]&quot; | efetch -format fasta &gt; viruses_nucl.fna
+</pre></div>
+</div>
+<p>Create Blast DB:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>makeblastdb -in viruses_nucl.fna -parse_seqids -dbtype nucl
+</pre></div>
+</div>
 </div>
 <div class="section" id="pfam-taxonomy">
 <h2>PFAM taxonomy<a class="headerlink" href="#pfam-taxonomy" title="Permalink to this headline">¶</a></h2>
@@ -203,7 +210,7 @@ You need to extract these informations and load it into the sqlite database.</p>
 <ul class="simple">
 <li>Extract taxonomic information for each sequence of each PFAM domain and store it in <code class="docutils literal"><span class="pre">*.tax.txt</span></code> files:</li>
 </ul>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\l</span>s -1 *.FASTA <span class="p">|</span> sed <span class="s1">&#39;s,^\(.*\)\.FASTA,gi2taxonomy.pl -i &amp; -o \1.tax.txt -r,&#39;</span> <span class="p">|</span> bash
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\\</span>ls -1 *.FASTA <span class="p">|</span> sed <span class="s1">&#39;s,^\(.*\)\.FASTA,gi2taxonomy.pl -i &amp; -o \1.tax.txt -r,&#39;</span> <span class="p">|</span> bash
 </pre></div>
 </div>
 <ul class="simple">
@@ -245,7 +252,7 @@ You need to extract these informations and load it into the sqlite database.</p>
 </li>
 <li><a class="reference internal" href="#install">Install</a></li>
 <li><a class="reference internal" href="#database">Database</a><ul>
-<li><a class="reference internal" href="#taxonomy">Taxonomy</a></li>
+<li><a class="reference internal" href="#ncbi-taxonomy">NCBI Taxonomy</a></li>
 <li><a class="reference internal" href="#ncbi-blast-database">NCBI Blast database</a></li>
 <li><a class="reference internal" href="#pfam-taxonomy">PFAM taxonomy</a></li>
 </ul>
