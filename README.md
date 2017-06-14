@@ -13,4 +13,4 @@ http://virannot.readthedocs.io/en/latest/
 
 Pipeline general scheme:
 
-![scheme](docs/sources/dia-intro.png)
+![scheme](docs/source/dia-intro.png)
