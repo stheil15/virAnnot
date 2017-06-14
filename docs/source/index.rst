@@ -16,6 +16,10 @@ Here we used two clusters :
 `GENOTOUL
 <http://www.genotoul.fr//>`_ at Toulouse INRA datacenter.
 
+Pipeline general scheme:
+------------------------
+
+.. image:: dia-intro.png
 
 
 Guide
@@ -27,6 +31,3 @@ Guide
   parameter
   modules
   execution
-
-
-
