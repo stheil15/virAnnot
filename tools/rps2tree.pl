@@ -18,6 +18,7 @@ use Color::Rgb;
 use List::Util 'shuffle';
 use Excel::Writer::XLSX;
 use Excel::Writer::XLSX::Utility;
+use GD::Simple;
 
 my $VERSION = '1.2' ;
 my $lastmodif = '2015-10-27' ;
@@ -27,6 +28,7 @@ my @id_samples;
 my $db = '/media/data/db/taxonomy/taxonomy.sqlite';
 my $cdd_fasta_path = '/media/data/db/ncbi/cdd/fasta/';
 my $blast_db_path = '/media/data/db/ncbi/nr/nr';
+my $blast_type = 'blastx';
 my $verbosity=1;
 my @seq_fasta;
 my @ecsv_files;
@@ -34,15 +36,20 @@ my $min_prot_length = 100;
 my $viral_portion=0.30;
 my $outdir='rps2tree';
 my $help;
+my $group_file='';
+
 
 GetOptions(
 	"i|input:s"      => \@input_files,
 	"id:s"           => \@id_samples,
-  "e|ecsv:s"         => \@ecsv_files,
+  "e|ecsv:s"       => \@ecsv_files,
   "o|outdir:s"     => \$outdir,
 	"v|verbosity=i"  => \$verbosity,
+	"blast_db=s"     => \$blast_db_path,
+	"blast_type=s"   => \$blast_type,
 	"db=s"           => \$db,
   "s=s"            => \@seq_fasta,
+  "g|group=s"      => \$group_file,
   "mp|min_prot=i"      => \$min_prot_length,
   'vp|viral_portion=f' => \$viral_portion,
 	"h|help"         => \$help,
@@ -61,16 +68,26 @@ sub main {
 	my $self ={};
 	bless $self;
 	_set_options($self);
-  $self->{_colors_array} = _read_rgb_file($self,'/home/stheil/git-repo/perl/rgb.txt');
+  my $cwd = cwd();
+  my $rps2tree_folder = $cwd . '/' . $outdir ;
+  if(! -e $rps2tree_folder){
+    `mkdir $rps2tree_folder`;
+  }
+  $self->{_colors_array} = _read_rgb_file($self,'/home/stheil/git-repo/virAnnot/lib/rgb.txt');
 
-  $self->{_color_obj} = new Color::Rgb(rgb_txt=>'/home/stheil/git-repo/perl/rgb.txt');
-
-	for(my $i=0;$i<=$#{$self->{filesList}};$i++){
-    $logger->debug('Loading file ' . $self->{filesList}->[$i]);
-		$self->{_pfam_hits}->[$i] = $self->{taxoTools}->readCSVextended($self->{filesList}->[$i],"\t");
-    $self->{fasta}->[$i] = Tools::Fasta->new('file' => $self->{seqFileList}->[$i]);
-    $self->{_blast_hits}->[$i] = $self->{taxoTools}->readCSVextended($self->{ecsvFileList}->[$i],"\t");
+  $self->{_color_obj} = new Color::Rgb(rgb_txt=>'/home/stheil/git-repo/virAnnot/lib/rgb.txt');
+  if($group_file ne ''){
+    $logger->info('Treating group file...');
+    $self->{_group} = &read_group_file($self,$group_file);
+  }
+	else{
+		for(my $i=0;$i<=$#{$self->{id_samples}};$i++){
+			$self->{_group}->{cat_to_color}->{$self->{id_samples}->[$i]} = $self->{_color_obj}->hex($self->{_colors_array}->[$i],'');
+			$self->{_group}->{sample_to_color}->{$self->{id_samples}->[$i]} = $self->{_color_obj}->hex($self->{_colors_array}->[$i],'');
+		}
 	}
+
+	_draw_legend($self);
   _cut_sequences($self);
   _align_with_ref($self);
 
@@ -79,6 +96,46 @@ sub main {
   _print_csv($self,'cluster_nb_reads.csv',$data);
   _print_map_file($self,$outdir.'/map.txt',$data);
   _create_html($self,$outdir.'/map.txt',$outdir);
+}
+
+
+sub _draw_legend {
+  my ($self)=@_;
+  $logger->info('Drawing legend.');
+  my $img = GD::Simple->new(400,(scalar(keys(%{$self->{_group}->{cat_to_color}}))*30));
+  my $y=10;
+  foreach my $grp (keys(%{$self->{_group}->{cat_to_color}})){
+    $img->bgcolor($self->{_color_obj}->hex2rgb($self->{_group}->{cat_to_color}->{$grp}));
+    $img->rectangle(5,(5+$y),20,(20+$y));
+    $img->moveTo(30,(20+$y));
+    $img->string($grp);
+    $y+=20;
+  }
+  my $png_file = $outdir . '/legend.png';
+  open(PNG,">$png_file") || $logger->logdie('Cannot open file ' . $png_file . ' for writing');
+  print PNG $img->png();
+  close PNG;
+}
+
+
+sub read_group_file {
+  my ($self,$file)=@_;
+  my $h;
+  open(FILE,$file) || $logger->logdie('Group file not found. '. $file);
+  my $j=0;
+  while(<FILE>){
+    chomp;
+    my @l = split(',',$_);
+    $h->{cat_to_color}->{$l[0]} = $self->{_color_obj}->hex($self->{_colors_array}->[$j],'');
+    # $h->{cat_to_color}->{$l[0]} = $color_names[$j];
+    for(my $i=1;$i<=$#l;$i++){
+      $h->{sample_to_color}->{$l[$i]} = $self->{_color_obj}->hex($self->{_colors_array}->[$j],'');
+      # $h->{sample_to_color}->{$l[$i]} = $color_names[$j];
+    }
+    $j++;
+  }
+  close FILE;
+  return $h;
 }
 
 
@@ -156,6 +213,7 @@ sub _print_map_file {
   close MAP;
 }
 
+
 sub _print_excel {
   my ($self,$excel_file,$data)=@_;
   my $workbook = Excel::Writer::XLSX->new( $excel_file );
@@ -178,7 +236,7 @@ sub _print_excel {
         }
         $col++;
       }
-      my @tax = split(';',$data->{$cdd_id}->{otu_annot}->{$otu});
+      my @tax = split(';',$data->{$cdd_id}->{otu_annot}->{$otu}->{taxonomy});
       foreach my $t (@tax) {
         $worksheet->write($row,$col,$t);
         $worksheet->set_column($col,$col,length($t));
@@ -188,6 +246,7 @@ sub _print_excel {
     }
   }
 }
+
 
 sub _print_csv {
   my ($self,$csv_file,$data)=@_;
@@ -215,6 +274,7 @@ sub _print_csv {
   }
 }
 
+
 sub _get_global_stats {
   my ($self)=@_;
   my $cdd_info;
@@ -234,7 +294,6 @@ sub _get_global_stats {
                 else{
                   $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]}++;
                 }
-
                 $cdd_info->{$cdd_id}->{sample_present}->{$self->{id_samples}->[$j]}++;
                 $cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{taxonomy} = $self->{_query_annotation}->{$l[$i]}->{taxonomy};
                 push(@{$cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{seq_list}},$l[$i]);
@@ -324,13 +383,13 @@ sub _print_qry_seq {
   my ($self,$cdd_id,$fasta,$config)=@_;
   open(FASTA,">$fasta");
   $self->{_associated_color} = {};
+  my $j=0;
   for(my $i =0;$i<=$#{$self->{collection}->{$cdd_id}};$i++){
     if(defined($self->{collection}->{$cdd_id}->[$i])){
-      my $color = $self->{_color_obj}->hex($self->{_colors_array}->[$i],'#');
       foreach my $qry_id (keys(%{$self->{collection}->{$cdd_id}->[$i]})){
         print FASTA '>' . $qry_id . "\n";
         print FASTA $self->{collection}->{$cdd_id}->[$i]->{$qry_id} . "\n";
-        $self->{_associated_color}->{$qry_id} = $color;
+        $self->{_associated_color}->{$qry_id} = '#' . $self->{_group}->{sample_to_color}->{$self->{id_samples}->[$i]};
       }
       &_print_color_scheme($self,$config);
     }
@@ -353,8 +412,9 @@ sub _seek_ref {
   `$format_db_cmd`;
   my $ref_acc;
   for(my $i =0;$i<=$#{$self->{collection}->{$cdd_id}};$i++){
+    my $blast_hits = $self->{taxoTools}->readCSVextended_regex($self->{ecsvFileList}->[$i],"\t",'Viruses');
     foreach my $q_id (keys(%{$self->{collection}->{$cdd_id}->[$i]})){
-      foreach my $m (@{$self->{_blast_hits}->[$i]}){
+      foreach my $m (@{$blast_hits}){
         if($m->{query_id} eq $q_id){
           $self->{_query_annotation}->{$m->{query_id}} = $m;
           $ref_acc->{$m->{accession}}++;
@@ -368,14 +428,39 @@ sub _seek_ref {
     open(REF_ACC,">$ref_acc_file");
     print REF_ACC join("\n",keys(%{$ref_acc}));
     close REF_ACC;
-    my $fastacmd = 'fastacmd -d ' . $blast_db_path . ' -p T -i ' . $ref_acc_file . ' > ' . $self->{_cdd_folder} . '/ref.fasta' ;
+    my $fastacmd = 'fastacmd -d ' . $blast_db_path;
+		if($blast_type =~ /^BLASTP$|^BLASTX$/i){
+			$fastacmd .= ' -p T ';
+		}
+		elsif($blast_type =~ /^TBLASTX$|^BLASTN$/i){
+			$fastacmd .= ' -p F ';
+		}
+		else{
+		}
+		$fastacmd .= ' -i ' . $ref_acc_file . ' > ' . $self->{_cdd_folder} . '/ref.fasta' ;
     $logger->debug($fastacmd);
     `$fastacmd`;
+
+		open(FAS,$self->{_cdd_folder} . '/ref.fasta');
+		my $f_line = <FAS>;
+		my $lcl=0;
+		if($f_line =~ /lcl|/){
+			$lcl=1;
+		}
+		close FAS;
+
     $clean_cmd .= 'rm ' . $self->{_cdd_folder} . '/ref.fasta' . "\n";
     my $ref_fasta_tool = Tools::Fasta->new('file' => $self->{_cdd_folder} . '/ref.fasta');
 
     if(scalar(keys(%{$ref_fasta_tool->{index}}))){
-      my $rps_cmd = 'rpsblast+ -parse_deflines -query ' . $self->{_cdd_folder} . '/ref.fasta' . ' -db ' . $self->{_cdd_folder} . '/' . $cdd_id . '_rpsdb';
+      my $rps_cmd = '';
+			if($blast_type =~ /^BLASTP$|^BLASTX$/i){
+				$rps_cmd = 'rpsblast+';
+			}
+			elsif($blast_type =~ /^TBLASTX$|^BLASTN$/i){
+				$rps_cmd = 'rpstblastn'
+			}
+			$rps_cmd .= ' -parse_deflines -query ' . $self->{_cdd_folder} . '/ref.fasta' . ' -db ' . $self->{_cdd_folder} . '/' . $cdd_id . '_rpsdb';
       $rps_cmd .= ' -out ' . $self->{_cdd_folder} . '/' . $cdd_id . '_ref.xml -num_threads 5 -max_target_seqs 1 -outfmt 5';
       $logger->debug($rps_cmd);
       `$rps_cmd`;
@@ -387,21 +472,45 @@ sub _seek_ref {
       if(scalar(@{$ref_pfam_hits})){
         open(REF_ACC_CUT,">$ref_pfam");
         for(my $i=0;$i<=$#{$ref_pfam_hits};$i++){
-          my $seq = $ref_fasta_tool->retrieveFastaSequence($ref_pfam_hits->[$i]->{query_id});
-          my $bioSeq = Bio::Seq->new(-seq => $seq->{$ref_pfam_hits->[$i]->{query_id}});
-          my $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($ref_pfam_hits->[$i]->{startQ},$ref_pfam_hits->[$i]->{endQ}));
-          my @a = split('\|',$ref_pfam_hits->[$i]->{query_id});
-          my $acc = $a[3];
+          if(!defined($ref_pfam_hits->[$i]->{startQ}) || ! defined($ref_pfam_hits->[$i]->{endQ})){
+            next;
+          }
+					my $seq='';
+					my $acc='';
+					my $bioSeq;
+					if($lcl){
+						$seq = $ref_fasta_tool->retrieveFastaSequence('lcl|'.$ref_pfam_hits->[$i]->{query_id});
+						$bioSeq = Bio::Seq->new(-seq => $seq->{'lcl|'.$ref_pfam_hits->[$i]->{query_id}});
+						$acc = $ref_pfam_hits->[$i]->{query_id};
+					}
+					else{
+						$seq = $ref_fasta_tool->retrieveFastaSequence($ref_pfam_hits->[$i]->{query_id});
+						$bioSeq = Bio::Seq->new(-seq => $seq->{$ref_pfam_hits->[$i]->{query_id}});
+						my @a = split('\|',$ref_pfam_hits->[$i]->{query_id});
+						$acc = $a[3];
+					}
+					my $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($ref_pfam_hits->[$i]->{startQ},$ref_pfam_hits->[$i]->{endQ}));
           if($acc =~ /^(\S+)\.\d+$/){
             $acc = $1;
           }
-          my $taxid = $self->{taxoTools}->retrieveTaxIdFromAcc($acc,'BLASTP');
+          my $taxid = $self->{taxoTools}->retrieveTaxIdFromAcc($acc,$blast_type);
           my $name = $self->{taxoTools}->retrieveNameFromTaxId($taxid);
           $name =~ s/\s/_/g;
           $name =~ s/[\(\)]/_/g;
 
-          print REF_ACC_CUT '>' . $name . '_' . $acc . "\n";
-          print REF_ACC_CUT $subseq->seq . "\n";
+          if(length($subseq->seq) >= $self->{_min_prot_length}){
+            print REF_ACC_CUT '>' . $name . '_' . $acc . "\n";
+						if($blast_type =~ /^BLASTP$|^BLASTX$/i){
+							print REF_ACC_CUT $subseq->seq . "\n";
+						}
+						elsif($blast_type =~ /^TBLASTX$|^BLASTN$/i){
+							if($ref_pfam_hits->[$i]->{frame} < 0){
+		            $subseq = $subseq->revcom;
+		          }
+		          my $prot = $subseq->translate();
+							print REF_ACC_CUT $prot->seq . "\n";
+						}
+          }
         }
         close REF_ACC_CUT;
       }
@@ -418,9 +527,7 @@ sub _align_with_ref {
   my ($self)=@_;
   my $cwd = cwd();
   my $rps2tree_folder = $cwd . '/' . $outdir ;
-  if(! -e $rps2tree_folder){
-    `mkdir $rps2tree_folder`;
-  }
+
   my $clean_cmd;
   foreach my $cdd_id (keys(%{$self->{collection}})){
     $logger->info('---- ' . $cdd_id . ' ----');
@@ -469,7 +576,7 @@ sub _align_with_ref {
       my $align_fasta = $self->{_cdd_folder} . '/' . $cdd_id . '_w_qry_aligned.fasta';
       my $tree_file = $self->{_cdd_folder} . '/' . $cdd_id . '_' . $self->{cdd_info}->{$cdd_id}->{description} . '.tree.nwx';
       if(! -e $align_fasta){
-        my $ete_cmd = 'ete3 build -w standard_trimmed_fasttree -a ' . $seq_to_align . ' -o ' . $self->{_cdd_folder} . '/ete3' . "\n";
+        my $ete_cmd = 'ete3 build -w standard_trimmed_fasttree -a ' . $seq_to_align . ' -o ' . $self->{_cdd_folder} . '/ete3 --rename-dup-seqnames' . "\n";
         $logger->debug($ete_cmd);
         `$ete_cmd`;
 
@@ -630,25 +737,28 @@ sub _print_color_scheme {
 
 sub _cut_sequences {
   my ($self)=@_;
-  for(my $i=0;$i<=$#{$self->{_pfam_hits}};$i++){
-    for(my $j=0;$j<=$#{$self->{_pfam_hits}->[$i]};$j++){
-      if(!defined($self->{_pfam_hits}->[$i]->[$j]->{superkingdom})){next;}
-      if($self->{_pfam_hits}->[$i]->[$j]->{superkingdom} =~ /Viruses\((\d+\.\d+)\);/){
+  for(my $i=0;$i<=$#{$self->{filesList}};$i++){
+    my $pfam_hits = $self->{taxoTools}->readCSVextended_regex($self->{filesList}->[$i],"\t",'Viruses');
+    my $fasta_tool = Tools::Fasta->new('file' => $self->{seqFileList}->[$i]);
+  # for(my $i=0;$i<=$#{$self->{_pfam_hits}};$i++){
+    for(my $j=0;$j<=$#{$pfam_hits};$j++){
+      if(!defined($pfam_hits->[$j]->{superkingdom})){next;}
+      if($pfam_hits->[$j]->{superkingdom} =~ /Viruses\((\d+\.\d+)\);/){
         my $vir_percent = $1;
         if($vir_percent >= $self->{_viral_portion}){
-          my $seq = $self->{fasta}->[$i]->retrieveFastaSequence($self->{_pfam_hits}->[$i]->[$j]->{query_id});
-          my $bioSeq = Bio::Seq->new(-seq => $seq->{$self->{_pfam_hits}->[$i]->[$j]->{query_id}});
-          my $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($self->{_pfam_hits}->[$i]->[$j]->{startQ},$self->{_pfam_hits}->[$i]->[$j]->{endQ}));
-          if($self->{_pfam_hits}->[$i]->[$j]->{frame} < 0){
+          my $seq = $fasta_tool->retrieveFastaSequence($pfam_hits->[$j]->{query_id});
+          my $bioSeq = Bio::Seq->new(-seq => $seq->{$pfam_hits->[$j]->{query_id}});
+          my $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($pfam_hits->[$j]->{startQ},$pfam_hits->[$j]->{endQ}));
+          if($pfam_hits->[$j]->{frame} < 0){
             $subseq = $subseq->revcom;
           }
           my $prot = $subseq->translate();
           if(length($prot->seq) > $self->{_min_prot_length}){
-            $self->{collection}->{$self->{_pfam_hits}->[$i]->[$j]->{cdd_id}}->[$i]->{$self->{_pfam_hits}->[$i]->[$j]->{query_id}} = $prot->seq;
-            $self->{cdd_info}->{$self->{_pfam_hits}->[$i]->[$j]->{cdd_id}}->{full_description} = $self->{_pfam_hits}->[$i]->[$j]->{description};
-            my @a = split(',',$self->{_pfam_hits}->[$i]->[$j]->{description});
-            $self->{cdd_info}->{$self->{_pfam_hits}->[$i]->[$j]->{cdd_id}}->{description} = $a[1];
-            $self->{cdd_info}->{$self->{_pfam_hits}->[$i]->[$j]->{cdd_id}}->{description} =~ s/^\s//;
+            $self->{collection}->{$pfam_hits->[$j]->{cdd_id}}->[$i]->{$pfam_hits->[$j]->{query_id}} = $prot->seq;
+            $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{full_description} = $pfam_hits->[$j]->{description};
+            my @a = split(',',$pfam_hits->[$j]->{description});
+            $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} = $a[1];
+            $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} =~ s/^\s//;
           }
         }
       }
@@ -739,6 +849,9 @@ USAGE: perl $prog -i rspblast_csv_1 -id id_sample1 -e blast_cvs_1 ... -i rpsblas
        -mp|min_prot       Minimum query protein length.
        -vp|viral_portion  Minimun portion of viral sequences in PFAM domain to be included.
        -db                NCBI Taxonomy SqliteDB.
+			 --blast_db         Blast database path.
+			 --blast_type       Blast program type.
+			 -g|group           Group file. CSV file, comma separated, one line per group, first column for group name, then samples names. Sequence ID format has to be "SAMPLE_QUERYID".
        -v|verbosity       1 -> 3
 
        -help|h				    Print this help and exit
