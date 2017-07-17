@@ -144,7 +144,7 @@ def _read_map_file (file):
 
 def _set_options ():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-m','--map',help='The map file produced by autoMapper.',action='store',type=argparse.FileType('r'),required=True)
+    parser.add_argument('-m','--map',help='The map file produced by rps2tree.pl script.',action='store',type=argparse.FileType('r'),required=True)
     parser.add_argument('-o','--out',help='The title for the HTML page.',action='store',type=str,default='./')
     args = parser.parse_args()
     return args
