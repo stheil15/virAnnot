@@ -7,7 +7,19 @@ bin:
   samtools: '/usr/bin/samtools'
   bedtools: '/usr/bin/bedtools'
   prinseq: '/usr/local/bin/prinseq-lite.pl'
+  merge-paired-reads: '/home/stheil/softwares/sortmerna-2.1-linux-64/scripts/merge-paired-reads.sh'
+  unmerge-paired-reads: '/home/stheil/softwares/sortmerna-2.1-linux-64/scripts/unmerge-paired-reads.sh'
+  sortmerna: '/home/stheil/softwares/sortmerna/sortmerna'
 servers:
+  enki:
+    db:
+      nt: '/media/data/db/ncbi/nt/nt'
+      nr: '/media/data/db/ncbi/nr/nr'
+      refseq_vir_nucl: '/media/data/db/ncbi/refseq_vir/viral.genomic.fna'
+      refseq_vir_prot: '/media/data/db/ncbi/refseq_vir/viral.protein.faa'
+      pfam: '/home/stheil/save/db/pfam/pfam_viruses_rpsdb'
+      all_vir_nucl: '/media/data/db/ncbi/all_vir/all_vir_nucl.fna'
+      all_vir_prot: '/media/data/db/ncbi/all_vir/all_vir_prot.faa'
   genotoul:
     adress: 'genotoul.toulouse.inra.fr'
     username: 'stheil'
@@ -38,8 +50,14 @@ servers:
     bin:
       blastx: 'blastx'
       blastn: 'blastn'
-AutoMapper:
+Diamond:
   db:
-    nt: /media/data/db/ncbi/nt/nt
-    refseq_vir_nucl: /media/data/db/ncbi/refseq_vir/viral.genomic.fna
-    all_vir_nucl: /media/data/db/ncbi/all_vir/all_vir_nucl.fna
+    all_vir_prot: /media/db/ncbi/all_vir/all_vir_prot
+SortMeRna:
+  db:
+    silva-arc-16s-id95: /media/data/db/rRNA_databases/silva-arc-16s-id95
+    silva-arc-23s-id98: /media/data/db/rRNA_databases/silva-arc-23s-id98
+    silva-bac-16s-id90: /media/data/db/rRNA_databases/silva-bac-16s-id90
+    silva-bac-23s-id98: /media/data/db/rRNA_databases/silva-bac-23s-id98
+    silva-euk-18s-id95: /media/data/db/rRNA_databases/silva-euk-18s-id95
+    silva-euk-28s-id98: /media/data/db/rRNA_databases/silva-euk-28s-id98
