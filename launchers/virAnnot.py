@@ -7,7 +7,7 @@ import csv
 import importlib
 import re
 import sys
-import os
+import os,shutil
 
 def main ():
     log_format = '%(asctime)s %(levelname)-8s %(message)s'
@@ -29,13 +29,32 @@ def main ():
 def _create_folders (maps):
     wd = os.getcwd()
     for i in range(0,len(maps)):
-        if not os.path.exists(maps[i]['file']):
-            log.critical(maps[i]['file'] + ' not found.')
-            sys.exit(1)
+        if 'file' in maps[i]:
+            if not os.path.exists(maps[i]['file']):
+                log.critical(maps[i]['file'] + ' not found.')
+                sys.exit(1)
+            else:
+                if not os.path.exists(wd + '/' + maps[i]['SampleID']):
+                    os.mkdir(wd + '/' + maps[i]['SampleID'])
+                    shutil.move(wd + '/' + maps[i]['file'],wd + '/' + maps[i]['SampleID'])
+        elif 'file1' in maps[i] and 'file2' in maps[i]:
+            if not os.path.exists(maps[i]['file1']):
+                log.critical(maps[i]['file1'] + ' not found.')
+                sys.exit(1)
+            if not os.path.exists(maps[i]['file2']):
+                log.critical(maps[i]['file2'] + ' not found.')
+                sys.exit(1)
+            else:
+                if not os.path.exists(wd + '/' + maps[i]['SampleID']):
+                    os.mkdir(wd + '/' + maps[i]['SampleID'])
+                    shutil.move(wd + '/' + maps[i]['file1'],wd + '/' + maps[i]['SampleID'])
+                    shutil.move(wd + '/' + maps[i]['file2'],wd + '/' + maps[i]['SampleID'])
+                else:
+                    shutil.move(wd + '/' + maps[i]['file1'],wd + '/' + maps[i]['SampleID'])
+                    shutil.move(wd + '/' + maps[i]['file2'],wd + '/' + maps[i]['SampleID'])
         else:
-            if not os.path.exists(wd + '/' + maps[i]['SampleID']):
-                os.mkdir(wd + '/' + maps[i]['SampleID'])
-                os.system('mv ' + wd + '/' + maps[i]['file'] + ' ' + wd + '/' + maps[i]['SampleID'])
+            log.critical('None of the required file column found.')
+            sys.exit(1)
 
 
 def _launch_step (s_n,s,m,p):
@@ -46,12 +65,13 @@ def _launch_step (s_n,s,m,p):
         if('iter' in s[s_n]):
             if(s[s_n]['iter'] == 'library'):
                  _launch_by_library(s_n,s,m,p,module_name)
-            elif(s[s_n]['iter'] == 'SampleID'):
+            elif(s[s_n]['iter'] == 'sample'):
                 _launch_by_sample_id(s_n,s,m,p,module_name)
             elif(s[s_n]['iter'] == 'global'):
                 _launch_global(s_n,s,m,p,module_name)
             else:
-                raise Error
+                log.critical('iter options must be library, sample or global')
+                sys.exit(1)
         else:
             _launch_by_sample_id(s_n,s,m,p,module_name)
 
@@ -125,6 +145,14 @@ def _launch_global (s_n,s,m,p,module_name):
                 if 'min_prot' not in global_input:
                     global_input['min_prot'] = tmp[j]
                     continue
+            elif j == 'blast_db':
+                if 'blast_db' not in global_input:
+                    global_input['blast_db'] = tmp[j]
+                    continue
+            elif j == 'blast_type':
+                if 'blast_type' not in global_input:
+                    global_input['blast_type'] = tmp[j]
+                    continue
             else:
                 global_input['args'][m[i]['SampleID']][j] = tmp[j]
     global_input['params'] = p
@@ -172,27 +200,19 @@ def _launch_module(args,module_name):
     if module.execution == 1:
         module.launch()
     else:
-        log.critical('Skip execution for sample ' + module.sample)
+        log.critical('Skip execution.')
 
 
 def _replace_sample_name (step_args,sample_map):
     args = {}
     for k in step_args:
         if(isinstance(step_args[k], str)):
-            if(re.search('(file1)',step_args[k])):
-                args[k] = step_args[k].replace('(file1)',sample_map['file1'])
-
-            elif(re.search('(file2)',step_args[k])):
-                args[k] = step_args[k].replace('(file2)',sample_map['file2'])
-
-            elif(re.search('(file)',step_args[k])):
-                args[k] = step_args[k].replace('(file)',sample_map['file'])
-
-            elif(re.search('(SampleID)',step_args[k])):
-                args[k] = step_args[k].replace('(SampleID)',sample_map['SampleID'])
-
-            elif(re.search('(library)',step_args[k])):
-                args[k] = step_args[k].replace('(library)',sample_map['library'])
+            if(re.search('\(\w+\)',step_args[k])):
+                matches = re.findall('\((\w+)\)',step_args[k])
+                string = step_args[k]
+                for m in matches:
+                    string = string.replace('('+m+')',sample_map[m])
+                args[k] = string
             else:
                 args[k] = step_args[k]
         else:
