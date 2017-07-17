@@ -13,6 +13,7 @@ External programs
 * Open Grid Scheduler (http://gridscheduler.sourceforge.net/)
 * Diamond (https://github.com/bbuchfink/diamond)
 
+
 External databases
 ------------------
 * NCBI nr, nt (ftp://ftp.ncbi.nlm.nih.gov/blast/db/)
@@ -79,6 +80,10 @@ Add lib folder to your $PERL5LIB.
 Database
 ========
 
+NCBI taxonomy and the homemade per domain Pfam taxonomy are stored in a simple SQLite database.
+
+Schema:
+
 .. image:: taxo_sql.svg
 
 
@@ -111,55 +116,6 @@ Launch the loadTaxonomy.pl script that will create the sqlite database. The scri
  loadTaxonomy.pl -struct taxonomyStructure.sql -index taxonomyIndex.sql -acc_prot acc2taxid.prot -acc_nucl acc2taxid.nucl -names names.dmp -nodes nodes.dmp
 
 
-
-NCBI Blast database
--------------------
-
-- Download NCBI nr et nt Blast files.
-
-.. code-block:: bash
-
- wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nr.*.tar.gz
- wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.*.tar.gz
-
-- Download PFAM files for RPSBLAST.
-
-.. code-block:: bash
-
- wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/little_endian/Pfam_LE.tar.gz
- wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/fasta.tar.gz
- wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/cdd.tar.gz
-
-Here I use only PFAM domains but ``fasta.tar.gz`` and ``cdd.tar.gz`` contains files for the entire CDD database. You can either delete files that are not from PFAM database or use the complete CDD.
-
-- Delete file that are not from PFAM:
-
-.. code-block:: bash
-
- \\ls -1 | grep -v 'pfam' | sed 's,^.*$,rm &,'
-
-Add '| bash' if correct.
-
-- Download entire CDD database:
-
-.. code-block:: bash
-
- wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/little_endian/CDD_LE.tar.gz
-
-- Reduced NCBI databases:
-
-Get all viroids nucleotide sequence from genbank::
-
-  esearch -db "nucleotide" -query "txid12884[Organism]" | efetch -format fasta > viroids_nucl.fna
-
-Get all viruses nucleotide sequences from genbank::
-
-  esearch -db "nucleotide" -query "txid10239[Organism]" | efetch -format fasta > viruses_nucl.fna
-
-Create Blast DB::
-
-  makeblastdb -in viruses_nucl.fna -parse_seqids -dbtype nucl
-
 PFAM taxonomy
 -------------
 
@@ -170,7 +126,7 @@ You need to extract these informations and load it into the sqlite database.
 
 .. code-block:: bash
 
- \\ls -1 *.FASTA | sed 's,^\(.*\)\.FASTA,gi2taxonomy.pl -i & -o \1.tax.txt -r,' | bash
+  \ls -1 *.FASTA | sed 's,^\(.*\)\.FASTA,gi2taxonomy.pl -i & -o \1.tax.txt -r,' | bash
 
 - Create a file of file for the ``*.tax.txt`` files:
 
@@ -189,3 +145,71 @@ You need to extract these informations and load it into the sqlite database.
 .. code-block:: bash
 
  sqlite3 taxonomy.tmp.sqlite < taxo_profile.sql
+
+
+NCBI Blast database
+-------------------
+
+NCBI non redundant databases are very large and similarity search using Blast is an intensive task. I recommand to use those databases on computer clusters.
+
+- Download NCBI nr et nt Blast files.
+
+.. code-block:: bash
+
+  wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nr.*.tar.gz
+  wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.*.tar.gz
+
+
+Modify the parameters.yaml to fit your configuration.
+
+::
+
+  servers:
+  genotoul:
+    adress: 'genotoul.toulouse.inra.fr'
+    username: 'stheil'
+    db:
+      nr: '/bank/blastdb/nr'
+      nt: '/bank/blastdb/nt'
+
+
+Reduced databases are a good choice for limited computer ressources and drastically faster similarity search. Here are some example commands using NCBI tools to download sequences.
+
+- Reduced NCBI databases:
+
+Get all viroids nucleotide sequence from genbank::
+
+ esearch -db "nucleotide" -query "txid12884[Organism]" | efetch -format fasta > viroids_nucl.fna
+
+Get all viruses nucleotide sequences from genbank::
+
+ esearch -db "nucleotide" -query "txid10239[Organism]" | efetch -format fasta > viruses_nucl.fna
+
+Create Blast DB example::
+
+ makeblastdb -in viruses_nucl.fna -parse_seqids -dbtype nucl
+
+
+- Download PFAM files for RPSBLAST.
+
+.. code-block:: bash
+
+  wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/little_endian/Pfam_LE.tar.gz
+  wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/fasta.tar.gz
+  wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/cdd.tar.gz
+
+Here I use only PFAM domains but ``fasta.tar.gz`` and ``cdd.tar.gz`` contains files for the entire CDD database. You can either delete files that are not from PFAM database or use the complete CDD.
+
+- Delete file that are not from PFAM:
+
+.. code-block:: bash
+
+  \ls -1 | grep -v 'pfam' | sed 's,^.*$,rm &,'
+
+Add '| bash' if correct.
+
+- Download entire CDD database:
+
+.. code-block:: bash
+
+  wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/little_endian/CDD_LE.tar.gz

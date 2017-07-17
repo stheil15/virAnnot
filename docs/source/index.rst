@@ -1,3 +1,13 @@
+.. image:: INRA_logo.jpg
+  :align: left
+  :scale: 3 %
+
+.. image:: ubx-logo.png
+  :align: right
+  :scale: 3 %
+
+|
+
 Welcome to VirAnnot's documentation!
 ====================================
 

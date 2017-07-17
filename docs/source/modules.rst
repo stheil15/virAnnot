@@ -256,6 +256,7 @@ Options
 - ``server``: ['enki','genotoul','avakas'] Values are defined in the parameters.yaml file.
 - ``sge``: [BOOL] use SGE scheduler.
 
+This module is able to launch Blast instance on distant servers if the database and the blast_launch.py script is present on the server. Then you have to edit the parameters.yaml file to fit your configuration. The script has been developped to use two computer cluster, Avakas (PBS + Torque) and Genotoul (SGE) but each cluster has its own configuration so you may have to modify this script to adapt it to your configuration.
 
 Blast2ecsv
 ----------

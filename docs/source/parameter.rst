@@ -5,6 +5,8 @@ parameters.yaml
 ---------------
 Defines paths for both local and remote binaries and databases. A template is provided in the ``examples`` directory.
 
+.. literalinclude:: ../../examples/parameters.yaml
+
 
 step.yaml
 ---------
