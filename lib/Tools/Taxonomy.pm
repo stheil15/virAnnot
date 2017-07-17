@@ -361,6 +361,46 @@ sub retrieveTaxIdFromName {
 }
 
 
+sub readCSVextended_regex {
+  my ($self,$file,$separator,$regex) = @_ ;
+  my $res = [];
+  my @headers;
+
+  open(CSV,$file) || $logger->logdie('Cannot open file ' . $file);
+  while(<CSV>){
+    chomp;
+    if(/^#(.*)/){
+      my $head = $1;
+      $head =~ s/\"//g;
+      @headers = split(/$separator/,$head);
+    }
+    else{
+      if($_ !~ /$regex/){
+        next;
+      }
+      my @line = split(/$separator/,$_);
+      if(! @headers){
+        @headers = (1 .. scalar @line);
+      }
+      my $m;
+      for(my $i=0; $i<=$#line; $i++){
+        $line[$i] =~ s/\"//g;
+				if(!defined($headers[$i])){
+					$logger->error(Dumper @headers);
+					$logger->error($i);
+					$logger->error(Dumper @line);
+				}
+        $m->{$headers[$i]} = $line[$i];
+      }
+      push (@$res, $m);
+    }
+  }
+  close CSV;
+  $logger->info('ecsv file ' . $file . ' read, containing ' . scalar(@{$res}) . ' entries.');
+  return wantarray ? ($res, \@headers) : $res;
+}
+
+
 sub readCSVextended {
   my ($self,$file,$separator) = @_ ;
   my $res = [];
