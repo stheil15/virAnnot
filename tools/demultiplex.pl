@@ -29,6 +29,7 @@ my $testMode=0;
 my $index={};
 my $polyA;
 my $tmp_file_prefix='';
+my $clean=0;
 
 
 
@@ -48,6 +49,7 @@ GetOptions(
             "polyA"            => \$polyA,
             "test"             => \$testMode,
             "tmp_prefix=s"     => \$tmp_file_prefix,
+            "clean"            => \$clean,
 			      "v|verbosity=i"    => \$verbosity,
 );
 sub help() {
@@ -120,6 +122,9 @@ sub _step_02 {
   my ($self,$files,$tmp_file_prefix) = @_;
   _launchCutAdapt($self,$files->{1},$self->{_common},$tmp_file_prefix . "_step.02_R1",'k','k','-g','0.1',scalar(keys(%{$self->{_common}})),'0.7','2');
   _launchCutAdapt($self,$files->{2},$self->{_common},$tmp_file_prefix . "_step.02_R2",'k','k','-g','0.1',scalar(keys(%{$self->{_common}})),'0.7','2');
+  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
+    `rm $files->{1} $files->{2}`;
+  }
 	return ($tmp_file_prefix . '_step.02_R1.out',$tmp_file_prefix . '_step.02_R2.out');
 }
 
@@ -128,6 +133,9 @@ sub _step_03 {
   my ($self,$files,$tmp_file_prefix) = @_;
   _launchCutAdapt($self,$files->{1},$self->{_common},$tmp_file_prefix . "_step.03_R1",'k','k','-g','0.2',scalar(keys(%{$self->{_common}})),'0.5','3');
   _launchCutAdapt($self,$files->{2},$self->{_common},$tmp_file_prefix . "_step.03_R2",'k','k','-g','0.2',scalar(keys(%{$self->{_common}})),'0.5','3');
+  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
+    `rm $files->{1} $files->{2}`;
+  }
 	return ($tmp_file_prefix . '_step.03_R1.out',$tmp_file_prefix . '_step.03_R2.out');
 }
 
@@ -136,6 +144,9 @@ sub _step_04 {
   my ($self,$files,$tmp_file_prefix) = @_;
   _launchCutAdapt($self,$files->{1},$self->{illuminaAdapter},$tmp_file_prefix . "_step.04_R1",'k','k','-b','0.2',scalar(keys(%{$self->{illuminaAdapter}})),'0.6','4');
   _launchCutAdapt($self,$files->{2},$self->{illuminaAdapter},$tmp_file_prefix . "_step.04_R2",'k','k','-b','0.2',scalar(keys(%{$self->{illuminaAdapter}})),'0.6','4');
+  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
+    `rm $files->{1} $files->{2}`;
+  }
 	return ($tmp_file_prefix . '_step.04_R1.out',$tmp_file_prefix . '_step.04_R2.out');
 }
 
@@ -159,6 +170,9 @@ sub _step_05 {
 		$logger->error('Wrong middle_mid value. ' . $self->{middle_mid});
 		exit 1 ;
 	}
+  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
+    `rm $files->{1} $files->{2}`;
+  }
 	return ($tmp_file_prefix . '_step.04_R1.out',$tmp_file_prefix . '_step.04_R2.out');
 }
 
@@ -167,6 +181,9 @@ sub _step_06 {
   my $h->{polyA} = 'AAAAAAAAAA';
   _launchCutAdapt($self,$files->{1}, $h, $tmp_file_prefix . "_step.06_R1",'k','k','-a','0','1','0.8','6');
   _launchCutAdapt($self,$files->{2}, $h, $tmp_file_prefix . "_step.06_R2",'k','k','-a','0','1','0.8','6');
+  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
+    `rm $files->{1} $files->{2}`;
+  }
   return ($tmp_file_prefix . '_step.06_R1.out',$tmp_file_prefix . '_step.06_R2.out');
 }
 
@@ -217,6 +234,10 @@ sub _launchPairedReadStep {
 	$last_R2_file = abs_path($last_R2_file);
 
   _dispatchPairs($self,$last_R1_file,$last_R2_file);
+
+  if($self->{_clean} == 1){
+    `rm $last_R1_file $last_R2_file`;
+  }
 
 }
 
@@ -440,8 +461,10 @@ sub _launchCutAdapt {
 				$max_length = length($index->{$p});
 			}
 		}
-		$self->{_cutAdaptCmd} .= ' -o ' . $prefix . '.out' .
-		                         ' --info-file ' . $prefix . '.info';
+		$self->{_cutAdaptCmd} .= ' -o ' . $prefix . '.out';
+    if($step_nb == 1){
+      $self->{_cutAdaptCmd} .= ' --info-file ' . $prefix . '.info';
+    }
 		if($discardUntrimmed eq 'd'){
 			$self->{_cutAdaptCmd} .= ' --discard-untrimmed ' ;
 		}
@@ -555,6 +578,13 @@ sub _setOptions {
 	my ($self) = @_;
 	$self->{wd} = cwd;
 	$self->{_qualityBase} = 33;
+
+  if($clean==1){
+    $self->{_clean}=1;
+  }
+  else{
+    $self->{_clean}=0;
+  }
 
 	if($pair1 ne ''){
 		if(-e $pair1){
