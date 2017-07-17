@@ -45,8 +45,8 @@ class Automapper:
         else:
             self.sge = False
         if 'ref' in args:
-            if args['ref'] in self.params['AutoMapper']['db']:
-                self.ref = self.params['AutoMapper']['db'][args['ref']]
+            if args['ref'] in self.params['servers']['enki']['db']:
+                self.ref = self.params['servers']['enki']['db'][args['ref']]
             else:
                 sys.exit('Database ' + args['ref'] + ' not in parameters.yaml.')
         else:
