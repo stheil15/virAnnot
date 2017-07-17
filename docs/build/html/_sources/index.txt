@@ -1,3 +1,13 @@
+.. image:: INRA_logo.jpg
+  :align: left
+  :scale: 3 %
+
+.. image:: ubx-logo.png
+  :align: right
+  :scale: 3 %
+
+|
+
 Welcome to VirAnnot's documentation!
 ====================================
 
@@ -15,6 +25,9 @@ Here we used two clusters :
 
 `GENOTOUL
 <http://www.genotoul.fr//>`_ at Toulouse INRA datacenter.
+
+Pipeline general scheme:
+------------------------
 
 .. image:: dia-intro.png
 
