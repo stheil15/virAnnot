@@ -37,6 +37,7 @@ class DemultiplexHtml:
     def check_args(self,args):
         self.wd = os.getcwd()
         self.cmd_file = self.wd + '/' + 'demultiplexHtml_cmd.txt'
+        self.execution=1
         if 'out' in args:
             self.out = args['out']
         if 'sge' in args:
@@ -50,6 +51,8 @@ class DemultiplexHtml:
                 for s_id in args['args']:
                     self.lib[args['args'][s_id]['id']] = args['args'][s_id]['csv']
             else:
-                log.critical('iter parameter mus be global.')
+                log.critical('iter parameter must be global.')
+                self.execution=0
         else:
             log.critical('No iter parameters.')
+            self.execution=0
