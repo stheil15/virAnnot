@@ -9,8 +9,8 @@ use Cwd 'abs_path', 'cwd' ;
 use File::Basename ;
 use String::Random;
 
-my $VERSION = '3.0' ;
-my $lastmodif = '2013-4-30' ;
+my $VERSION = '3.2' ;
+my $lastmodif = '2017-7-17' ;
 
 my $pair1='';
 my $pair2='';
@@ -110,9 +110,9 @@ sub main {
 
 sub _step_01 {
   my ($self,$files,$tmp_file_prefix) = @_;
-  _launchCutAdapt($self,$files->{1}, $self->{index}, $tmp_file_prefix . "_step.01_R1",'d','k','-g','0.1','1','0.8','1');
+  _launchCutAdapt($self,$files->{1}, $self->{index}, $tmp_file_prefix . "_step.01_R1",'k','k','-g','0.1','1','0.8','1');
   _readInfoFile($self,$tmp_file_prefix . "_step.01_R1.info",'r1');
-  _launchCutAdapt($self,$files->{2}, $self->{index}, $tmp_file_prefix . "_step.01_R2",'d','k','-g','0.1','1','0.8','1');
+  _launchCutAdapt($self,$files->{2}, $self->{index}, $tmp_file_prefix . "_step.01_R2",'k','k','-g','0.1','1','0.8','1');
   _readInfoFile($self,$tmp_file_prefix . "_step.01_R2.info",'r2');
 	return ($tmp_file_prefix . '_step.01_R1.out',$tmp_file_prefix . '_step.01_R2.out');
 }
@@ -122,8 +122,9 @@ sub _step_02 {
   my ($self,$files,$tmp_file_prefix) = @_;
   _launchCutAdapt($self,$files->{1},$self->{_common},$tmp_file_prefix . "_step.02_R1",'k','k','-g','0.1',scalar(keys(%{$self->{_common}})),'0.7','2');
   _launchCutAdapt($self,$files->{2},$self->{_common},$tmp_file_prefix . "_step.02_R2",'k','k','-g','0.1',scalar(keys(%{$self->{_common}})),'0.7','2');
-  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
-    `rm $files->{1} $files->{2}`;
+	if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
+  	push(@{$self->{_files_to_delete}},$files->{1});
+  	push(@{$self->{_files_to_delete}},$files->{2});
   }
 	return ($tmp_file_prefix . '_step.02_R1.out',$tmp_file_prefix . '_step.02_R2.out');
 }
@@ -133,8 +134,9 @@ sub _step_03 {
   my ($self,$files,$tmp_file_prefix) = @_;
   _launchCutAdapt($self,$files->{1},$self->{_common},$tmp_file_prefix . "_step.03_R1",'k','k','-g','0.2',scalar(keys(%{$self->{_common}})),'0.5','3');
   _launchCutAdapt($self,$files->{2},$self->{_common},$tmp_file_prefix . "_step.03_R2",'k','k','-g','0.2',scalar(keys(%{$self->{_common}})),'0.5','3');
-  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
-    `rm $files->{1} $files->{2}`;
+	if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
+  	push(@{$self->{_files_to_delete}},$files->{1});
+  	push(@{$self->{_files_to_delete}},$files->{2});
   }
 	return ($tmp_file_prefix . '_step.03_R1.out',$tmp_file_prefix . '_step.03_R2.out');
 }
@@ -142,10 +144,16 @@ sub _step_03 {
 
 sub _step_04 {
   my ($self,$files,$tmp_file_prefix) = @_;
-  _launchCutAdapt($self,$files->{1},$self->{illuminaAdapter},$tmp_file_prefix . "_step.04_R1",'k','k','-b','0.2',scalar(keys(%{$self->{illuminaAdapter}})),'0.6','4');
-  _launchCutAdapt($self,$files->{2},$self->{illuminaAdapter},$tmp_file_prefix . "_step.04_R2",'k','k','-b','0.2',scalar(keys(%{$self->{illuminaAdapter}})),'0.6','4');
-  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
-    `rm $files->{1} $files->{2}`;
+	my $h;
+	foreach my $x (keys(%{$self->{illuminaAdapter}})){
+		$h->{$x} = $self->{illuminaAdapter}->{$x};
+		$h->{$x . '-REVCOMP'} = _reverseComplement($self,$self->{illuminaAdapter}->{$x});
+	}
+  _launchCutAdapt($self,$files->{1},$h,$tmp_file_prefix . "_step.04_R1",'k','k','-b','0.2','1','0.6','4');
+  _launchCutAdapt($self,$files->{2},$h,$tmp_file_prefix . "_step.04_R2",'k','k','-b','0.2','1','0.6','4');
+	if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
+  	push(@{$self->{_files_to_delete}},$files->{1});
+  	push(@{$self->{_files_to_delete}},$files->{2});
   }
 	return ($tmp_file_prefix . '_step.04_R1.out',$tmp_file_prefix . '_step.04_R2.out');
 }
@@ -170,19 +178,23 @@ sub _step_05 {
 		$logger->error('Wrong middle_mid value. ' . $self->{middle_mid});
 		exit 1 ;
 	}
-  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
-    `rm $files->{1} $files->{2}`;
+	if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
+  	push(@{$self->{_files_to_delete}},$files->{1});
+  	push(@{$self->{_files_to_delete}},$files->{2});
   }
 	return ($tmp_file_prefix . '_step.04_R1.out',$tmp_file_prefix . '_step.04_R2.out');
 }
 
+
 sub _step_06 {
   my ($self,$files,$tmp_file_prefix) = @_;
   my $h->{polyA} = 'AAAAAAAAAA';
+	$h->{polyT} = 'TTTTTTTTTT';
   _launchCutAdapt($self,$files->{1}, $h, $tmp_file_prefix . "_step.06_R1",'k','k','-a','0','1','0.8','6');
   _launchCutAdapt($self,$files->{2}, $h, $tmp_file_prefix . "_step.06_R2",'k','k','-a','0','1','0.8','6');
-  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1} && $files->{2} ne $self->{readFiles}->{2}){
-    `rm $files->{1} $files->{2}`;
+  if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
+  	push(@{$self->{_files_to_delete}},$files->{1});
+  	push(@{$self->{_files_to_delete}},$files->{2});
   }
   return ($tmp_file_prefix . '_step.06_R1.out',$tmp_file_prefix . '_step.06_R2.out');
 }
@@ -200,12 +212,14 @@ sub _launchPairedReadStep {
 	my ($self) = @_;
 	my $i=0;
   my $files;
+	my $last_files;
   $files->{1} = $self->{readFiles}->{1};
   $files->{2} = $self->{readFiles}->{2};
 
   # STEP 01: demultiplex from index file.
   if(defined($self->{index})){
     ($files->{1},$files->{2}) = _step_01($self,$files,$self->{tmp_file_prefix});
+
   }
   # STEP 02: 5' trimming common part.
 	if(defined($self->{_common})) {
@@ -213,12 +227,12 @@ sub _launchPairedReadStep {
 		($files->{1},$files->{2}) = _step_03($self,$files,$self->{tmp_file_prefix});
 	}
 
-  # STEP 03: 5' and 3' (reverse complement) trimming illumina adapters
+  # STEP 04: 5' and 3' (reverse complement) trimming illumina adapters
 	if(defined($self->{illuminaAdapter})) {
     ($files->{1},$files->{2}) = _step_04($self,$files,$self->{tmp_file_prefix});
 	}
 
-  # STEP 04: 3' trimming or excluding reads with common part (reverse complemented). (trimming chimeric reads)
+  # STEP 05: 3' trimming or excluding reads with common part (reverse complemented). (trimming chimeric reads)
 	if(defined($self->{_common}) && $self->{middle_mid}>0) {
     ($files->{1},$files->{2}) = _step_05($self,$files,$self->{tmp_file_prefix});
 	}
@@ -227,7 +241,6 @@ sub _launchPairedReadStep {
     ($files->{1},$files->{2}) = _step_06($self,$files,$self->{tmp_file_prefix});
   }
 
-  #STEP 05: printing last fastq
 	my $last_R1_file = $files->{1};
 	my $last_R2_file = $files->{2};
 	$last_R1_file = abs_path($last_R1_file);
@@ -236,7 +249,9 @@ sub _launchPairedReadStep {
   _dispatchPairs($self,$last_R1_file,$last_R2_file);
 
   if($self->{_clean} == 1){
-    `rm $last_R1_file $last_R2_file`;
+    foreach my $f (@{$self->{_files_to_delete}}){
+			`rm $f`;
+		}
   }
 
 }
@@ -246,15 +261,25 @@ sub _get_pairs_and_singles {
   my ($self,$last_R1_file,$last_R2_file,$prefix)=@_;
   my @files = ($last_R1_file,$last_R2_file);
   $logger->info('Sorting pairs and singletons...');
+	my $hash;
   foreach my $f (@files){
+		$logger->debug('Reading fastq file: ' . $f);
     open(FILE,$f);
     while(<FILE>){
-      if(/^@(\S+)\/[12]/){
-        $self->{dispatch}->{$prefix}->{$1}++;
+      if(/^@(\S+)\/([12])$/){
+				if(defined($self->{dispatch})){
+					if(defined($self->{dispatch}->{$prefix}->{$1})){
+						$hash->{$1}->{$2}++;
+					}
+				}
+				else{
+					$hash->{$1}->{$2}++;
+				}
       }
     }
     close FILE;
   }
+	return $hash;
 }
 
 
@@ -277,19 +302,21 @@ sub _create_sample_dir {
 
 
 sub _print_id_files {
-  my ($self,$prefix,$tag)=@_;
+  my ($self,$prefix,$hash)=@_;
   open(ID1,">$prefix" . "_r1.ids");
   open(ID2,">$prefix" . "_r2.ids");
   open(IDS,">$prefix" . "_s.ids");
-  foreach my $r_id (sort(keys(%{$self->{dispatch}->{$prefix}}))){
-    if($self->{dispatch}->{$prefix}->{$r_id}==$tag){
-      print ID1 $r_id . '/1' . "\n";
+  foreach my $r_id (sort(keys(%{$hash}))){
+		my @keys = keys(%{$hash->{$r_id}});
+		if(scalar(@keys) == 2){
+			print ID1 $r_id . '/1' . "\n";
       print ID2 $r_id . '/2' . "\n";
-    }
-    else{
-      print IDS $r_id . '/1' . "\n";
-      print IDS $r_id . '/2' . "\n";
-    }
+		}
+		else{
+			foreach my $p (@keys){
+				print IDS $r_id . '/' . $p . "\n";
+			}
+		}
   }
   close ID1;
   close ID2;
@@ -304,24 +331,22 @@ sub _dispatchPairs {
 
   if(! defined($self->{index})){
     my $path = _create_sample_dir($self,$self->{tmp_file_prefix});
-    _get_pairs_and_singles($self,$last_R1_file,$last_R2_file,$self->{tmp_file_prefix});
-    _print_id_files($self,$self->{tmp_file_prefix},'2');
+    my $hash = _get_pairs_and_singles($self,$last_R1_file,$last_R2_file,$self->{tmp_file_prefix});
+    _print_id_files($self,$self->{tmp_file_prefix},$hash);
 
     _launch_subseq($self,$last_R1_file,$last_R2_file,$self->{tmp_file_prefix},$path);
-
   }
   else{
     foreach my $indexName (keys ( %{$self->{dispatch}}) ){
       $logger->info('Dispatching reads for index ' . $indexName);
       my $path = _create_sample_dir($self,$indexName);
-      _get_pairs_and_singles($self,$last_R1_file,$last_R2_file,$indexName);
+      my $hash = _get_pairs_and_singles($self,$last_R1_file,$last_R2_file,$indexName);
       my $pwd = abs_path('.');
       $logger->info($pwd);
 
-      _print_id_files($self,$indexName,'4');
+      _print_id_files($self,$indexName,$hash);
 
       _launch_subseq($self,$last_R1_file,$last_R2_file,$indexName,$path);
-
     }
   }
   chdir '..';
@@ -341,17 +366,19 @@ sub _launch_subseq {
   $seqtk_cmd = 'seqtk subseq ' . $last_R2_file . ' ' . $prefix . '_r2.ids > ' . $file2;
   $logger->debug($seqtk_cmd);
   `$seqtk_cmd`;
-  my $cmd = 'grep -c \'^\@.*/1$\' ' . $file1;
-  my $nb_reads_r1 = `$cmd`;
-  chomp $nb_reads_r1;
-  $cmd = 'grep -c \'^\@.*/2$\' ' . $file2;
-  my $nb_reads_r2 = `$cmd`;
-  chomp $nb_reads_r2;
-  if ($nb_reads_r1 == $nb_reads_r2){
-    $self->{_final_stats}->{$prefix}->{pairs} = $nb_reads_r1;
+  my $cmd = 'wc -l ' . $file1;
+	$logger->debug($cmd);
+  my ($nb_line_r1) = split(' ',`$cmd`);
+	$logger->debug($nb_line_r1);
+  $cmd = 'wc -l ' . $file2;
+	$logger->debug($cmd);
+  my ($nb_line_r2) = split(' ',`$cmd`);
+	$logger->debug($nb_line_r2);
+  if ($nb_line_r1 == $nb_line_r2){
+    $self->{_final_stats}->{$prefix}->{pairs} = $nb_line_r1 / 4;
   }
   else{
-    $logger->logdie('Read number between R1 and R2 are not he same. Something went wrong !!! r1:' . $nb_reads_r1 . ' r2:' . $nb_reads_r2);
+    $logger->logdie('Read number between R1 and R2 are not he same. Something went wrong !!! r1:' . $nb_line_r1 . ' r2:' . $nb_line_r2);
   }
   $seqtk_cmd = 'seqtk subseq ' . $last_R1_file . ' ' . $prefix . '_s.ids > ' . $file_s;
   $logger->debug($seqtk_cmd);
@@ -360,10 +387,9 @@ sub _launch_subseq {
   $logger->debug($seqtk_cmd);
   `$seqtk_cmd`;
 
-  $cmd = 'grep -c \'^\@.*/[12]$\' ' . $file_s;
-  my $nb_reads_sing = `$cmd`;
-  chomp $nb_reads_sing;
-  $self->{_final_stats}->{$prefix}->{singletons} = $nb_reads_sing;
+  $cmd = 'wc -l ' . $file_s;
+  my ($nb_reads_sing) = split(' ',`$cmd`);
+  $self->{_final_stats}->{$prefix}->{singletons} = $nb_reads_sing / 4;
 }
 
 
@@ -415,7 +441,7 @@ sub _printStats {
 sub _readInfoFile {
 	my ($self,$file,$key) = @_;
 	open(FILE,$file) || $logger->logdie('Info file not found ' . $file );
-	$logger->debug('Reading info file ' . $file);
+	$logger->info('Reading info file ' . $file);
 	while(<FILE>){
 		chomp;
 		my @line = split(/\t/,$_);
@@ -434,66 +460,72 @@ sub _readInfoFile {
 		if($match->{readName} =~ /(\S+)\s\S+/){
 			$match->{readName} = $1;
 		}
-    if($match->{readName} =~ /(\S+)\/[12]/){
+    if($match->{readName} =~ /(\S+)\/([12])/){
       $match->{readName} = $1;
     }
-
 		$self->{dispatch}->{ $match->{indexName} }->{ $match->{readName} } ++ ;
-		# $h->{readToIndex}->{ $match->{readName}  }->{ $match->{indexName} } = 1;
 	}
-
 }
 
 
 sub _launchCutAdapt {
 	my ($self,$file,$index,$prefix,$discardUntrimmed,$discardTrimmed,$indexLocation,$error,$count,$minIndexMatchPercent,$step_nb) = @_;
-	if(-e $prefix . '.out' && -e $prefix . '.info'){
-		$logger->info('Skipping cutadapt execution...');
-		_readLogFile($self,$prefix . '.log',$step_nb);
-		return 0;
+	if($step_nb == 1){
+		if(-e $prefix . '.log' && -e $prefix . '.info'){
+			$logger->info('Skipping cutadapt execution...');
+			_readLogFile($self,$prefix . '.log',$step_nb);
+			return 0;
+		}
 	}
 	else{
-		my $max_length=999;
-		$self->{_cutAdaptCmd} = 'cutadapt -f fastq' ;
-		foreach my $p (keys(%{$index})){
-			$self->{_cutAdaptCmd} .= ' ' . $indexLocation . ' ' . $p . '=' . $index->{$p} ;
-			if(length($index->{$p}) < $max_length){
-				$max_length = length($index->{$p});
-			}
+		if(-e $prefix . '.log'){
+			$logger->info('Skipping cutadapt execution...');
+			_readLogFile($self,$prefix . '.log',$step_nb);
+			return 0;
 		}
-		$self->{_cutAdaptCmd} .= ' -o ' . $prefix . '.out';
-    if($step_nb == 1){
-      $self->{_cutAdaptCmd} .= ' --info-file ' . $prefix . '.info';
-    }
-		if($discardUntrimmed eq 'd'){
-			$self->{_cutAdaptCmd} .= ' --discard-untrimmed ' ;
+	}
+
+	my $max_length=999;
+	$self->{_cutAdaptCmd} = 'cutadapt -f fastq' ;
+	foreach my $p (keys(%{$index})){
+		$self->{_cutAdaptCmd} .= ' ' . $indexLocation . ' ' . $p . '=' . $index->{$p} ;
+		if(length($index->{$p}) < $max_length){
+			$max_length = length($index->{$p});
 		}
-		if($discardTrimmed eq 'd'){
-			$self->{_cutAdaptCmd} .= ' --discard-trimmed ' ;
-		}
-		if(defined($self->{_quality})){
-			$self->{_cutAdaptCmd} .= ' -q ' . $self->{_quality} . ' --quality-base=' . $self->{_qualityBase} ;
-		}
-		if(defined($self->{_minLength})){
-			$self->{_cutAdaptCmd} .= ' -m ' . $self->{_minLength} ;
-		}
-		if(defined($count) && $count > 0){
-			$self->{_cutAdaptCmd} .= ' -n ' . $count;
-		}
-		my $overlapLength = int($max_length*$minIndexMatchPercent) ;
-		$self->{_cutAdaptCmd} .= ' -O ' . $overlapLength;
-		$self->{_cutAdaptCmd} .= ' -e ' . $error .
-		                         ' ' . $file;
-		$self->{_cutAdaptCmd} .= ' > ' . $prefix . '.log';
-		$logger->debug($self->{_cutAdaptCmd});
-		if(defined($self->{sge})){
-			return $self->{_cutAdaptCmd};
-		}
-		else{
-			if($self->{_testMode}==0){
-				system($self->{_cutAdaptCmd});
-				_readLogFile($self,$prefix . '.log',$step_nb);
-			}
+	}
+	$self->{_cutAdaptCmd} .= ' -o ' . $prefix . '.out';
+  if($step_nb == 1){
+    $self->{_cutAdaptCmd} .= ' --info-file ' . $prefix . '.info';
+		$self->{_cutAdaptCmd} .= ' --untrimmed-output=' . $prefix . '.no_mid.fastq';
+  }
+	if($discardUntrimmed eq 'd'){
+		$self->{_cutAdaptCmd} .= ' --discard-untrimmed ' ;
+	}
+	if($discardTrimmed eq 'd'){
+		$self->{_cutAdaptCmd} .= ' --discard-trimmed ' ;
+	}
+	if(defined($self->{_quality})){
+		$self->{_cutAdaptCmd} .= ' -q ' . $self->{_quality} . ' --quality-base=' . $self->{_qualityBase} ;
+	}
+	if(defined($self->{_minLength})){
+		$self->{_cutAdaptCmd} .= ' -m ' . $self->{_minLength} ;
+	}
+	if(defined($count) && $count > 0){
+		$self->{_cutAdaptCmd} .= ' -n ' . $count;
+	}
+	my $overlapLength = int($max_length*$minIndexMatchPercent) ;
+	$self->{_cutAdaptCmd} .= ' -O ' . $overlapLength;
+	$self->{_cutAdaptCmd} .= ' -e ' . $error .
+	                         ' ' . $file;
+	$self->{_cutAdaptCmd} .= ' > ' . $prefix . '.log';
+	$logger->debug($self->{_cutAdaptCmd});
+	if(defined($self->{sge})){
+		return $self->{_cutAdaptCmd};
+	}
+	else{
+		if($self->{_testMode}==0){
+			system($self->{_cutAdaptCmd});
+			_readLogFile($self,$prefix . '.log',$step_nb);
 		}
 	}
 }
@@ -501,7 +533,7 @@ sub _launchCutAdapt {
 
 sub _readLogFile {
 	my ($self,$file,$step_nb) = @_;
-	$logger->debug('Reading log file ' . $file);
+	$logger->info('Reading log file ' . $file);
 	open(LOG,$file) || $logger->logdie('Cannot open file ' . $file);
   my $seqName;
 	while(<LOG>){
