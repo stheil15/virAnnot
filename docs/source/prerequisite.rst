@@ -31,6 +31,10 @@ Perl external libraries
 * Color::Rgb
 * List::Util
 * Excel::Writer
+* Log::Log4perl
+* DBD::SQLite
+* SQL::SplitStatement
+* Math::Round
 
 
 Perl included libraries
