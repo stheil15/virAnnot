@@ -35,16 +35,19 @@ class Map:
             self.sample = str(args['sample'])
         self.wd = os.getcwd() + '/' + self.sample
         self.cmd_file = self.wd + '/' + self.sample + '_map_cmd.txt'
+        self.execution=1
         if 'contigs' in args:
             self.contigs = self.wd + '/' + args['contigs']
         if 'i1' in args:
             self.i1 = self.check_seq_format(self.wd + '/' + args['i1'])
         else:
             log.critical('Need r1 file.')
+            self.execution=0
         if 'i2' in args:
             self.i2 = self.check_seq_format(self.wd + '/' + args['i2'])
         else:
             log.critical('Need r2 file.')
+            self.execution=0
         if 'ising' in args:
             self.ising = self._check_file(self.wd + '/' + args['ising'])
         else:
