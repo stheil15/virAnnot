@@ -162,10 +162,10 @@ def _get_qsub_cmd (cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=
     job_regex = ''
     if cluster == 'enki':
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -wd ' + o_d + ' -pe multithread ' + str(n_cpu) + ' ' + blt_script
-        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', tc, '-wd', o_d, '-pe multithread', str(n_cpu), blt_script]
+        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d, '-pe', 'multithread', str(n_cpu), blt_script]
         job_regex = '^Your job-array (\d+)\.1-\d+'
     elif cluster == 'avakas':
-        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=18:00:00', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
+        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=48:00:00', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
         job_regex = '^(\d+\[\]\.master)\.cm\.cluster$'
     elif cluster == 'genotoul':
