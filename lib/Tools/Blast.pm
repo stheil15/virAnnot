@@ -230,6 +230,8 @@ sub algo {
 	'BLASTX' 	=> 'BLASTX',
 	'TBLASTX' 	=> 'TBLASTX',
 	'TBLASTN' 	=> 'TBLASTN',
+	'DIAMONDX'  => 'DIAMONDX',
+	'DIAMONDP'  => 'DIAMONDP'
 	);
 	if(defined $algo){
 		if(! ref $algo && exists $validAlgo{uc($algo)}){
@@ -1012,7 +1014,7 @@ sub _readInputFile {
 				$match->{tax_id} = 0 ;
 				$match->{no_hit} = 1 ;
 				$match->{taxonomy} = 'unknown';
-        $oldQueryId = $self->{_result}->query_name();
+				$oldQueryId = $self->{_result}->query_name();
 			}
 			if($self->{'parse_description'} == 1){
 				$match->{query_id} = $self->{_result}->query_description();

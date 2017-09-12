@@ -265,7 +265,7 @@ sub _retrieveNCBITaxonomy {
 sub retrieveTaxIdFromGi {
   my ($self,$gi,$algo) = @_;
   my $type;
-  if(defined $algo && ($algo eq 'BLASTX' || $algo eq 'BLASTP')){
+  if(defined $algo && ($algo eq 'BLASTX' || $algo eq 'BLASTP' || $algo eq 'DIAMONDX' || $algo eq 'DIAMONDP')){
     $type = 'prot';
   }
   else{
@@ -291,7 +291,7 @@ sub retrieveTaxIdFromAcc {
   if ($acc =~ /(\w+)\.\d+/){
     $acc = $1
   }
-  if(defined $algo && ($algo eq 'BLASTX' || $algo eq 'BLASTP')){
+  if(defined $algo && ($algo eq 'BLASTX' || $algo eq 'BLASTP' || $algo eq 'DIAMONDX' || $algo eq 'DIAMONDP')){
     $type = 'prot_accession2taxid';
   }
   else{
