@@ -144,24 +144,6 @@ class Blast2ecsv:
 
 
 
-
-
-
-	def launch (self):
-		if not self.sge:
-			os.chdir(self.wd)
-			for el in self.cmd:
-				os.system (el)
-		else:
-			fw =  open(self.cmd_file, mode='w')
-			for el in self.cmd:
-				fw.write(el + "\n")
-			fw.close()
-			qsub_call =   "qsub -wd " + self.wd + " -V -N " + self.sample + '_blast2ecsv' + ' ' + self.cmd_file
-			log.debug(qsub_call)
-			os.system(qsub_call)
-
-
 	def _check_file (self,f):
 		try:
 			open(f)
