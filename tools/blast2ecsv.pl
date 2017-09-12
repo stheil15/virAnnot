@@ -77,11 +77,14 @@ sub main {
   my $fasta_tool;
   foreach my $file (@blastFiles){
     $self->{blast_tool} = Tools::Blast->new(file => $file, %blastOptions);
+
     my $hits = $self->deconvoluteBlastHits( $self->{blast_tool}->_readInputFile($self->{taxoTools}), $parseMethod );
     push(@$fileInfos, $hits);
   }
+  # if($clean){
+  # }
+  $fileInfos = $self->mergeBlastCSV($fileInfos);
 
-  $fileInfos = $self->mergeBlastCSV($fileInfos, $clean);
   my @blastExtentedHeaders = $self->getHeaders($blastOptions{'format'}, $readNumber);
   $self->printCSVExcel([$fileInfos], $outputFile, \@blastExtentedHeaders);
 }
@@ -181,7 +184,7 @@ sub _computeRankHomogeneity {
 
 
 sub mergeBlastCSV {
-  my ($self,$files, $removeDuplicates) = @_;
+  my ($self,$files) = @_;
   my $mergedFile= [];
 	my $hash;
   for(my $i=0;$i<scalar(@{$files});$i++){
@@ -206,7 +209,7 @@ sub mergeBlastCSV {
 			}
 		}
 		else{
-			push(@{$mergedFile},$hash->{$query_id}->[0]);
+			push(@{$mergedFile},@{$hash->{$query_id}});
 		}
 	}
   return $mergedFile;
@@ -247,7 +250,7 @@ sub printCSVExcel {
             }
 					}
 					else{
-            if(length($self->{fasta_tool}->retrieveFastaSequence($line->{'query_id'})->{$line->{'query_id'}})>= 500){
+            if(length($self->{fasta_tool}->retrieveFastaSequence($line->{'query_id'})->{$line->{'query_id'}})>= 1){
               push(@fields, '"' . $self->{fasta_tool}->retrieveFastaSequence($line->{'query_id'})->{$line->{'query_id'}} . '"');
               $already_printed_sequences->{$line->{'query_id'}}=1;
             }
@@ -466,7 +469,7 @@ USAGE: perl $prog -i blast_1 -i blast_2 ... -i blast_n [OPTIONS]
           -pm|parsing_method       <global|local|both>  Global: cumul hsps. Local: consider each hsp separetly. Both : keep cumuled hsp info and individual hsp infos. Default: local
           -fhsp|first_hsp          Treat only the first hsp
           -fhit|first_hit          Treat only the first hit
-          -t|type                  <BLAST TYPE>  Force blast type detection (BLASTN|BLASTP|BLASTX|TBLASTX|TBLASTN). Usefull when using m8 blast format
+          -t|type                  <BLAST TYPE>  Force blast type detection (BLASTN|BLASTP|BLASTX|TBLASTX|TBLASTN|DIAMONDX|DIAMONDP). Usefull when using m8 blast format
           -e|evalue                <FLOAT>  E-value threshold
           -s|score                 <INTEGER>  Score threshold
           -identity                <FLOAT>  Identity threshold
