@@ -16,44 +16,42 @@ class Blast:
 
 
 	def create_cmd (self):
-		cmd=''
+		ssh_cmd = self._get_exec_script()
 		if self.server != 'enki':
 			cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
 			log.debug(cmd)
 			self.cmd.append(cmd)
-		ssh_cmd = self._get_exec_script()
-		fw =  open(self.remote_cmd_file, mode='w')
-		fw.write(ssh_cmd)
-		fw.close()
-		if self.server != 'enki':
+			fw =  open(self.remote_cmd_file, mode='w')
+			fw.write(ssh_cmd)
+			fw.close()
 			cmd = 'ssh stheil@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
 			log.debug(cmd)
 			self.cmd.append(cmd)
 			cmd = 'scp stheil@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
 			log.debug(cmd)
 			self.cmd.append(cmd)
-		if self.server == 'enki':
+		elif self.server == 'enki':
 			self.cmd.append(ssh_cmd)
-			cmd = 'mv ' + self.params['servers'][self.server]['scratch'] + '/' + os.path.basename(self.out) + ' ' + self.wd
-			self.cmd.append(cmd)
 
 
 	def _get_exec_script (self):
-		ssh_cmd = 'if [ -f ~/.bashrc ]; then' + "\n"
-		ssh_cmd += 'source ~/.bashrc' + "\n"
-		ssh_cmd += 'elif [ -f ~/.profile ]; then' + "\n"
-		ssh_cmd += 'source ~/.profile' + "\n"
-		ssh_cmd += 'elif [ -f ~/.bash_profile ]; then' + "\n"
-		ssh_cmd += 'source /etc/profile' + "\n"
-		ssh_cmd += 'source ~/.bash_profile' + "\n"
-		ssh_cmd += 'else' + "\n"
-		ssh_cmd += 'echo "source not found."' + "\n"
-		ssh_cmd += 'fi' + "\n"
+		ssh_cmd = ''
+		if self.server != 'enki':
+			ssh_cmd += 'if [ -f ~/.bashrc ]; then' + "\n"
+			ssh_cmd += 'source ~/.bashrc' + "\n"
+			ssh_cmd += 'elif [ -f ~/.profile ]; then' + "\n"
+			ssh_cmd += 'source ~/.profile' + "\n"
+			ssh_cmd += 'elif [ -f ~/.bash_profile ]; then' + "\n"
+			ssh_cmd += 'source /etc/profile' + "\n"
+			ssh_cmd += 'source ~/.bash_profile' + "\n"
+			ssh_cmd += 'else' + "\n"
+			ssh_cmd += 'echo "source not found."' + "\n"
+			ssh_cmd += 'fi' + "\n"
+			ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + "\n"
+			ssh_cmd += 'mkdir ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + "\n"
+			ssh_cmd += 'mv ' + self.params['servers'][self.server]['scratch'] + '/' + os.path.basename(self.contigs) + ' ' + self.out_dir + "\n"
+			ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + "\n"
 
-		ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + "\n"
-		ssh_cmd += 'mkdir ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + "\n"
-		ssh_cmd += 'mv ' + self.params['servers'][self.server]['scratch'] + '/' + os.path.basename(self.contigs) + ' ' + self.out_dir + "\n"
-		ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + "\n"
 		if self.server == 'genotoul':
 			ssh_cmd += 'echo "'
 		ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu ' + self.n_cpu + ' --tc ' + self.tc + ' -d ' + self.params['servers'][self.server]['db'][self.db]
@@ -61,12 +59,14 @@ class Blast:
 			ssh_cmd += ' -s ' + os.path.basename(self.contigs)
 		else:
 			ssh_cmd += ' -s ' + self.contigs
+
 		ssh_cmd += ' --prefix ' + self.out_dir
 		ssh_cmd += ' -p ' + self.type + ' -o ' + os.path.basename(self.out) + ' -r ' + ' --outfmt 5'
 		ssh_cmd += ' --max_target_seqs ' + self.max_target_seqs
 		if self.server == 'genotoul':
 			ssh_cmd += '"'
 			ssh_cmd += ' | qsub -sync yes -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample
+		log.debug(ssh_cmd)
 		return ssh_cmd
 
 

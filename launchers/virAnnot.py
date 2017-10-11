@@ -230,10 +230,7 @@ def _exec (module,name):
 				qsub_call = "qsub -wd " + module.wd + " -V -N " + name + ' -pe multithread ' + module.n_cpu + ' ' + module.cmd_file
 		else:
 			if name == 'Blast':
-				if module.server != 'enki':
-					qsub_call = "qsub -wd " + module.wd + " -V -N " + module.sample + '_' + name + '_' + module.type + ' ' + module.cmd_file
-				else :
-					qsub_call = "qsub -sync yes -wd " + module.wd + " -V -N " + module.sample + '_' + name + '_' + module.type + ' ' + module.cmd_file
+				qsub_call = "qsub -wd " + module.wd + " -V -N " + module.sample + '_' + name + '_' + module.type + ' ' + module.cmd_file
 			else:
 				qsub_call = qsub_call = "qsub -wd " + module.wd + " -V -N " + module.sample + '_' + name + ' ' + ' -pe multithread ' + module.n_cpu + ' ' + module.cmd_file
 		log.debug(qsub_call)
