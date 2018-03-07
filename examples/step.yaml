@@ -23,6 +23,15 @@ DemultiplexHtml:
   out: stat_demultiplex
   iter: global
   sge: True
+Normalization:
+  i1: (SampleID)_truePairs_r1.fq
+  i2: (SampleID)_truePairs_r2.fq
+  o1: (SampleID)_truePairs_norm_r1.fq
+  o2: (SampleID)_truePairs_norm_r2.fq
+  num: 40000
+  iter: sample
+  n_cpu: 5
+  sge: True
 drVM:
   i1: (SampleID)_truePairs_r1.fq
   i2: (SampleID)_truePairs_r2.fq
