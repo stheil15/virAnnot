@@ -24,10 +24,10 @@ class Blast:
 			fw =  open(self.remote_cmd_file, mode='w')
 			fw.write(ssh_cmd)
 			fw.close()
-			cmd = 'ssh stheil@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+			cmd = 'ssh mlefebvre@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
 			log.debug(cmd)
 			self.cmd.append(cmd)
-			cmd = 'scp stheil@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
+			cmd = 'scp mlefebvre@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
 			log.debug(cmd)
 			self.cmd.append(cmd)
 		elif self.server == 'enki':
