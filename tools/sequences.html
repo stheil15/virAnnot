@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	</head>
+	<body style="width:99%">
+		<div id="sequence" style="width:90%; overflow:auto; display: inline-block;padding:10px;"></div>
+
+	    <script type="text/javascript">
+			var sPageURL = decodeURIComponent(window.location.search.substring(1))
+			var sURLVariables = sPageURL.split('&')
+			var canvas = document.getElementById('sequence'); 
+			// Print each sequence
+			for (i = 0; i < sURLVariables.length; i++) {
+		        sParameterName = sURLVariables[i].replace('?','').split("=");
+		        if (sParameterName[0] === "name"){
+		        	canvas.innerHTML += "<br />>" + sParameterName[0] + "<br />" + sParameterName[1] + "<br />"; 
+		        }else{
+		        	canvas.innerHTML += "<br />>" + sParameterName[0] + " - " + sParameterName[1].length + "<br />" + sParameterName[1] + "<br />"; 
+		        }
+		    }
+	    </script>
+	</body>
+</html>

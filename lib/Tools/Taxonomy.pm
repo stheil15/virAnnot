@@ -405,7 +405,6 @@ sub readCSVextended {
   my ($self,$file,$separator) = @_ ;
   my $res = [];
   my @headers;
-
   open(CSV,$file) || $logger->logdie('Cannot open file ' . $file);
   while(<CSV>){
     chomp;

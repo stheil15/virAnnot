@@ -5,6 +5,9 @@ use warnings;
 use Getopt::Long;
 use File::Basename;
 use File::Path qw(make_path);
+use File::Which;
+use File::Copy;
+use Cwd;
 use Pod::Usage;
 use Logger::Logger;
 use Tools::Taxonomy;
@@ -71,9 +74,17 @@ sub main {
     $logger->info('Creating ' . $self->{_krona_out_dir} . ' folder.');
     mkdir $self->{_krona_out_dir};
     chdir $self->{_krona_out_dir};
+    my $source = dirname(which('blast2html.py')) . "/sequences.html";
+    my $destination = cwd() . "/sequences.html";
+    copy($source, $destination) or die "Copy failed: $!, $source to $destination";
   }
   else{
     chdir $self->{_krona_out_dir};
+    if(! -e (cwd() . "/sequences.html")){
+      my $source = dirname(which('blast2html.py')) . "/sequences.html";
+    my $destination = cwd() . "/sequences.html";
+    copy($source, $destination) or die "Copy failed: $!, $source to $destination";
+    }
   }
   if(defined($self->{xml_files})){
     if(! -e $self->{_out_dir}){
@@ -86,13 +97,9 @@ sub main {
     $self->{_hits}->[$i] = $self->{taxoTools}->readCSVextended($self->{filesList}->[$i],"\t");
     if(defined($self->{xml_files})){
       $self->{_qry_lst}->[$i] = _get_qry_list($self,$self->{_hits}->[$i]);
+      $self->{_extract_sequences}->[$i] = _extract_sequences($self,$i);
       $self->{_html_files}->[$i] = _extract_blast($self,$i);
     }
-    # my $fileInfos;
-    # if(defined($self->{group_file}->[$i])){
-    #   $fileInfos = parseGroupFile($self->{group_file}->[$i]);
-    #   @{$hits->[$i]} = map {getDeconvolutedHit($_, $fileInfos)} @{$hits->[$i]};
-    # }
   }
 
   my $tree = [];
@@ -136,33 +143,31 @@ sub _get_qry_list {
   foreach my $hit (@{$hits}){
     if($hit->{'taxonomy'} =~ /Viruses/ || $hit->{'taxonomy'} =~ /Viroids/){
       $h->{$hit->{'tax_id'}}->{$hit->{query_id}}++;
+      # $logger->info('hits' . $hits);
     }
   }
   $logger->debug('Selected ' . scalar(%{$h}) . ' hits.');
   return $h;
 }
 
-
-sub parseGroupFile {
-  my($self, $groupFile) = @_;
-  my $groupInfo;
-  if($groupFile && -e $groupFile){
-    $groupInfo = {};
-    open (FILE, $groupFile);
-    while(my $line = <FILE>){
-      chomp $line;
-      my ($id, @fields) = split(/\t/, $line);
-      foreach my $field (@fields){
-        my ($group, $ponderation) = split(/\s/, $field);
-        $groupInfo->{$id}{$group} = $ponderation;
-        if(! $groupInfo->{$id}{$group}){
-          $groupInfo->{$id}{$group} = 1;
-        }
-      }
-    }
-    close FILE;
+# Extract sequence for each taxo
+sub _extract_sequences {
+  my ($self,$index)=@_;
+  my $h={};
+  foreach my $hit (@{$self->{_hits}->[$index]}){
+    my $seq=$hit->{'sequence'};
+    my $tax_id=$hit->{'tax_id'};
+    $h->{$tax_id}->{$seq}++;
   }
-  return $groupInfo;
+  # # read $h
+  # foreach my $key (keys %$h){
+  #   $logger->info($key);
+  #   foreach my $inner (keys %{$h->{$key}}){
+  #     $logger->info($inner);
+  #   }
+  # }
+
+  return $h;
 }
 
 
@@ -205,6 +210,7 @@ sub getDeconvolutedHit {
 }
 
 
+# Index_list : array of file name e.g. MID-GENC03_nr_dmdx 
 sub printXML {
   my ($self, $tree, $index_list, $color, $data) = @_;
   my $output = IO::File->new(">$self->{_krona_file_name}");
@@ -231,6 +237,11 @@ sub printXML {
   if(defined($self->{_qry_lst})){
     $writer->startTag('attribute', 'display' => 'Blast results', 'hrefBase' => './');
     $writer->characters("blast");
+    $writer->endTag('attribute');
+  }
+  if(defined($self->{_extract_sequences})){
+    $writer->startTag('attribute', 'display' => 'Sequences', 'hrefBase' => './');
+    $writer->characters("sequence");
     $writer->endTag('attribute');
   }
   if ($color eq 'taxid' ) {
@@ -359,18 +370,21 @@ sub printXML {
 }
 
 
+# param index_list : list of taxonomic name
+# param data : both | read | contig
 sub XMLPrinter {
   my ($self,$tree,$writer,$color,$data, $index_list) = @_;
   my %keysList;
   foreach my $i (@{$index_list}){
     if(exists $tree->[$i]){
       foreach my $k (keys %{$tree->[$i]}){
-        if($k !~/rank|number|taxid|identity|number_r|identity_r/){
+        if($k !~/rank|number|taxid|identity|number_r|identity_r|sequence/){
           $keysList{$k} = $tree->[$i]->{$k}->{taxid};
         }
       }
     }
   }
+  # $k correspond to the taxonomic name
   foreach my $k (keys %keysList){
     my $newHash;
     $writer->startTag('node', name => "$k");
@@ -379,7 +393,7 @@ sub XMLPrinter {
       if(exists $tree->[$i]->{$k} && defined $tree->[$i]->{$k}){
         $newHash->[$i] = $tree->[$i]->{$k};
       }
-
+      # $logger->info('data ' . $data);
       if($data eq 'contigs'){
         if(exists $tree->[$i]->{$k}->{number} && defined $tree->[$i]->{$k}->{number}){
           $writer->dataElement(val => nearest(0.00001, $tree->[$i]->{$k}->{number}));
@@ -457,6 +471,47 @@ sub XMLPrinter {
       }
       $writer->endTag('blast');
     }
+    if(defined($self->{_extract_sequences})){
+      $writer->startTag('sequence');
+      #  $keysList{$k} is tax_id
+      #  $k is taxonomic name
+      for(my $i=0;$i<=$#{$index_list};$i++){
+        my $sequences = "sequences.html";
+        my $compt = 1;
+        if (defined($keysList{$k})) {
+          foreach my $inner (keys %{$self->{_extract_sequences}->[$i]->{$keysList{$k}}}){
+            if(defined($inner) && !($inner eq "")){
+              if($compt == 1){
+                $sequences = $sequences . "?name=" . $k . "&?seq" . $compt . "=" . $inner;
+              }else{
+                $sequences = $sequences . "&?seq" . $compt . "=" . $inner;
+              }
+              $compt++;
+            }
+          }
+          # $logger->info('inner ' . $sequences);
+          foreach my $inner (keys %{$self->{_extract_sequences}->[$i]->{$keysList{$k}}}){
+            # $inner is sequence
+            if(defined($sequences) && !($sequences eq "sequences.html")){
+              if($data eq 'contigs'){
+                $writer->startTag('val','href' => $sequences);
+                $writer->characters('link');
+                $writer->endTag('val');
+              }
+              elsif($data eq 'reads'){
+                $writer->dataElement(val => '');
+              }
+              elsif($data eq 'both'){
+                $writer->startTag('val','href' => $sequences);
+                $writer->characters('link');
+                $writer->endTag('val');
+              }
+            }
+          }
+        }
+      }
+      $writer->endTag('sequence');
+    }
     if ( $color eq 'taxid' ) {
       $writer->startTag('taxid');
       for(my $i=0;$i<=$#{$index_list};$i++){
@@ -468,6 +523,7 @@ sub XMLPrinter {
       $writer->endTag('taxid');
     }
     elsif ( $color eq 'identity' ){
+      # $logger->info('color ' . $color);
       $writer->startTag('identity');
       for(my $i=0;$i<=$#{$index_list};$i++){
         if($data eq 'contigs'){
@@ -523,7 +579,7 @@ sub _set_options {
   if(scalar(@input_files) > 0){
     if(scalar(@id_samples) == 0){
       foreach my $file (@input_files){
-				my($filename, $dirs, $suffix) = fileparse($file);
+        my($filename, $dirs, $suffix) = fileparse($file);
         my @p = split(/\./,$filename);
         push(@id_samples,$p[0]);
       }
@@ -581,17 +637,17 @@ sub _set_options {
   else{
     $self->{_krona_out_dir} = 'krona_out_dir';
   }
-	if($output ne ''){
-		$self->{_krona_file_name} = $output;
-	}
-	else{
-		if(defined($merge)){
-			$self->{_krona_file_name} = 'merged.html';
-		}
-		else{
-			$self->{_krona_file_name} = $self->{id_samples}->[0] . '.krona.html';
-		}
-	}
+  if($output ne ''){
+    $self->{_krona_file_name} = $output;
+  }
+  else{
+    if(defined($merge)){
+      $self->{_krona_file_name} = 'merged.html';
+    }
+    else{
+      $self->{_krona_file_name} = $self->{id_samples}->[0] . '.krona.html';
+    }
+  }
 
 }
 
@@ -637,13 +693,13 @@ sub _extract_blast {
     my $xml_out = $self->{_out_dir} . '/' . $index . '/' . $name_s . '.xml';
     my $html_out = $self->{_out_dir} . '/' . $index . '/' . $name_s . '.html';
     if(! -e $html_out){
-      if(! -z $xml_out){
+      if( !(-z $xml_out) && !(-e $xml_out)){
         $cmd = 'blast2html.py -i ' . $xml_out . ' -o ' . $html_out;
         $logger->debug($cmd);
         `$cmd`;
       }
       else{
-        $logger->debug('XML file empty. ' . $xml_out);
+        $logger->debug('XML file does not exist or empty. ' . $xml_out);
       }
 
     }
@@ -685,7 +741,7 @@ USAGE: perl $prog -i blast_csv_extended_1 -i blast_csv_extended_2 ... -i blast_c
           -group file : ([^_]+)_.* <TAB> \$1 will deconvolute each blast hit of contig1_xxx in 1 blast hit : contig1 1 blast_res
           -group file : ([^_]+)_.* <TAB> \$1 <SPACE> 2 will deconvolute each blast hit of contig1_xxx in 1 blast hit : contig1 2 blast_res
 
-       -f|format       <ecsv|csv|xml>		Blast format (ecsv, csv or xml)
+       -f|format       <ecsv|csv|xml>   Blast format (ecsv, csv or xml)
        -m|merge        <NAME>  Merge the inputs csv files and generate a common Krona file
           If no name is provided, the default name will be merged.html
 
@@ -696,7 +752,7 @@ USAGE: perl $prog -i blast_csv_extended_1 -i blast_csv_extended_2 ... -i blast_c
        -c|color        <STRING>  Coloration mode for Krona chart: identity, taxid or none (Default: $color).
        -data           <STRING>  Data to print in the Krona chart: reads, contigs or both.
        -o|output       <DIRECTORY>  Output directory
-       -help|h				 Print this help and exit
+       -help|h         Print this help and exit
 EOF
 exit(1) ;
 }
