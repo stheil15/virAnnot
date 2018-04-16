@@ -28,10 +28,12 @@ class Diamond:
 				cmd = 'cat ' + fasta_singleton + ' >> ' + merged_read
 				log.debug(cmd)
 				self.cmd.append(cmd)
+		# outfmt 5 = XML format
 		cmd = 'diamond blastx --outfmt 5'
 		cmd += ' --db ' + str(self.db)
 		cmd += ' --out ' + self.out
 		cmd += ' --threads ' + self.n_cpu
+		# Path to the query input file
 		if self.i1 != '' and self.i2 != '':
 			cmd += ' --query ' + merged_read
 		elif self.ising != '':
@@ -41,8 +43,11 @@ class Diamond:
 		cmd += ' --evalue ' + self.evalue
 		cmd += ' --max-target-seqs ' + self.max_target_seqs
 		cmd += ' --min-score ' + self.score
+		# Report only alignments above the given percentage of sequence identity
 		cmd += ' --id ' + self.identity
+		# Report only alignments above the given percentage of query cover
 		cmd += ' --query-cover ' + self.qov
+		# Report only alignments above the given percentage of subject cover
 		cmd += ' --subject-cover ' + self.hov
 		if self.sensitive:
 			cmd += ' --sensitive '

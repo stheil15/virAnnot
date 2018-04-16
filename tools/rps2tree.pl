@@ -618,9 +618,9 @@ sub _align_with_ref {
     }
     $logger->debug($clean_cmd);
   }
-  if($verbosity < 3){
-    `$clean_cmd`
-  }
+  # if($verbosity < 3){
+  #   `$clean_cmd`
+  # }
 }
 
 

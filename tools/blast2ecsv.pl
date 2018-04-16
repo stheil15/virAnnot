@@ -261,7 +261,11 @@ sub printCSVExcel {
 					}
         }
         elsif($field eq 'nb_reads'){
-          push(@fields, '"' . $self->{read_numbers}->{$line->{'query_id'}} . '"');
+          if ($self->{read_numbers}->{$line->{'query_id'}}){
+            push(@fields, '"' . $self->{read_numbers}->{$line->{'query_id'}} . '"');
+          }else{
+            push(@fields, '');
+          }
         }
         elsif($field eq 'query_length'){
           if(defined($line->{$field})){

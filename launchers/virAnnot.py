@@ -8,6 +8,7 @@ import importlib
 import re
 import sys
 import os,shutil
+import time
 
 def main ():
 	args = _set_options()
@@ -21,7 +22,9 @@ def main ():
 		_create_folders(maps)
 	elif(args.name_step in steps):
 		log.info('Launching step ' + args.name_step)
+		start_time = time.time()
 		_launch_step(args.name_step,steps,maps,params)
+		log.info("--- %s seconds ---" % (time.time() - start_time))
 	else:
 		log.critical('This step is not present in the step file.')
 

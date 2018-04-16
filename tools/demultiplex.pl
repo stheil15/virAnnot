@@ -149,6 +149,7 @@ sub _step_04 {
 		$h->{$x} = $self->{illuminaAdapter}->{$x};
 		$h->{$x . '-REVCOMP'} = _reverseComplement($self,$self->{illuminaAdapter}->{$x});
 	}
+  $logger->info('Launch CutAdapt...');
   _launchCutAdapt($self,$files->{1},$h,$tmp_file_prefix . "_step.04_R1",'k','k','-b','0.2','1','0.6','4');
   _launchCutAdapt($self,$files->{2},$h,$tmp_file_prefix . "_step.04_R2",'k','k','-b','0.2','1','0.6','4');
 	if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
@@ -182,7 +183,7 @@ sub _step_05 {
   	push(@{$self->{_files_to_delete}},$files->{1});
   	push(@{$self->{_files_to_delete}},$files->{2});
   }
-	return ($tmp_file_prefix . '_step.04_R1.out',$tmp_file_prefix . '_step.04_R2.out');
+	return ($tmp_file_prefix . '_step.05_R1.out',$tmp_file_prefix . '_step.05_R2.out');
 }
 
 
@@ -262,6 +263,7 @@ sub _get_pairs_and_singles {
   my @files = ($last_R1_file,$last_R2_file);
   $logger->info('Sorting pairs and singletons...');
 	my $hash;
+  my $old_hash;
   foreach my $f (@files){
 		$logger->debug('Reading fastq file: ' . $f);
     open(FILE,$f);
@@ -278,8 +280,9 @@ sub _get_pairs_and_singles {
       }
     }
     close FILE;
+    $old_hash =+ $hash;
   }
-	return $hash;
+	return $old_hash;
 }
 
 

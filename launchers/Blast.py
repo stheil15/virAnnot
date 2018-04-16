@@ -17,19 +17,30 @@ class Blast:
 
 	def create_cmd (self):
 		ssh_cmd = self._get_exec_script()
-		if self.server != 'enki':
-			cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
+		if self.server != 'enki' :
+			if self.server == 'avakas':
+				cmd = 'scp ' + self.contigs + ' mlefebvre007@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
+			else:
+				cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
 			log.debug(cmd)
 			self.cmd.append(cmd)
 			fw =  open(self.remote_cmd_file, mode='w')
 			fw.write(ssh_cmd)
 			fw.close()
-			cmd = 'ssh mlefebvre@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
-			log.debug(cmd)
-			self.cmd.append(cmd)
-			cmd = 'scp mlefebvre@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
-			log.debug(cmd)
-			self.cmd.append(cmd)
+			if self.server != 'avakas':
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+				log.debug(cmd)
+				self.cmd.append(cmd)
+				cmd = 'scp mlefebvre@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
+				log.debug(cmd)
+				self.cmd.append(cmd)
+			else:
+				cmd = 'ssh mlefebvre007@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+				log.debug(cmd)
+				self.cmd.append(cmd)
+				cmd = 'scp mlefebvre007@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
+				log.debug(cmd)
+				self.cmd.append(cmd)
 		elif self.server == 'enki':
 			self.cmd.append(ssh_cmd)
 
@@ -39,14 +50,19 @@ class Blast:
 		if self.server != 'enki':
 			ssh_cmd += 'if [ -f ~/.bashrc ]; then' + "\n"
 			ssh_cmd += 'source ~/.bashrc' + "\n"
+			ssh_cmd += 'echo bashrc loaded' + "\n"
 			ssh_cmd += 'elif [ -f ~/.profile ]; then' + "\n"
 			ssh_cmd += 'source ~/.profile' + "\n"
+			ssh_cmd += 'echo profile loaded' + "\n"
 			ssh_cmd += 'elif [ -f ~/.bash_profile ]; then' + "\n"
 			ssh_cmd += 'source /etc/profile' + "\n"
 			ssh_cmd += 'source ~/.bash_profile' + "\n"
+			ssh_cmd += 'echo bash_profile loaded' + "\n"
 			ssh_cmd += 'else' + "\n"
 			ssh_cmd += 'echo "source not found."' + "\n"
 			ssh_cmd += 'fi' + "\n"
+			if self.server == 'avakas':
+				ssh_cmd += 'source ~/.bashrc' + "\n"
 			ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + "\n"
 			ssh_cmd += 'mkdir ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + "\n"
 			ssh_cmd += 'mv ' + self.params['servers'][self.server]['scratch'] + '/' + os.path.basename(self.contigs) + ' ' + self.out_dir + "\n"
@@ -54,6 +70,8 @@ class Blast:
 
 		if self.server == 'genotoul':
 			ssh_cmd += 'echo "'
+		# elif self.server == "genologin":
+		# 	ssh_cmd += 'echo "'
 		ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu ' + self.n_cpu + ' --tc ' + self.tc + ' -d ' + self.params['servers'][self.server]['db'][self.db]
 		if self.server != 'enki':
 			ssh_cmd += ' -s ' + os.path.basename(self.contigs)
@@ -66,7 +84,9 @@ class Blast:
 		if self.server == 'genotoul':
 			ssh_cmd += '"'
 			ssh_cmd += ' | qsub -sync yes -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample
-		log.debug(ssh_cmd)
+		# elif self.server == 'genologin':
+		# 	ssh_cmd += '"'
+		# 	ssh_cmd += ' | sbatch -W --export=ALL --workdir=' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -J ' + self.sample
 		return ssh_cmd
 
 

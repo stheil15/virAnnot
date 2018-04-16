@@ -51,6 +51,7 @@ wrap_xpath = lambda x: XPATH.sub("cast(\g<xpath>)", x)
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 print('reading xml...')
+print(p.input_fn)
 try:
     # note that we do not validate the XML file against
     # http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd

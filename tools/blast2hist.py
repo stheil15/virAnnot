@@ -162,14 +162,16 @@ def _get_rank_data (all_data,rank,data,headers,i,id_list_len):
 				if 'reads' not in all_data[rank][tax]:
 					all_data[rank][tax]['reads'] = [0] * id_list_len
 				if 'nb_reads' in headers:
-					all_data[rank][tax]['reads'][i] += int(el['nb_reads'])
+					if el['nb_reads'] != "":
+						all_data[rank][tax]['reads'][i] += int(el['nb_reads'])
 				if 'cumul_length' not in all_data[rank][tax]:
 					all_data[rank][tax]['cumul_length'] = [0] * id_list_len
 				if 'query_length' in headers:
 					all_data[rank][tax]['cumul_length'][i] += int(el['query_length'])
 			else:
 				if 'nb_reads' in headers:
-					all_data[rank][tax]['reads'][i] += int(el['nb_reads'])
+					if el['nb_reads'] != "":
+						all_data[rank][tax]['reads'][i] += int(el['nb_reads'])
 				if 'query_length' in headers:
 					all_data[rank][tax]['cumul_length'][i] += int(el['query_length'])
 				all_data[rank][tax]['contigs'][i] += 1

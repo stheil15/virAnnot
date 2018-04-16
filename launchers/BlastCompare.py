@@ -17,6 +17,7 @@ class BlastCompare:
 			cmd += ' --blast ' + self.blast_files['csv_file'][i]
 		cmd += ' --out ' + self.out
 		self.cmd.append(cmd)
+		log.debug(cmd)
 
 
 	def check_args (self, args: dict):
@@ -24,7 +25,7 @@ class BlastCompare:
 		if 'sample' in args:
 			self.sample = str(args['sample'])
 		self.wd = os.getcwd() + '/' + self.sample
-		self.cmd_file = self.wd + '/' + self.sample + '_idba_cmd.txt'
+		self.cmd_file = self.wd + '/' + self.sample + '_compare_cmd.txt'
 		self.blast_files = {}
 		self.blast_files['csv_file'] = []
 		self.blast_files['id'] = []

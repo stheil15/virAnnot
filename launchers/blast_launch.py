@@ -1,4 +1,4 @@
-#!/usr/local/bioinfo/bin/python3.4
+#!/tools/python/3.4.3/bin/python3.4
 import argparse
 import logging as log
 import re
@@ -76,6 +76,7 @@ def _concat_xml (path, out_file):
                 f_out.write(header) #for diagnosis
                 f_out.close()
                 h.close()
+                log.critical('BLAST XML file %s ended prematurely' % f)
                 raise ValueError("BLAST XML file %s ended prematurely" % f)
             header += line
             if "<Iteration>" in line:
@@ -90,6 +91,7 @@ def _concat_xml (path, out_file):
         if "<BlastOutput>" not in header:
             f_out.close()
             h.close()
+            log.critical("%s is not a BLAST XML file:\n%s\n..." % (f, header))
             raise ValueError("%s is not a BLAST XML file:\n%s\n..." % (f, header))
         if f == files[0]:
             f_out.write(header)
@@ -130,6 +132,8 @@ def _get_qstat_cmd (cluster=str, jobid=int) :
         qstat_cmd = ['qstat', '-t',str(jobid)]
     elif cluster == 'genotoul':
         qstat_cmd = ['qstat', '-j',str(jobid)]
+    elif cluster == 'genologin':
+        qstat_cmd = ['squeue', '-j',str(jobid)]
     else:
         log.critical('unknown cluster.')
     return qstat_cmd
@@ -142,12 +146,12 @@ def _launch_jobs(n_f, o_d, cluster, prog, db, n_cpu, tc, outfmt, max_target_seqs
     fw.write(script % (prog,o_d,db,o_d,0.001,outfmt,max_target_seqs,n_cpu))
     fw.close()
     qsub_cmd, job_regex = _get_qsub_cmd(cluster,n_f,o_d,n_cpu,tc,blt_script)
+    log.info(qsub_cmd)
     pipes = subprocess.Popen(qsub_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = pipes.communicate()
     stdoutdata = stdout.decode("utf-8")
     stderrdata = stderr.decode("utf-8")
     log.debug(stdoutdata)
-    log.debug(stderrdata)
     # stdoutdata = subprocess.getoutput(qsub_cmd)
     # log.debug(stdoutdata)
     p = re.compile(job_regex)
@@ -165,13 +169,16 @@ def _get_qsub_cmd (cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d, '-pe', 'multithread', str(n_cpu), blt_script]
         job_regex = '^Your job-array (\d+)\.1-\d+'
     elif cluster == 'avakas':
-        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=48:00:00', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
+        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=70:00:00', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
         job_regex = '^(\d+\[\]\.master)\.cm\.cluster$'
     elif cluster == 'genotoul':
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d,'-l', 'mem=8G', '-l', 'h_vmem=12G', '-pe', 'parallel_smp', str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -wd ' + o_d + ' -l mem=8G -l h_vmem=12G -pe parallel_smp ' + str(n_cpu) + ' ' + blt_script
         job_regex = '^Your job-array (\d+)\.1-\d+'
+    elif cluster == 'genologin':
+        qsub_cmd = ['sbatch','--export=ALL', '--array=1-' + str(n_f+1), '--ntasks-per-node=' + str(tc), '-D', o_d, '--mem=14G', '--ntasks=' + str(n_cpu), blt_script]
+        job_regex = '^Submitted batch job (\d+)'
     else:
         log.critical('unknown cluster.')
     log.debug(qsub_cmd)
@@ -209,7 +216,7 @@ def batch_iterator(iterator, batch_size):
 def _set_options ():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s','--seq',help='The fasta sequence file.',action='store',type=str,required=True)
-    parser.add_argument('-c','--cluster',help='The cluster name.',action='store',type=str,required=True,default='avakas',choices=['avakas','genotoul','enki'])
+    parser.add_argument('-c','--cluster',help='The cluster name.',action='store',type=str,required=True,default='avakas',choices=['avakas','genotoul','enki','genologin'])
     parser.add_argument('-n','--num_chunk',dest='chunk',help='The number of chunks to split the fasta in.',action='store',type=int,default=100)
     parser.add_argument('--tc',dest='tc',help='The number of concurent jobs to launch on SGE servers.',action='store',type=int,default=100)
     parser.add_argument('--n_cpu',help='The number of cpu cores to use per job.',action='store',type=int,default=5)
@@ -237,6 +244,8 @@ def _load_script (cluster, prog):
             script_sge = "#!/bin/sh\n%s -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
         else:
             script_sge = "#!/bin/sh\n%s+ -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
+    elif cluster == 'genologin':
+        script_sge = "#!/bin/sh\n%s -query %s/group_$SLURM_ARRAY_TASK_ID.fa -db %s -out %s/group_$SLURM_ARRAY_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
     return script_sge
 
 
