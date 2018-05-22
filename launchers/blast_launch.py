@@ -169,7 +169,7 @@ def _get_qsub_cmd (cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d, '-pe', 'multithread', str(n_cpu), blt_script]
         job_regex = '^Your job-array (\d+)\.1-\d+'
     elif cluster == 'avakas':
-        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=70:00:00', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
+        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=70:00:00', '-l', 'mem=15G', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
         job_regex = '^(\d+\[\]\.master)\.cm\.cluster$'
     elif cluster == 'genotoul':
@@ -238,7 +238,7 @@ def _load_script (cluster, prog):
     if cluster == 'enki':
         script_sge = "#!/bin/sh\n%s -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
     elif cluster == 'avakas':
-        script_sge = "#!/bin/sh\n%s -query %s/group_$PBS_ARRAYID.fa -db %s -out %s/group_$PBS_ARRAYID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
+        script_sge = "#!/bin/sh\n%s -query %s/group_$PBS_ARRAYID.fa -db %s -out %s/group_$PBS_ARRAYID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines"
     elif cluster == 'genotoul':
         if prog == 'rpstblastn':
             script_sge = "#!/bin/sh\n%s -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"

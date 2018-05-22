@@ -2,7 +2,7 @@ import os.path
 from subprocess import call
 import logging as log
 
-class Normalization:
+class ReadSoustraction:
 
 	def __init__ (self, args):
 		self.check_args(args)
@@ -17,11 +17,11 @@ class Normalization:
 		if 'iter' in args:
 			if args['iter'] == 'sample':
 				self.sample = args['sample']
-				self.cmd_file = self.wd + '/' + 'Normalization_' + self.sample + '_cmd.txt'
+				self.cmd_file = self.wd + '/' + 'pfor' + self.sample + '_cmd.txt'
 				self.iter = 'sample'
 			elif args['iter'] == 'library':
 				self.library = args['library']
-				self.cmd_file = self.wd + '/'  + 'Normalization_' + self.library + '_cmd.txt'
+				self.cmd_file = self.wd + '/'  + 'pfor' + self.library + '_cmd.txt'
 				self.iter = 'library'
 		if 'i1' in args:
 			self.i1 = self._check_file(self.wd + '/' + args['i1'])
@@ -41,10 +41,10 @@ class Normalization:
 			self.o2 = args['o2']
 		else:
 			log.critical('Need o2 file.')
-		if 'num' in args:
-			self.num = args['num']
+		if 'x' in args:
+			self.x = args['x']
 		else:
-			log.critical('Need number of subsample reads.')
+			log.critical('Need x kmer parameter.')
 		if 'n_cpu' in args:
 			self.n_cpu = str(args['n_cpu'])
 		else:
@@ -58,13 +58,10 @@ class Normalization:
 
 	def _create_cmd (self):
 		cmd = ''
-		cmd += self.params['bin']['seqtk'] + ' sample -s1000 ' + self.i1 + ' ' + str(self.num)
-		cmd += ' > ' + self.o1 
-		log.debug(cmd)
-		self.cmd.append(cmd)
-		cmd = ''
-		cmd += self.params['bin']['seqtk'] + ' sample -s1000 ' + self.i2 + ' ' + str(self.num)
-		cmd += ' > ' + self.o2 
+		cmd += self.params['bin']['pfor'] + ' -p ' + str(self.n_cpu)
+		cmd += ' -1 ' + self.i1 + ' -2 ' + self.i2 
+		cmd += ' -x ' + self.x
+		cmd += ' bamtofastq -i - -fq ' + self.o1 + ' -fq2 ' + self.o2
 		log.debug(cmd)
 		self.cmd.append(cmd)
 
