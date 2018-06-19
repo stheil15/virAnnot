@@ -21,7 +21,7 @@ use Excel::Writer::XLSX::Utility;
 use GD::Simple;
 
 my $VERSION = '1.2' ;
-my $lastmodif = '2015-10-27' ;
+my $lastmodif = '2018-06-15' ;
 
 my @input_files;
 my @id_samples;
@@ -90,10 +90,13 @@ sub main {
 	_draw_legend($self);
   _cut_sequences($self);
   _align_with_ref($self);
-
+  $logger->info('Get stats.');
   my $data = _get_global_stats($self,);
+  $logger->info('Print excel.');
   _print_excel($self,$outdir . '/rps2tree_stats.xlsx',$data);
+  $logger->info('Print csv.');
   _print_csv($self,'cluster_nb_reads.csv',$data);
+  $logger->info('Map file.');
   _print_map_file($self,$outdir.'/map.txt',$data);
   _create_html($self,$outdir.'/map.txt',$outdir);
 }
@@ -524,6 +527,7 @@ sub _seek_ref {
 
 
 sub _align_with_ref {
+  $logger->info('Align with ref :');
   my ($self)=@_;
   my $cwd = cwd();
   my $rps2tree_folder = $cwd . '/' . $outdir ;
@@ -578,6 +582,7 @@ sub _align_with_ref {
       if(! -e $align_fasta){
         my $ete_cmd = 'ete3 build -w standard_trimmed_fasttree -a ' . $seq_to_align . ' -o ' . $self->{_cdd_folder} . '/ete3 --rename-dup-seqnames' . "\n";
         $logger->debug($ete_cmd);
+        $logger->info($ete_cmd);
         `$ete_cmd`;
 
         my $mv_ete_cmd = 'mv ' . $self->{_cdd_folder} . '/ete3/clustalo_default-trimal01-none-fasttree_full/all_seq_to_align.fa.final_tree.fa' . ' ' . $align_fasta . "\n";
@@ -594,6 +599,7 @@ sub _align_with_ref {
       if(! -e $tree_file . '.png'){
         my $ete_tree_cmd = 'ete_tree.py' . ' -f ' . $align_fasta . ' -t ' . $tree_file . ' -c ' . $config_file . ' -o ' . $tree_file . '.png';
         $logger->debug($ete_tree_cmd);
+        $logger->info($ete_tree_cmd);
         `$ete_tree_cmd`;
         if(-e $tree_file . '.png'){
           $self->{_tree_files}->{$cdd_id} = $tree_file . '.png';
@@ -736,6 +742,7 @@ sub _print_color_scheme {
 
 
 sub _cut_sequences {
+  $logger->info('Cut sequences.');
   my ($self)=@_;
   for(my $i=0;$i<=$#{$self->{filesList}};$i++){
     my $pfam_hits = $self->{taxoTools}->readCSVextended_regex($self->{filesList}->[$i],"\t",'Viruses');
@@ -835,7 +842,7 @@ print STDERR <<EOF ;
 # AUTHOR:     Sebastien THEIL
 # VERSION:    $VERSION
 # LAST MODIF: $lastmodif
-# PURPOSE:    This script is used to parse csv file containing tax_id field and creates Krona charts.
+# PURPOSE:    
 #
 
 USAGE: perl $prog -i rspblast_csv_1 -id id_sample1 -e blast_cvs_1 ... -i rpsblast_csv_n -id id_sampleN -e blast_csv_n [OPTIONS]
