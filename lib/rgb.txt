@@ -7,7 +7,8 @@
 245 245 220	beige
 255 228 196	bisque
 255 235 205	blanched almond
-  0   0 255	blue
+147 147 216	blue
+205 192 176 AntiqueWhite3
 165  42  42	brown
 222 184 135	burlywood
  95 158 160	cadet blue
@@ -17,7 +18,6 @@
 100 149 237	cornflower blue
 255 248 220	cornsilk
   0 255 255	cyan
-0     0 139	dark blue
 255 185 15	DarkGoldenrod1
 255 127   0	DarkOrange1
 191  62 255	DarkOrchid1
@@ -53,14 +53,12 @@
 250 240 230	linen
 255   0 255	magenta
 176  48  96	maroon
-  0   0 205	medium blue
 224 102 255	MediumOrchid1
- 25  25 112	midnight blue
 245 255 250	mint cream
 255 228 225	misty rose
 255 228 181	moccasin
 255 222 173	navajo white
-  0   0 128	navy
+154 158 244	navy
 253 245 230	old lace
 107 142  35	olive drab
 255 165   0	orange
