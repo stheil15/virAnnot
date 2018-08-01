@@ -202,6 +202,11 @@ Ecsv2excel:
   r:  (SampleID)_idba.scaffold.rps.pfam.csv
   out:  (SampleID)_idba.scaffold.xlsx
   sge: True
+Ecsv2compare:
+  b1: (SampleID)_idba.scaffold.bltx.nr.csv
+  r:  (SampleID)_idba.scaffold.rps.pfam.csv
+  out:  (SampleID)_idba.scaffold.comparison.xlsx
+  sge: True
 Blast2hist:
   id1: (SampleID)_refseq_tbltx
   b1: (SampleID)_idba.scaffold.tbltx.refseq_vir.csv
