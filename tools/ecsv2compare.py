@@ -25,9 +25,9 @@ def main ():
 				taxonomy = row[14]
 				if taxonomy.startswith( 'Virus' ):
 					cell_format = wb.add_format({"bg_color":"#CCFFFF"})
-					blast_query_id_list.append(row[1])
 				else:
 					cell_format = wb.add_format({})
+					blast_query_id_list.append(row[1])
 			ws.write_row(rowx,0, row, cell_format)
 		ws.autofilter('A1:P1')
 	
@@ -46,7 +46,7 @@ def main ():
 					taxonomy = row[9] # col J
 					if regex.match(taxonomy) != None:
 						cell_format = wb.add_format({"bg_color":"#CCFFFF"}) # row color as blue if Viruses
-						if row[0] not in  blast_query_id_list:
+						if row[0] in  blast_query_id_list:
 							cell_format = wb.add_format({"bg_color":"#FF6347"}) # row color as red if pfam_query_id not in blast_query_id
 					else:
 						cell_format = wb.add_format({})
