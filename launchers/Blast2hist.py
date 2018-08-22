@@ -1,15 +1,29 @@
+#!/user/bin/pyton3.4
+"""
+	This class is a part of the virAnnot module
+	===========
+	Authors: Sebastien Theil
+"""
 import os.path
 from subprocess import call
 import logging as log
 
 class Blast2hist:
+		"""
+	This module is part of virAnnot module
+	It creates the command that will generate histogram
+	from Blast results (csv)
+	"""
 
-	def __init__ (self, args):
+	def __init__(self, args):
 		self.check_args(args)
 		self.cmd = []
 		self.create_cmd()
 
-	def create_cmd (self):
+	def create_cmd(self):
+		"""
+		Create command
+		"""
 		cmd = 'blast2hist.py --out ' + self.out
 		if self.iter == 'global':
 			for s_id in self.blast_files:
@@ -20,8 +34,11 @@ class Blast2hist:
 		self.cmd.append(cmd)
 
 
-	def check_args (self, args: dict):
-		self.execution=1
+	def check_args(self, args=dict):
+		"""
+		Check if arguments are valid
+		"""
+		self.execution = 1
 		if 'out' in args:
 			self.out = args['out']
 		if 'sge' in args:
@@ -53,12 +70,4 @@ class Blast2hist:
 								self.blast_files[s_id]['csv_file'].append(self.wd + '/' + s_id + '/' + args['args'][s_id][opt_name])
 								self.blast_files[s_id]['id'].append(args['args'][s_id][id_name])
 		if len(self.blast_files.keys()) == 0:
-			self.execution=0
-
-
-	def _check_file (self,f):
-		try:
-			open(f)
-			return f
-		except IOError:
-			print('File not found ' + f)
+			self.execution = 0

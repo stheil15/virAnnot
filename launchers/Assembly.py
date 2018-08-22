@@ -1,23 +1,36 @@
+#!/usr/bin/python3.4
+"""
+	Assembly step of virAnnot module
+	From fasta files, assemble sequences to generate scaffolds
+	Author: Sebastien Thiel
+"""
 import os.path
-from subprocess import call
+#from subprocess import call
 import logging as log
+import sys
 
 class Assembly:
 
-	def __init__ (self, args):
+	def __init__(self, args):
+		self.i1 = ""
+		self.i2 = ""
+		self.ising = ""
+		self.execution = 0
 		self.check_args(args)
 		self.cmd = []
 		self.create_cmd()
 
 
-	def create_cmd (self):
+	# Create command
+	def create_cmd(self):
 		if self.prog == 'idba':
 			self._create_idba_cmd()
 		elif self.prog == 'spades':
 			self.create_spades_cmd()
 
 
-	def create_spades_cmd (self):
+	# Run assembly with Spades
+	def create_spades_cmd(self):
 		self.i1 = self.check_fastq_format(self.i1)
 		self.i2 = self.check_fastq_format(self.i2)
 		if self.ising != '':
@@ -36,7 +49,8 @@ class Assembly:
 		self.cmd.append(cmd)
 
 
-	def _create_idba_cmd (self):
+	# Run assembly with idba
+	def _create_idba_cmd(self):
 		self.i1 = self.check_fastq_format(self.i1)
 		self.i2 = self.check_fastq_format(self.i2)
 		merged_read = os.path.basename(self.i1).split('_')[0] + '_merged.fa'
@@ -58,8 +72,9 @@ class Assembly:
 		log.debug(cmd)
 		self.cmd.append(cmd)
 
-
-	def check_fasta_format (self, in_file):
+	# Input ising format should be fasta
+	# If fastq or fq, convert to fasta
+	def check_fasta_format(self, in_file):
 		in_file = str(object=in_file)
 		self._check_file(in_file)
 		out = ''
@@ -74,8 +89,9 @@ class Assembly:
 			log.debug('Format seems to be fastq.')
 			return in_file
 
-
-	def check_fastq_format (self, in_file):
+	# Input format (i1 and i2) should be fastq
+	# If fasta, fas or fa, convert to fastq
+	def check_fastq_format(self, in_file):
 		in_file = str(object=in_file)
 		self._check_file(in_file)
 		out = ''
@@ -90,9 +106,10 @@ class Assembly:
 			log.debug('Format seems to be fastq.')
 			return in_file
 
-
-	def check_args (self, args: dict):
-		self.execution=1
+	# Verify that all mandatory parameters are present
+	def check_args(self, args):
+		args = dict
+		self.execution = 1
 		if 'sample' in args:
 			self.sample = str(args['sample'])
 		self.wd = os.getcwd() + '/' + self.sample
@@ -100,20 +117,19 @@ class Assembly:
 		if 'i1' in args:
 			self.i1 = self._check_file(self.wd + '/' + args['i1'])
 		else:
-			self.i1=''
+			self.i1 = ''
 		if 'i2' in args:
 			self.i2 = self._check_file(self.wd + '/' + args['i2'])
 		else:
-			self.i2=''
-
+			self.i2 = ''
 		if 'ising' in args:
 			self.ising = self._check_file(self.wd + '/' + args['ising'])
 		else:
-			self.ising=''
+			self.ising = ''
 
 		if self.i1 == '' and self.i2 == '' and self.ising == '':
 			log.critical('At least one read file must be defined.')
-			self.execution=0
+			self.execution = 0
 		if 'prog' in args:
 			if args['prog'] == 'idba' or args['prog'] == 'spades':
 				self.prog = args['prog']
@@ -135,24 +151,26 @@ class Assembly:
 			self.out = args['out']
 
 
-	def launch (self):
-		if(self.sge):
-			fw =  open(self.cmd_file, mode='w')
-			for el in self.cmd:
-				fw.write(el + "\n")
+	# Launch assembly with sge or not
+	def launch(self):
+		if self.sge:
+			fw = open(self.cmd_file, mode='w')
+			for elem in self.cmd:
+				fw.write(elem + "\n")
 			fw.close()
-			qsub_call =   "qsub -wd " + self.wd + " -V -N " + self.sample + '_idba' + ' -pe multithread ' + self.n_cpu +  ' ' + self.cmd_file
+			qsub_call = "qsub -wd " + self.wd + " -V -N " + self.sample + '_idba' + ' -pe multithread ' + self.n_cpu + ' ' + self.cmd_file
 			log.debug(qsub_call)
 			os.system(qsub_call)
 		else:
-			for el in self.cmd:
-				os.system (el)
+			for elem in self.cmd:
+				os.system(elem)
 
 
-	def _check_file (self,f):
+	# Exisiting file
+	def _check_file(self, input_file):
 		try:
-			open(f)
-			return f
+			open(input_file)
+			return input_file
 		except IOError:
-			print('File not found ' + f)
-			self.execution=0
+			print 'File not found ' + input_file
+			self.execution = 0

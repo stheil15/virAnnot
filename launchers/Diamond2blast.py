@@ -1,26 +1,26 @@
+#!/user/bin/pyton3.4
+"""
+title           :Diamod2blast.py
+author          :Marie Lefebvre
+date            :june-07-2018
+version         :0.1
+usage           :python3.4 Diamod2blast.py
+python_version  :3.4
+"""
 import os.path
-from subprocess import call
 import logging as log
 import random
 import string
 import re
 
-"""
-title           :Diamod2blast.py
-description     :This will select viral sequences from DIAMOND results and 
-				  run Blast on these sequences only.
-author          :Marie Lefebvre
-date            :june-07-2018
-version         :0.1
-usage           :python3.4 Diamod2blast.py
-notes           :
-python_version  :3.4  
-==============================================================================
-"""
-
 
 class Diamond2blast:
-	def __init__ (self, args):
+	"""
+	This module is part of virAnnot module
+	This will select viral sequences from DIAMOND results and
+	run Blast on these sequences only.
+	"""
+	def __init__(self, args):
 		self.check_args(args)
 		self.csv_to_fasta()
 		self.cmd = []
@@ -29,17 +29,19 @@ class Diamond2blast:
 			self.create_cmd()
 
 
-
-	def create_cmd (self):
+	def create_cmd(self):
+		"""
+		Create command
+		"""
 		ssh_cmd = self._get_exec_script()
-		if self.server != 'enki' :
+		if self.server != 'enki':
 			if self.server == 'avakas':
-				cmd = 'scp ' + self.contigs + ' ' + self.username + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
+				cmd = 'scp ' + self.contigs + ' ' + self.username + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
 			else:
 				cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
 			log.debug(cmd)
 			self.cmd.append(cmd)
-			fw =  open(self.remote_cmd_file, mode='w')
+			fw = open(self.remote_cmd_file, mode='w')
 			fw.write(ssh_cmd)
 			fw.close()
 			if self.server != 'avakas':
@@ -60,7 +62,12 @@ class Diamond2blast:
 			self.cmd.append(ssh_cmd)
 
 
-	def _get_exec_script (self):
+	def _get_exec_script(self):
+		"""
+		This file must be in the cluster environment
+		Depending on the cluster used, it load the
+		correct environment and run the job command
+		"""
 		ssh_cmd = ''
 		if self.server != 'enki':
 			ssh_cmd += 'if [ -f ~/.bashrc ]; then' + "\n"
@@ -105,47 +112,53 @@ class Diamond2blast:
 		return ssh_cmd
 
 
-	def csv_to_fasta (self):
+	def csv_to_fasta(self):
+		"""
+		From diamond csv results
+		extract Viral sequences and
+		generate fasta file
+		"""
 		#File input
-		fileInput = open(self.i, "r")
-
+		file_input = open(self.i, "r")
 		#File output
-		fileOutput = open(self.contigs, "w")
-
+		file_output = open(self.contigs, "w")
 		#Seq count
-		count = 1 ;
+		count = 1
 
 		#Loop through each line in the input file
 		log.debug("Converting to FASTA...")
-		for strLine in fileInput:
-		    reg = re.compile(r"^\"Virus.*")
-		    taxo = strLine.split("\t")[14]
-		    #Test if viral
-		    if re.match(reg, taxo) != None:
-		    	seq = strLine.split("\t")[15]
-		    	#Write sequence header
-		    	fileOutput.write(">" + self.sample + "_d2b_" + str(count) + "\n")
-		    	#Write sequence
-		    	fileOutput.write(seq.replace('\"',''))
-		    	count = count + 1
-		log.debug("FASTA conversion done for" + self.sample)
+		for strLine in file_input:
+			reg = re.compile(r"^\"Virus.*")
+			taxo = strLine.split("\t")[14]
+			#Test if viral
+			if re.match(reg, taxo) != None:
+				seq = strLine.split("\t")[15]
+				#Write sequence header
+				file_output.write(">" + self.sample + "_d2b_" + str(count) + "\n")
+				#Write sequence
+				file_output.write(seq.replace('\"', ''))
+				count = count + 1
+		log.debug("FASTA conversion done for " + self.sample)
 
 		#Close the input and output file
-		fileInput.close()
-		fileOutput.close()
+		file_input.close()
+		file_output.close()
 
 
-	def check_args (self, args: dict):
+	def check_args(self, args=dict):
+		"""
+		Check if arguments are valid
+		"""
 		if 'sample' in args:
 			self.sample = str(args['sample'])
 		self.wd = os.getcwd() + '/' + self.sample
-		accepted_type = ['tblastx','blastx','blastn','blastp','rpstblastn']
+		accepted_type = ['tblastx', 'blastx', 'blastn', 'blastp', 'rpstblastn']
 		if 'i' in args:
 			if os.path.exists(self.wd + '/' + args['i']):
 				self.i = self.wd + '/' + args['i']
-				self.execution = 1;
+				self.execution = 1
 			else:
-				self.execution = 0;
+				self.execution = 0
 				log.critical('Input file do not exists.')
 		if 'contigs' in args:
 			self.contigs = self.wd + '/' + args['contigs']
@@ -192,7 +205,7 @@ class Diamond2blast:
 			log.critical('No username defined for cluster.')
 		if 'db' in args:
 			if args['db'] not in self.params['servers'][self.server]['db']:
-				log.critical(arg['db'] + ' not defined in parameters file')
+				log.critical(args['db'] + ' not defined in parameters file')
 			else:
 				self.db = args['db']
 		else:

@@ -1,19 +1,32 @@
+#!/user/bin/pyton3.4
+"""
+Authors: Sebastien Theil
+python_version: 3.4
+"""
 import os.path
-from subprocess import call
 import logging as log
 
-class ReadSoustraction:
 
-	def __init__ (self, args):
+class ReadSoustraction:
+	"""
+	This class is a part of the virAnnot module
+	It substracts reference sequences from reads
+	"""
+
+	def __init__(self, args):
+		self.execution = 1 # init value
 		self.check_args(args)
 		self._create_cmd()
 
 
-	def check_args (self, args: dict):
+	def check_args(self, args=dict):
+		"""
+		Check if arguments are valid
+		"""
 		self.wd = os.getcwd()
 		self.params = args['params']
 		self.cmd = []
-		self.execution=1
+		self.execution = 1
 		if 'iter' in args:
 			if args['iter'] == 'sample':
 				self.sample = args['sample']
@@ -27,17 +40,17 @@ class ReadSoustraction:
 			self.i1 = self._check_file(self.wd + '/' + args['i1'])
 		else:
 			log.critical('Need r1 file.')
-			self.execution=0
+			self.execution = 0
 		if 'i2' in args:
 			self.i2 = self._check_file(self.wd + '/' + args['i2'])
 		else:
 			log.critical('Need r2 file.')
-			self.execution=0
+			self.execution = 0
 		if 'db' in args:
 			self.db = self._check_bowtie_db(args['db'])
 		else:
 			log.critical('Need bowtie2 db option.')
-			self.execution=0
+			self.execution = 0
 		if 'o1' in args:
 			self.o1 = args['o1']
 		else:
@@ -57,7 +70,7 @@ class ReadSoustraction:
 			self.sge = False
 
 
-	def _create_cmd (self):
+	def _create_cmd(self):
 		cmd = ''
 		cmd += self.params['bin']['bowtie'] + ' -p ' + str(self.n_cpu)
 		cmd += ' -x ' + self.db
@@ -68,15 +81,19 @@ class ReadSoustraction:
 		self.cmd.append(cmd)
 
 
-	def _check_file (self,f):
+	def _check_file(self, input_file):
+		"""
+		Verify that file exists
+		"""
 		try:
-			open(f)
-			return f
+			open(input_file)
+			return input_file
 		except IOError:
-			print('File not found ' + f)
+			print 'File not found ' + input_file
+			self.execution = 0
 
 
-	def _check_bowtie_db (self,db):
+	def _check_bowtie_db(self, db):
 		if db in self.params['ReadSoustraction']['db']:
 			return self.params['ReadSoustraction']['db'][db]
 		else:

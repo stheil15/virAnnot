@@ -1,19 +1,32 @@
+#!/user/bin/pyton3.4
+"""
+	This class is a part of the virAnnot module
+	=========
+	Authors: Sebastien Theil, Marie Lefebvre
+"""
 import os.path
-import logging
-from subprocess import call
 import logging as log
 
-class Demultiplex:
 
-	def __init__ (self, args):
+class Demultiplex:
+	"""
+	It creates the command that will run the demultiplex
+	steps. This step remove short sequences (i.e. adapters, polyA)
+	from sequences
+	"""
+
+	def __init__(self, args):
 		self.check_args(args)
 		self._create_cmd()
 
 
-	def check_args (self, args: dict):
+	def check_args(self, args=dict):
+		"""
+		Check if arguments are valid
+		"""
 		self.wd = os.getcwd()
 		self.params = args['params']
-		self.execution=1
+		self.execution = 1
 		self.cmd = []
 		self.cmd_file = ''
 		if 'tmp_prefix' in args:
@@ -51,7 +64,7 @@ class Demultiplex:
 		if 'mid' in args:
 			self.mid = args['mid']
 		else:
-			self.mid =''
+			self.mid = ''
 
 		if 'common' in args:
 			self.common = args['common']
@@ -67,18 +80,18 @@ class Demultiplex:
 			self.i1 = self._check_file(self.wd + '/' + args['i1'])
 		else:
 			log.critical('Need r1 file.')
-			self.execution=0
+			self.execution = 0
 
 		if 'i2' in args:
 			self.i2 = self._check_file(self.wd + '/' + args['i2'])
 		else:
 			log.critical('Need r2 file.')
-			self.execution=0
+			self.execution = 0
 
 		if 'adapters' in args:
 			self.adapters = self._check_file(args['adapters'])
 		else:
-			self.adapters=''
+			self.adapters = ''
 
 		if 'o1' in args:
 			self.o1 = args['o1']
@@ -98,14 +111,17 @@ class Demultiplex:
 			self.sge = False
 
 
-	def _create_cmd (self):
+	def _create_cmd(self):
+		"""
+		Create command
+		"""
 		cmd = 'demultiplex.pl'
-		if(self.polyA):
+		if self.polyA:
 			cmd += ' -polyA'
-		if(self.mid != ''):
-			for m in self.mid:
-				cmd += ' -index ' + m + '=' + self.mid[m]
-		if(self.common != ''):
+		if self.mid != '':
+			for medium in self.mid:
+				cmd += ' -index ' + medium + '=' + self.mid[medium]
+		if self.common != '':
 			cmd += ' -c ' + 'COMMON=' + self.common
 		cmd += ' -1 ' + self.i1
 		cmd += ' -2 ' + self.i2
@@ -121,9 +137,12 @@ class Demultiplex:
 		self.cmd.append(cmd)
 
 
-	def _check_file (self,f):
+	def _check_file(self, file_path):
+		"""
+		Check that file exists
+		"""
 		try:
-			open(f)
-			return f
+			open(file_path)
+			return file_path
 		except IOError:
-			print('File not found ' + f)
+			print 'File not found ' + file_path

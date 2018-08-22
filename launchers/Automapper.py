@@ -1,17 +1,25 @@
+#!/user/bin/pyton3.4
+"""
+	This class is a part of the virAnnot module
+	===========
+	Authors: Sebastien Theil, Marie Lefebvre
+	Objective: Run the automapper toolkit
+"""
 import os.path
-from subprocess import call
 import logging as log
 import sys
 
 class Automapper:
 
-	def __init__ (self, args):
+	def __init__(self, args):
 		self.check_args(args)
 		self.cmd = []
 		self.create_cmd()
 
-
-	def create_cmd (self):
+	def create_cmd(self):
+		"""
+		Generate command that will be ran
+		"""
 		cmd = 'autoMapper.pl'
 		cmd += ' -r ' + self.ref
 		cmd += ' -q ' + self.contigs
@@ -22,8 +30,11 @@ class Automapper:
 		self.cmd.append(cmd)
 
 
-	def check_args (self, args: dict):
-		self.execution=1
+	def check_args(self, args=dict):
+		"""
+		Verify that all mandatory arguments are present
+		"""
+		self.execution = 1
 		if 'sample' in args:
 			self.sample = args['sample']
 		self.wd = os.getcwd() + '/' + self.sample
@@ -53,25 +64,32 @@ class Automapper:
 			if os.path.exists(self.wd + '/' + args['contigs']):
 				self.contigs = self.wd + '/' + args['contigs']
 			else:
-				self.contigs=''
-				self.execution=0
+				self.contigs = ''
+				self.execution = 0
 		if 'ecsv' in args:
 			if os.path.exists(self.wd + '/' + args['ecsv']):
 				self.ecsv = self.wd + '/' + args['ecsv']
 			else:
-				self.ecsv=''
-				self.execution=0
+				self.ecsv = ''
+				self.execution = 0
 
 
-	def _check_file (self,f):
+	def _check_file(self, filepath):
+		""" 
+		Check if file exists
+		"""
 		try:
-			open(f)
-			return f
+			open(filepath)
+			return filepath
 		except IOError:
-			print('File not found ' + f)
+			print 'File not found ' + filepath
 
 
-	def check_seq_format (self, in_file):
+	def check_seq_format(self, in_file):
+		""" 
+		Input format must be fastq
+		If fa, fasta or fas format, convert to fastq
+		"""
 		in_file = str(object=in_file)
 		self._check_file(in_file)
 		out = ''

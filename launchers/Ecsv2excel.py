@@ -1,20 +1,33 @@
+#!/user/bin/pyton3.4
+"""
+Authors         :Sebastien Theil, Marie Lefebvre
+usage           :python3.4 Ecsv2exel.py
+python_version  :3.4
+"""
 import os.path
-from subprocess import call
 import logging as log
-import sys
 
 class Ecsv2excel:
+	"""
+	This class is part of virAnnot module
+	It creates the command that will convert
+	the dispatched csv files to a summary Excel file
+	"""
 
-	def __init__ (self, args):
+	def __init__(self, args):
+		self.execution = 0
 		self.check_args(args)
 		self.cmd = []
 		self.create_cmd()
 
 
-	def create_cmd (self):
+	def create_cmd(self):
+		"""
+		Create command
+		"""
 		cmd = 'ecsv2excel.pl'
-		for c in self.blast_files:
-			cmd += ' -b ' + str(c)
+		for bfile in self.blast_files:
+			cmd += ' -b ' + str(bfile)
 		if self.r != '':
 			cmd += ' -r ' + self.r
 		cmd += ' -o ' + self.out
@@ -22,8 +35,11 @@ class Ecsv2excel:
 		self.cmd.append(cmd)
 
 
-	def check_args (self, args: dict):
-		self.execution=1
+	def check_args(self, args=dict):
+		"""
+		Check if arguments are valid
+		"""
+		self.execution = 1
 		self.sample = args['sample']
 		self.wd = os.getcwd() + '/' + self.sample
 		self.cmd_file = self.wd + '/' + 'ecsv2excel_cmd.txt'
@@ -47,18 +63,20 @@ class Ecsv2excel:
 		else:
 			self.r = ''
 		if len(self.blast_files) == 0:
-			self.execution=0
+			self.execution = 0
 		if 'n_cpu' in args:
 			self.n_cpu = str(args['n_cpu'])
 		else:
 			self.n_cpu = '1'
 
 
-
-	def _check_file (self,f):
+	def _check_file(self, input_file):
+		"""
+		Verify that file exists
+		"""
 		try:
-			open(f)
-			return f
+			open(input_file)
+			return input_file
 		except IOError:
-			print('File not found ' + f)
-			sys.exit(1)
+			print 'File not found ' + input_file
+			self.execution = 0

@@ -1,4 +1,9 @@
-#!/tools/python/3.4.3/bin/python3.4
+#!/user/bin/pyton3.4
+"""
+    This class is a part of the virAnnot module
+    =========
+    Authors: Sebastien Theil, Marie Lefebvre
+"""
 import argparse
 import logging as log
 import re
@@ -169,16 +174,18 @@ def _get_qsub_cmd (cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d, '-pe', 'multithread', str(n_cpu), blt_script]
         job_regex = '^Your job-array (\d+)\.1-\d+'
     elif cluster == 'avakas':
-        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=70:00:00', '-l', 'mem=15G', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
+        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=250:00:00', '-l', 'mem=14G', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
-        job_regex = '^(\d+\[\]\.master)\.cm\.cluster$'
+        job_regex = '^Waiting job array (\d+\[\])\.master$'
     elif cluster == 'genotoul':
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d,'-l', 'mem=8G', '-l', 'h_vmem=12G', '-pe', 'parallel_smp', str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -wd ' + o_d + ' -l mem=8G -l h_vmem=12G -pe parallel_smp ' + str(n_cpu) + ' ' + blt_script
         job_regex = '^Your job-array (\d+)\.1-\d+'
     elif cluster == 'genologin':
         qsub_cmd = ['sbatch','--export=ALL', '--array=1-' + str(n_f+1), '--ntasks-per-node=' + str(tc), '-D', o_d, '--mem=14G', '--ntasks=' + str(n_cpu), blt_script]
-        job_regex = '^Submitted batch job (\d+)'
+        # job_regex = '^Submitted batch job (\d+)'
+        job_regex = '^Waiting job array (\d+)'
+
     else:
         log.critical('unknown cluster.')
     log.debug(qsub_cmd)

@@ -1,24 +1,38 @@
+#!/user/bin/pyton3.4
+"""
+Authors         :Sebastien Theil, Marie Lefebvre
+usage           :python3.4 Ecsv2krona.py {parameters}
+python_version  :3.4
+"""
 import os.path
-from subprocess import call
 import logging as log
 
 
 class Ecsv2krona:
+	"""
+	This class is part of virAnnot module
+	It creates the command that will genrate
+	a krona chart
+	"""
 
-	def __init__ (self, args):
+	def __init__(self, args):
+		self.execution = 1
 		self.check_args(args)
 		self.cmd = []
 		self.create_cmd()
 
 
-	def create_cmd (self):
+	def create_cmd(self):
+		"""
+		Create command
+		"""
 		cmd = 'ecsv2krona.pl'
 		cmd += ' -data ' + self.data
 		if self.r:
 			cmd += ' -r '
 		cmd += ' -c ' + self.c
 		for s_id in self.blast_files:
-			for i in range(0,len(self.blast_files[s_id]['id'])):
+			for i in range(0, len(self.blast_files[s_id]['id'])):
 				cmd += ' -id ' + self.blast_files[s_id]['id'][i]
 				cmd += ' -i ' + self.blast_files[s_id]['csv_file'][i]
 				if len(self.blast_files[s_id]['xml_file']) > 0:
@@ -32,8 +46,11 @@ class Ecsv2krona:
 		self.cmd.append(cmd)
 
 
-	def check_args (self, args: dict):
-		self.execution=1
+	def check_args(self, args=dict):
+		"""
+		Check if arguments are valid
+		"""
+		self.execution = 1
 		if 'out' in args:
 			self.out = args['out']
 		else:
@@ -91,7 +108,7 @@ class Ecsv2krona:
 				self.iter = 'sample'
 				self.blast_files = {}
 				if self.sample not in self.blast_files:
-					self.blast_files[self.sample]={}
+					self.blast_files[self.sample] = {}
 					self.blast_files[self.sample]['csv_file'] = []
 					self.blast_files[self.sample]['xml_file'] = []
 					self.blast_files[self.sample]['id'] = []
@@ -108,7 +125,7 @@ class Ecsv2krona:
 						if xml_opt_name in args:
 							self.blast_files[self.sample]['xml_file'].append(self._check_file(self.wd + '/' + args[xml_opt_name]))
 				if len(self.blast_files[self.sample]['csv_file']) == 0:
-					self.execution=0
+					self.execution = 0
 			# elif args['iter'] == 'library':
 			# 	if 'out' in args:
 			# 		self.out = args['out']
@@ -136,15 +153,18 @@ class Ecsv2krona:
 			# 				self.blast_files[self.library]['xml_file'].append(self._check_file(self.wd + '/' + args[xml_opt_name]))
 			else:
 				log.error('iter argument not handled. ' + args['iter'])
-				self.execution=0
+				self.execution = 0
 		if len(self.blast_files.keys()) == 0:
-			self.execution=0
+			self.execution = 0
 
 
-
-	def _check_file (self,f):
+	def _check_file(self, input_file):
+		"""
+		Verify that file exists
+		"""
 		try:
-			open(f)
-			return f
+			open(input_file)
+			return input_file
 		except IOError:
-			print('File not found ' + f)
+			print 'File not found ' + input_file
+			self.execution = 0

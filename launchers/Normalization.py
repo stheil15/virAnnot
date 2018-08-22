@@ -1,19 +1,31 @@
+#!/user/bin/pyton3.4
+"""
+This class is a part of the virAnnot module
+Authors		    :Marie Lefebvre
+python_version  :3.4
+"""
 import os.path
-from subprocess import call
 import logging as log
 
 class Normalization:
+	"""
+	Randomly select a number of sequences
+	from fasta files
+	"""
 
-	def __init__ (self, args):
+	def __init__(self, args):
 		self.check_args(args)
 		self._create_cmd()
 
 
-	def check_args (self, args: dict):
+	def check_args(self, args=dict):
+		"""
+		Check if arguments are valid
+		"""
 		self.wd = os.getcwd()
 		self.params = args['params']
 		self.cmd = []
-		self.execution=1
+		self.execution = 1
 		if 'iter' in args:
 			if args['iter'] == 'sample':
 				self.sample = args['sample']
@@ -27,12 +39,12 @@ class Normalization:
 			self.i1 = self._check_file(self.wd + '/' + args['i1'])
 		else:
 			log.critical('Need r1 file.')
-			self.execution=0
+			self.execution = 0
 		if 'i2' in args:
 			self.i2 = self._check_file(self.wd + '/' + args['i2'])
 		else:
 			log.critical('Need r2 file.')
-			self.execution=0
+			self.execution = 0
 		if 'o1' in args:
 			self.o1 = args['o1']
 		else:
@@ -56,22 +68,29 @@ class Normalization:
 			self.sge = False
 
 
-	def _create_cmd (self):
+	def _create_cmd(self):
+		"""
+		Create command
+		"""
 		cmd = ''
 		cmd += self.params['bin']['seqtk'] + ' sample -s1000 ' + self.i1 + ' ' + str(self.num)
-		cmd += ' > ' + self.o1 
+		cmd += ' > ' + self.o1
 		log.debug(cmd)
 		self.cmd.append(cmd)
 		cmd = ''
 		cmd += self.params['bin']['seqtk'] + ' sample -s1000 ' + self.i2 + ' ' + str(self.num)
-		cmd += ' > ' + self.o2 
+		cmd += ' > ' + self.o2
 		log.debug(cmd)
 		self.cmd.append(cmd)
 
 
-	def _check_file (self,f):
+	def _check_file(self, input_file):
+		"""
+		Verify that file exists
+		"""
 		try:
-			open(f)
-			return f
+			open(input_file)
+			return input_file
 		except IOError:
-			print('File not found ' + f)
+			print 'File not found ' + input_file
+			self.execution = 0
