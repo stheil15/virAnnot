@@ -70,8 +70,8 @@ class Blast:
 
 		if self.server == 'genotoul':
 			ssh_cmd += 'echo "'
-		# elif self.server == "genologin":
-		# 	ssh_cmd += 'echo "'
+		if self.server == "genologin":
+			ssh_cmd += 'sbatch '
 		ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu ' + self.n_cpu + ' --tc ' + self.tc + ' -d ' + self.params['servers'][self.server]['db'][self.db]
 		if self.server != 'enki':
 			ssh_cmd += ' -s ' + os.path.basename(self.contigs)
