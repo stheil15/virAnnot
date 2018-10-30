@@ -1,4 +1,3 @@
-#!/user/bin/pyton3.4
 """
 Authors		    :Sebastien Theil, Marie Lefebvre
 usage		    :python3.4 Ecsv2exel.py
@@ -97,5 +96,5 @@ class Getresults:
 			open(input_file)
 			return input_file
 		except IOError:
-			print 'File not found ' + input_file
+			print('File not found ' + input_file)
 			self.execution = 0

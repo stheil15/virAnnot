@@ -1,7 +1,5 @@
-#!/user/bin/pyton3.4
 """
 Authors: Sebastien Theil, Marie Lefebvre
-python_version: 3.4
 """
 import os.path
 import logging as log
@@ -16,6 +14,7 @@ class Rps2tree:
 	"""
 
 	def __init__(self, args):
+		self.execution = 1
 		self.check_args(args)
 		self.cmd = []
 		self.create_cmd()
@@ -105,5 +104,5 @@ class Rps2tree:
 			open(input_file)
 			return input_file
 		except IOError:
-			print 'File not found ' + input_file
+			print('File not found ' + input_file)
 			self.execution = 0

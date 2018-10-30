@@ -1,4 +1,3 @@
-#!/user/bin/pyton3.4
 """
 This class is a part of the virAnnot module
 Authors: Sebastien Theil, Marie Lefebvre

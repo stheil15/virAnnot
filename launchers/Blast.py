@@ -18,10 +18,7 @@ class Blast:
 	def create_cmd (self):
 		ssh_cmd = self._get_exec_script()
 		if self.server != 'enki' :
-			if self.server == 'avakas':
-				cmd = 'scp ' + self.contigs + ' mlefebvre007@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
-			else:
-				cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
+			cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
 			log.debug(cmd)
 			self.cmd.append(cmd)
 			fw =  open(self.remote_cmd_file, mode='w')
@@ -31,14 +28,14 @@ class Blast:
 				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
-				cmd = 'scp mlefebvre@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
+				cmd = 'scp ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
 				log.debug(cmd)
 				self.cmd.append(cmd)
 			else:
-				cmd = 'ssh mlefebvre007@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
-				cmd = 'scp mlefebvre007@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
+				cmd = 'scp ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
 				log.debug(cmd)
 				self.cmd.append(cmd)
 		elif self.server == 'enki':
@@ -63,12 +60,14 @@ class Blast:
 			ssh_cmd += 'fi' + "\n"
 			if self.server == 'avakas':
 				ssh_cmd += 'source ~/.bashrc' + "\n"
+			if self.server == 'genouest':
+				ssh_cmd += '. /softs/local/env/envpython-3.6.3.sh' + "\n"
 			ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + "\n"
 			ssh_cmd += 'mkdir ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + "\n"
 			ssh_cmd += 'mv ' + self.params['servers'][self.server]['scratch'] + '/' + os.path.basename(self.contigs) + ' ' + self.out_dir + "\n"
 			ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + "\n"
 
-		if self.server == 'genotoul':
+		if self.server == 'genotoul' or self.server == 'genouest':
 			ssh_cmd += 'echo "'
 		if self.server == "genologin":
 			ssh_cmd += 'sbatch '
@@ -84,6 +83,9 @@ class Blast:
 		if self.server == 'genotoul':
 			ssh_cmd += '"'
 			ssh_cmd += ' | qsub -sync yes -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample
+		if self.server == 'genouest':
+			ssh_cmd += '"'
+			ssh_cmd += ' | qsub -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample
 		# elif self.server == 'genologin':
 		# 	ssh_cmd += '"'
 		# 	ssh_cmd += ' | sbatch -W --export=ALL --workdir=' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -J ' + self.sample

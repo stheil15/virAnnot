@@ -1,4 +1,3 @@
-#!/usr/bin/python3.4
 """
 	Assembly step of virAnnot module
 	From fasta files, assemble sequences to generate scaffolds
@@ -15,7 +14,7 @@ class Assembly:
 		self.i1 = ""
 		self.i2 = ""
 		self.ising = ""
-		self.execution = 0
+		self.execution = 1
 		self.check_args(args)
 		self.cmd = []
 		self.create_cmd()
@@ -107,8 +106,7 @@ class Assembly:
 			return in_file
 
 	# Verify that all mandatory parameters are present
-	def check_args(self, args):
-		args = dict
+	def check_args(self, args:dict):
 		self.execution = 1
 		if 'sample' in args:
 			self.sample = str(args['sample'])
@@ -126,7 +124,6 @@ class Assembly:
 			self.ising = self._check_file(self.wd + '/' + args['ising'])
 		else:
 			self.ising = ''
-
 		if self.i1 == '' and self.i2 == '' and self.ising == '':
 			log.critical('At least one read file must be defined.')
 			self.execution = 0
@@ -172,5 +169,5 @@ class Assembly:
 			open(input_file)
 			return input_file
 		except IOError:
-			print 'File not found ' + input_file
+			print('File not found ' + input_file)
 			self.execution = 0

@@ -1,4 +1,3 @@
-#!/user/bin/pyton3.4
 """
 	This class is a part of the virAnnot module
 	===========
@@ -82,7 +81,7 @@ class Automapper:
 			open(filepath)
 			return filepath
 		except IOError:
-			print 'File not found ' + filepath
+			print('File not found ' + filepath)
 
 
 	def check_seq_format(self, in_file):

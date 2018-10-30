@@ -1,4 +1,3 @@
-#!/user/bin/pyton3.4
 """
 Authors         :Sebastien Theil, Marie Lefebvre
 usage           :python3.4 Ecsv2exel.py
@@ -15,7 +14,7 @@ class Ecsv2excel:
 	"""
 
 	def __init__(self, args):
-		self.execution = 0
+		self.execution = 1
 		self.check_args(args)
 		self.cmd = []
 		self.create_cmd()
@@ -78,5 +77,5 @@ class Ecsv2excel:
 			open(input_file)
 			return input_file
 		except IOError:
-			print 'File not found ' + input_file
+			print('File not found ' + input_file)
 			self.execution = 0

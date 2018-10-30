@@ -1,4 +1,3 @@
-#!/user/bin/pyton3.4
 """
 This class is a part of the virAnnot module
 Authors: Sebastien Theil, Marie Lefebvre
@@ -174,4 +173,4 @@ class Diamond:
 			open(file_path)
 			return file_path
 		except IOError:
-			print 'File not found ' + file_path
+			print('File not found ' + file_path)

@@ -1,4 +1,3 @@
-#!/user/bin/pyton3.4
 """
 Authors: Sebastien Theil
 python_version: 3.4
@@ -14,7 +13,7 @@ class Map:
 	def __init__(self, args):
 		self.check_args(args)
 		self.cmd = []
-		self.create_cmd()
+		self._create_cmd()
 
 	def _create_cmd(self):
 		"""
@@ -104,7 +103,7 @@ class Map:
 			open(input_file)
 			return input_file
 		except IOError:
-			print 'File not found ' + input_file
+			print('File not found ' + input_file)
 			self.execution = 0
 
 	def check_seq_format(self, in_file):
