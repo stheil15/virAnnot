@@ -1,9 +1,3 @@
-#!/user/bin/pyton3.4
-"""
-    This class is a part of the virAnnot module
-    =========
-    Authors: Sebastien Theil, Marie Lefebvre
-"""
 import argparse
 import logging as log
 import re
@@ -16,7 +10,7 @@ import glob
 import shutil
 import random
 
-def main ():
+def main():
     args = _set_options()
     log_format = '%(asctime)s %(lineno)s %(levelname)-8s %(message)s'
     if(args.verbosity == 1):
@@ -39,7 +33,7 @@ def main ():
         shutil.rmtree(out_dir)
 
 
-def _concat_m8 (path, out_file):
+def _concat_m8(path, out_file):
     files = glob.glob(path + '/' + '*.xml')
     h = None
     for f in files:
@@ -47,7 +41,7 @@ def _concat_m8 (path, out_file):
         os.system(cmd)
 
 
-def _concat_xml (path, out_file):
+def _concat_xml(path, out_file):
     files = glob.glob(path + '/' + '*.xml')
     if len(files) == 1:
         shutil.move(files[0], out_file)
@@ -114,7 +108,7 @@ def _concat_xml (path, out_file):
     f_out.close()
 
 
-def _wait_job (cluster=str, jobid=int):
+def _wait_job(cluster=str, jobid=int):
     qstat_cmd = _get_qstat_cmd(cluster,jobid)
     log.info('Waiting job array ' + jobid)
     pipes = subprocess.Popen(qstat_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -122,14 +116,14 @@ def _wait_job (cluster=str, jobid=int):
     stdoutdata = stdout.decode("utf-8").split("\n")
     while len(stdoutdata) > 2:
         log.debug('job ' + jobid + ' still runing...')
-        time.sleep(10)
+        time.sleep(20)
         pipes = subprocess.Popen(qstat_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = pipes.communicate()
         stdoutdata = stdout.decode("utf-8").split("\n")
         log.debug(stdoutdata)
 
 
-def _get_qstat_cmd (cluster=str, jobid=int) :
+def _get_qstat_cmd(cluster=str, jobid=int) :
     qstat_cmd = ''
     if cluster == 'enki':
         qstat_cmd = ['qstat', '-j',str(jobid)]
@@ -139,6 +133,8 @@ def _get_qstat_cmd (cluster=str, jobid=int) :
         qstat_cmd = ['qstat', '-j',str(jobid)]
     elif cluster == 'genologin':
         qstat_cmd = ['squeue', '-j',str(jobid)]
+    elif cluster == 'genouest':
+        qstat_cmd = ['qstat', '-j',str(jobid)]
     else:
         log.critical('unknown cluster.')
     return qstat_cmd
@@ -148,7 +144,7 @@ def _launch_jobs(n_f, o_d, cluster, prog, db, n_cpu, tc, outfmt, max_target_seqs
     script = _load_script(cluster,prog)
     blt_script = o_d + '/' + 'blast_script.sh'
     fw = open(blt_script, mode='w')
-    fw.write(script % (prog,o_d,db,o_d,0.001,outfmt,max_target_seqs,n_cpu))
+    fw.write(script % (prog, o_d, db, o_d, 0.001, outfmt, max_target_seqs, n_cpu))
     fw.close()
     qsub_cmd, job_regex = _get_qsub_cmd(cluster,n_f,o_d,n_cpu,tc,blt_script)
     log.info(qsub_cmd)
@@ -166,7 +162,7 @@ def _launch_jobs(n_f, o_d, cluster, prog, db, n_cpu, tc, outfmt, max_target_seqs
     time.sleep(10)
     return jobid
 
-def _get_qsub_cmd (cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=str):
+def _get_qsub_cmd(cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=str):
     qsub_cmd = ''
     job_regex = ''
     if cluster == 'enki':
@@ -176,15 +172,18 @@ def _get_qsub_cmd (cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=
     elif cluster == 'avakas':
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=250:00:00', '-l', 'mem=14G', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
-        job_regex = '^Waiting job array (\d+\[\])\.master$'
+        job_regex = '^(\d+\[\]\.master)\.cm\.cluster$'
     elif cluster == 'genotoul':
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d,'-l', 'mem=8G', '-l', 'h_vmem=12G', '-pe', 'parallel_smp', str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -wd ' + o_d + ' -l mem=8G -l h_vmem=12G -pe parallel_smp ' + str(n_cpu) + ' ' + blt_script
         job_regex = '^Your job-array (\d+)\.1-\d+'
+    elif cluster == 'genouest':
+        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d,'-l', 'mem=8G', '-l', 'h_vmem=12G', '-pe', 'parallel_smp', str(n_cpu), blt_script]
+        job_regex = '^Your job-array (\d+)\.1-\d+:\d+ \(\"blast_script\.sh\"\) has been submitted'
     elif cluster == 'genologin':
         qsub_cmd = ['sbatch','--export=ALL', '--array=1-' + str(n_f+1), '--ntasks-per-node=' + str(tc), '-D', o_d, '--mem=14G', '--ntasks=' + str(n_cpu), blt_script]
-        # job_regex = '^Submitted batch job (\d+)'
-        job_regex = '^Waiting job array (\d+)'
+        job_regex = '^Submitted batch job (\d+)'
+        # job_regex = '^Waiting job array (\d+)'
 
     else:
         log.critical('unknown cluster.')
@@ -220,10 +219,10 @@ def batch_iterator(iterator, batch_size):
             yield batch
 
 
-def _set_options ():
+def _set_options():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s','--seq',help='The fasta sequence file.',action='store',type=str,required=True)
-    parser.add_argument('-c','--cluster',help='The cluster name.',action='store',type=str,required=True,default='avakas',choices=['avakas','genotoul','enki','genologin'])
+    parser.add_argument('-c','--cluster',help='The cluster name.',action='store',type=str,required=True,default='avakas',choices=['avakas','genotoul','enki','genologin','genouest'])
     parser.add_argument('-n','--num_chunk',dest='chunk',help='The number of chunks to split the fasta in.',action='store',type=int,default=100)
     parser.add_argument('--tc',dest='tc',help='The number of concurent jobs to launch on SGE servers.',action='store',type=int,default=100)
     parser.add_argument('--n_cpu',help='The number of cpu cores to use per job.',action='store',type=int,default=5)
@@ -240,17 +239,25 @@ def _set_options ():
     return args
 
 
-def _load_script (cluster, prog):
+def _load_script(cluster, prog):
     script_sge = ''
     if cluster == 'enki':
         script_sge = "#!/bin/sh\n%s -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
     elif cluster == 'avakas':
-        script_sge = "#!/bin/sh\n%s -query %s/group_$PBS_ARRAYID.fa -db %s -out %s/group_$PBS_ARRAYID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines"
+        if prog == 'rpstblastn':
+            script_sge = "#!/bin/sh\n%s -query %s/group_$PBS_ARRAYID.fa -db %s -out %s/group_$PBS_ARRAYID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines\necho %i"
+        else:
+            script_sge = "#!/bin/sh\n%s -query %s/group_$PBS_ARRAYID.fa -db %s -out %s/group_$PBS_ARRAYID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
     elif cluster == 'genotoul':
         if prog == 'rpstblastn':
             script_sge = "#!/bin/sh\n%s -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
         else:
             script_sge = "#!/bin/sh\n%s+ -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
+    elif cluster == 'genouest':
+        script_sge = "#!/bin/sh\n"
+        script_sge += ".  /softs/local/env/envblast-2.6.0.sh\n"
+        script_sge += ". /softs/local/env/envpython-3.6.3.sh\n"
+        script_sge += "%s -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
     elif cluster == 'genologin':
         script_sge = "#!/bin/sh\n%s -query %s/group_$SLURM_ARRAY_TASK_ID.fa -db %s -out %s/group_$SLURM_ARRAY_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
     return script_sge
