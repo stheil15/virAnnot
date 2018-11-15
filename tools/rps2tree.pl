@@ -38,6 +38,7 @@ my $viral_portion=0.30;
 my $outdir='rps2tree';
 my $help;
 my $group_file='';
+my $p_identity=90;
 
 
 GetOptions(
@@ -53,6 +54,7 @@ GetOptions(
   "g|group=s"      => \$group_file,
   "mp|min_prot=i"      => \$min_prot_length,
   'vp|viral_portion=f' => \$viral_portion,
+  'perc=s'         => \$p_identity,
   "h|help"         => \$help,
 );
 
@@ -287,7 +289,7 @@ sub _get_global_stats {
     open(CLUST,$self->{_cluster_files}->{$cdd_id});
     while(<CLUST>){
       chomp;
-      my @l = split("\t",$_);
+      my @l = split(",",$_);
       for(my $i=2;$i<=$#l;$i++){
 
         for(my $j=0;$j<=$#{$self->{collection}->{$cdd_id}};$j++){
@@ -416,6 +418,7 @@ sub _print_qry_seq {
 
 
 sub _seek_ref {
+  $logger->info('Seek ref');
   my ($self,$cdd_id,$smp)=@_;
   my $smp_list = $self->{_cdd_folder} . '/smp_list';
   my $ref_pfam = $self->{_cdd_folder} . '/ref_pfam.fasta';
@@ -625,8 +628,9 @@ sub _align_with_ref {
         $self->{_tree_files}->{$cdd_id} = $tree_file . '.png';
       }
       my $cluster_file = $self->{_cdd_folder} . '/' . 'clusters.csv';
+      my $temp_otu_file = $self->{_cdd_folder} . '/' . 'temp_otu_file.csv';
       if(! -e $cluster_file && -e $align_fasta){
-        &_compute_pairwise_distance($self,$align_fasta,$matrix_file,$cluster_file,0,'90');
+        &_compute_pairwise_distance($self,$align_fasta,$matrix_file,$cluster_file,0,$self->{p_identity}, $temp_otu_file);
         $self->{_cluster_files}->{$cdd_id} = $cluster_file;
         $self->{_pairwise_files}->{$cdd_id} = $matrix_file;
       }
@@ -645,12 +649,14 @@ sub _align_with_ref {
 
 
 sub _compute_pairwise_distance {
-  my ($self,$fasta,$matrix_file,$cluster_file,$gap,$hsppercid_opt)=@_;
-  $logger->info('Computing pairise distance...' . $fasta);
+  # { data , aligned sequences, output cluster file, take gap into account, identity percentage, OTU temporary output file}
+  my ($self,$fasta,$matrix_file,$cluster_file,$gap,$hsppercid_opt,$temp_otu_file)=@_;
+  $logger->info("Computing pairwise distance with " . $hsppercid_opt . " percentage of identity...");
   open(FASTA,$fasta);
   my $id='';
   my $seq='';
   my $sequences={};
+  $logger->info("Reading fasta file...");
   while(<FASTA>){
       chomp;
       if(/>(\S+)/){
@@ -680,6 +686,7 @@ sub _compute_pairwise_distance {
 
   # CALCULATE THE PERCENT IDENTITY BETWEEN EACH PAIR OF SEQUENCES:
   my @keys1 = sort(keys(%{$sequences})) ; # SORTING THE KEYS MAKES IT EASIER TO TEST
+  $logger->info("Calculate identity matrix...");
   for(my $i=0; $i<=$#keys1; $i++){
     my $seq1 = $sequences->{$keys1[$i]};
     my $fam_nb = $kfamily ;
@@ -699,18 +706,20 @@ sub _compute_pairwise_distance {
       my $identic=0;
       my $compared=0;
       for(my $k=0; $k < scalar(@{$seq1}); $k++){
-          # mutation
+          # mutation, next
           if($seq1->[$k] eq 'X' || $seq2->[$k] eq 'X'){next;}
-          # if gap in the 2 sequences, next
+          # gap in both sequences, next
           if($seq1->[$k] eq '-' && $seq2->[$k] eq '-'){next;}
+          # gap in one of the sequence, next
           if($seq1->[$k] eq '-' || $seq2->[$k] eq '-'){next;}
+          # identity
           if($seq1->[$k] =~ /$seq2->[$k]/i){
             $identic++;
           }
           $compared++;
       }
       my $percentIdentity;
-      # my $overlap;
+      # set minimum overlap to 20
       if($compared == 0 || $compared < 20){
         $percentIdentity=0;
       }
@@ -720,7 +729,6 @@ sub _compute_pairwise_distance {
       $matrix[$i][$j] = $percentIdentity;
       if ($percentIdentity > $hsppercid_opt) {
         $a = [ $keys1[$i], $keys1[$j] ];
-        # print "[\"$keys1[$i]\", \"$keys1[$j]\" ]\n";
         $h{$count} = $a ;
         $count += 1;
       }
@@ -731,138 +739,40 @@ sub _compute_pairwise_distance {
       
     }
   }
-  my $valeur1current;
-  my $valeur2current;
-  my %otu = ();
-  foreach my $k (sort(keys(%h))) {
-    $valeur1current = $h{$k}[0];
-    $valeur2current = $h{$k}[1];
-    if (exists $otu{$valeur1current}){
-      if(exists $otu{$valeur2current}){
-        if ($otu{$valeur2current} ne $valeur1current){
-          push( @{ $otu{$valeur2current} }, $valeur1current );
-          push( @{ $otu{$valeur1current} }, $valeur2current );
-        }
-      }else{
-        if ($otu{$valeur2current} ne $valeur1current){
-          push( @{ $otu{$valeur1current} }, $valeur2current );
-          $otu{$valeur2current} = [$valeur1current];
-        }
-      }
-    }else{
-      if(exists $otu{$valeur2current}){
-        push( @{ $otu{$valeur2current} }, $valeur1current );
-        $otu{$valeur1current} = [$valeur2current];
-      }else{
-        $otu{$valeur1current} = [$valeur2current];
-        $otu{$valeur2current} = [$valeur1current];
-      }
-        
-    }
-  }
-  # foreach my $k (sort(keys(%h))) {
-  #   $valeur1current = $h{$k}[0];
-  #   $valeur2current = $h{$k}[1];
-  #   if (exists $otu{$valeur1current}){
-  #     push( @{ $otu{$valeur1current} }, $valeur2current );
-  #   }else{
-  #     if(exists $otu{$valeur2current}){
-  #       $otu{$valeur2current} = [$valeur1current];
-  #     }else{
-  #       $otu{$valeur1current} = [$valeur2current];
-  #     }
-        
-  #   }
-  # }
-  my %OTUgroup = ();
-  %OTUgroup = _seek_otu(%otu);
-
+  # Write matrix to file
   open(MAT,">$matrix_file");
-  print MAT "\t" . scalar(@keys1) . "\n" ;
+  # print MAT "\t" . scalar(@keys1) . "\n" ;
   for(my $i=0; $i<=$#matrix; $i++){
-    printf MAT "%50s ",$keys1[$i] ;
-    for(my $j=0; $j<=$i; $j++){
+    my $name = $keys1[$i];
+    my $dim = scalar(@keys1);
+    my $count = 1;
+    printf MAT "%50s",$name ;
+    # for(my $j=0; $j<=$i; $j++){
+    for(my $j=0; $j<=$dim; $j++){
       if($j < $#{$matrix[$i]}){
-          printf MAT "%.4f ", $matrix[$i][$j] ;
-      }
-      else{
-          printf MAT "%.4f", $matrix[$i][$j] ;
+        if ($count != 0){
+          printf MAT ",%.4f", $matrix[$i][$j];
+        }else{
+          printf MAT ",%.4f", 0;
+        }
+        if ($matrix[$i][$j] == 100){
+          $count = 0;
+        }
+      }else{
+        if ( $matrix[$i][$j] == 100) {
+          printf MAT ",%.4f", $matrix[$i][$j];
+        }else{
+          printf MAT ",%.4f", 0;
+        }
       }
     }
-    print MAT "\n";
+    print MAT ",\n";
   }
   close MAT;
-  open(CLUST,">$cluster_file");
+  # Run OTUs assignation
+  $logger->info("Seek OTUs...");
+  `seek_otu.R $matrix_file $cluster_file $hsppercid_opt`;
   print STDERR "# $kfamily families found for " . scalar(@keys1) . " queries\n" ;
-  # foreach my $key (sort {$a<=>$b} keys %array_family) {
-  #   printf CLUST ("OTU_%03d\t%d\t%s\n",$key,scalar(@{$array_family{$key}}),join("\t", (sort {$a cmp $b} @{$array_family{$key}})) );
-  # }
-  my $OTUnum = 1;
-  foreach my $k (sort(keys(%OTUgroup))) {
-    printf CLUST ("OTU_%03d\t",$OTUnum);
-    my $size = scalar( @{ $OTUgroup{$k} } );
-    my @cluster_group;
-    for(my $i=0; $i<$size; $i++){
-        if ($k ne $OTUgroup{$k}[$i]){
-            if (!grep { $_ eq  $OTUgroup{$k}[$i] } @cluster_group){
-                push (@cluster_group,$OTUgroup{$k}[$i]);
-            }
-        }
-    }
-    my $clust_size = scalar( @cluster_group );
-    my $s = $clust_size+1;
-    printf CLUST "$s\t$k\t";
-    for (my $j=0; $j<$clust_size; $j++){
-        printf CLUST "$cluster_group[$j]\t";
-    }
-    printf CLUST "\n";
-    $OTUnum += 1;
-  }
-  close CLUST;
-}
-
-# Fonction : Group OTUs by relation
-# Example :
-# a -> b, b->c, a->d, e->f
-# otu1 = a, b, d, c
-# otu2 = e, f
-sub _seek_otu {
-    my (%OTU) = @_;
-    my %newOTU = ();
-    %newOTU = %OTU;
-    my $change = 0;
-    no warnings qw(internal);
-
-    while(my($k, $v) = each %OTU){
-        my $sizeOTU = scalar( @{ $OTU{$k} } );
-        for(my $i=0; $i<$sizeOTU; $i++){
-
-            if ($k ne $OTU{$k}[$i]){
-                # # Si l'element $OTU{$k}[$i] existe comme clef, 
-                # # prendre tous les elements de cette clef et les mettre dans la clef d'origine $k
-                my $el = $OTU{$k}[$i];
-                my $m = 0;
-                if (exists $OTU{$el} ){
-                    my $sizeNew = scalar( @{ $OTU{$el} } );
-                    $m = 0;
-                    for(my $j=0; $j<$sizeNew; $j++){
-                        push( @{ $newOTU{$k} }, $OTU{$el}[$j] );
-                        $change += 1;
-                        $m = 1;
-                    } 
-                }
-                if ($m == 1){
-                    delete $newOTU{$el};
-                }
-            }
-        }
-    }
-    if($change != 0 ){
-        my %result = _seek_otu(%newOTU);
-        return %result;
-    }else{
-        return %newOTU;
-    }
 }
 
 
@@ -882,6 +792,7 @@ sub _cut_sequences {
   for(my $i=0;$i<=$#{$self->{filesList}};$i++){
     my $pfam_hits = $self->{taxoTools}->readCSVextended_regex($self->{filesList}->[$i],"\t",'Viruses');
     my $fasta_tool = Tools::Fasta->new('file' => $self->{seqFileList}->[$i]);
+    $logger->info('Csv read');
   # for(my $i=0;$i<=$#{$self->{_pfam_hits}};$i++){
     for(my $j=0;$j<=$#{$pfam_hits};$j++){
       if(!defined($pfam_hits->[$j]->{superkingdom})){next;}
@@ -906,6 +817,7 @@ sub _cut_sequences {
       }
     }
   }
+  $logger->info('End Cut sequences.');
 }
 
 
@@ -920,7 +832,9 @@ sub _set_options {
       }
     }
     $self->{id_samples} = \@id_samples;
+    # RPS blast files
     $self->{filesList} = \@input_files;
+    # contigs
     if(scalar(@seq_fasta) > 0){
       $self->{seqFileList} = \@seq_fasta;
     }
@@ -928,6 +842,7 @@ sub _set_options {
       $logger->logdie('You must provide sequence files associated with csv files.')
     }
     if(scalar(@ecsv_files) > 0){
+      # Blastx files
       $self->{ecsvFileList} = \@ecsv_files;
     }
     else{
@@ -963,6 +878,9 @@ sub _set_options {
   if($viral_portion >= 0 && $viral_portion <= 1){
     $self->{_viral_portion} = $viral_portion;
   }
+  if($p_identity > 0 && $viral_portion < 100){
+    $self->{p_identity} = $p_identity;
+  }
   else{
     $logger->logdie('Viral portion must be set between 0 and 1.');
   }
@@ -990,6 +908,7 @@ USAGE: perl $prog -i rspblast_csv_1 -id id_sample1 -e blast_cvs_1 ... -i rpsblas
        -s                 Sequences in fasta.
        -mp|min_prot       Minimum query protein length.
        -vp|viral_portion  Minimun portion of viral sequences in PFAM domain to be included.
+       -perc              Minimum percentage of identity between two sequences
        -db                NCBI Taxonomy SqliteDB.
        --blast_db         Blast database path.
        --blast_type       Blast program type.
