@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=generator content="blast2html; see https://github.com/thehyve/blast2html/">
+    
+    <title>Blast output</title>
+    
+    <style>
+      body {
+      color: #333333;
+      font-family: Arial,Sans-Serif;
+      }
+
+      :link {
+      color: #336699;
+      }
+
+      .right {
+      float: right;
+      }
+
+      /* Galaxy with html sanitization enabled strips the header of this html page. If so, show the user a warning.*/
+      #strip_html_warning {
+      display: none;
+      }
+      
+      #content {
+      margin: 0 2em;
+      padding: 0.5em;
+      border: 1px solid #888888;
+      background-color: #d3dff5;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+      color: #2A6979;
+      font-family: arial,verdana,sans-serif;
+      letter-spacing: -1px;
+      margin: 1.2em 0 0.3em;
+      }
+
+      h1 {
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 150%;
+      padding-bottom: 0.1em;
+      }
+
+      h2 {
+      font-size: 120%;
+      font-weight: bold;
+      }
+
+      h4.darkHeader {
+      color: #4D4D4D;
+      letter-spacing: 0;
+      font-weight: bold;
+      }
+
+      #nodata {
+      font-weight: bold;
+      }
+
+      .index {
+      margin-bottom: 3em;
+      }
+      .index div.indexentry {
+      margin: 1.2em 1.6em;
+      font-weight: bold;
+      font-size: 100%;
+      }
+      
+      .headerdata {
+      font-size: 90%;
+      }
+      .headerdata .param {
+      font-weight: bold;
+      text-align: right;
+      padding: 0 1em;
+      }
+
+      .grey {
+      background-color: #eeeeee;
+      border: 1px solid #cccccc;
+      padding: 1em;
+      }
+
+      .white {
+      background-color: white;
+      border: 1px solid #cccccc;
+      padding: 1.5em 2%;
+      }
+
+      .graphicrow {
+      clear: left;
+      width: 100%;
+      }
+
+      .graphicitem {
+      float: left;
+      }
+
+
+      
+      .graphics .grey {
+      text-align: center;
+      }
+
+      .graphic {
+      background-color: white;
+      border: 2px solid black;
+      padding: 1.5em;
+      margin: auto;
+      }
+
+      .centered, .defline, div.legend, div.tablewrapper {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .defline {
+      background-color: white;
+      border: 1px solid black;
+      margin: .5em auto;
+      padding-left: .2em;
+      padding-right: .2em;
+      max-width: 50em;
+      text-align: left;
+      height: 2.8em;
+      overflow-y: hidden;
+      }
+
+      div.legend {
+      max-width: 40em;
+      }
+      div.legend div {
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-spacing: 0;
+      }
+      div.legend div .graphicitem {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      }
+
+      div.tablewrapper {
+      width: 50%;
+      min-width: 60em;
+      }
+
+      /* For small widths we give the graphic 100% */
+      @media (max-width: 72.5em) {
+      div.tablewrapper {
+      width: 100%;
+      min-width: 0px;
+      }
+      }
+
+      .scale {
+      width: 100%;
+      margin: .5em 0;
+      font-weight: bold;
+      }
+      .scale div {
+      color: red;
+      text-align: left;
+      }
+      .scale .graphicrow {
+      margin: .5em 0 .5em 0;
+      color: white;
+      }
+      .scale .graphicitem {
+      position: relative;
+      }
+      .scale .graphicitem div {
+      margin: 0 1px;
+      padding: 0 2px;
+      text-align: right;
+      background-color: red;
+      color: white;
+      }
+      .scale .graphicitem:first-child div {
+      margin-left: 0px;
+      }
+      .scale .graphicitem:last-child div {
+      margin-right: 0px;
+      }
+      .scale .graphicitem .lastlabel {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      background-color: transparent;
+      color: red;
+      }
+
+      a.matchresult {
+      display: block;
+      margin: 0;
+      padding: 0;
+      }
+      div.matchrow {
+      margin-top: 4px;
+      }
+      div.matchrow, div.matchitem {
+      height: 4px;
+      }
+
+      
+      table.descriptiontable {
+      font-size: 85%;
+      border: 1px solid #97b0c8;
+      border-spacing: 0;
+      color: #222222;
+      line-height: 1.3em;
+      background-color: white;
+      }
+      table.descriptiontable col:first-child {
+      width: 100%;
+      }
+      table.descriptiontable tr:hover {
+      background-color: #D5DEE3;
+      }
+      table.descriptiontable th {
+      color: #14376C;
+      font-weight: normal;
+      background-color: #F0F0F0;
+      background: linear-gradient(#FFFFFF, #F0F0F0);
+      border-bottom: 1px solid #D4DFE9;
+      border-right: 1px solid #CFCFCF;
+      border-left: 0px solid black;
+      border-top: 0px solid black;
+      }
+      table.descriptiontable td {
+      overflow: hidden;
+      text-align: center;
+      padding: .4em .8em;
+      }
+      table.descriptiontable td div {
+      width: 1em;
+      overflow: visible;
+      white-space: nowrap;
+      text-align: left;
+      }
+
+
+      
+      .alignments .white {
+      padding: 1.5em 1em;
+      }
+      
+      .alignment {
+      border-top: 1px solid black;
+      padding-left: 1em;
+      padding-right: 1em;
+      }
+      
+      div.linkheader {
+      padding-top: .2em;
+      font-size: 85%;
+      color: #14376C;
+      }
+      div.linkheader a.linkheader {
+      margin-right: 1em;
+      }
+      div.linkheader .right a {
+      text-decoration: none;
+      }
+
+      .title .hittitle {
+      color: #222222;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo {
+      font-size: 80%;
+      margin-top: 0;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo .b {
+      color: #606060;
+      font-weight: bold;
+      font-size: 90%;
+      }
+
+      .moretitles {
+      margin: 1.2em;
+      }
+      .moretitles .titleinfo {
+      margin: 0;
+      padding: 0;
+      }
+      .moretitles .hittitle {
+      margin: .4em 0 .2em 0;
+      padding: 0;
+      }
+      
+      a.showmoretitles {
+      font-size: 75%;
+      color: #336699;
+      font-weight: bold;
+      margin-top: 0;
+      }
+      a.showmoretitles:hover {
+      }
+
+      .hotspot {
+      color: #606060;
+      font-family: verdana, arial, sans-serif;
+      margin-bottom: 2.5em;
+      }
+
+      .hotspot p.range {
+      font-size: 70%;
+      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: .2em;
+      }
+      .hotspot p.range span.range {
+      font-weight: bold;
+      }
+      .hotspot p.range a.range {
+      margin-left: .5em;
+      }
+
+      table.hotspotstable {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      text-align: left;
+      border-collapse: collapse;
+      }
+      table.hotspotstable th, table.hotspotstable td {
+      padding: .1em 1em;
+      }
+      table.hotspotstable th {
+      font-size: 70%;
+      }
+      table.hotspotstable td {
+      min-width: 7em;
+      color: #222222;
+      font-size: 80%;
+      }
+
+      pre.alignmentgraphic {
+      color: #222222;
+      }
+
+      footer {
+      text-align: center;
+      color: #cccccc;
+      font-size: 70%;
+      margin-top: 1em;
+      }
+      footer :link {
+      color: #5588cc;
+      }
+      
+    </style>
+
+    <script type="text/javascript">
+      function toggle_visibility(id) {
+          var e = document.getElementById(id);
+          if(e.style.display != 'block')
+              e.style.display = 'block';
+          else
+              e.style.display = 'none';
+      }
+    </script>
+
+  </head>
+
+  
+  <body>
+    
+    <div id="strip_html_warning">
+      <!-- This div should be hidden by the header css block. Galaxy
+      strips all css, breaking this page but making this warning
+      visible. This warning contains some ugly old skool tabular html
+      layout that is not stripped. -->
+      <table bgcolor="#FFE5C9"><tr><td><font color="red"><b>
+                <font size=5><center>This html page seems to have been stripped by Galaxy.</center></font>
+                Disable Galaxy's html sanitization feature to view the full page (see <font face=monospace>sanitize_all_html</font> in your galaxy's universe_wsgi.ini), or download this page instead of viewing it in Galaxy.
+      </b></font></td></tr></table>
+    </div>
+    
+    <div id=content>
+
+
+      <section class=index>
+        <h1>Queries</h1>
+
+        <div class=indexentry><a href="#match6">
+            ds2016-55_25: No definition line
+            (559 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match8">
+            ds2016-55_34: No definition line
+            (500 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match20">
+            ds2016-55_42: No definition line
+            (463 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match28">
+            ds2016-55_79: No definition line
+            (214 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match31">
+            ds2016-55_55: No definition line
+            (388 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match69">
+            ds2016-55_69: No definition line
+            (327 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match75">
+            ds2016-55_70: No definition line
+            (326 letters, 1 hits)
+        </a></div>
+
+      </section>
+
+      
+      <section class=match id=match6>
+      
+        <h1>Nucleotide Sequence (559 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-55_2</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>1402</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 7 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline6>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.01788908765653%">
+                        <div>56</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.01788908765653%">
+                        <div>112</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.01788908765653%">
+                        <div>168</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.01788908765653%">
+                        <div>224</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.01788908765653%">
+                        <div>280</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.01788908765653%">
+                        <div>336</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.01788908765653%">
+                        <div>392</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.01788908765653%">
+                        <div>448</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.01788908765653%">
+                        <div>504</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.838998211091235%">
+                        <div>559</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline6").innerHTML="hypothetical protein [Isaria javanica chrysovirus 1] "'
+                   onmouseout='document.getElementById("defline6").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="hypothetical protein [Isaria javanica chrysovirus 1] ">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 99.82110912343471%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.17889087656529518%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="hypothetical protein [Isaria javanica chrysovirus 1] "
+                              id="description1">
+                        hypothetical protein [Isaria javanica chrysovirus 1] 
+                  </a></div></td>
+                  <td>140.6</td>
+                  <td>140.6</td>
+                  <td>34%</td>
+                  <td>2.238e-34</td>
+                  <td>36%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372167?report=genbank&amp;log$=nuclalign">YP_009337890</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372167?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372167?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>hypothetical protein [Isaria javanica chrysovirus 1] </p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372167?report=genbank&amp;log$=nuclalign">ref|YP_009337890.1|</a>
+                    <span class=b>Length:</span> 977
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+                <a class=showmoretitles onclick="toggle_visibility('moretitles1'); return false;" href=''>
+                  See 1 more title(s)
+                </a>
+
+                <div class=moretitles id=moretitles1 style="display: none">
+                  <div class=title>
+                    <p class=hittitle>hypothetical protein [Isaria javanica chrysovirus 1]</p>
+                    <p class=titleinfo>
+                      <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1127253881?report=genbank&amp;log$=nuclalign">gb|APR73430.1|</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 641 to 828</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372167?report=genbank&amp;log$=nuclalign&amp;from=641&amp;to=828">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372167?report=graph&amp;log$=nuclalign&amp;from=641&amp;to=828">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>140.6 bits(353)</td>
+                      <td>0.0</td>
+                      <td>67/188(36%)</td>
+                      <td>2/188(1%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  IGMELLSRWELEMDVDKRVARLLRSIAVRWYKASIIRDEWSDLVCRVLESGDTKMALAHGISAMLSCDIDTGTSGVDWSMRIFDALKSFMVCALVIEKDAYI-VMQDGRDGP-RPCILGITEAEIWSRIAKRNVPRSAMGYFAAGVGNIQRLMEVGVWSNSRTVMLMEMINARSWMPKITDRMLLSCL  558
+                +G+EL  RW       +R+  +   +  +WYK  ++RDEWSD + R++ +      LA  I+ + SCD   GTSG++W +R+ +ALK F+VC++V      I V++D   G  RPC+ GI E ++W  I + N+PR A+G F   V  +    E+  W +S TV ++EM+N  SW P+I    + +C+
+Subject    641  LGLELCRRWGDNDSALERIPGITHKLITKWYKVCVLRDEWSDFINRIMAAEVRNFGLAQAIAKICSCDPQAGTSGLEWGVRVCEALKGFIVCSIVTLPGKLIGVVEDRATGQCRPCVGGIEEGDLWKAIIQSNIPRHALGVFGGTVSALSLANELCEWQDSPTVAILEMVNCHSWEPRIGPGRMATCI  828</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match8>
+      
+        <h1>Nucleotide Sequence (500 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-55_2</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>1402</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 7 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline8>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>50</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>100</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>150</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>200</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>250</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>300</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>350</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>400</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>450</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>500</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline8").innerHTML="capsid protein [Isaria javanica chrysovirus 1] "'
+                   onmouseout='document.getElementById("defline8").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="capsid protein [Isaria javanica chrysovirus 1] ">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.0%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 91.80000000000001%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 7.2%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="capsid protein [Isaria javanica chrysovirus 1] "
+                              id="description1">
+                        capsid protein [Isaria javanica chrysovirus 1] 
+                  </a></div></td>
+                  <td>193.4</td>
+                  <td>193.4</td>
+                  <td>31%</td>
+                  <td>2.497e-53</td>
+                  <td>58%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">YP_009337889</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1] </p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">ref|YP_009337889.1|</a>
+                    <span class=b>Length:</span> 974
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+                <a class=showmoretitles onclick="toggle_visibility('moretitles1'); return false;" href=''>
+                  See 1 more title(s)
+                </a>
+
+                <div class=moretitles id=moretitles1 style="display: none">
+                  <div class=title>
+                    <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1]</p>
+                    <p class=titleinfo>
+                      <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1127253879?report=genbank&amp;log$=nuclalign">gb|APR73429.1|</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 115 to 267</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign&amp;from=115&amp;to=267">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign&amp;from=115&amp;to=267">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>193.4 bits(490)</td>
+                      <td>0.0</td>
+                      <td>89/153(58%)</td>
+                      <td>0/153(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        6  WERCEVAAGLYPGPLDEVQGREKLVAAAREGIPNRDDVSKVTSWSRDAVRALQDEDLSMFKVLLENVVVGQSKLTRLVKGFLMLLECMDRGSIDVDLDVQDYVIYNPRDVVNTFRHGDRSYVFNSRPSSNPHTAVLWRMCGAYPTNQTHPTHL  464
+                WE   +  GLYPGPLD +  R+KL +AAREGIP+RD V+K T W+R+ VR LQD D+S FK LLE V VGQSKLTRLVKGFLMLLECM+R  IDV L VQ  ++Y P++V+ +F    R+YV+NS+PS + ++AVLWRMC AYP  +   +H+
+Subject    115  WEHLGIDVGLYPGPLDRLLARDKLTSAAREGIPDRDQVAKATGWNRNEVRGLQDADMSAFKGLLEQVRVGQSKLTRLVKGFLMLLECMERRHIDVVLQVQQTIVYGPQNVIQSFLADGRAYVYNSKPSQSVYSAVLWRMCEAYPPPELAGSHI  267</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match20>
+      
+        <h1>Nucleotide Sequence (463 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-55_2</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>1402</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 7 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline20>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.151187904967601%">
+                        <div>47</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.151187904967601%">
+                        <div>94</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.151187904967601%">
+                        <div>141</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.151187904967601%">
+                        <div>188</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.151187904967601%">
+                        <div>235</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.151187904967601%">
+                        <div>282</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.151187904967601%">
+                        <div>329</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.151187904967601%">
+                        <div>376</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.151187904967601%">
+                        <div>423</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.639308855291576%">
+                        <div>463</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline20").innerHTML="capsid protein [Isaria javanica chrysovirus 1] "'
+                   onmouseout='document.getElementById("defline20").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="capsid protein [Isaria javanica chrysovirus 1] ">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.2159827213822894%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 73.86609071274297%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 25.91792656587473%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="capsid protein [Isaria javanica chrysovirus 1] "
+                              id="description1">
+                        capsid protein [Isaria javanica chrysovirus 1] 
+                  </a></div></td>
+                  <td>92.0</td>
+                  <td>92.0</td>
+                  <td>25%</td>
+                  <td>6.423e-18</td>
+                  <td>40%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">YP_009337889</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1] </p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">ref|YP_009337889.1|</a>
+                    <span class=b>Length:</span> 974
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+                <a class=showmoretitles onclick="toggle_visibility('moretitles1'); return false;" href=''>
+                  See 1 more title(s)
+                </a>
+
+                <div class=moretitles id=moretitles1 style="display: none">
+                  <div class=title>
+                    <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1]</p>
+                    <p class=titleinfo>
+                      <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1127253879?report=genbank&amp;log$=nuclalign">gb|APR73429.1|</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 470 to 569</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign&amp;from=470&amp;to=569">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign&amp;from=470&amp;to=569">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>92.0 bits(227)</td>
+                      <td>0.0</td>
+                      <td>46/114(40%)</td>
+                      <td>14/114(12%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        2  VLAALSNGVYDMSGNVTSFDVVKREMDLGNIVYRERDIPHGSFTVRWVCVTKTDSCREVEPRKRVSKPMTLVHPCNKVPGSTLRSTKKKRFGPTQKEPARPSGHRRQGSVPIIP  343
+                V+ +L  GV DMS   T++DV+KRE+ L N+ +RERD+P G FTV WV VT+ DS + ++PRKR  KP+ LV  C+              F P  +E  R      +G  P+ P
+Subject    470  VIESLVRGVSDMSQETTTYDVLKRELRLANVAFRERDLPRGEFTVGWVSVTRLDSFKTIKPRKRTVKPIELVRECD--------------FNPRLREIGRRRERFSRGKAPVTP  569</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match28>
+      
+        <h1>Nucleotide Sequence (214 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-55_2</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>1402</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 7 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline28>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.280373831775702%">
+                        <div>22</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.280373831775702%">
+                        <div>44</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.280373831775702%">
+                        <div>66</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.280373831775702%">
+                        <div>88</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.280373831775702%">
+                        <div>110</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.280373831775702%">
+                        <div>132</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.280373831775702%">
+                        <div>154</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.280373831775702%">
+                        <div>176</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.280373831775702%">
+                        <div>198</div>
+                      </div>
+                      <div class=graphicitem style="width: 7.4766355140186915%">
+                        <div>214</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline28").innerHTML="capsid protein [Isaria javanica chrysovirus 1] "'
+                   onmouseout='document.getElementById("defline28").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="capsid protein [Isaria javanica chrysovirus 1] ">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 81.30841121495327%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 18.69158878504673%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="capsid protein [Isaria javanica chrysovirus 1] "
+                              id="description1">
+                        capsid protein [Isaria javanica chrysovirus 1] 
+                  </a></div></td>
+                  <td>53.1</td>
+                  <td>53.1</td>
+                  <td>27%</td>
+                  <td>1.115e-05</td>
+                  <td>40%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">YP_009337889</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1] </p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">ref|YP_009337889.1|</a>
+                    <span class=b>Length:</span> 974
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+                <a class=showmoretitles onclick="toggle_visibility('moretitles1'); return false;" href=''>
+                  See 1 more title(s)
+                </a>
+
+                <div class=moretitles id=moretitles1 style="display: none">
+                  <div class=title>
+                    <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1]</p>
+                    <p class=titleinfo>
+                      <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1127253879?report=genbank&amp;log$=nuclalign">gb|APR73429.1|</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 881 to 938</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign&amp;from=881&amp;to=938">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign&amp;from=881&amp;to=938">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>53.1 bits(126)</td>
+                      <td>0.0</td>
+                      <td>23/58(40%)</td>
+                      <td>0/58(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  GASSSRFPMAIRRDELVGAGDPVTLPYRHAPASFGQREIPEDDGQWIMLAIRVQRPIY  174
+                GA + RFP  + R +L   G+P+ L YR  P+S G R+  + D +W++LA RV R ++
+Subject    881  GAYNDRFPSVLNRHDLDAIGEPMVLEYRKNPSSVGPRDPDDSDSRWLVLASRVNRKVF  938</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match31>
+      
+        <h1>Nucleotide Sequence (388 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-55_2</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>1402</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 7 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline31>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.051546391752577%">
+                        <div>39</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.051546391752577%">
+                        <div>78</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.051546391752577%">
+                        <div>117</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.051546391752577%">
+                        <div>156</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.051546391752577%">
+                        <div>195</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.051546391752577%">
+                        <div>234</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.051546391752577%">
+                        <div>273</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.051546391752577%">
+                        <div>312</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.051546391752577%">
+                        <div>351</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.536082474226802%">
+                        <div>388</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline31").innerHTML="capsid protein [Isaria javanica chrysovirus 1] "'
+                   onmouseout='document.getElementById("defline31").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="capsid protein [Isaria javanica chrysovirus 1] ">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 8.505154639175256%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 76.5463917525773%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 14.948453608247421%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="capsid protein [Isaria javanica chrysovirus 1] "
+                              id="description1">
+                        capsid protein [Isaria javanica chrysovirus 1] 
+                  </a></div></td>
+                  <td>81.3</td>
+                  <td>81.3</td>
+                  <td>26%</td>
+                  <td>1.415e-14</td>
+                  <td>38%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">YP_009337889</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1] </p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">ref|YP_009337889.1|</a>
+                    <span class=b>Length:</span> 974
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+                <a class=showmoretitles onclick="toggle_visibility('moretitles1'); return false;" href=''>
+                  See 1 more title(s)
+                </a>
+
+                <div class=moretitles id=moretitles1 style="display: none">
+                  <div class=title>
+                    <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1]</p>
+                    <p class=titleinfo>
+                      <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1127253879?report=genbank&amp;log$=nuclalign">gb|APR73429.1|</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 871 to 969</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign&amp;from=871&amp;to=969">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign&amp;from=871&amp;to=969">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>81.3 bits(199)</td>
+                      <td>0.0</td>
+                      <td>38/99(38%)</td>
+                      <td>0/99(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       34  DVHRIYLWIRGANPGYFPLDVTSIEIANLGEPETLAFKQNPASFGQRNVAEEDSRWIVMACRINRPVFTKELLITLTKEFILTPQMVNHLRRTYGLFER  330
+                DV  + +W+ GA    FP  +   ++  +GEP  L +++NP+S G R+  + DSRW+V+A R+NR VF  + L  L   FI+   M  +LR  YGLF++
+Subject    871  DVRLMAMWLEGAYNDRFPSVLNRHDLDAIGEPMVLEYRKNPSSVGPRDPDDSDSRWLVLASRVNRKVFDFDYLRMLCSNFIVPAGMRANLREVYGLFDK  969</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match69>
+      
+        <h1>Nucleotide Sequence (327 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-55_2</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>1402</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 7 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline69>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>33</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>66</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>99</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>132</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>165</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>198</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>231</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>264</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>297</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.174311926605505%">
+                        <div>327</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline69").innerHTML="capsid protein [Isaria javanica chrysovirus 1] "'
+                   onmouseout='document.getElementById("defline69").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="capsid protein [Isaria javanica chrysovirus 1] ">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 3.6697247706422016%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 70.64220183486238%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 25.68807339449541%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="capsid protein [Isaria javanica chrysovirus 1] "
+                              id="description1">
+                        capsid protein [Isaria javanica chrysovirus 1] 
+                  </a></div></td>
+                  <td>55.8</td>
+                  <td>55.8</td>
+                  <td>24%</td>
+                  <td>2.982e-06</td>
+                  <td>35%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">YP_009337889</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1] </p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">ref|YP_009337889.1|</a>
+                    <span class=b>Length:</span> 974
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+                <a class=showmoretitles onclick="toggle_visibility('moretitles1'); return false;" href=''>
+                  See 1 more title(s)
+                </a>
+
+                <div class=moretitles id=moretitles1 style="display: none">
+                  <div class=title>
+                    <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1]</p>
+                    <p class=titleinfo>
+                      <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1127253879?report=genbank&amp;log$=nuclalign">gb|APR73429.1|</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 761 to 837</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign&amp;from=761&amp;to=837">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign&amp;from=761&amp;to=837">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>55.8 bits(133)</td>
+                      <td>0.0</td>
+                      <td>27/77(35%)</td>
+                      <td>0/77(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       13  FINYTGEGMVGQSQVARHINELIDKGSSRNTFGSMRRAMLKDKVSWSGSVEDAPKDGLRYIVNSPTWLRYLEGHDVD  243
+                 INY G+ + G S +A+ +N LI+KG  +     +     + +  WSG V   P   ++YIVNS +W  +L+G  VD
+Subject    761  LINYKGDALPGNSTMAKEMNVLIEKGREKGEGSGLVDQARQKRRLWSGDVTALPTYAIKYIVNSESWETFLKGRGVD  837</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match75>
+      
+        <h1>Nucleotide Sequence (326 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-55_2</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>1402</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 7 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline75>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.122699386503069%">
+                        <div>33</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.122699386503069%">
+                        <div>66</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.122699386503069%">
+                        <div>99</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.122699386503069%">
+                        <div>132</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.122699386503069%">
+                        <div>165</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.122699386503069%">
+                        <div>198</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.122699386503069%">
+                        <div>231</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.122699386503069%">
+                        <div>264</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.122699386503069%">
+                        <div>297</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.895705521472394%">
+                        <div>326</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline75").innerHTML="capsid protein [Isaria javanica chrysovirus 1] "'
+                   onmouseout='document.getElementById("defline75").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="capsid protein [Isaria javanica chrysovirus 1] ">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 99.38650306748467%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.6134969325153374%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="capsid protein [Isaria javanica chrysovirus 1] "
+                              id="description1">
+                        capsid protein [Isaria javanica chrysovirus 1] 
+                  </a></div></td>
+                  <td>58.2</td>
+                  <td>58.2</td>
+                  <td>33%</td>
+                  <td>5.397e-07</td>
+                  <td>27%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">YP_009337889</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1] </p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign">ref|YP_009337889.1|</a>
+                    <span class=b>Length:</span> 974
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+                <a class=showmoretitles onclick="toggle_visibility('moretitles1'); return false;" href=''>
+                  See 1 more title(s)
+                </a>
+
+                <div class=moretitles id=moretitles1 style="display: none">
+                  <div class=title>
+                    <p class=hittitle>capsid protein [Isaria javanica chrysovirus 1]</p>
+                    <p class=titleinfo>
+                      <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1127253879?report=genbank&amp;log$=nuclalign">gb|APR73429.1|</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 729 to 836</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=genbank&amp;log$=nuclalign&amp;from=729&amp;to=836">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1132372165?report=graph&amp;log$=nuclalign&amp;from=729&amp;to=836">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>58.2 bits(139)</td>
+                      <td>0.0</td>
+                      <td>29/108(27%)</td>
+                      <td>0/108(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  LANILDHTGHSTITARAKQIDDVLNKMEEGGAFINYDREGMLGQSNIAKRINAMIDRGSNKNTFGSELRRMRDQKKDWVGNVEDAPKEGIRYIQNSASWMNYLEEKAI  324
+                +  ++   G   I   +K     L  +E+    INY  + + G S +AK +N +I++G  K      + + R +++ W G+V   P   I+YI NS SW  +L+ + +
+Subject    729  ITRLVKDVGAVRILVASKDRHQFLKSIEQMQLLINYKGDALPGNSTMAKEMNVLIEKGREKGEGSGLVDQARQKRRLWSGDVTALPTYAIKYIVNSESWETFLKGRGV  836</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+
+    </div>
+
+    <footer>
+      This page was generated by <a href="https://github.com/thehyve/blast2html/">blast2html</a>.
+    </footer>
+  </body>
+</html>
+

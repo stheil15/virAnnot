@@ -1,32 +1,31 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Example execution &mdash; VirAnnot 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <title>Example execution &#8212; VirAnnot 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="VirAnnot 0.0.1 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Modules description" href="modules.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -36,7 +35,7 @@
         <li class="right" >
           <a href="modules.html" title="Modules description"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">VirAnnot 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -48,16 +47,16 @@
   <div class="section" id="example-execution">
 <h1>Example execution<a class="headerlink" href="#example-execution" title="Permalink to this headline">¶</a></h1>
 <p>Create a directory for your experiment:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>mkdir test_virAnnot
-cd test_virAnnot
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">test_virAnnot</span>
+<span class="n">cd</span> <span class="n">test_virAnnot</span>
 </pre></div>
 </div>
 <p>Copy example read files, Illumina adapters fasta file, the sample id mapping file, the step and parameter file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cp /path/to/virAnnot/examples/reads/*.fq .
-cp /path/to/virAnnot/examples/adapters.fa .
-cp /path/to/virAnnot/examples/map.txt .
-cp /path/to/virAnnot/examples/step.yaml .
-cp /path/to/virAnnot/examples/parameters.yaml .
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">virAnnot</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">reads</span><span class="o">/*.</span><span class="n">fq</span> <span class="o">.</span>
+<span class="n">cp</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">virAnnot</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">adapters</span><span class="o">.</span><span class="n">fa</span> <span class="o">.</span>
+<span class="n">cp</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">virAnnot</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="nb">map</span><span class="o">.</span><span class="n">txt</span> <span class="o">.</span>
+<span class="n">cp</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">virAnnot</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">step</span><span class="o">.</span><span class="n">yaml</span> <span class="o">.</span>
+<span class="n">cp</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">virAnnot</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">parameters</span><span class="o">.</span><span class="n">yaml</span> <span class="o">.</span>
 </pre></div>
 </div>
 <p>You have to modify this file to fit your configuration.</p>
@@ -66,15 +65,15 @@ cp /path/to/virAnnot/examples/parameters.yaml .
 <h2>Step <strong>ReadSoustraction</strong><a class="headerlink" href="#step-readsoustraction" title="Permalink to this headline">¶</a></h2>
 <p>This module uses bowtie2 to map reads against nucleotide sequence and Samtools to extract unmapped pairs.</p>
 <p>Corresponding <code class="docutils literal"><span class="pre">step.yaml</span></code> section:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>ReadSoustraction_phiX:
-  i1: (file1)
-  i2: (file2)
-  db: phiX
-  o1: (library)_phiX.r1.fq
-  o2: (library)_phiX.r2.fq
-  sge: True
-  n_cpu: 5
-  iter: library
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ReadSoustraction_phiX</span><span class="p">:</span>
+  <span class="n">i1</span><span class="p">:</span> <span class="p">(</span><span class="n">file1</span><span class="p">)</span>
+  <span class="n">i2</span><span class="p">:</span> <span class="p">(</span><span class="n">file2</span><span class="p">)</span>
+  <span class="n">db</span><span class="p">:</span> <span class="n">phiX</span>
+  <span class="n">o1</span><span class="p">:</span> <span class="p">(</span><span class="n">library</span><span class="p">)</span><span class="n">_phiX</span><span class="o">.</span><span class="n">r1</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">o2</span><span class="p">:</span> <span class="p">(</span><span class="n">library</span><span class="p">)</span><span class="n">_phiX</span><span class="o">.</span><span class="n">r2</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">5</span>
+  <span class="nb">iter</span><span class="p">:</span> <span class="n">library</span>
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n ReadSoustraction_phiX
@@ -86,16 +85,16 @@ cp /path/to/virAnnot/examples/parameters.yaml .
 <p>This module uses cutadapt demultiplex reads from library and also trim reads from adapters and chimeric reads.
 Each demultiplexing step are described in the module section.
 Corresponding <code class="docutils literal"><span class="pre">step.yaml</span></code> section:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Demultiplex:
-  i1: (library)_phiX.r1.fq
-  i2: (library)_phiX.r2.fq
-  adapters: adapters.fna
-  middle: 1
-  min_qual: 20
-  polyA: True
-  min_len: 70
-  iter: library
-  sge: True
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Demultiplex</span><span class="p">:</span>
+  <span class="n">i1</span><span class="p">:</span> <span class="p">(</span><span class="n">library</span><span class="p">)</span><span class="n">_phiX</span><span class="o">.</span><span class="n">r1</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">i2</span><span class="p">:</span> <span class="p">(</span><span class="n">library</span><span class="p">)</span><span class="n">_phiX</span><span class="o">.</span><span class="n">r2</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">adapters</span><span class="p">:</span> <span class="n">adapters</span><span class="o">.</span><span class="n">fna</span>
+  <span class="n">middle</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">min_qual</span><span class="p">:</span> <span class="mi">20</span>
+  <span class="n">polyA</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">min_len</span><span class="p">:</span> <span class="mi">70</span>
+  <span class="nb">iter</span><span class="p">:</span> <span class="n">library</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Demultiplex
@@ -106,12 +105,12 @@ Corresponding <code class="docutils literal"><span class="pre">step.yaml</span><
 <h2>Step <strong>DemultiplexHtml</strong><a class="headerlink" href="#step-demultiplexhtml" title="Permalink to this headline">¶</a></h2>
 <p>This module gather all <code class="docutils literal"><span class="pre">*_demultiplex.stats.csv</span></code> files and create and html report.
 Corresponding <code class="docutils literal"><span class="pre">step.yaml</span></code> section:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>DemultiplexHtml:
-  csv: (library)_demultiplex.stats.csv
-  id: (library)
-  out: stat_demultiplex
-  iter: global
-  sge: True
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">DemultiplexHtml</span><span class="p">:</span>
+  <span class="n">csv</span><span class="p">:</span> <span class="p">(</span><span class="n">library</span><span class="p">)</span><span class="n">_demultiplex</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">csv</span>
+  <span class="nb">id</span><span class="p">:</span> <span class="p">(</span><span class="n">library</span><span class="p">)</span>
+  <span class="n">out</span><span class="p">:</span> <span class="n">stat_demultiplex</span>
+  <span class="nb">iter</span><span class="p">:</span> <span class="k">global</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n DemultiplexHtml
@@ -122,16 +121,16 @@ Corresponding <code class="docutils literal"><span class="pre">step.yaml</span><
 <div class="section" id="step-diamond">
 <h2>Step <strong>Diamond</strong><a class="headerlink" href="#step-diamond" title="Permalink to this headline">¶</a></h2>
 <p>This module launch Diamond similarity search for reads and produce an XML file per sample.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Diamond:
-  i1: (SampleID)_truePairs_r1.fq
-  i2: (SampleID)_truePairs_r2.fq
-  n_cpu: 10
-  sge: True
-  score: 50
-  evalue: 0.0001
-  qov: 50
-  hov: 5
-  db: all_vir_prot
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">16</span>
+<span class="n">Map_spades</span><span class="p">:</span>
+  <span class="n">contigs</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_spades</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">fa</span>
+  <span class="n">i1</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r1</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">i2</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r2</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">bam</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_spades</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">bam</span>
+  <span class="n">rn</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_spades</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">rn</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">16</span>
+<span class="n">Diamond</span><span class="p">:</span>
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Diamond
@@ -141,20 +140,20 @@ Corresponding <code class="docutils literal"><span class="pre">step.yaml</span><
 <div class="section" id="step-assembly">
 <h2>Step <strong>Assembly</strong><a class="headerlink" href="#step-assembly" title="Permalink to this headline">¶</a></h2>
 <p>This module simply launch udba_ud and metaspades assemblers in each sample folder, rename scaffolds id and move the resulting fasta file.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Assembly_idba:
-  prog: idba
-  n_cpu: 5
-  i1: (SampleID)_truePairs_r1.fq
-  i2: (SampleID)_truePairs_r2.fq
-  out: (SampleID)_idba.scaffold.fa
-  sge: True
-Assembly_spades:
-  prog: spades
-  n_cpu: 5
-  i1: (SampleID)_truePairs_r1.fq
-  i2: (SampleID)_truePairs_r2.fq
-  out: (SampleID)_spades.scaffold.fa
-  sge: True
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">5</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+<span class="n">drVM</span><span class="p">:</span>
+  <span class="n">i1</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r1</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">i2</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r2</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">20</span>
+  <span class="n">identity</span><span class="p">:</span> <span class="mi">70</span>
+  <span class="n">min_len</span><span class="p">:</span> <span class="mi">300</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+<span class="n">Assembly_idba</span><span class="p">:</span>
+  <span class="n">prog</span><span class="p">:</span> <span class="n">idba</span>
+  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">5</span>
+  <span class="n">i1</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r1</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">i2</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r2</span><span class="o">.</span><span class="n">fq</span>
 </pre></div>
 </div>
 <p>Test both idba and spades:</p>
@@ -163,10 +162,10 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Assembly_spades
 </pre></div>
 </div>
 <p>Example of idba assembly:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;ds2015-149_0
-GTGTAAGGTGGTGAAGG...
-&gt;ds2015-149_1
-CCTGCGAATTGGGCCAA...
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">ds2015</span><span class="o">-</span><span class="mi">149</span><span class="n">_0</span>
+<span class="n">GTGTAAGGTGGTGAAGG</span><span class="o">...</span>
+<span class="o">&gt;</span><span class="n">ds2015</span><span class="o">-</span><span class="mi">149</span><span class="n">_1</span>
+<span class="n">CCTGCGAATTGGGCCAA</span><span class="o">...</span>
 </pre></div>
 </div>
 </div>
@@ -174,22 +173,22 @@ CCTGCGAATTGGGCCAA...
 <h2>Step <strong>Map</strong><a class="headerlink" href="#step-map" title="Permalink to this headline">¶</a></h2>
 <p>This module uses bowtie2 to map reads back on assemblies and samtools will count reads per contig.</p>
 <p>Step file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Map_idba:
-  contigs: (SampleID)_idba.scaffold.fa
-  i1: (SampleID)_truePairs_r1.fq
-  i2: (SampleID)_truePairs_r2.fq
-  bam: (SampleID)_idba.scaffold.bam
-  rn: (SampleID)_idba.scaffold.rn
-  sge: True
-  n_cpu: 16
-Map_spades:
-  contigs: (SampleID)_spades.scaffold.fa
-  i1: (SampleID)_truePairs_r1.fq
-  i2: (SampleID)_truePairs_r2.fq
-  bam: (SampleID)_spades.scaffold.bam
-  rn: (SampleID)_spades.scaffold.rn
-  sge: True
-  n_cpu: 16
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="n">out</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">fa</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+<span class="n">Assembly_spades</span><span class="p">:</span>
+  <span class="n">prog</span><span class="p">:</span> <span class="n">spades</span>
+  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">5</span>
+  <span class="n">i1</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r1</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">i2</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r2</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">out</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_spades</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">fa</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+<span class="n">Map_idba</span><span class="p">:</span>
+  <span class="n">contigs</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">fa</span>
+  <span class="n">i1</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r1</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">i2</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_truePairs_r2</span><span class="o">.</span><span class="n">fq</span>
+  <span class="n">bam</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">bam</span>
+  <span class="n">rn</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">rn</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p>Command:</p>
@@ -199,13 +198,13 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Map_spades
 </div>
 <p>Output a two column tabular file, column 1 sequence ID, column 2 number of reads.
 Example of <code class="docutils literal"><span class="pre">.rn</span></code> file produce:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>ds2015-149_0    1179
-ds2015-149_1    444
-ds2015-149_10   26
-ds2015-149_11   44
-ds2015-149_12   14
-ds2015-149_13   4
-ds2015-149_14   6
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ds2015</span><span class="o">-</span><span class="mi">149</span><span class="n">_0</span>    <span class="mi">1179</span>
+<span class="n">ds2015</span><span class="o">-</span><span class="mi">149</span><span class="n">_1</span>    <span class="mi">444</span>
+<span class="n">ds2015</span><span class="o">-</span><span class="mi">149</span><span class="n">_10</span>   <span class="mi">26</span>
+<span class="n">ds2015</span><span class="o">-</span><span class="mi">149</span><span class="n">_11</span>   <span class="mi">44</span>
+<span class="n">ds2015</span><span class="o">-</span><span class="mi">149</span><span class="n">_12</span>   <span class="mi">14</span>
+<span class="n">ds2015</span><span class="o">-</span><span class="mi">149</span><span class="n">_13</span>   <span class="mi">4</span>
+<span class="n">ds2015</span><span class="o">-</span><span class="mi">149</span><span class="n">_14</span>   <span class="mi">6</span>
 </pre></div>
 </div>
 </div>
@@ -214,49 +213,49 @@ ds2015-149_14   6
 <p>This module is able to launch Blast(s) against provided databases localy or remotely.
 The script blast_launch.py must be present on distant servers and <code class="docutils literal"><span class="pre">parameter.yaml</span></code> modified to fit your servers.</p>
 <p>Step file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Blast_allvirTX:
-  type: tblastx
-  contigs: (SampleID)_idba.scaffold.fa
-  db: all_vir_nucl
-  out: (SampleID)_idba.scaffold.tbltx.all_vir.xml
-  evalue: 0.0001
-  server: genotoul
-  n_cpu: 8
-  sge: True
-  num_chunk: 1000
-  tc: 50
-Blast_nr:
-  type: blastx
-  contigs: (SampleID)_idba.scaffold.fa
-  db: nr
-  out: (SampleID)_idba.scaffold.bltx.nr.xml
-  evalue: 0.0001
-  server: genotoul
-  n_cpu: 8
-  tc: 50
-  num_chunk: 1000
-  max_target_seqs: 1
-  sge: True
-Blast_refvirTX:
-  type: tblastx
-  contigs: (SampleID)_idba.scaffold.fa
-  db: refseq_vir_nucl
-  out: (SampleID)_idba.scaffold.tbltx.refseq_vir.xml
-  evalue: 0.0001
-  server: genotoul
-  n_cpu: 8
-  tc: 50
-  num_chunk: 1000
-  sge: True
-Blast_RPS:
-  type: rpstblastn
-  contigs: (SampleID)_idba.scaffold.fa
-  db: pfam
-  evalue: 0.0001
-  out: (SampleID)_idba.scaffold.rps.pfam.xml
-  server: genotoul
-  n_cpu: 8
-  sge: True
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="n">i</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">dmdx</span><span class="o">.</span><span class="n">nr</span><span class="o">.</span><span class="n">csv</span>
+  <span class="n">contigs</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">dmdx2bltx</span><span class="o">.</span><span class="n">fa</span>
+  <span class="n">out</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">dmdx2bltx</span><span class="o">.</span><span class="n">nr</span><span class="o">.</span><span class="n">xml</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">blastx</span>
+  <span class="n">db</span><span class="p">:</span> <span class="n">nr</span>
+  <span class="n">evalue</span><span class="p">:</span> <span class="mf">0.0001</span>
+  <span class="n">server</span><span class="p">:</span> <span class="n">genologin</span>
+  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">8</span>
+  <span class="n">tc</span><span class="p">:</span> <span class="mi">50</span>
+  <span class="n">num_chunk</span><span class="p">:</span> <span class="mi">1000</span>
+  <span class="n">max_target_seqs</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+<span class="n">Blast_allvirTX</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">tblastx</span>
+  <span class="n">contigs</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">fa</span>
+  <span class="n">db</span><span class="p">:</span> <span class="n">all_vir_nucl</span>
+  <span class="n">out</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">tbltx</span><span class="o">.</span><span class="n">all_vir</span><span class="o">.</span><span class="n">xml</span>
+  <span class="n">evalue</span><span class="p">:</span> <span class="mf">0.0001</span>
+  <span class="n">server</span><span class="p">:</span> <span class="n">genotoul</span>
+  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">8</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">num_chunk</span><span class="p">:</span> <span class="mi">1000</span>
+  <span class="n">tc</span><span class="p">:</span> <span class="mi">50</span>
+<span class="n">Blast_nr</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">blastx</span>
+  <span class="n">contigs</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">fa</span>
+  <span class="n">db</span><span class="p">:</span> <span class="n">nr</span>
+  <span class="n">out</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">bltx</span><span class="o">.</span><span class="n">nr</span><span class="o">.</span><span class="n">xml</span>
+  <span class="n">evalue</span><span class="p">:</span> <span class="mf">0.0001</span>
+  <span class="n">server</span><span class="p">:</span> <span class="n">genotoul</span>
+  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">8</span>
+  <span class="n">tc</span><span class="p">:</span> <span class="mi">50</span>
+  <span class="n">num_chunk</span><span class="p">:</span> <span class="mi">1000</span>
+  <span class="n">max_target_seqs</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+<span class="n">Blast_refvirTX</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">tblastx</span>
+  <span class="n">contigs</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">fa</span>
+  <span class="n">db</span><span class="p">:</span> <span class="n">refseq_vir_nucl</span>
+  <span class="n">out</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">tbltx</span><span class="o">.</span><span class="n">refseq_vir</span><span class="o">.</span><span class="n">xml</span>
+  <span class="n">evalue</span><span class="p">:</span> <span class="mf">0.0001</span>
+  <span class="n">server</span><span class="p">:</span> <span class="n">genotoul</span>
+  <span class="n">n_cpu</span><span class="p">:</span> <span class="mi">8</span>
 </pre></div>
 </div>
 <p>Commands:</p>
@@ -277,7 +276,7 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast2ecsv_allvirTX
 </pre></div>
 </div>
 <p>Example output of ds2015-149_idba.scaffold.tbltx.all_vir.csv:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#algo   query_id        nb_reads        query_length    accession       description     organism        percentIdentity nb_hsps queryOverlap    hitOverlap      evalue  score   tax_id  taxonomy        sequence</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#algo   query_id        nb_reads        query_length    accession       description     organism        percentIdentity nb_hsps queryOverlap    hitOverlap      evalue  score   tax_id  taxonomy        sequence</span>
 <span class="s2">&quot;TBLASTX&quot;</span>       <span class="s2">&quot;ds2015-149_52&quot;</span> <span class="s2">&quot;6&quot;</span>     <span class="s2">&quot;117&quot;</span>   <span class="s2">&quot;KX274275.1&quot;</span>    <span class="s2">&quot;Grapevine rupestris stem pitting associated virus isolate SK704 B, complete genome&quot;</span>    <span class="s2">&quot;Grapevine rupestris stem pitting-associated virus&quot;</span>     <span class="s2">&quot;95.8&quot;</span>  <span class="s2">&quot;3&quot;</span>     <span class="s2">&quot;100&quot;</span>   <span class="s2">&quot;3&quot;</span>     <span class="s2">&quot;7.55823333338424e-05&quot;</span>  <span class="s2">&quot;222.2257&quot;</span>      <span class="s2">&quot;196400&quot;</span>        <span class="s2">&quot;Viruses;ssRNA viruses;Betaflexiviridae;Foveavirus;Grapevine rupestris stem pitting-associated virus&quot;</span>   <span class="s2">&quot;GAACACTATGAACGACAACTGGAAATCTGAGCACGCTATAAACACCCACAAACTCAAACGTAGACAAAGCTTTAACTAAGTTATTCATAATAATCACACCATGCCAAACACTTAAGG&quot;</span>
 </pre></div>
 </div>
@@ -289,15 +288,15 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast2ecsv_allvirTX
 <div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Rps2ecsv
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Rps2ecsv:
-  b: (SampleID)_idba.scaffold.rps.pfam.xml
-  out: (SampleID)_idba.scaffold.rps.pfam.csv
-  evalue: 0.0001
-  sge: True
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="n">vs</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">out</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">tbltx</span><span class="o">.</span><span class="n">refseq_vir</span><span class="o">.</span><span class="n">csv</span>
+  <span class="n">sge</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">TBLASTX</span>
+  <span class="n">score</span><span class="p">:</span> <span class="mi">50</span>
 </pre></div>
 </div>
 <p>Example output of ds2015-149_idba.scaffold.rps.pfam.csv:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#query_id       query_length    cdd_id  hit_id  evalue  startQ  endQ    frame   description     superkingdom    no rank family  genus</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#query_id       query_length    cdd_id  hit_id  evalue  startQ  endQ    frame   description     superkingdom    no rank family  genus</span>
 <span class="s2">&quot;ds2015-149_0&quot;</span>  <span class="s2">&quot;1428&quot;</span>  <span class="s2">&quot;pfam01443&quot;</span>     <span class="s2">&quot;gnl|CDD|279750&quot;</span>        <span class="s2">&quot;1.33194e-06&quot;</span>   <span class="s2">&quot;29&quot;</span>    <span class="s2">&quot;223&quot;</span>   <span class="s2">&quot;2&quot;</span>     <span class="s2">&quot;pfam01443, Viral_helicase1, Viral (Superfamily 1) RNA helicase.  Helicase activity for this family has been demonstrated and NTPase activity. This helicase has multiple roles at different stages of viral RNA replication, as dissected by mutational analysis.&quot;</span>     <span class="s2">&quot;Viruses(1.00);&quot;</span>        <span class="s2">&quot;ssRNA viruses(0.99);unclassified viruses(0.01);&quot;</span>       <span class="s2">&quot;Alphaflexiviridae(0.36);Virgaviridae(0.24);Betaflexiviridae(0.15);Tymoviridae(0.10);Bromoviridae(0.07);&quot;</span>       <span class="s2">&quot;Potexvirus(0.26);Allexivirus(0.10);Carlavirus(0.08);Tymovirus(0.08);Tobamovirus(0.08);&quot;</span>
 </pre></div>
 </div>
@@ -309,13 +308,13 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Blast2ecsv_allvirTX
 <div class="highlight-bash"><div class="highlight"><pre><span></span>virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Ecsv2excel
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Ecsv2excel:
-  b1: (SampleID)_idba.scaffold.tbltx.refseq_vir.csv
-  b2: (SampleID)_idba.scaffold.tbltx.all_vir.csv
-  b3: (SampleID)_idba.scaffold.bltx.nr.csv
-  r:  (SampleID)_idba.scaffold.rps.pfam.csv
-  out:  (SampleID)_idba.scaffold.xlsx
-  sge: True
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="n">qov</span><span class="p">:</span> <span class="mi">50</span>
+  <span class="n">hov</span><span class="p">:</span> <span class="mi">5</span>
+<span class="n">Blast2ecsv_nr</span><span class="p">:</span>
+  <span class="n">contigs</span><span class="p">:</span> <span class="p">(</span><span class="n">SampleID</span><span class="p">)</span><span class="n">_idba</span><span class="o">.</span><span class="n">scaffold</span><span class="o">.</span><span class="n">fa</span>
+  <span class="n">evalue</span><span class="p">:</span> <span class="mf">0.001</span>
+  <span class="n">fhit</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">pm</span><span class="p">:</span> <span class="k">global</span>
 </pre></div>
 </div>
 <p>Example output of ds2015-149_idba.scaffold.xlsx:</p>
@@ -394,21 +393,18 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Automapper_refseqTX
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/execution.txt"
+      <li><a href="_sources/execution.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -424,12 +420,12 @@ virAnnot.py -m map.txt -s step.yaml -p parameters.yaml -n Automapper_refseqTX
         <li class="right" >
           <a href="modules.html" title="Modules description"
              >previous</a> |</li>
-        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">VirAnnot 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Sebastien Theil.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b1.
+        &#169; Copyright 2016, Sebastien Theil.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

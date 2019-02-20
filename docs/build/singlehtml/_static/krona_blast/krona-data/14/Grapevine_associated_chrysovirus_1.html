@@ -1,0 +1,2538 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=generator content="blast2html; see https://github.com/thehyve/blast2html/">
+    
+    <title>Blast output</title>
+    
+    <style>
+      body {
+      color: #333333;
+      font-family: Arial,Sans-Serif;
+      }
+
+      :link {
+      color: #336699;
+      }
+
+      .right {
+      float: right;
+      }
+
+      /* Galaxy with html sanitization enabled strips the header of this html page. If so, show the user a warning.*/
+      #strip_html_warning {
+      display: none;
+      }
+      
+      #content {
+      margin: 0 2em;
+      padding: 0.5em;
+      border: 1px solid #888888;
+      background-color: #d3dff5;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+      color: #2A6979;
+      font-family: arial,verdana,sans-serif;
+      letter-spacing: -1px;
+      margin: 1.2em 0 0.3em;
+      }
+
+      h1 {
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 150%;
+      padding-bottom: 0.1em;
+      }
+
+      h2 {
+      font-size: 120%;
+      font-weight: bold;
+      }
+
+      h4.darkHeader {
+      color: #4D4D4D;
+      letter-spacing: 0;
+      font-weight: bold;
+      }
+
+      #nodata {
+      font-weight: bold;
+      }
+
+      .index {
+      margin-bottom: 3em;
+      }
+      .index div.indexentry {
+      margin: 1.2em 1.6em;
+      font-weight: bold;
+      font-size: 100%;
+      }
+      
+      .headerdata {
+      font-size: 90%;
+      }
+      .headerdata .param {
+      font-weight: bold;
+      text-align: right;
+      padding: 0 1em;
+      }
+
+      .grey {
+      background-color: #eeeeee;
+      border: 1px solid #cccccc;
+      padding: 1em;
+      }
+
+      .white {
+      background-color: white;
+      border: 1px solid #cccccc;
+      padding: 1.5em 2%;
+      }
+
+      .graphicrow {
+      clear: left;
+      width: 100%;
+      }
+
+      .graphicitem {
+      float: left;
+      }
+
+
+      
+      .graphics .grey {
+      text-align: center;
+      }
+
+      .graphic {
+      background-color: white;
+      border: 2px solid black;
+      padding: 1.5em;
+      margin: auto;
+      }
+
+      .centered, .defline, div.legend, div.tablewrapper {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .defline {
+      background-color: white;
+      border: 1px solid black;
+      margin: .5em auto;
+      padding-left: .2em;
+      padding-right: .2em;
+      max-width: 50em;
+      text-align: left;
+      height: 2.8em;
+      overflow-y: hidden;
+      }
+
+      div.legend {
+      max-width: 40em;
+      }
+      div.legend div {
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-spacing: 0;
+      }
+      div.legend div .graphicitem {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      }
+
+      div.tablewrapper {
+      width: 50%;
+      min-width: 60em;
+      }
+
+      /* For small widths we give the graphic 100% */
+      @media (max-width: 72.5em) {
+      div.tablewrapper {
+      width: 100%;
+      min-width: 0px;
+      }
+      }
+
+      .scale {
+      width: 100%;
+      margin: .5em 0;
+      font-weight: bold;
+      }
+      .scale div {
+      color: red;
+      text-align: left;
+      }
+      .scale .graphicrow {
+      margin: .5em 0 .5em 0;
+      color: white;
+      }
+      .scale .graphicitem {
+      position: relative;
+      }
+      .scale .graphicitem div {
+      margin: 0 1px;
+      padding: 0 2px;
+      text-align: right;
+      background-color: red;
+      color: white;
+      }
+      .scale .graphicitem:first-child div {
+      margin-left: 0px;
+      }
+      .scale .graphicitem:last-child div {
+      margin-right: 0px;
+      }
+      .scale .graphicitem .lastlabel {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      background-color: transparent;
+      color: red;
+      }
+
+      a.matchresult {
+      display: block;
+      margin: 0;
+      padding: 0;
+      }
+      div.matchrow {
+      margin-top: 4px;
+      }
+      div.matchrow, div.matchitem {
+      height: 4px;
+      }
+
+      
+      table.descriptiontable {
+      font-size: 85%;
+      border: 1px solid #97b0c8;
+      border-spacing: 0;
+      color: #222222;
+      line-height: 1.3em;
+      background-color: white;
+      }
+      table.descriptiontable col:first-child {
+      width: 100%;
+      }
+      table.descriptiontable tr:hover {
+      background-color: #D5DEE3;
+      }
+      table.descriptiontable th {
+      color: #14376C;
+      font-weight: normal;
+      background-color: #F0F0F0;
+      background: linear-gradient(#FFFFFF, #F0F0F0);
+      border-bottom: 1px solid #D4DFE9;
+      border-right: 1px solid #CFCFCF;
+      border-left: 0px solid black;
+      border-top: 0px solid black;
+      }
+      table.descriptiontable td {
+      overflow: hidden;
+      text-align: center;
+      padding: .4em .8em;
+      }
+      table.descriptiontable td div {
+      width: 1em;
+      overflow: visible;
+      white-space: nowrap;
+      text-align: left;
+      }
+
+
+      
+      .alignments .white {
+      padding: 1.5em 1em;
+      }
+      
+      .alignment {
+      border-top: 1px solid black;
+      padding-left: 1em;
+      padding-right: 1em;
+      }
+      
+      div.linkheader {
+      padding-top: .2em;
+      font-size: 85%;
+      color: #14376C;
+      }
+      div.linkheader a.linkheader {
+      margin-right: 1em;
+      }
+      div.linkheader .right a {
+      text-decoration: none;
+      }
+
+      .title .hittitle {
+      color: #222222;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo {
+      font-size: 80%;
+      margin-top: 0;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo .b {
+      color: #606060;
+      font-weight: bold;
+      font-size: 90%;
+      }
+
+      .moretitles {
+      margin: 1.2em;
+      }
+      .moretitles .titleinfo {
+      margin: 0;
+      padding: 0;
+      }
+      .moretitles .hittitle {
+      margin: .4em 0 .2em 0;
+      padding: 0;
+      }
+      
+      a.showmoretitles {
+      font-size: 75%;
+      color: #336699;
+      font-weight: bold;
+      margin-top: 0;
+      }
+      a.showmoretitles:hover {
+      }
+
+      .hotspot {
+      color: #606060;
+      font-family: verdana, arial, sans-serif;
+      margin-bottom: 2.5em;
+      }
+
+      .hotspot p.range {
+      font-size: 70%;
+      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: .2em;
+      }
+      .hotspot p.range span.range {
+      font-weight: bold;
+      }
+      .hotspot p.range a.range {
+      margin-left: .5em;
+      }
+
+      table.hotspotstable {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      text-align: left;
+      border-collapse: collapse;
+      }
+      table.hotspotstable th, table.hotspotstable td {
+      padding: .1em 1em;
+      }
+      table.hotspotstable th {
+      font-size: 70%;
+      }
+      table.hotspotstable td {
+      min-width: 7em;
+      color: #222222;
+      font-size: 80%;
+      }
+
+      pre.alignmentgraphic {
+      color: #222222;
+      }
+
+      footer {
+      text-align: center;
+      color: #cccccc;
+      font-size: 70%;
+      margin-top: 1em;
+      }
+      footer :link {
+      color: #5588cc;
+      }
+      
+    </style>
+
+    <script type="text/javascript">
+      function toggle_visibility(id) {
+          var e = document.getElementById(id);
+          if(e.style.display != 'block')
+              e.style.display = 'block';
+          else
+              e.style.display = 'none';
+      }
+    </script>
+
+  </head>
+
+  
+  <body>
+    
+    <div id="strip_html_warning">
+      <!-- This div should be hidden by the header css block. Galaxy
+      strips all css, breaking this page but making this warning
+      visible. This warning contains some ugly old skool tabular html
+      layout that is not stripped. -->
+      <table bgcolor="#FFE5C9"><tr><td><font color="red"><b>
+                <font size=5><center>This html page seems to have been stripped by Galaxy.</center></font>
+                Disable Galaxy's html sanitization feature to view the full page (see <font face=monospace>sanitize_all_html</font> in your galaxy's universe_wsgi.ini), or download this page instead of viewing it in Galaxy.
+      </b></font></td></tr></table>
+    </div>
+    
+    <div id=content>
+
+
+      <section class=index>
+        <h1>Queries</h1>
+
+        <div class=indexentry><a href="#match14">
+            ds2016-58_131: No definition line
+            (351 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match15">
+            ds2016-58_143: No definition line
+            (340 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match19">
+            ds2016-58_181: No definition line
+            (207 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match60">
+            ds2016-58_99: No definition line
+            (423 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match63">
+            ds2016-58_70: No definition line
+            (510 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match90">
+            ds2016-58_85: No definition line
+            (456 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match92">
+            ds2016-58_29: No definition line
+            (686 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match96">
+            ds2016-58_96: No definition line
+            (426 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match136">
+            ds2016-58_104: No definition line
+            (414 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match159">
+            ds2016-58_31: No definition line
+            (674 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match166">
+            ds2016-58_148: No definition line
+            (333 letters, 1 hits)
+        </a></div>
+
+      </section>
+
+      
+      <section class=match id=match14>
+      
+        <h1>Nucleotide Sequence (351 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline14>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>36</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>72</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>108</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>144</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>180</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>216</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>252</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>288</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>324</div>
+                      </div>
+                      <div class=graphicitem style="width: 7.6923076923076925%">
+                        <div>351</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline14").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline14").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.5698005698005698%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 99.14529914529915%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.2849002849002849%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>194.9</td>
+                  <td>194.9</td>
+                  <td>33%</td>
+                  <td>7.66e-55</td>
+                  <td>76%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 308 to 423</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=308&amp;to=423">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=308&amp;to=423">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>194.9 bits(494)</td>
+                      <td>0.0</td>
+                      <td>88/116(76%)</td>
+                      <td>0/116(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        3  LCCWKGILQNTQVAEVVKPWMGVNFSAWSDLMKSLHSYVRCSRFLMNTEISEQDRQALMYLDLNVGRGEYQIDEMAEVTVRSAETYSSKHLSYDSDLKLFTNEQYVTDFSRGIQLA  350
+                L  WKGILQNT V  +VK WMGVNF  WSD+MKSLHSY+RCSRFLMNTEI+EQDRQ+LMY+DL VGRGEYQIDEMAEV++R ++TYSSKHLSY+ DLK FTNEQY+ DFSR +Q+A
+Subject    308  LSAWKGILQNTSVNFIVKKWMGVNFHHWSDVMKSLHSYIRCSRFLMNTEITEQDRQSLMYMDLLVGRGEYQIDEMAEVSLRQSDTYSSKHLSYNPDLKAFTNEQYIKDFSRSVQIA  423</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match15>
+      
+        <h1>Nucleotide Sequence (340 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline15>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>34</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>68</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>102</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>136</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>170</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>204</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>238</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>272</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>306</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>340</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline15").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline15").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.8823529411764706%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 88.23529411764706%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 10.882352941176471%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>176.4</td>
+                  <td>176.4</td>
+                  <td>29%</td>
+                  <td>2.971e-48</td>
+                  <td>81%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 632 to 731</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=632&amp;to=731">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=632&amp;to=731">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>176.4 bits(446)</td>
+                      <td>0.0</td>
+                      <td>81/100(81%)</td>
+                      <td>0/100(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        4  GMVHELWRGLYSGWRGTTWINTVLNFVYVAIALMNLERITGKSVVLMVDHGGDDLDLCLSQPEMMPQVMEIMDNMLFKANKWKQMFGIRSEFFRSTISDA  303
+                G +H+LWRGLYSGWRGTTWINTVLNF YV+IAL+N+ER+TG SVVLMVDHGGDDLDL LS+P +MP  +EIMDNMLFKANKWKQMFG RSEFFR+TIS A
+Subject    632  GHLHKLWRGLYSGWRGTTWINTVLNFCYVSIALLNMERLTGVSVVLMVDHGGDDLDLVLSEPSVMPTFLEIMDNMLFKANKWKQMFGKRSEFFRNTISGA  731</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match19>
+      
+        <h1>Nucleotide Sequence (207 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline19>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>21</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>42</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>63</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>84</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>105</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>126</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>147</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>168</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>189</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.695652173913043%">
+                        <div>207</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline19").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline19").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.4830917874396135%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 98.55072463768116%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.966183574879227%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>140.6</td>
+                  <td>140.6</td>
+                  <td>33%</td>
+                  <td>2.986e-36</td>
+                  <td>93%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 549 to 616</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=549&amp;to=616">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=549&amp;to=616">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>140.6 bits(353)</td>
+                      <td>0.0</td>
+                      <td>63/68(93%)</td>
+                      <td>0/68(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        2  EQIGSVRLNAMGDGDIRYFDRKMSTGMFHVLYDWADFNEQHSAWEMAQVIKELENVMPDTPDYSMFCS  205
+                EQIGSVRLNAMGDGDIRYFD+KMSTG FHVLYDWADFNEQHSAWEMAQVIKELE VMPDTPDY +FCS
+Subject    549  EQIGSVRLNAMGDGDIRYFDKKMSTGTFHVLYDWADFNEQHSAWEMAQVIKELETVMPDTPDYHLFCS  616</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match60>
+      
+        <h1>Nucleotide Sequence (423 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline60>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.16548463356974%">
+                        <div>43</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.16548463356974%">
+                        <div>86</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.16548463356974%">
+                        <div>129</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.16548463356974%">
+                        <div>172</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.16548463356974%">
+                        <div>215</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.16548463356974%">
+                        <div>258</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.16548463356974%">
+                        <div>301</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.16548463356974%">
+                        <div>344</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.16548463356974%">
+                        <div>387</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.51063829787234%">
+                        <div>423</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline60").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline60").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 32.86052009456265%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 66.66666666666667%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.4728132387706856%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>176.4</td>
+                  <td>176.4</td>
+                  <td>22%</td>
+                  <td>1.042e-47</td>
+                  <td>82%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 548 to 641</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=548&amp;to=641">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=548&amp;to=641">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>176.4 bits(446)</td>
+                      <td>0.0</td>
+                      <td>77/94(82%)</td>
+                      <td>0/94(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      140  SKRIGSVRLNAMGDGDIRYFDRKMSTGMFHVLYDWADFNEQHSAWEMAEVIRELENVMPDTPDYSMFCSAIIEGMFRMGLEDREGMVHKLWRGL  421
+                 ++IGSVRLNAMGDGDIRYFD+KMSTG FHVLYDWADFNEQHSAWEMA+VI+ELE VMPDTPDY +FCSAI+EGM+ MGL+D+EG +HKLWRGL
+Subject    548  QEQIGSVRLNAMGDGDIRYFDKKMSTGTFHVLYDWADFNEQHSAWEMAQVIKELETVMPDTPDYHLFCSAIVEGMYEMGLQDKEGHLHKLWRGL  641</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match63>
+      
+        <h1>Nucleotide Sequence (510 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline63>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>51</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>102</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>153</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>204</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>255</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>306</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>357</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>408</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>459</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.0%">
+                        <div>510</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline63").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline63").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 7.254901960784314%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 92.35294117647058%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.39215686274509803%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>133.7</td>
+                  <td>133.7</td>
+                  <td>31%</td>
+                  <td>2.961e-32</td>
+                  <td>39%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1 to 158</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=1&amp;to=158">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=1&amp;to=158">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>133.7 bits(335)</td>
+                      <td>0.0</td>
+                      <td>62/158(39%)</td>
+                      <td>1/158(1%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       38  LYAIVMPSGHGKTTLAERYGVIDVDNLVSKELHNKLVEWRVEILTNGETWKDHNKEWFNEVISTLNVMVINKPTVVLVHTEETALEIGAKILGGVQYTRGGLENSIARRSHIGKHFARLNLNTVNESRTFRPKICRSPDQ-IEEAFLKIMNENNLPVG  508
+                ++A +MP+GHGKTT+A +YG +DVD LV+++ H+ L E R  IL   +TW +HN +W+  +  TL+++  + P ++LVHTEE ALE+GA+ +G ++  R   E +I  R  +GK F+RLN  T++ S+    +     ++ +E   LKI+N +N+P+ 
+Subject      1  MFAFIMPAGHGKTTIAHKYGFVDVDMLVTRKEHDDLAEDRASILAGQQTWMEHNTKWYARLNQTLDLLDYSMPVIILVHTEEIALELGARPIGCLKLRRDIFETNIRDRDDLGKTFSRLNYTTLHTSKQVPNQFSNLTNRDLEGMILKILNLSNMPIA  158</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match90>
+      
+        <h1>Nucleotide Sequence (456 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline90>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.087719298245613%">
+                        <div>46</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.087719298245613%">
+                        <div>92</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.087719298245613%">
+                        <div>138</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.087719298245613%">
+                        <div>184</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.087719298245613%">
+                        <div>230</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.087719298245613%">
+                        <div>276</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.087719298245613%">
+                        <div>322</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.087719298245613%">
+                        <div>368</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.087719298245613%">
+                        <div>414</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.210526315789473%">
+                        <div>456</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline90").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline90").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.0964912280701753%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 98.68421052631578%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.21929824561403508%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>278.9</td>
+                  <td>278.9</td>
+                  <td>33%</td>
+                  <td>1.772e-84</td>
+                  <td>84%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 585 to 734</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=585&amp;to=734">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=585&amp;to=734">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>278.9 bits(712)</td>
+                      <td>0.0</td>
+                      <td>126/150(84%)</td>
+                      <td>0/150(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        6  FNEQHSAWEMAQVIKELENVMPDTPDYSMFCSAIIEGMFRMGLEDREGMVHKLWRGLYSGWRGTTWINTVLNFVYVAIALMNLERITGKSVVLMVDHGGDDLDLCLSQPEMMPQFMEIMDNMLFKANKWKQMFGIRSEFFRNTISGARVH  455
+                FNEQHSAWEMAQVIKELE VMPDTPDY +FCSAI+EGM+ MGL+D+EG +HKLWRGLYSGWRGTTWINTVLNF YV+IAL+N+ER+TG SVVLMVDHGGDDLDL LS+P +MP F+EIMDNMLFKANKWKQMFG RSEFFRNTISGARV+
+Subject    585  FNEQHSAWEMAQVIKELETVMPDTPDYHLFCSAIVEGMYEMGLQDKEGHLHKLWRGLYSGWRGTTWINTVLNFCYVSIALLNMERLTGVSVVLMVDHGGDDLDLVLSEPSVMPTFLEIMDNMLFKANKWKQMFGKRSEFFRNTISGARVY  734</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match92>
+      
+        <h1>Nucleotide Sequence (686 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline92>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.058309037900875%">
+                        <div>69</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.058309037900875%">
+                        <div>138</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.058309037900875%">
+                        <div>207</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.058309037900875%">
+                        <div>276</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.058309037900875%">
+                        <div>345</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.058309037900875%">
+                        <div>414</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.058309037900875%">
+                        <div>483</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.058309037900875%">
+                        <div>552</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.058309037900875%">
+                        <div>621</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.475218658892128%">
+                        <div>686</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline92").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline92").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: red; width: 98.83381924198251%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.1661807580174928%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>407.1</td>
+                  <td>407.1</td>
+                  <td>33%</td>
+                  <td>1.04e-131</td>
+                  <td>82%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 684 to 909</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=684&amp;to=909">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=684&amp;to=909">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>407.1 bits(1045)</td>
+                      <td>0.0</td>
+                      <td>185/226(82%)</td>
+                      <td>0/226(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  DDLDLCLSQPEMMPQFMEIMDNMLFKANKWKQMFGIRSEFFRNTISGARVYASPTRALAAFIAGDWEGAGRATIKERIVSLLDQIGKLKRRGVSNEMCQGFTMCCISHWCKVKDGEEWMNLPQAVLHGCEDQGGLGVPDANNQVWVLDKPVPEVNDEWYKVVVPGYKASKDYVKVLSEEIDRFSLAIERQDELARKLAEDSYDIDKAIDKMEWRKLLKFDGRPMRY  678
+                DDLDL LS+P +MP F+EIMDNMLFKANKWKQMFG RSEFFRNTISGARVYASPTRALA+FIAGDWEGAGRAT+KER+VSLLDQIGKL+RRGVSNEMCQGFTM CISHWCK+KDGEEWMNLP+AVLHG E+QGGLGVPDA NQVW+LDK VPEVN+EWYKVVVP YKASKDYVKVLS+E+ RFS+ I+RQ+ELA+KLA DSYD+DK++D++ WRKLL+FDG+ + Y
+Subject    684  DDLDLVLSEPSVMPTFLEIMDNMLFKANKWKQMFGKRSEFFRNTISGARVYASPTRALASFIAGDWEGAGRATVKERVVSLLDQIGKLRRRGVSNEMCQGFTMSCISHWCKIKDGEEWMNLPEAVLHGVEEQGGLGVPDAANQVWILDKNVPEVNEEWYKVVVPDYKASKDYVKVLSDEMARFSIVIQRQEELAQKLAVDSYDLDKSVDRIAWRKLLQFDGKAIAY  909</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match96>
+      
+        <h1>Nucleotide Sequence (426 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline96>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>43</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>86</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>129</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>172</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>215</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>258</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>301</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>344</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.093896713615024%">
+                        <div>387</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.154929577464788%">
+                        <div>426</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline96").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline96").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 100.0%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>193.4</td>
+                  <td>193.4</td>
+                  <td>33%</td>
+                  <td>7.579e-54</td>
+                  <td>67%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 15 to 155</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=15&amp;to=155">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=15&amp;to=155">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>193.4 bits(490)</td>
+                      <td>0.0</td>
+                      <td>95/142(67%)</td>
+                      <td>1/142(1%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  LAHRYGFIDVDMLVTGREHDELAIDRAEILSGRQTWNAHNQRWYRRLNESLDLLDYSMPVIILVHTEELALELGAQVMGVLKLQRPQFEHNIRDRDTLGKRFSRMNVDNLVVSKDAPNKFLALQDNDALEAIILKMLNLSGM  426
+                +AH+YGF+DVDMLVT +EHD+LA DRA IL+G+QTW  HN +WY RLN++LDLLDYSMPVIILVHTEE+ALELGA+ +G LKL+R  FE NIRDRD LGK FSR+N   L  SK  PN+F  L + D LE +ILK+LNLS M
+Subject     15  IAHKYGFVDVDMLVTRKEHDDLAEDRASILAGQQTWMEHNTKWYARLNQTLDLLDYSMPVIILVHTEEIALELGARPIGCLKLRRDIFETNIRDRDDLGKTFSRLNYTTLHTSKQVPNQFSNLTNRD-LEGMILKILNLSNM  155</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match136>
+      
+        <h1>Nucleotide Sequence (414 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline136>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>42</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>84</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>126</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>168</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>210</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>252</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>294</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>336</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.144927536231883%">
+                        <div>378</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.695652173913043%">
+                        <div>414</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline136").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline136").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 4.3478260869565215%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 95.65217391304347%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>201.4</td>
+                  <td>201.4</td>
+                  <td>32%</td>
+                  <td>7.794e-57</td>
+                  <td>70%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 2 to 133</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=2&amp;to=133">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=2&amp;to=133">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>201.4 bits(511)</td>
+                      <td>0.0</td>
+                      <td>92/132(70%)</td>
+                      <td>0/132(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       19  FALVMPAGHGKTKLAHRYGFIDVDMLVTGREHDELAIDRAEILSGRQTWNAHNQRWYKRLNESLDLLDYSMPVIILVHTEELALELGAQVMGVLKLQRPQFERNIRDRDTLGKRFSRMNFDNLVVSKDAPNK  414
+                FA +MPAGHGKT +AH+YGF+DVDMLVT +EHD+LA DRA IL+G+QTW  HN +WY RLN++LDLLDYSMPVIILVHTEE+ALELGA+ +G LKL+R  FE NIRDRD LGK FSR+N+  L  SK  PN+
+Subject      2  FAFIMPAGHGKTTIAHKYGFVDVDMLVTRKEHDDLAEDRASILAGQQTWMEHNTKWYARLNQTLDLLDYSMPVIILVHTEEIALELGARPIGCLKLRRDIFETNIRDRDDLGKTFSRLNYTTLHTSKQVPNQ  133</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match159>
+      
+        <h1>Nucleotide Sequence (674 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline159>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.089020771513352%">
+                        <div>68</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.089020771513352%">
+                        <div>136</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.089020771513352%">
+                        <div>204</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.089020771513352%">
+                        <div>272</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.089020771513352%">
+                        <div>340</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.089020771513352%">
+                        <div>408</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.089020771513352%">
+                        <div>476</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.089020771513352%">
+                        <div>544</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.089020771513352%">
+                        <div>612</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.198813056379821%">
+                        <div>674</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline159").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline159").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 11.42433234421365%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 88.57566765578635%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>311.2</td>
+                  <td>311.2</td>
+                  <td>30%</td>
+                  <td>2.717e-95</td>
+                  <td>71%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 756 to 954</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=756&amp;to=954">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=756&amp;to=954">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>311.2 bits(796)</td>
+                      <td>0.0</td>
+                      <td>141/199(71%)</td>
+                      <td>0/199(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       78  TIKERIVSLLDQVGKVKRRGVSNEMCQGFTMCCISHCSKVKDGEEWMNLPQAVLHGCEDQGGLGVPDANNQVWVLDKPVPEVNDEWYKVVVPGYKASKDYVKVLSEEIDKFSLAIERQDELAKKLAEDSYDIDKAIDRMEWRKLLSFSGRPMRYIDVIQPKENDAIFELFTEYQIDEQTTRRFDKASRYQEYIGYIVHE  674
+                T+KER+VSLLDQ+GK++RRGVSNEMCQGFTM CISH  K+KDGEEWMNLP+AVLHG E+QGGLGVPDA NQVW+LDK VPEVN+EWYKVVVP YKASKDYVKVLS+E+ +FS+ I+RQ+ELA+KLA DSYD+DK++DR+ WRKLL F G+ + Y ++I+P  ND I   F ++QIDE+ TR+FDKASRYQEYI Y+  E
+Subject    756  TVKERVVSLLDQIGKLRRRGVSNEMCQGFTMSCISHWCKIKDGEEWMNLPEAVLHGVEEQGGLGVPDAANQVWILDKNVPEVNEEWYKVVVPDYKASKDYVKVLSDEMARFSIVIQRQEELAQKLAVDSYDLDKSVDRIAWRKLLQFDGKAIAYRNIIEPMVNDDIMSSFVDFQIDEEMTRKFDKASRYQEYINYLTVE  954</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match166>
+      
+        <h1>Nucleotide Sequence (333 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_190</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>161</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 11 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline166>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.21021021021021%">
+                        <div>34</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21021021021021%">
+                        <div>68</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21021021021021%">
+                        <div>102</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21021021021021%">
+                        <div>136</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21021021021021%">
+                        <div>170</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21021021021021%">
+                        <div>204</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21021021021021%">
+                        <div>238</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21021021021021%">
+                        <div>272</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.21021021021021%">
+                        <div>306</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.108108108108109%">
+                        <div>333</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline166").innerHTML="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"'
+                   onmouseout='document.getElementById("defline166").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.5015015015015014%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 98.1981981981982%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.3003003003003003%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]"
+                              id="description1">
+                        putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]
+                  </a></div></td>
+                  <td>203.8</td>
+                  <td>203.8</td>
+                  <td>33%</td>
+                  <td>3.134e-58</td>
+                  <td>83%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">ADO60926</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>putative RNA-dependent RNA polymerase, partial [Grapevine associated chrysovirus-1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign">gb|ADO60926.1|</a>
+                    <span class=b>Length:</span> 957
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 585 to 693</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=genbank&amp;log$=nuclalign&amp;from=585&amp;to=693">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/309256198?report=graph&amp;log$=nuclalign&amp;from=585&amp;to=693">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>203.8 bits(517)</td>
+                      <td>0.0</td>
+                      <td>91/109(83%)</td>
+                      <td>0/109(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        6  FNEQHSAWEMAQVIKELENVMPDTPDYSMFCSAIIEGMFRMGLEDREGMVHKLWRGLYSGWRGTTWINTVLNFVYVAIALMNLERITGKSVVLMVDHGGDDLDLCLSQP  332
+                FNEQHSAWEMAQVIKELE VMPDTPDY +FCSAI+EGM+ MGL+D+EG +HKLWRGLYSGWRGTTWINTVLNF YV+IAL+N+ER+TG SVVLMVDHGGDDLDL LS+P
+Subject    585  FNEQHSAWEMAQVIKELETVMPDTPDYHLFCSAIVEGMYEMGLQDKEGHLHKLWRGLYSGWRGTTWINTVLNFCYVSIALLNMERLTGVSVVLMVDHGGDDLDLVLSEP  693</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+
+    </div>
+
+    <footer>
+      This page was generated by <a href="https://github.com/thehyve/blast2html/">blast2html</a>.
+    </footer>
+  </body>
+</html>
+

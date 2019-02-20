@@ -1,33 +1,32 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Prerequisite &mdash; VirAnnot 0.0.1 documentation</title>
-    
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <title>Prerequisite &#8212; VirAnnot 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="VirAnnot 0.0.1 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Parameters files" href="parameter.html" />
     <link rel="prev" title="Welcome to VirAnnot’s documentation!" href="index.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -40,7 +39,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to VirAnnot’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">VirAnnot 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -85,6 +84,10 @@
 <li>Color::Rgb</li>
 <li>List::Util</li>
 <li>Excel::Writer</li>
+<li>Log::Log4perl</li>
+<li>DBD::SQLite</li>
+<li>SQL::SplitStatement</li>
+<li>Math::Round</li>
 </ul>
 </div>
 <div class="section" id="perl-included-libraries">
@@ -134,7 +137,7 @@
 <h1>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h1>
 <p>NCBI taxonomy and the homemade per domain Pfam taxonomy are stored in a simple SQLite database.</p>
 <p>Schema:</p>
-<img src="_images/taxo_sql.svg" /><div class="section" id="ncbi-taxonomy">
+<img alt="_images/taxo_sql.svg" src="_images/taxo_sql.svg" /><div class="section" id="ncbi-taxonomy">
 <h2>NCBI Taxonomy<a class="headerlink" href="#ncbi-taxonomy" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Download and extract NCBI taxonomy files.</li>
@@ -189,11 +192,38 @@ You need to extract these informations and load it into the sqlite database.</p>
 </div>
 <div class="section" id="ncbi-blast-database">
 <h2>NCBI Blast database<a class="headerlink" href="#ncbi-blast-database" title="Permalink to this headline">¶</a></h2>
+<p>NCBI non redundant databases are very large and similarity search using Blast is an intensive task. I recommand to use those databases on computer clusters.</p>
 <ul class="simple">
 <li>Download NCBI nr et nt Blast files.</li>
 </ul>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nr.*.tar.gz
 wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt.*.tar.gz
+</pre></div>
+</div>
+<p>Modify the parameters.yaml to fit your configuration.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">servers</span><span class="p">:</span>
+<span class="n">genotoul</span><span class="p">:</span>
+  <span class="n">adress</span><span class="p">:</span> <span class="s1">&#39;genotoul.toulouse.inra.fr&#39;</span>
+  <span class="n">username</span><span class="p">:</span> <span class="s1">&#39;stheil&#39;</span>
+  <span class="n">db</span><span class="p">:</span>
+    <span class="n">nr</span><span class="p">:</span> <span class="s1">&#39;/bank/blastdb/nr&#39;</span>
+    <span class="n">nt</span><span class="p">:</span> <span class="s1">&#39;/bank/blastdb/nt&#39;</span>
+</pre></div>
+</div>
+<p>Reduced databases are a good choice for limited computer ressources and drastically faster similarity search. Here are some example commands using NCBI tools to download sequences.</p>
+<ul class="simple">
+<li>Reduced NCBI databases:</li>
+</ul>
+<p>Get all viroids nucleotide sequence from genbank:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">esearch</span> <span class="o">-</span><span class="n">db</span> <span class="s2">&quot;nucleotide&quot;</span> <span class="o">-</span><span class="n">query</span> <span class="s2">&quot;txid12884[Organism]&quot;</span> <span class="o">|</span> <span class="n">efetch</span> <span class="o">-</span><span class="nb">format</span> <span class="n">fasta</span> <span class="o">&gt;</span> <span class="n">viroids_nucl</span><span class="o">.</span><span class="n">fna</span>
+</pre></div>
+</div>
+<p>Get all viruses nucleotide sequences from genbank:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">esearch</span> <span class="o">-</span><span class="n">db</span> <span class="s2">&quot;nucleotide&quot;</span> <span class="o">-</span><span class="n">query</span> <span class="s2">&quot;txid10239[Organism]&quot;</span> <span class="o">|</span> <span class="n">efetch</span> <span class="o">-</span><span class="nb">format</span> <span class="n">fasta</span> <span class="o">&gt;</span> <span class="n">viruses_nucl</span><span class="o">.</span><span class="n">fna</span>
+</pre></div>
+</div>
+<p>Create Blast DB example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">makeblastdb</span> <span class="o">-</span><span class="ow">in</span> <span class="n">viruses_nucl</span><span class="o">.</span><span class="n">fna</span> <span class="o">-</span><span class="n">parse_seqids</span> <span class="o">-</span><span class="n">dbtype</span> <span class="n">nucl</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -211,26 +241,11 @@ wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/cdd.tar.gz
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="se">\l</span>s -1 <span class="p">|</span> grep -v <span class="s1">&#39;pfam&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s,^.*$,rm &amp;,&#39;</span>
 </pre></div>
 </div>
-<p>Add &#8216;| bash&#8217; if correct.</p>
+<p>Add ‘| bash’ if correct.</p>
 <ul class="simple">
 <li>Download entire CDD database:</li>
 </ul>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/little_endian/CDD_LE.tar.gz
-</pre></div>
-</div>
-<ul class="simple">
-<li>Reduced NCBI databases:</li>
-</ul>
-<p>Get all viroids nucleotide sequence from genbank:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>esearch -db &quot;nucleotide&quot; -query &quot;txid12884[Organism]&quot; | efetch -format fasta &gt; viroids_nucl.fna
-</pre></div>
-</div>
-<p>Get all viruses nucleotide sequences from genbank:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>esearch -db &quot;nucleotide&quot; -query &quot;txid10239[Organism]&quot; | efetch -format fasta &gt; viruses_nucl.fna
-</pre></div>
-</div>
-<p>Create Blast DB:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>makeblastdb -in viruses_nucl.fna -parse_seqids -dbtype nucl
 </pre></div>
 </div>
 </div>
@@ -263,28 +278,25 @@ wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/cdd.tar.gz
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to VirAnnot&#8217;s documentation!</a></p>
+                        title="previous chapter">Welcome to VirAnnot’s documentation!</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="parameter.html"
                         title="next chapter">Parameters files</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/prerequisite.txt"
+      <li><a href="_sources/prerequisite.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -303,12 +315,12 @@ wget ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/cdd.tar.gz
         <li class="right" >
           <a href="index.html" title="Welcome to VirAnnot’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">VirAnnot 0.0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">VirAnnot 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Sebastien Theil.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b1.
+        &#169; Copyright 2016, Sebastien Theil.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

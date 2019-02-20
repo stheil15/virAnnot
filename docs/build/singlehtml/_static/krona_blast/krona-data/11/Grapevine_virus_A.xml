@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>blastx</BlastOutput_program>
+  <BlastOutput_version>BLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/bank/blastdb/nr</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-55_2</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>1402</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>7</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_9</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>945</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|111145970|gb|ABH07009.1|</Hit_id>
+  <Hit_def>unknown [Grapevine virus A]</Hit_def>
+  <Hit_accession>ABH07009</Hit_accession>
+  <Hit_len>175</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>290.426</Hsp_bit-score>
+      <Hsp_score>742</Hsp_score>
+      <Hsp_evalue>2.15035e-94</Hsp_evalue>
+      <Hsp_query-from>437</Hsp_query-from>
+      <Hsp_query-to>943</Hsp_query-to>
+      <Hsp_hit-from>7</Hsp_hit-from>
+      <Hsp_hit-to>175</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>149</Hsp_identity>
+      <Hsp_positive>163</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>169</Hsp_align-len>
+      <Hsp_qseq>TELVEFLRLGLDRSTLGNGSIESLPFDRCIRLLEGLRSLGYASIDNVLHVLGGGEPDRFEILKVFRAQGVAISEAYQLGLTKSLSFSPRPVSLIXXXXXDRIARCASFLPVDLGAVIGELVINFERSRLSVDLYINNKKVCSRIKYSAGDAQYVHRRFSGFKGIITRSS</Hsp_qseq>
+      <Hsp_hseq>TELLDFLRFGLDRSTLGSGSIESLPLDRCIRLLEGLRNLGYSSIDNVLHVLGGGEPDRFQILRVFRAQGVAVSEAYELGLTKSLSFSPRPVSLILDDLLDRIARGASFLPVDLGAVNGELVVNFERSRLSVDLYVNNKKVCSRIKYSAGDPKYVQQRFSGFKGIVTRSS</Hsp_hseq>
+      <Hsp_midline>TEL++FLR GLDRSTLG+GSIESLP DRCIRLLEGLR+LGY+SIDNVLHVLGGGEPDRF+IL+VFRAQGVA+SEAY+LGLTKSLSFSPRPVSLILDDLLDRIAR ASFLPVDLGAV GELV+NFERSRLSVDLY+NNKKVCSRIKYSAGD +YV +RFSGFKGI+TRSS</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>154</Statistics_hsp-len>
+      <Statistics_eff-space>4224558614822</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>40</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_59</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>367</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|410519383|gb|AFV73358.1|</Hit_id>
+  <Hit_def>195 kDa replicase [Grapevine virus A]</Hit_def>
+  <Hit_accession>AFV73358</Hit_accession>
+  <Hit_len>1710</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>241.891</Hsp_bit-score>
+      <Hsp_score>616</Hsp_score>
+      <Hsp_evalue>1.94917e-70</Hsp_evalue>
+      <Hsp_query-from>2</Hsp_query-from>
+      <Hsp_query-to>367</Hsp_query-to>
+      <Hsp_hit-from>904</Hsp_hit-from>
+      <Hsp_hit-to>1025</Hsp_hit-to>
+      <Hsp_query-frame>2</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>111</Hsp_identity>
+      <Hsp_positive>117</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>122</Hsp_align-len>
+      <Hsp_qseq>VLLGKYNKGKMHSASLEEPIEVLTSFGFAGSGKSHWSQTILQSCEVEKTLVISPRKVLKDDWVGKISKKHKVVTFEVAFTDDFGCKAIVIDEIGLLPPGYVDLVISVFHPTTLVLLGDPPQS</Hsp_qseq>
+      <Hsp_hseq>VLLGKYNKGKMHSAELEEPVEVLTSFGFAGSGKSHWCQTILRSCDVEKTLIISPRKVLKDDWVGKISKKHKVVTFEVAFMDDFGCKAIVIDEIGLLPPGYIDLVISVFRPSTLVLLGDPLQS</Hsp_hseq>
+      <Hsp_midline>VLLGKYNKGKMHSA LEEP+EVLTSFGFAGSGKSHW QTIL+SC+VEKTL+ISPRKVLKDDWVGKISKKHKVVTFEVAF DDFGCKAIVIDEIGLLPPGY+DLVISVF P+TLVLLGDP QS</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>89</Statistics_hsp-len>
+      <Statistics_eff-space>1129991166876</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>52</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_20</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>601</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|109690139|gb|ABG37965.1|</Hit_id>
+  <Hit_def>putative replicase [Grapevine virus A]</Hit_def>
+  <Hit_accession>ABG37965</Hit_accession>
+  <Hit_len>1710</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>333.954</Hsp_bit-score>
+      <Hsp_score>855</Hsp_score>
+      <Hsp_evalue>1.25781e-101</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>600</Hsp_query-to>
+      <Hsp_hit-from>1133</Hsp_hit-from>
+      <Hsp_hit-to>1332</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>184</Hsp_identity>
+      <Hsp_positive>197</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>200</Hsp_align-len>
+      <Hsp_qseq>EDEDVMVAFTRSRGEIAINVDKKLKEVLLRTSKSELLRKILNGETFRRSNIITLVKKHIPEAVIIFEENRLASNVDYEERLAGDPYLKSXXXXXXXXXXXXXXXXXXXXXXPMKTHLALSEKLNELAPFDLKAKEDREQYTDAGRTEQIDEEGYGQWGANPMSHKALYLRHTSDDTATFMMSVKKRLRYRNYEGNRRKYL</Hsp_qseq>
+      <Hsp_hseq>EDEDVMVAFTRSRGEIAISVDKKLKEVLLRTSKSELLRKILSGETYRRSSIIALVKKHIPEALVVFEENRLASNVDYEERLAGDPYLKSLLSLYEDIEEEEVEIEEPVALEPIRTHLPLSEKLNELIPFDLKAKEDREQYTEAGRTEQIDEEGYGQWGANPMTHKALYLRHTSDDTATFMMSVKKRLRYRSYEGNRRKYL</Hsp_hseq>
+      <Hsp_midline>EDEDVMVAFTRSRGEIAI+VDKKLKEVLLRTSKSELLRKIL+GET+RRS+II LVKKHIPEA+++FEENRLASNVDYEERLAGDPYLKSLLSLYEDIEEEEVE+EEPVALEP++THL LSEKLNEL PFDLKAKEDREQYT+AGRTEQIDEEGYGQWGANPM+HKALYLRHTSDDTATFMMSVKKRLRYR+YEGNRRKYL</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>146</Statistics_hsp-len>
+      <Statistics_eff-space>1470119626404</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>59</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_41</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>463</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|565673136|gb|AHC13414.1|</Hit_id>
+  <Hit_def>coat protein [Grapevine virus A]</Hit_def>
+  <Hit_accession>AHC13414</Hit_accession>
+  <Hit_len>198</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>285.034</Hsp_bit-score>
+      <Hsp_score>728</Hsp_score>
+      <Hsp_evalue>1.40507e-94</Hsp_evalue>
+      <Hsp_query-from>17</Hsp_query-from>
+      <Hsp_query-to>436</Hsp_query-to>
+      <Hsp_hit-from>1</Hsp_hit-from>
+      <Hsp_hit-to>140</Hsp_hit-to>
+      <Hsp_query-frame>2</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>137</Hsp_identity>
+      <Hsp_positive>139</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>140</Hsp_align-len>
+      <Hsp_qseq>MGQYARRGEIRAVIEELVLARAELSEDTSSEGYDRTMYLNTLFGYIALVGTSKKATHYGEVDIVGPNASRKTGLDPRGKINVASMVTRMRTLSAAVSEGPVKGATLRQMCEPFAQNAYDFLVVMAELGTYTQLASKMTRS</Hsp_qseq>
+      <Hsp_hseq>MGQFARRGEIRAVIEELVLARAELSEDTSTEGYDRTMYLNTLFGYIALVGTSKKATHYGEVDIVGPNASRKTGLDPRGKINVASMVARMRTLSAAVSEGPVKGATLRQMCEPFAQNAYDFLVVMAELGTYTQLASKMTRS</Hsp_hseq>
+      <Hsp_midline>MGQ+ARRGEIRAVIEELVLARAELSEDTS+EGYDRTMYLNTLFGYIALVGTSKKATHYGEVDIVGPNASRKTGLDPRGKINVASMV RMRTLSAAVSEGPVKGATLRQMCEPFAQNAYDFLVVMAELGTYTQLASKMTRS</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>118</Statistics_hsp-len>
+      <Statistics_eff-space>1104182571960</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>64</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_67</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>334</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|410519383|gb|AFV73358.1|</Hit_id>
+  <Hit_def>195 kDa replicase [Grapevine virus A]</Hit_def>
+  <Hit_accession>AFV73358</Hit_accession>
+  <Hit_len>1710</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>226.483</Hsp_bit-score>
+      <Hsp_score>576</Hsp_score>
+      <Hsp_evalue>3.12549e-65</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>332</Hsp_query-to>
+      <Hsp_hit-from>1323</Hsp_hit-from>
+      <Hsp_hit-to>1432</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>104</Hsp_identity>
+      <Hsp_positive>107</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>110</Hsp_align-len>
+      <Hsp_qseq>NYEGKRRKYLACHGIGRQMFSVLKGVYQWRDIESLPELERCEKEFMRKRVEKSASLIEQHSGRSDPDWPSNYLKIFLKQQTCTKMEKRGVDAKAGQTIACFAHSVLCRFG</Hsp_qseq>
+      <Hsp_hseq>SYEGNRRKYLACHGIGRQMFSVLKETYQWRDIESLPELEKCEKEFMRKRVEKSAALIEQHSGRSDPDWPSNYLKIFLKQQTCTKMEKRGVDAKAGQTIACFAHSVLCRFG</Hsp_hseq>
+      <Hsp_midline>+YEG RRKYLACHGIGRQMFSVLK  YQWRDIESLPELE+CEKEFMRKRVEKSA+LIEQHSGRSDPDWPSNYLKIFLKQQTCTKMEKRGVDAKAGQTIACFAHSVLCRFG</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>79</Statistics_hsp-len>
+      <Statistics_eff-space>1135146731264</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>80</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-55_45</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>454</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|410519383|gb|AFV73358.1|</Hit_id>
+  <Hit_def>195 kDa replicase [Grapevine virus A]</Hit_def>
+  <Hit_accession>AFV73358</Hit_accession>
+  <Hit_len>1710</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>308.145</Hsp_bit-score>
+      <Hsp_score>788</Hsp_score>
+      <Hsp_evalue>2.39016e-93</Hsp_evalue>
+      <Hsp_query-from>2</Hsp_query-from>
+      <Hsp_query-to>454</Hsp_query-to>
+      <Hsp_hit-from>165</Hsp_hit-from>
+      <Hsp_hit-to>315</Hsp_hit-to>
+      <Hsp_query-frame>-1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>142</Hsp_identity>
+      <Hsp_positive>146</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>151</Hsp_align-len>
+      <Hsp_qseq>HDEVQYWSLDEMQRFLGSLEHAKRVVYSIVYPAEVDAGFGQSLFPEAYTFDLKEGRLTWYPDGKAEGAYTQPVNPWLLGCSKTVDSRSRSWTITRLQTVGAHLLFSAVLGSFLTGDSYKYDNFTIINPNDILRGRRGCKPLYLRARMIRPT</Hsp_qseq>
+      <Hsp_hseq>HDEVQYWSLDEMQRFLGSLKHVKRVVYSIVYPAEVDAGFSQSLFPEAYTFDLKDGRLTWYPDGKAEGAYTQPVNPWLLGCSKTVDSESRSWTITKLQTVGAHHIFSAVLGSFLTEDSYKYDNFTIINPNDILRGRRGCKPLYLRARMIRPT</Hsp_hseq>
+      <Hsp_midline>HDEVQYWSLDEMQRFLGSL+H KRVVYSIVYPAEVDAGF QSLFPEAYTFDLK+GRLTWYPDGKAEGAYTQPVNPWLLGCSKTVDS SRSWTIT+LQTVGAH +FSAVLGSFLT DSYKYDNFTIINPNDILRGRRGCKPLYLRARMIRPT</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>115</Statistics_hsp-len>
+      <Statistics_eff-space>1117479302784</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

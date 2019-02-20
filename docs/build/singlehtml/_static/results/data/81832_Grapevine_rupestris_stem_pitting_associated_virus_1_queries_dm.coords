@@ -1,0 +1,6 @@
+/media/scratch/stheil/test_virAnnot/ds2015-149/ds2015-149_autoMapper_nr/fasta/81832_Grapevine_rupestris_stem_pitting_associated_virus_1.fasta /media/scratch/stheil/test_virAnnot/ds2015-149/ds2015-149_autoMapper_nr/mummer/81832_Grapevine_rupestris_stem_pitting_associated_virus_1/queries.fasta
+PROMER
+
+[S1]	[E1]	[S2]	[E2]	[LEN 1]	[LEN 2]	[% IDY]	[% SIM]	[% STP]	[LEN R]	[LEN Q]	[FRM]	[TAGS]
+5948	6325	379	2	378	378	80.16	84.92	0.00	8744	399	2	-3	gi|3599992|gb|AF057136.1|AF057136	ds2015-149_12
+6663	6571	303	395	93	93	83.87	87.10	4.84	8744	399	-3	3	gi|3599992|gb|AF057136.1|AF057136	ds2015-149_12

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>blastx</BlastOutput_program>
+  <BlastOutput_version>BLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/bank/blastdb/nr</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-58_190</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>161</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>145</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_92</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>439</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|530291184|gb|AGT17853.1|</Hit_id>
+  <Hit_def>putative replicase [Grapevine virus A]</Hit_def>
+  <Hit_accession>AGT17853</Hit_accession>
+  <Hit_len>1707</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>249.98</Hsp_bit-score>
+      <Hsp_score>637</Hsp_score>
+      <Hsp_evalue>7.36804e-73</Hsp_evalue>
+      <Hsp_query-from>2</Hsp_query-from>
+      <Hsp_query-to>439</Hsp_query-to>
+      <Hsp_hit-from>1146</Hsp_hit-from>
+      <Hsp_hit-to>1291</Hsp_hit-to>
+      <Hsp_query-frame>-1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>136</Hsp_identity>
+      <Hsp_positive>140</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>146</Hsp_align-len>
+      <Hsp_qseq>GIHVTPVLKKHLITNAKSTLLKKVLKGETYRRSEIVAMVRKHIPETTVLFEESRLAETVDYEARLAGDPYLKSLLALYXXXXXXXXXXXEPVALEPTRTHLALSTKINELAPFDLKAKEDREQYTEAGRTEQIDEEGYQGEAGNPM</Hsp_qseq>
+      <Hsp_hseq>GIHVTPALKKNLINNAKSTLLKKVLKGETYRRSEIVAMVRKHIPDTTVLFEESRLAETVDYEARLAGDPYLKSLLALYDEIEMEEVEIEEPVALEPTKTHLALSTMTNELAPFDLKAKEYREQYTEVGRTEQIDEEGYQGEAGNPM</Hsp_hseq>
+      <Hsp_midline>GIHVTP LKK+LI NAKSTLLKKVLKGETYRRSEIVAMVRKHIP+TTVLFEESRLAETVDYEARLAGDPYLKSLLALYDEIEME+VEIEEPVALEPT+THLALST  NELAPFDLKAKE REQYTE GRTEQIDEEGYQGEAGNPM</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>111</Statistics_hsp-len>
+      <Statistics_eff-space>1103674713960</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>148</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_35</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>648</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|565672894|gb|AHC13293.1|</Hit_id>
+  <Hit_def>RNA-dependent RNA polymerase, partial [Grapevine virus A]</Hit_def>
+  <Hit_accession>AHC13293</Hit_accession>
+  <Hit_len>250</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>357.836</Hsp_bit-score>
+      <Hsp_score>917</Hsp_score>
+      <Hsp_evalue>2.42212e-121</Hsp_evalue>
+      <Hsp_query-from>25</Hsp_query-from>
+      <Hsp_query-to>582</Hsp_query-to>
+      <Hsp_hit-from>65</Hsp_hit-from>
+      <Hsp_hit-to>250</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>182</Hsp_identity>
+      <Hsp_positive>184</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>186</Hsp_align-len>
+      <Hsp_qseq>AKAGQTIACFAHSVLCRFGPILRQTEKALRELLPENVMIYSQKNYMDLDKWAKTWVESMMGTDSDYEAFDRSQDEKVLDLEVEVLRFFLWPXXXXXXXXXXXXMMGCALGDLAVMRFSGEFGTFFFNTVCNMVFSCMRYHMDRNTPMCFAGDDMYSPGILRVKKDYEATLEQLTLEAKAHNSDEPL</Hsp_qseq>
+      <Hsp_hseq>AKAGQTIACFAHSVLCRFGPILRQTEKALRELLPENVMIYSQKNYMDLDKWAKTWVESMMGTDSDYEAFDRSQDEKVLDLEVEVLRFFLWPEELIKEYEELKLMMGCALGDLAVMRFSGEFGTFFFNTVCNMVFSCMRYHMDRNTPMCFAGDDMYSPGILRVKKDYEATLEQLTLKAKVHVSEEPL</Hsp_hseq>
+      <Hsp_midline>AKAGQTIACFAHSVLCRFGPILRQTEKALRELLPENVMIYSQKNYMDLDKWAKTWVESMMGTDSDYEAFDRSQDEKVLDLEVEVLRFFLWPEELIKEYEELKLMMGCALGDLAVMRFSGEFGTFFFNTVCNMVFSCMRYHMDRNTPMCFAGDDMYSPGILRVKKDYEATLEQLTL+AK H S+EPL</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>148</Statistics_hsp-len>
+      <Statistics_eff-space>1834517720360</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+    <Iteration>
+  <Iteration_iter-num>188</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_130</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>352</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gi|20153360|ref|NP_619662.1|</Hit_id>
+  <Hit_def>putative replicase [Grapevine virus A] &gt;gi|81937291|sp|Q67704.1|RDRP_GVAIS RecName: Full=RNA replication protein; Includes: RecName: Full=RNA-directed RNA polymerase; Includes: RecName: Full=Helicase &gt;gi|1405615|emb|CAA53182.1| putative replicase [Grapevine virus A]</Hit_def>
+  <Hit_accession>NP_619662</Hit_accession>
+  <Hit_len>1707</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>173.326</Hsp_bit-score>
+      <Hsp_score>438</Hsp_score>
+      <Hsp_evalue>1.42343e-46</Hsp_evalue>
+      <Hsp_query-from>95</Hsp_query-from>
+      <Hsp_query-to>352</Hsp_query-to>
+      <Hsp_hit-from>641</Hsp_hit-from>
+      <Hsp_hit-to>726</Hsp_hit-to>
+      <Hsp_query-frame>-1</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>80</Hsp_identity>
+      <Hsp_positive>83</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>86</Hsp_align-len>
+      <Hsp_qseq>GLDDSYDHCLIQRYSAGGSIGFHADDEPCYLPGGSVVTVNLYGDATFEVKENTSGRIEKVELRDGDVYVMGPGMQQTHKHRVTSHT</Hsp_qseq>
+      <Hsp_hseq>GLDDSYDHCLIQRYTAGGSIGFHADDEPCYLPGGSVVTVNLHGDATFEVKENQSGKIEKKELHDGDVYVMGPGMQQTHKHRVTSHT</Hsp_hseq>
+      <Hsp_midline>GLDDSYDHCLIQRY+AGGSIGFHADDEPCYLPGGSVVTVNL+GDATFEVKEN SG+IEK EL DGDVYVMGPGMQQTHKHRVTSHT</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>123117878</Statistics_db-num>
+      <Statistics_db-len>45199647714</Statistics_db-len>
+      <Statistics_hsp-len>85</Statistics_hsp-len>
+      <Statistics_eff-space>1111508098688</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

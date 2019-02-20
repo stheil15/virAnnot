@@ -1,0 +1,12 @@
+krona-data/20/Grapevine_rupestris_stem_pitting_associated_virus.csv	krona-data/20/Grapevine_rupestris_stem_pitting_associated_virus.xml
+krona-data/20/Isaria_javanica_chrysovirus_1.csv	krona-data/20/Isaria_javanica_chrysovirus_1.xml
+krona-data/20/Grapevine_associated_chrysovirus_4.csv	krona-data/20/Grapevine_associated_chrysovirus_4.xml
+krona-data/20/Alternaria_alternata_partitivirus_1.csv	krona-data/20/Alternaria_alternata_partitivirus_1.xml
+krona-data/20/Grapevine_chrysovirus.csv	krona-data/20/Grapevine_chrysovirus.xml
+krona-data/20/Grapevine_associated_chrysovirus_1.csv	krona-data/20/Grapevine_associated_chrysovirus_1.xml
+krona-data/20/Agaricus_bisporus_endornavirus_1.csv	krona-data/20/Agaricus_bisporus_endornavirus_1.xml
+krona-data/20/Grapevine_associated_chrysovirus_3.csv	krona-data/20/Grapevine_associated_chrysovirus_3.xml
+krona-data/20/Gremmeniella_abietina_RNA_virus_6.csv	krona-data/20/Gremmeniella_abietina_RNA_virus_6.xml
+krona-data/20/Macrophomina_phaseolina_single_stranded_RNA_virus_1.csv	krona-data/20/Macrophomina_phaseolina_single_stranded_RNA_virus_1.xml
+krona-data/20/Wuhan_insect_virus_30.csv	krona-data/20/Wuhan_insect_virus_30.xml
+krona-data/20/Soybean_leaf_associated_endornavirus_1.csv	krona-data/20/Soybean_leaf_associated_endornavirus_1.xml

@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=generator content="blast2html; see https://github.com/thehyve/blast2html/">
+    
+    <title>Blast output</title>
+    
+    <style>
+      body {
+      color: #333333;
+      font-family: Arial,Sans-Serif;
+      }
+
+      :link {
+      color: #336699;
+      }
+
+      .right {
+      float: right;
+      }
+
+      /* Galaxy with html sanitization enabled strips the header of this html page. If so, show the user a warning.*/
+      #strip_html_warning {
+      display: none;
+      }
+      
+      #content {
+      margin: 0 2em;
+      padding: 0.5em;
+      border: 1px solid #888888;
+      background-color: #d3dff5;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+      color: #2A6979;
+      font-family: arial,verdana,sans-serif;
+      letter-spacing: -1px;
+      margin: 1.2em 0 0.3em;
+      }
+
+      h1 {
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 150%;
+      padding-bottom: 0.1em;
+      }
+
+      h2 {
+      font-size: 120%;
+      font-weight: bold;
+      }
+
+      h4.darkHeader {
+      color: #4D4D4D;
+      letter-spacing: 0;
+      font-weight: bold;
+      }
+
+      #nodata {
+      font-weight: bold;
+      }
+
+      .index {
+      margin-bottom: 3em;
+      }
+      .index div.indexentry {
+      margin: 1.2em 1.6em;
+      font-weight: bold;
+      font-size: 100%;
+      }
+      
+      .headerdata {
+      font-size: 90%;
+      }
+      .headerdata .param {
+      font-weight: bold;
+      text-align: right;
+      padding: 0 1em;
+      }
+
+      .grey {
+      background-color: #eeeeee;
+      border: 1px solid #cccccc;
+      padding: 1em;
+      }
+
+      .white {
+      background-color: white;
+      border: 1px solid #cccccc;
+      padding: 1.5em 2%;
+      }
+
+      .graphicrow {
+      clear: left;
+      width: 100%;
+      }
+
+      .graphicitem {
+      float: left;
+      }
+
+
+      
+      .graphics .grey {
+      text-align: center;
+      }
+
+      .graphic {
+      background-color: white;
+      border: 2px solid black;
+      padding: 1.5em;
+      margin: auto;
+      }
+
+      .centered, .defline, div.legend, div.tablewrapper {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .defline {
+      background-color: white;
+      border: 1px solid black;
+      margin: .5em auto;
+      padding-left: .2em;
+      padding-right: .2em;
+      max-width: 50em;
+      text-align: left;
+      height: 2.8em;
+      overflow-y: hidden;
+      }
+
+      div.legend {
+      max-width: 40em;
+      }
+      div.legend div {
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-spacing: 0;
+      }
+      div.legend div .graphicitem {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      }
+
+      div.tablewrapper {
+      width: 50%;
+      min-width: 60em;
+      }
+
+      /* For small widths we give the graphic 100% */
+      @media (max-width: 72.5em) {
+      div.tablewrapper {
+      width: 100%;
+      min-width: 0px;
+      }
+      }
+
+      .scale {
+      width: 100%;
+      margin: .5em 0;
+      font-weight: bold;
+      }
+      .scale div {
+      color: red;
+      text-align: left;
+      }
+      .scale .graphicrow {
+      margin: .5em 0 .5em 0;
+      color: white;
+      }
+      .scale .graphicitem {
+      position: relative;
+      }
+      .scale .graphicitem div {
+      margin: 0 1px;
+      padding: 0 2px;
+      text-align: right;
+      background-color: red;
+      color: white;
+      }
+      .scale .graphicitem:first-child div {
+      margin-left: 0px;
+      }
+      .scale .graphicitem:last-child div {
+      margin-right: 0px;
+      }
+      .scale .graphicitem .lastlabel {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      background-color: transparent;
+      color: red;
+      }
+
+      a.matchresult {
+      display: block;
+      margin: 0;
+      padding: 0;
+      }
+      div.matchrow {
+      margin-top: 4px;
+      }
+      div.matchrow, div.matchitem {
+      height: 4px;
+      }
+
+      
+      table.descriptiontable {
+      font-size: 85%;
+      border: 1px solid #97b0c8;
+      border-spacing: 0;
+      color: #222222;
+      line-height: 1.3em;
+      background-color: white;
+      }
+      table.descriptiontable col:first-child {
+      width: 100%;
+      }
+      table.descriptiontable tr:hover {
+      background-color: #D5DEE3;
+      }
+      table.descriptiontable th {
+      color: #14376C;
+      font-weight: normal;
+      background-color: #F0F0F0;
+      background: linear-gradient(#FFFFFF, #F0F0F0);
+      border-bottom: 1px solid #D4DFE9;
+      border-right: 1px solid #CFCFCF;
+      border-left: 0px solid black;
+      border-top: 0px solid black;
+      }
+      table.descriptiontable td {
+      overflow: hidden;
+      text-align: center;
+      padding: .4em .8em;
+      }
+      table.descriptiontable td div {
+      width: 1em;
+      overflow: visible;
+      white-space: nowrap;
+      text-align: left;
+      }
+
+
+      
+      .alignments .white {
+      padding: 1.5em 1em;
+      }
+      
+      .alignment {
+      border-top: 1px solid black;
+      padding-left: 1em;
+      padding-right: 1em;
+      }
+      
+      div.linkheader {
+      padding-top: .2em;
+      font-size: 85%;
+      color: #14376C;
+      }
+      div.linkheader a.linkheader {
+      margin-right: 1em;
+      }
+      div.linkheader .right a {
+      text-decoration: none;
+      }
+
+      .title .hittitle {
+      color: #222222;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo {
+      font-size: 80%;
+      margin-top: 0;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo .b {
+      color: #606060;
+      font-weight: bold;
+      font-size: 90%;
+      }
+
+      .moretitles {
+      margin: 1.2em;
+      }
+      .moretitles .titleinfo {
+      margin: 0;
+      padding: 0;
+      }
+      .moretitles .hittitle {
+      margin: .4em 0 .2em 0;
+      padding: 0;
+      }
+      
+      a.showmoretitles {
+      font-size: 75%;
+      color: #336699;
+      font-weight: bold;
+      margin-top: 0;
+      }
+      a.showmoretitles:hover {
+      }
+
+      .hotspot {
+      color: #606060;
+      font-family: verdana, arial, sans-serif;
+      margin-bottom: 2.5em;
+      }
+
+      .hotspot p.range {
+      font-size: 70%;
+      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: .2em;
+      }
+      .hotspot p.range span.range {
+      font-weight: bold;
+      }
+      .hotspot p.range a.range {
+      margin-left: .5em;
+      }
+
+      table.hotspotstable {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      text-align: left;
+      border-collapse: collapse;
+      }
+      table.hotspotstable th, table.hotspotstable td {
+      padding: .1em 1em;
+      }
+      table.hotspotstable th {
+      font-size: 70%;
+      }
+      table.hotspotstable td {
+      min-width: 7em;
+      color: #222222;
+      font-size: 80%;
+      }
+
+      pre.alignmentgraphic {
+      color: #222222;
+      }
+
+      footer {
+      text-align: center;
+      color: #cccccc;
+      font-size: 70%;
+      margin-top: 1em;
+      }
+      footer :link {
+      color: #5588cc;
+      }
+      
+    </style>
+
+    <script type="text/javascript">
+      function toggle_visibility(id) {
+          var e = document.getElementById(id);
+          if(e.style.display != 'block')
+              e.style.display = 'block';
+          else
+              e.style.display = 'none';
+      }
+    </script>
+
+  </head>
+
+  
+  <body>
+    
+    <div id="strip_html_warning">
+      <!-- This div should be hidden by the header css block. Galaxy
+      strips all css, breaking this page but making this warning
+      visible. This warning contains some ugly old skool tabular html
+      layout that is not stripped. -->
+      <table bgcolor="#FFE5C9"><tr><td><font color="red"><b>
+                <font size=5><center>This html page seems to have been stripped by Galaxy.</center></font>
+                Disable Galaxy's html sanitization feature to view the full page (see <font face=monospace>sanitize_all_html</font> in your galaxy's universe_wsgi.ini), or download this page instead of viewing it in Galaxy.
+      </b></font></td></tr></table>
+    </div>
+    
+    <div id=content>
+
+
+
+      
+      <section class=match id=match104>
+      
+        <h1>Nucleotide Sequence (305 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-58_48</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>589</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/home/stheil/save/db/all_vir/all_vir_nucl.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 1 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline104>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.163934426229508%">
+                        <div>31</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.163934426229508%">
+                        <div>62</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.163934426229508%">
+                        <div>93</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.163934426229508%">
+                        <div>124</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.163934426229508%">
+                        <div>155</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.163934426229508%">
+                        <div>186</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.163934426229508%">
+                        <div>217</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.163934426229508%">
+                        <div>248</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.163934426229508%">
+                        <div>279</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.524590163934425%">
+                        <div>305</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit4"
+                   onmouseover='document.getElementById("defline104").innerHTML="Fusarium oxysporum chrysovirus 1 putative RNA polymerase gene, partial cds"'
+                   onmouseout='document.getElementById("defline104").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Fusarium oxysporum chrysovirus 1 putative RNA polymerase gene, partial cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 23.934426229508194%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 75.73770491803278%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.32786885245901637%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline104").innerHTML="Raphanus sativas chrysovirus 1 segment RNA1 putative RNA dependent RNA polymerase gene, complete cds"'
+                   onmouseout='document.getElementById("defline104").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Raphanus sativas chrysovirus 1 segment RNA1 putative RNA dependent RNA polymerase gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 23.606557377049178%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 75.08196721311475%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.3114754098360655%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit2"
+                   onmouseover='document.getElementById("defline104").innerHTML="Brassica campestris chrysovirus 1 isolate Hubei segment RNA1, complete sequence"'
+                   onmouseout='document.getElementById("defline104").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Brassica campestris chrysovirus 1 isolate Hubei segment RNA1, complete sequence">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 23.934426229508194%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 74.75409836065573%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.3114754098360655%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit3"
+                   onmouseover='document.getElementById("defline104").innerHTML="Verticillium dahliae chrysovirus 1 segment 1, complete sequence"'
+                   onmouseout='document.getElementById("defline104").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Verticillium dahliae chrysovirus 1 segment 1, complete sequence">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 24.59016393442623%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 75.08196721311475%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.32786885245901637%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit5"
+                   onmouseover='document.getElementById("defline104").innerHTML="Cryphonectria nitschkei chrysovirus 1 from Cryphonectria nitschkei bs131 RNA dependent RNA polymerase gene, complete cds"'
+                   onmouseout='document.getElementById("defline104").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Cryphonectria nitschkei chrysovirus 1 from Cryphonectria nitschkei bs131 RNA dependent RNA polymerase gene, complete cds">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 24.59016393442623%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 75.08196721311475%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.32786885245901637%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit4"
+                              title="Fusarium oxysporum chrysovirus 1 putative RNA polymerase gene, partial cds"
+                              id="description4">
+                        Fusarium oxysporum chrysovirus 1 putative RNA polymerase gene, partial cds
+                  </a></div></td>
+                  <td>92.3</td>
+                  <td>160.2</td>
+                  <td>26%</td>
+                  <td>2.097e-17</td>
+                  <td>46%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/EF152346.1?report=genbank&amp;log$=nuclalign">EF152346.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Raphanus sativas chrysovirus 1 segment RNA1 putative RNA dependent RNA polymerase gene, complete cds"
+                              id="description1">
+                        Raphanus sativas chrysovirus 1 segment RNA1 putative RNA dependent RNA polymerase gene, complete cds
+                  </a></div></td>
+                  <td>102.8</td>
+                  <td>231.4</td>
+                  <td>31%</td>
+                  <td>1.41e-20</td>
+                  <td>40%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=genbank&amp;log$=nuclalign">JQ045335.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit2"
+                              title="Brassica campestris chrysovirus 1 isolate Hubei segment RNA1, complete sequence"
+                              id="description2">
+                        Brassica campestris chrysovirus 1 isolate Hubei segment RNA1, complete sequence
+                  </a></div></td>
+                  <td>95.9</td>
+                  <td>150.1</td>
+                  <td>24%</td>
+                  <td>1.653e-18</td>
+                  <td>43%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP782031.1?report=genbank&amp;log$=nuclalign">KP782031.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit3"
+                              title="Verticillium dahliae chrysovirus 1 segment 1, complete sequence"
+                              id="description3">
+                        Verticillium dahliae chrysovirus 1 segment 1, complete sequence
+                  </a></div></td>
+                  <td>92.3</td>
+                  <td>149.2</td>
+                  <td>20%</td>
+                  <td>2.097e-17</td>
+                  <td>50%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HM004067.2?report=genbank&amp;log$=nuclalign">HM004067.2</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit5"
+                              title="Cryphonectria nitschkei chrysovirus 1 from Cryphonectria nitschkei bs131 RNA dependent RNA polymerase gene, complete cds"
+                              id="description5">
+                        Cryphonectria nitschkei chrysovirus 1 from Cryphonectria nitschkei bs131 RNA dependent RNA polymerase gene, complete cds
+                  </a></div></td>
+                  <td>91.3</td>
+                  <td>147.4</td>
+                  <td>25%</td>
+                  <td>3.959e-17</td>
+                  <td>43%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/GQ290650.1?report=genbank&amp;log$=nuclalign">GQ290650.1</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit4>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description4">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/EF152346.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/EF152346.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Fusarium oxysporum chrysovirus 1 putative RNA polymerase gene, partial cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/EF152346.1?report=genbank&amp;log$=nuclalign">EF152346.1</a>
+                    <span class=b>Length:</span> 2574
+                    <span class=b>Number of Matches:</span> 2
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1753 to 1983</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/EF152346.1?report=genbank&amp;log$=nuclalign&amp;from=1753&amp;to=1983">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/EF152346.1?report=graph&amp;log$=nuclalign&amp;from=1753&amp;to=1983">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>92.3 bits(195)</td>
+                      <td>0.0</td>
+                      <td>39/77(51%)</td>
+                      <td>0/77(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       74  QVIREFASIPTAPSDYAMFADVIASRMYDMWLVDGEGNKHELSNGLFSGRRGTTWINSVLNNVYIIVAMECFALLYG  304
+                QVIR+   +  AP DYA+F   I+  MY M +VD +G +H    GL+SG RGTTWIN+VLN VY   A   F  LYG
+Subject   1753  QVIRKLEFVVDAPKDYALFVSAISEAMYHMVIVDPDGKQHPAGRGLYSGWRGTTWINTVLNCVYTNTAEASFERLYG  1983</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 1755 to 1982</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/EF152346.1?report=genbank&amp;log$=nuclalign&amp;from=1755&amp;to=1982">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/EF152346.1?report=graph&amp;log$=nuclalign&amp;from=1755&amp;to=1982">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>68.0 bits(142)</td>
+                      <td>0.0</td>
+                      <td>35/76(46%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       76  PYNNAKHSMATMIYTLFNTELIQVVPRLPENRPFDNSCLLPSPSTSHMSYILLAITSANIA*SEGAVGMLANSLIT  303
+                PY+ +K + A ++YT FNT LI VVP  PE  P    C LPS ST  M YI   +   N A*S GA    +N  IT
+Subject   1755  PYSRSKLASAVLVYTQFNTVLIHVVPLQPEYSPLPAGCCLPSGSTITMWYIASDMAETNRA*SLGASTTNSNFRIT  1982</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Raphanus sativas chrysovirus 1 segment RNA1 putative RNA dependent RNA polymerase gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=genbank&amp;log$=nuclalign">JQ045335.1</a>
+                    <span class=b>Length:</span> 3638
+                    <span class=b>Number of Matches:</span> 3
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 2204 to 2431</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=genbank&amp;log$=nuclalign&amp;from=2204&amp;to=2431">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=graph&amp;log$=nuclalign&amp;from=2204&amp;to=2431">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>102.8 bits(218)</td>
+                      <td>0.0</td>
+                      <td>38/76(50%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       74  QVIREFASIPTAPSDYAMFADVIASRMYDMWLVDGEGNKHELSNGLFSGRRGTTWINSVLNNVYIIVAMECFALLY  301
+                +VI+  A IP  P DY+ F   IA   Y MW++D +G+KHE+  GLFSG RGTTWIN+VLN+VY+ + + C   +Y
+Subject   2204  KVIQYLARIPGCPEDYSTFCCAIADSFYHMWVIDPDGDKHEIKKGLFSGWRGTTWINTVLNHVYVAIGVMCCERIY  2431</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 2203 to 2430</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=genbank&amp;log$=nuclalign&amp;from=2203&amp;to=2430">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=graph&amp;log$=nuclalign&amp;from=2203&amp;to=2430">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>71.2 bits(149)</td>
+                      <td>0.0</td>
+                      <td>37/76(49%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       73  YNNAKHSMATMIYTLFNTELIQVVPRLPENRPFDNSCLLPSPSTSHMSYILLAITSANIA*SEGAVGMLANSLITW  300
+                Y  ++H      YT FNT LIQVVPR PEN PF  SCL PS S +HM   L AI    + *S G  G+ A   IT+
+Subject   2203  YILSQHITPIATYTWFNTVLIQVVPRQPENSPFLISCLSPSGSITHMW*KLSAIAQQKVE*SSGQPGIRARYCITF  2430</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 3: 2240 to 2410</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=genbank&amp;log$=nuclalign&amp;from=2240&amp;to=2410">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/JQ045335.1?report=graph&amp;log$=nuclalign&amp;from=2240&amp;to=2410">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>57.4 bits(119)</td>
+                      <td>0.0</td>
+                      <td>23/57(40%)</td>
+                      <td>0/57(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      110  HGYNDIHVVQHRVNPGSSSPS*K*TV*QLMLVTFSIYQPHVIHPACYHIGKHRIVRR  280
+                H Y  +HVVQH V+P   +P+*+*+   LM +   IY PHV+   CY   +  I+ R
+Subject   2240  HSYCHVHVVQHCVDPSCPTPT*E*SFLNLMFIAVWIYHPHVVETICYSAAESGIILR  2410</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit2>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description2">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP782031.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP782031.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Brassica campestris chrysovirus 1 isolate Hubei segment RNA1, complete sequence</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP782031.1?report=genbank&amp;log$=nuclalign">KP782031.1</a>
+                    <span class=b>Length:</span> 3639
+                    <span class=b>Number of Matches:</span> 2
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 2223 to 2450</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP782031.1?report=genbank&amp;log$=nuclalign&amp;from=2223&amp;to=2450">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP782031.1?report=graph&amp;log$=nuclalign&amp;from=2223&amp;to=2450">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>95.9 bits(203)</td>
+                      <td>0.0</td>
+                      <td>37/76(49%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       74  QVIREFASIPTAPSDYAMFADVIASRMYDMWLVDGEGNKHELSNGLFSGRRGTTWINSVLNNVYIIVAMECFALLY  301
+                +VI     IP  P DY  F   IA   Y MW++D +G KH++  GLFSG RGTTWIN+VLN VY+ V + C   +Y
+Subject   2223  KVIAMLEKIPGVPEDYGYFCHAIAESFYHMWVIDPKGGKHKIEKGLFSGWRGTTWINTVLNFVYVSVGVMCCERIY  2450</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 2225 to 2440</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP782031.1?report=genbank&amp;log$=nuclalign&amp;from=2225&amp;to=2440">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP782031.1?report=graph&amp;log$=nuclalign&amp;from=2225&amp;to=2440">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>54.2 bits(112)</td>
+                      <td>0.0</td>
+                      <td>31/72(43%)</td>
+                      <td>0/72(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       76  AKHSMATMIYTLFNTELIQVVPRLPENRPFDNSCLLPSPSTSHMSYILLAITSANIA*SEGAVGMLANSLIT  291
+                ++H   T   T F+T LIQVVP  PEN PF   CL P  S +H+   L AI      *S G  G+ +N  IT
+Subject   2225  SQHITPTDT*TKFSTVLIQVVPLQPENSPFSILCLPPFGSITHI**KLSAIA*QKYP*SSGTPGIFSNIAIT  2440</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit3>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description3">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HM004067.2?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HM004067.2?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Verticillium dahliae chrysovirus 1 segment 1, complete sequence</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HM004067.2?report=genbank&amp;log$=nuclalign">HM004067.2</a>
+                    <span class=b>Length:</span> 3594
+                    <span class=b>Number of Matches:</span> 2
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1181 to 1408</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HM004067.2?report=genbank&amp;log$=nuclalign&amp;from=1181&amp;to=1408">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HM004067.2?report=graph&amp;log$=nuclalign&amp;from=1181&amp;to=1408">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>92.3 bits(195)</td>
+                      <td>0.0</td>
+                      <td>40/76(53%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Plus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       77  VIREFASIPTAPSDYAMFADVIASRMYDMWLVDGEGNKHELSNGLFSGRRGTTWINSVLNNVYIIVAMECFALLYG  304
+                VI E       PSDYA F   ++S MYDM L D EG +H+L  GLFSG RGTTWIN+VLN  Y  +A+  +  LYG
+Subject   1181  VIAELEHTVEGPSDYAYFVQAVSSSMYDMQLQDREGKRHKLWKGLFSGWRGTTWINTVLNFCYSNIALMNYQRLYG  1408</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 1230 to 1409</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HM004067.2?report=genbank&amp;log$=nuclalign&amp;from=1230&amp;to=1409">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HM004067.2?report=graph&amp;log$=nuclalign&amp;from=1230&amp;to=1409">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>57.0 bits(118)</td>
+                      <td>0.0</td>
+                      <td>30/60(50%)</td>
+                      <td>0/60(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       76  FNTELIQVVPRLPENRPFDNSCLLPSPSTSHMSYILLAITSANIA*SEGAVGMLANSLIT  255
+                F T LI VVP  PEN PF + CLLPS S + +SYI L       A*S G   + +NS IT
+Subject   1230  FKTVLIHVVPLHPENNPFHSLCLLPSLSCNCISYIELLTACTK*A*SLGPSTVCSNSAIT  1409</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit5>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description5">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/GQ290650.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/GQ290650.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Cryphonectria nitschkei chrysovirus 1 from Cryphonectria nitschkei bs131 RNA dependent RNA polymerase gene, complete cds</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/GQ290650.1?report=genbank&amp;log$=nuclalign">GQ290650.1</a>
+                    <span class=b>Length:</span> 2889
+                    <span class=b>Number of Matches:</span> 2
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 2008 to 2235</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/GQ290650.1?report=genbank&amp;log$=nuclalign&amp;from=2008&amp;to=2235">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/GQ290650.1?report=graph&amp;log$=nuclalign&amp;from=2008&amp;to=2235">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>91.3 bits(193)</td>
+                      <td>0.0</td>
+                      <td>39/76(51%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       77  VIREFASIPTAPSDYAMFADVIASRMYDMWLVDGEGNKHELSNGLFSGRRGTTWINSVLNNVYIIVAMECFALLYG  304
+                VI+E      AP DY +F   I+  MY+M L D +GN+H++  GL+SG RGTTWINSVLN  YI VA+  F  +YG
+Subject   2008  VIKELDLAVQAPEDYHIFVHAISESMYNMSLHDRDGNRHKIWRGLYSGWRGTTWINSVLNFCYIDVALTSFERIYG  2235</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 2007 to 2234</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/GQ290650.1?report=genbank&amp;log$=nuclalign&amp;from=2007&amp;to=2234">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/GQ290650.1?report=graph&amp;log$=nuclalign&amp;from=2007&amp;to=2234">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>56.1 bits(116)</td>
+                      <td>0.0</td>
+                      <td>33/76(43%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       76  PYNNAKHSMATMIYTLFNTELIQVVPRLPENRPFDNSCLLPSPSTSHMSYILLAITSANIA*SEGAVGMLANSLIT  303
+                PY  +K   AT +   F TELI VVP  PE +P    C LPS S   M YI   +   N+ *S GA    +NSL+T
+Subject   2007  PYIRSKLVKATSM*QKFRTELIHVVPLHPEYKPRHILCRLPSLSCKLMLYIDSLMACTNM**SSGACTARSNSLMT  2234</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+
+    </div>
+
+    <footer>
+      This page was generated by <a href="https://github.com/thehyve/blast2html/">blast2html</a>.
+    </footer>
+  </body>
+</html>
+

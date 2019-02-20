@@ -1,0 +1,6 @@
+#OTU_name	ds2016-55	ds2016-56	ds2016-57	ds2016-58	taxonomy	seq_list
+OTU_006	160	0	0	0	Viruses;dsRNA viruses;Chrysoviridae;Chrysovirus;Grapevine associated chrysovirus-1	ds2016-55_2
+OTU_031	0	8	0	0	Viruses;dsRNA viruses;Totiviridae;;Red clover powdery mildew-associated totivirus 4	ds2016-56_24
+OTU_032	0	16	18	49	Viruses;dsRNA viruses;Chrysoviridae;Chrysovirus;Grapevine associated chrysovirus-1	ds2016-56_67,ds2016-56_93,ds2016-57_18,ds2016-58_143,ds2016-58_148,ds2016-58_85
+OTU_033	0	0	6	0	Viruses;unclassified RNA viruses;;;Wuhan insect virus 30	ds2016-57_44
+OTU_034	0	0	0	6	Viruses;unclassified RNA viruses;;;Wuhan insect virus 30	ds2016-58_59

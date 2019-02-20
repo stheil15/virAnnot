@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>tblastx</BlastOutput_program>
+  <BlastOutput_version>TBLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/save/stheil/db/refseq_vir/viral.genomic.fna</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-57_42</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>352</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>46</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-57_12</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>638</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>ref|NC_028470.1|</Hit_id>
+  <Hit_def>Pleospora typhicola fusarivirus 1 175 kDa protein and 59 kDa protein genes, complete cds</Hit_def>
+  <Hit_accession>NC_028470</Hit_accession>
+  <Hit_len>6733</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>85.3777</Hsp_bit-score>
+      <Hsp_score>180</Hsp_score>
+      <Hsp_evalue>4.1322e-27</Hsp_evalue>
+      <Hsp_query-from>43</Hsp_query-from>
+      <Hsp_query-to>240</Hsp_query-to>
+      <Hsp_hit-from>3243</Hsp_hit-from>
+      <Hsp_hit-to>3440</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>32</Hsp_identity>
+      <Hsp_positive>49</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>66</Hsp_align-len>
+      <Hsp_qseq>LGVSAPTGSGKSTGFIQHLYLVAGHRFRKIVVVEPRTLLVHGLTNFMKSAYGLDCSGATTGLKLDK</Hsp_qseq>
+      <Hsp_hseq>LVISAPTGSGKSTALVRHCAIVCGHLYKKIIVVQPRSSIVRTVVPFVKTTMSMDASGATSGMTLDQ</Hsp_hseq>
+      <Hsp_midline>L +SAPTGSGKST  ++H  +V GH ++KI+VV+PR+ +V  +  F+K+   +D SGAT+G+ LD+</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>56.5106</Hsp_bit-score>
+      <Hsp_score>117</Hsp_score>
+      <Hsp_evalue>4.1322e-27</Hsp_evalue>
+      <Hsp_query-from>265</Hsp_query-from>
+      <Hsp_query-to>402</Hsp_query-to>
+      <Hsp_hit-from>3084</Hsp_hit-from>
+      <Hsp_hit-to>3221</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>20</Hsp_identity>
+      <Hsp_positive>30</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>46</Hsp_align-len>
+      <Hsp_qseq>PDWLPSLGTFNFPDVQLLVDSIMHYFTVLIWSNVPPNFKETTPTLR</Hsp_qseq>
+      <Hsp_hseq>PDLFPQVKGVSFPDVNLLVEQMLYYGQNIFWKNLPPNYADTTKHLR</Hsp_hseq>
+      <Hsp_midline>PD  P +   +FPDV LLV+ +++Y   + W N+PPN+ +TT  LR</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>3</Hsp_num>
+      <Hsp_bit-score>39.0986</Hsp_bit-score>
+      <Hsp_score>79</Hsp_score>
+      <Hsp_evalue>1.22338e-07</Hsp_evalue>
+      <Hsp_query-from>47</Hsp_query-from>
+      <Hsp_query-to>232</Hsp_query-to>
+      <Hsp_hit-from>3251</Hsp_hit-from>
+      <Hsp_hit-to>3436</Hsp_hit-to>
+      <Hsp_query-frame>2</Hsp_query-frame>
+      <Hsp_hit-frame>-1</Hsp_hit-frame>
+      <Hsp_identity>26</Hsp_identity>
+      <Hsp_positive>31</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>62</Hsp_align-len>
+      <Hsp_qseq>SSLRPVVAPLQSKP*ADFMKFVKP*TKRVLGSTTTIFLKRCPATRYRCWIKPVDLPLPVGAE</Hsp_qseq>
+      <Hsp_hseq>SKVMPLVAPEASIDIVVFTKGTTVRTMEDLGCTTIIFLYKWPHTIAQ*RTRAVLLPDPVGAE</Hsp_hseq>
+      <Hsp_midline>S + P+VAP  S     F K     T   LG TT IFL + P T  +   + V LP PVGAE</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>4</Hsp_num>
+      <Hsp_bit-score>36.8076</Hsp_bit-score>
+      <Hsp_score>74</Hsp_score>
+      <Hsp_evalue>1.22338e-07</Hsp_evalue>
+      <Hsp_query-from>292</Hsp_query-from>
+      <Hsp_query-to>504</Hsp_query-to>
+      <Hsp_hit-from>2982</Hsp_hit-from>
+      <Hsp_hit-to>3194</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>-3</Hsp_hit-frame>
+      <Hsp_identity>20</Hsp_identity>
+      <Hsp_positive>37</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>71</Hsp_align-len>
+      <Hsp_qseq>IWRHIAPNQHSKVVHDGINQQLDIREIKCAKGR*PIRQRDQREQTSHNQQI*LKLVLPTLSHNLAIQKELK</Hsp_qseq>
+      <Hsp_hseq>IWWKIFPEYILPIIEHLLHKQIDIRKAHTFDLRKQVRNANKAQKRYDSKIM*LKRPSPGIQLNFAIEYELK</Hsp_hseq>
+      <Hsp_midline>IW  I P     ++   +++Q+DIR+      R  +R  ++ ++   ++ +*LK   P +  N AI+ ELK</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>2</Hit_num>
+  <Hit_id>ref|NC_006937.2|</Hit_id>
+  <Hit_def>Fusarium graminearum dsRNA mycovirus-1, complete genome</Hit_def>
+  <Hit_accession>NC_006937</Hit_accession>
+  <Hit_len>6621</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>115.619</Hsp_bit-score>
+      <Hsp_score>246</Hsp_score>
+      <Hsp_evalue>1.44808e-26</Hsp_evalue>
+      <Hsp_query-from>46</Hsp_query-from>
+      <Hsp_query-to>366</Hsp_query-to>
+      <Hsp_hit-from>3159</Hsp_hit-from>
+      <Hsp_hit-to>3479</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>49</Hsp_identity>
+      <Hsp_positive>67</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>107</Hsp_align-len>
+      <Hsp_qseq>PDVQLLVDSIMHYFTVLIWSNVPPNFKETTPTLRTFGRFAGCLGVSAPTGSGKSTGFIQHLYLVAGHRFRKIVVVEPRTLLVHGLTNFMKSAYGLDCSGATTGLKLD</Hsp_qseq>
+      <Hsp_hseq>PRVDLLINTIVGVFIGLFWTNVPPNYKEVTHLVRQLPSMRGPLLVQAGTGTGKSTSFIKHLSLVVGARYNKIIVIEPRSALVRSLVPYVRDTLLVDATGCTAGYDFD</Hsp_hseq>
+      <Hsp_midline>P V LL+++I+  F  L W+NVPPN+KE T  +R      G L V A TG+GKST FI+HL LV G R+ KI+V+EPR+ LV  L  +++    +D +G T G   D</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>24.436</Hsp_bit-score>
+      <Hsp_score>47</Hsp_score>
+      <Hsp_evalue>1.44808e-26</Hsp_evalue>
+      <Hsp_query-from>487</Hsp_query-from>
+      <Hsp_query-to>600</Hsp_query-to>
+      <Hsp_hit-from>2925</Hsp_hit-from>
+      <Hsp_hit-to>3038</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>8</Hsp_identity>
+      <Hsp_positive>18</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>38</Hsp_align-len>
+      <Hsp_qseq>MVRHWLFCAYMSVRPKQRFGAWFNFAIARISSLQFFLN</Hsp_qseq>
+      <Hsp_hseq>LARHWVYLFWFWSSRSAARSSWLSGITYKLNQVQFTLN</Hsp_hseq>
+      <Hsp_midline>+ RHW++  +          +W +    +++ +QF LN</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>3</Hsp_num>
+      <Hsp_bit-score>48.721</Hsp_bit-score>
+      <Hsp_score>100</Hsp_score>
+      <Hsp_evalue>5.96569e-05</Hsp_evalue>
+      <Hsp_query-from>133</Hsp_query-from>
+      <Hsp_query-to>360</Hsp_query-to>
+      <Hsp_hit-from>3165</Hsp_hit-from>
+      <Hsp_hit-to>3392</Hsp_hit-to>
+      <Hsp_query-frame>1</Hsp_query-frame>
+      <Hsp_hit-frame>-2</Hsp_hit-frame>
+      <Hsp_identity>27</Hsp_identity>
+      <Hsp_positive>38</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>76</Hsp_align-len>
+      <Hsp_qseq>SWFYHDNLPEAMSSNQIQVLDKTSRFTAPSGGRNTQTASEPTKCSKSGRSFLKIWRHIAPNQHSKVVHDGINQQLD</Hsp_qseq>
+      <Hsp_hseq>SGFNDNDLIVTGPNHQ*QVLDERSTFAGPSACLNQQRTPHGGELSNEMCHFLVIGRDIRPEQPNEDAHDRVNQQIN</Hsp_hseq>
+      <Hsp_midline>S F  ++L     ++Q QVLD+ S F  PS   N Q      + S     FL I R I P Q ++  HD +NQQ++</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>3</Hit_num>
+  <Hit_id>ref|NC_028467.1|</Hit_id>
+  <Hit_def>Penicillium aurantiogriseum fusarivirus 1 174 kDa protein and 53 kDa protein genes, complete cds</Hit_def>
+  <Hit_accession>NC_028467</Hit_accession>
+  <Hit_len>6139</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>75.2971</Hsp_bit-score>
+      <Hsp_score>158</Hsp_score>
+      <Hsp_evalue>1.34719e-25</Hsp_evalue>
+      <Hsp_query-from>46</Hsp_query-from>
+      <Hsp_query-to>234</Hsp_query-to>
+      <Hsp_hit-from>3227</Hsp_hit-from>
+      <Hsp_hit-to>3415</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>34</Hsp_identity>
+      <Hsp_positive>42</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>63</Hsp_align-len>
+      <Hsp_qseq>VSAPTGSGKSTGFIQHLYLVAGHRFRKIVVVEPRTLLVHGLTNFMKSAYGLDCSGATTGLKLD</Hsp_qseq>
+      <Hsp_hseq>IVAPTGTGKSTAMIGYFRQQLGGTCPKIVVIVPRTILAVGLTTYMKSIWGDDISGSTTGLTLD</Hsp_hseq>
+      <Hsp_midline>+ APTG+GKST  I +     G    KIVV+ PRT+L  GLT +MKS +G D SG+TTGL LD</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>49.1792</Hsp_bit-score>
+      <Hsp_score>101</Hsp_score>
+      <Hsp_evalue>1.34719e-25</Hsp_evalue>
+      <Hsp_query-from>460</Hsp_query-from>
+      <Hsp_query-to>618</Hsp_query-to>
+      <Hsp_hit-from>2843</Hsp_hit-from>
+      <Hsp_hit-to>3001</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>18</Hsp_identity>
+      <Hsp_positive>29</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>53</Hsp_align-len>
+      <Hsp_qseq>CNNTTLMVRHWLFCAYMSVRPKQRFGAWFNFAIARISSLQFFLNCKIMTQGRQ</Hsp_qseq>
+      <Hsp_hseq>CNKTELLIRHWLFLLYCRWRPTTRAVRLLGFIVSKVANWQFGINGVVQFEAAQ</Hsp_hseq>
+      <Hsp_midline>CN T L++RHWLF  Y   RP  R      F ++++++ QF +N  +  +  Q</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>3</Hsp_num>
+      <Hsp_bit-score>29.9345</Hsp_bit-score>
+      <Hsp_score>59</Hsp_score>
+      <Hsp_evalue>1.34719e-25</Hsp_evalue>
+      <Hsp_query-from>283</Hsp_query-from>
+      <Hsp_query-to>402</Hsp_query-to>
+      <Hsp_hit-from>3059</Hsp_hit-from>
+      <Hsp_hit-to>3178</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>11</Hsp_identity>
+      <Hsp_positive>21</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>40</Hsp_align-len>
+      <Hsp_qseq>PDWLPSLGTFNFPDVQLLVDSIMHYFTVLIWSNVPPNFKE</Hsp_qseq>
+      <Hsp_hseq>PEVLGPVTMVRLPDIGVISDLLWNKVLSTIWASVPSNYSE</Hsp_hseq>
+      <Hsp_midline>P+ L  +     PD+ ++ D + +     IW++VP N+ E</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>4</Hit_num>
+  <Hit_id>ref|NC_024699.1|</Hit_id>
+  <Hit_def>Penicillium roqueforti ssRNA mycovirus 1 strain PRG42-7 RNA-dependent RNA polymerase and ORF2 genes, complete cds</Hit_def>
+  <Hit_accession>NC_024699</Hit_accession>
+  <Hit_len>6002</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>110.579</Hsp_bit-score>
+      <Hsp_score>235</Hsp_score>
+      <Hsp_evalue>1.56593e-24</Hsp_evalue>
+      <Hsp_query-from>43</Hsp_query-from>
+      <Hsp_query-to>393</Hsp_query-to>
+      <Hsp_hit-from>3017</Hsp_hit-from>
+      <Hsp_hit-to>3367</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>45</Hsp_identity>
+      <Hsp_positive>65</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>117</Hsp_align-len>
+      <Hsp_qseq>LPSLGTFNFPDVQLLVDSIMHYFTVLIWSNVPPNFKETTPTLRTFGRFAGCLGVSAPTGSGKSTGFIQHLYLVAGHRFRKIVVVEPRTLLVHGLTNFMKSAYGLDCSGATTGLKLDK</Hsp_qseq>
+      <Hsp_hseq>LSPLKSIRLPRVDIFLDMVWQVLVVFVWSGVPPNYKELTHLARQLQELKGGVLVTAPTGTGKSTTMVKHLELTLGLFYNKIVIIEPRSALVKSLVPYCKNTLNMSCTGRTMGFDFDR</Hsp_hseq>
+      <Hsp_midline>L  L +   P V + +D +     V +WS VPPN+KE T   R      G + V+APTG+GKST  ++HL L  G  + KIV++EPR+ LV  L  + K+   + C+G T G   D+</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>27.6434</Hsp_bit-score>
+      <Hsp_score>54</Hsp_score>
+      <Hsp_evalue>1.56593e-24</Hsp_evalue>
+      <Hsp_query-from>571</Hsp_query-from>
+      <Hsp_query-to>603</Hsp_query-to>
+      <Hsp_hit-from>2807</Hsp_hit-from>
+      <Hsp_hit-to>2839</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>2</Hsp_hit-frame>
+      <Hsp_identity>8</Hsp_identity>
+      <Hsp_positive>10</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>11</Hsp_align-len>
+      <Hsp_qseq>LMVRHWLFCAY</Hsp_qseq>
+      <Hsp_hseq>LLLRHWLFCWY</Hsp_hseq>
+      <Hsp_midline>L++RHWLFC Y</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>3</Hsp_num>
+      <Hsp_bit-score>51.0121</Hsp_bit-score>
+      <Hsp_score>105</Hsp_score>
+      <Hsp_evalue>1.21896e-05</Hsp_evalue>
+      <Hsp_query-from>122</Hsp_query-from>
+      <Hsp_query-to>370</Hsp_query-to>
+      <Hsp_hit-from>3040</Hsp_hit-from>
+      <Hsp_hit-to>3288</Hsp_hit-to>
+      <Hsp_query-frame>2</Hsp_query-frame>
+      <Hsp_hit-frame>-3</Hsp_hit-frame>
+      <Hsp_identity>31</Hsp_identity>
+      <Hsp_positive>40</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>83</Hsp_align-len>
+      <Hsp_qseq>TKRVLGSTTTIFLKRCPATRYRCWIKPVDLPLPVGAETPKQPANLPNVLRVGVVSLKFGGTLLQINTVK*CMMESTSNWTSGK</Hsp_qseq>
+      <Hsp_hseq>TRALRGSIMTILL*KRPSVNSRCLTMVVLFPVPVGAVTSTPPFSSCNWRARWVSSL*FGGTPDHTNTTRTCHTMSRNMSTRGR</Hsp_hseq>
+      <Hsp_midline>T+ + GS  TI L + P+   RC    V  P+PVGA T   P +  N     V SL FGGT    NT + C   S +  T G+</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>5</Hit_num>
+  <Hit_id>ref|NC_024485.1|</Hit_id>
+  <Hit_def>Rosellinia necatrix fusarivirus 1 genomic RNA, complete genome, strain: NW10</Hit_def>
+  <Hit_accession>NC_024485</Hit_accession>
+  <Hit_len>6286</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>85.8359</Hsp_bit-score>
+      <Hsp_score>181</Hsp_score>
+      <Hsp_evalue>1.4266e-20</Hsp_evalue>
+      <Hsp_query-from>43</Hsp_query-from>
+      <Hsp_query-to>240</Hsp_query-to>
+      <Hsp_hit-from>3231</Hsp_hit-from>
+      <Hsp_hit-to>3428</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>35</Hsp_identity>
+      <Hsp_positive>48</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>66</Hsp_align-len>
+      <Hsp_qseq>LGVSAPTGSGKSTGFIQHLYLVAGHRFRKIVVVEPRTLLVHGLTNFMKSAYGLDCSGATTGLKLDK</Hsp_qseq>
+      <Hsp_hseq>LAVSAPTGSGKSTALVKCLAENVGHLYEKLIVIEPRSLIVTSITPYTQTKLGLDSSGATTGMTLDK</Hsp_hseq>
+      <Hsp_midline>L VSAPTGSGKST  ++ L    GH + K++V+EPR+L+V  +T + ++  GLD SGATTG+ LDK</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>39.0986</Hsp_bit-score>
+      <Hsp_score>79</Hsp_score>
+      <Hsp_evalue>1.4266e-20</Hsp_evalue>
+      <Hsp_query-from>460</Hsp_query-from>
+      <Hsp_query-to>615</Hsp_query-to>
+      <Hsp_hit-from>2847</Hsp_hit-from>
+      <Hsp_hit-to>3002</Hsp_hit-to>
+      <Hsp_query-frame>-3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>16</Hsp_identity>
+      <Hsp_positive>31</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>52</Hsp_align-len>
+      <Hsp_qseq>NNTTLMVRHWLFCAYMSVRPKQRFGAWFNFAIARISSLQFFLNCKIMTQGRQ</Hsp_qseq>
+      <Hsp_hseq>NLSTLMVRHWGFLLWYHLKGGKQRAGFFTSIHLKIANANFMLNGKILSETKR</Hsp_hseq>
+      <Hsp_midline>N +TLMVRHW F  +  ++  ++   +F     +I++  F LN KI+++ ++</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>9158</Statistics_db-num>
+      <Statistics_db-len>256060307</Statistics_db-len>
+      <Statistics_hsp-len>49</Statistics_hsp-len>
+      <Statistics_eff-space>13839464959</Statistics_eff-space>
+      <Statistics_kappa>0.133956144488482</Statistics_kappa>
+      <Statistics_lambda>0.317605957635731</Statistics_lambda>
+      <Statistics_entropy>0.401214524497119</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

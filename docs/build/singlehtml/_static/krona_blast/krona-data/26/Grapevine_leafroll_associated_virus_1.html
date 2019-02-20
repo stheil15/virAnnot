@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=generator content="blast2html; see https://github.com/thehyve/blast2html/">
+    
+    <title>Blast output</title>
+    
+    <style>
+      body {
+      color: #333333;
+      font-family: Arial,Sans-Serif;
+      }
+
+      :link {
+      color: #336699;
+      }
+
+      .right {
+      float: right;
+      }
+
+      /* Galaxy with html sanitization enabled strips the header of this html page. If so, show the user a warning.*/
+      #strip_html_warning {
+      display: none;
+      }
+      
+      #content {
+      margin: 0 2em;
+      padding: 0.5em;
+      border: 1px solid #888888;
+      background-color: #d3dff5;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+      color: #2A6979;
+      font-family: arial,verdana,sans-serif;
+      letter-spacing: -1px;
+      margin: 1.2em 0 0.3em;
+      }
+
+      h1 {
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 150%;
+      padding-bottom: 0.1em;
+      }
+
+      h2 {
+      font-size: 120%;
+      font-weight: bold;
+      }
+
+      h4.darkHeader {
+      color: #4D4D4D;
+      letter-spacing: 0;
+      font-weight: bold;
+      }
+
+      #nodata {
+      font-weight: bold;
+      }
+
+      .index {
+      margin-bottom: 3em;
+      }
+      .index div.indexentry {
+      margin: 1.2em 1.6em;
+      font-weight: bold;
+      font-size: 100%;
+      }
+      
+      .headerdata {
+      font-size: 90%;
+      }
+      .headerdata .param {
+      font-weight: bold;
+      text-align: right;
+      padding: 0 1em;
+      }
+
+      .grey {
+      background-color: #eeeeee;
+      border: 1px solid #cccccc;
+      padding: 1em;
+      }
+
+      .white {
+      background-color: white;
+      border: 1px solid #cccccc;
+      padding: 1.5em 2%;
+      }
+
+      .graphicrow {
+      clear: left;
+      width: 100%;
+      }
+
+      .graphicitem {
+      float: left;
+      }
+
+
+      
+      .graphics .grey {
+      text-align: center;
+      }
+
+      .graphic {
+      background-color: white;
+      border: 2px solid black;
+      padding: 1.5em;
+      margin: auto;
+      }
+
+      .centered, .defline, div.legend, div.tablewrapper {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .defline {
+      background-color: white;
+      border: 1px solid black;
+      margin: .5em auto;
+      padding-left: .2em;
+      padding-right: .2em;
+      max-width: 50em;
+      text-align: left;
+      height: 2.8em;
+      overflow-y: hidden;
+      }
+
+      div.legend {
+      max-width: 40em;
+      }
+      div.legend div {
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-spacing: 0;
+      }
+      div.legend div .graphicitem {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      }
+
+      div.tablewrapper {
+      width: 50%;
+      min-width: 60em;
+      }
+
+      /* For small widths we give the graphic 100% */
+      @media (max-width: 72.5em) {
+      div.tablewrapper {
+      width: 100%;
+      min-width: 0px;
+      }
+      }
+
+      .scale {
+      width: 100%;
+      margin: .5em 0;
+      font-weight: bold;
+      }
+      .scale div {
+      color: red;
+      text-align: left;
+      }
+      .scale .graphicrow {
+      margin: .5em 0 .5em 0;
+      color: white;
+      }
+      .scale .graphicitem {
+      position: relative;
+      }
+      .scale .graphicitem div {
+      margin: 0 1px;
+      padding: 0 2px;
+      text-align: right;
+      background-color: red;
+      color: white;
+      }
+      .scale .graphicitem:first-child div {
+      margin-left: 0px;
+      }
+      .scale .graphicitem:last-child div {
+      margin-right: 0px;
+      }
+      .scale .graphicitem .lastlabel {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      background-color: transparent;
+      color: red;
+      }
+
+      a.matchresult {
+      display: block;
+      margin: 0;
+      padding: 0;
+      }
+      div.matchrow {
+      margin-top: 4px;
+      }
+      div.matchrow, div.matchitem {
+      height: 4px;
+      }
+
+      
+      table.descriptiontable {
+      font-size: 85%;
+      border: 1px solid #97b0c8;
+      border-spacing: 0;
+      color: #222222;
+      line-height: 1.3em;
+      background-color: white;
+      }
+      table.descriptiontable col:first-child {
+      width: 100%;
+      }
+      table.descriptiontable tr:hover {
+      background-color: #D5DEE3;
+      }
+      table.descriptiontable th {
+      color: #14376C;
+      font-weight: normal;
+      background-color: #F0F0F0;
+      background: linear-gradient(#FFFFFF, #F0F0F0);
+      border-bottom: 1px solid #D4DFE9;
+      border-right: 1px solid #CFCFCF;
+      border-left: 0px solid black;
+      border-top: 0px solid black;
+      }
+      table.descriptiontable td {
+      overflow: hidden;
+      text-align: center;
+      padding: .4em .8em;
+      }
+      table.descriptiontable td div {
+      width: 1em;
+      overflow: visible;
+      white-space: nowrap;
+      text-align: left;
+      }
+
+
+      
+      .alignments .white {
+      padding: 1.5em 1em;
+      }
+      
+      .alignment {
+      border-top: 1px solid black;
+      padding-left: 1em;
+      padding-right: 1em;
+      }
+      
+      div.linkheader {
+      padding-top: .2em;
+      font-size: 85%;
+      color: #14376C;
+      }
+      div.linkheader a.linkheader {
+      margin-right: 1em;
+      }
+      div.linkheader .right a {
+      text-decoration: none;
+      }
+
+      .title .hittitle {
+      color: #222222;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo {
+      font-size: 80%;
+      margin-top: 0;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo .b {
+      color: #606060;
+      font-weight: bold;
+      font-size: 90%;
+      }
+
+      .moretitles {
+      margin: 1.2em;
+      }
+      .moretitles .titleinfo {
+      margin: 0;
+      padding: 0;
+      }
+      .moretitles .hittitle {
+      margin: .4em 0 .2em 0;
+      padding: 0;
+      }
+      
+      a.showmoretitles {
+      font-size: 75%;
+      color: #336699;
+      font-weight: bold;
+      margin-top: 0;
+      }
+      a.showmoretitles:hover {
+      }
+
+      .hotspot {
+      color: #606060;
+      font-family: verdana, arial, sans-serif;
+      margin-bottom: 2.5em;
+      }
+
+      .hotspot p.range {
+      font-size: 70%;
+      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: .2em;
+      }
+      .hotspot p.range span.range {
+      font-weight: bold;
+      }
+      .hotspot p.range a.range {
+      margin-left: .5em;
+      }
+
+      table.hotspotstable {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      text-align: left;
+      border-collapse: collapse;
+      }
+      table.hotspotstable th, table.hotspotstable td {
+      padding: .1em 1em;
+      }
+      table.hotspotstable th {
+      font-size: 70%;
+      }
+      table.hotspotstable td {
+      min-width: 7em;
+      color: #222222;
+      font-size: 80%;
+      }
+
+      pre.alignmentgraphic {
+      color: #222222;
+      }
+
+      footer {
+      text-align: center;
+      color: #cccccc;
+      font-size: 70%;
+      margin-top: 1em;
+      }
+      footer :link {
+      color: #5588cc;
+      }
+      
+    </style>
+
+    <script type="text/javascript">
+      function toggle_visibility(id) {
+          var e = document.getElementById(id);
+          if(e.style.display != 'block')
+              e.style.display = 'block';
+          else
+              e.style.display = 'none';
+      }
+    </script>
+
+  </head>
+
+  
+  <body>
+    
+    <div id="strip_html_warning">
+      <!-- This div should be hidden by the header css block. Galaxy
+      strips all css, breaking this page but making this warning
+      visible. This warning contains some ugly old skool tabular html
+      layout that is not stripped. -->
+      <table bgcolor="#FFE5C9"><tr><td><font color="red"><b>
+                <font size=5><center>This html page seems to have been stripped by Galaxy.</center></font>
+                Disable Galaxy's html sanitization feature to view the full page (see <font face=monospace>sanitize_all_html</font> in your galaxy's universe_wsgi.ini), or download this page instead of viewing it in Galaxy.
+      </b></font></td></tr></table>
+    </div>
+    
+    <div id=content>
+
+
+      <section class=index>
+        <h1>Queries</h1>
+
+        <div class=indexentry><a href="#match45">
+            ds2016-133_29: No definition line
+            (415 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match72">
+            ds2016-133_16: No definition line
+            (525 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match91">
+            ds2016-133_25: No definition line
+            (435 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match96">
+            ds2016-133_60: No definition line
+            (312 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match98">
+            ds2016-133_53: No definition line
+            (327 letters, 1 hits)
+        </a></div>
+        <div class=indexentry><a href="#match106">
+            ds2016-133_58: No definition line
+            (317 letters, 1 hits)
+        </a></div>
+
+      </section>
+
+      
+      <section class=match id=match45>
+      
+        <h1>Nucleotide Sequence (415 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-133_52</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>332</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 6 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline45>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>42</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>84</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>126</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>168</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>210</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>252</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>294</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>336</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>378</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.91566265060241%">
+                        <div>415</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline45").innerHTML="methyl transferase/helicase [Grapevine leafroll-associated virus 1]"'
+                   onmouseout='document.getElementById("defline45").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="methyl transferase/helicase [Grapevine leafroll-associated virus 1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 11.80722891566265%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 88.19277108433735%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="methyl transferase/helicase [Grapevine leafroll-associated virus 1]"
+                              id="description1">
+                        methyl transferase/helicase [Grapevine leafroll-associated virus 1]
+                  </a></div></td>
+                  <td>239.2</td>
+                  <td>239.2</td>
+                  <td>29%</td>
+                  <td>4.261e-69</td>
+                  <td>97%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1041672050?report=genbank&amp;log$=nuclalign">ANP22157</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1041672050?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1041672050?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>methyl transferase/helicase [Grapevine leafroll-associated virus 1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1041672050?report=genbank&amp;log$=nuclalign">gb|ANP22157.1|</a>
+                    <span class=b>Length:</span> 2204
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 220 to 341</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1041672050?report=genbank&amp;log$=nuclalign&amp;from=220&amp;to=341">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1041672050?report=graph&amp;log$=nuclalign&amp;from=220&amp;to=341">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>239.2 bits(609)</td>
+                      <td>0.0</td>
+                      <td>118/122(97%)</td>
+                      <td>0/122(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       50  LRDVQGQCFFTPKFCHKWLLTRDWSSGKRFVFCFVEGSVIAVPLEVIRYDMRVLWRRLPLGVYVALPHLLFRCEDTGELYYGDKYWCWXXXXXXXXXXXXXXSFESCISVRKLKRMLRFNVK  415
+                L DVQGQCFFTPKFCHKWLLTRDWSSGKRFVFCFVEG+V+AVPLEVIRYDMRVLWRRLP+GVYVALPHLLFRCEDTGELYYGDKYWCWLQLAVLNGNNLLAGSFESCISVRKLKRMLRFNVK
+Subject    220  LWDVQGQCFFTPKFCHKWLLTRDWSSGKRFVFCFVEGAVVAVPLEVIRYDMRVLWRRLPVGVYVALPHLLFRCEDTGELYYGDKYWCWLQLAVLNGNNLLAGSFESCISVRKLKRMLRFNVK  341</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match72>
+      
+        <h1>Nucleotide Sequence (525 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-133_52</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>332</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 6 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline72>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.095238095238095%">
+                        <div>53</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.095238095238095%">
+                        <div>106</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.095238095238095%">
+                        <div>159</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.095238095238095%">
+                        <div>212</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.095238095238095%">
+                        <div>265</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.095238095238095%">
+                        <div>318</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.095238095238095%">
+                        <div>371</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.095238095238095%">
+                        <div>424</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.095238095238095%">
+                        <div>477</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.142857142857142%">
+                        <div>525</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline72").innerHTML="MET/HEL gene product [Grapevine leafroll-associated virus 1] "'
+                   onmouseout='document.getElementById("defline72").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="MET/HEL gene product [Grapevine leafroll-associated virus 1] ">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 2.8571428571428568%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 97.14285714285714%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="MET/HEL gene product [Grapevine leafroll-associated virus 1] "
+                              id="description1">
+                        MET/HEL gene product [Grapevine leafroll-associated virus 1] 
+                  </a></div></td>
+                  <td>348.2</td>
+                  <td>348.2</td>
+                  <td>32%</td>
+                  <td>1.382e-106</td>
+                  <td>97%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/366898512?report=genbank&amp;log$=nuclalign">YP_004940641</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/366898512?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/366898512?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>MET/HEL gene product [Grapevine leafroll-associated virus 1] </p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/366898512?report=genbank&amp;log$=nuclalign">ref|YP_004940641.1|</a>
+                    <span class=b>Length:</span> 2204
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+                <a class=showmoretitles onclick="toggle_visibility('moretitles1'); return false;" href=''>
+                  See 1 more title(s)
+                </a>
+
+                <div class=moretitles id=moretitles1 style="display: none">
+                  <div class=title>
+                    <p class=hittitle>methyl transferase/helicase [Grapevine leafroll-associated virus 1]</p>
+                    <p class=titleinfo>
+                      <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/363454029?report=genbank&amp;log$=nuclalign">gb|AEW24401.1|</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 548 to 717</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/366898512?report=genbank&amp;log$=nuclalign&amp;from=548&amp;to=717">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/366898512?report=graph&amp;log$=nuclalign&amp;from=548&amp;to=717">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>348.2 bits(892)</td>
+                      <td>0.0</td>
+                      <td>165/170(97%)</td>
+                      <td>0/170(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       16  VLKKEAAKNITYCQLDMRFCDHKAAVGFMVDVYDLDVFELAQALEKKDIKIFELCLMFPIELTARDGSLTIPELGVEVVRKGDVIMYTVGGVGDAYAHSVQKIISFFGSNVVQLPSGSAFSVEYVGYRLGYHQFSLCVIDTAHASYNLTRKVSTSFKGHSLVMIPEIADG  525
+                VLKKEAAKNITYCQ+D RFCDHKA VGFMVDVYDLDVFELAQALEKKDIKIFELCLMFPIELTARDGSLTIPELGVEVVRKGDVIMYTVGGVGDAY HSVQKIISFFGSNVVQLPSGSAFSVEYVGYRLGYHQFSLCVIDTAHASYNLTRKVST+FKGHSLVMIPEIADG
+Subject    548  VLKKEAAKNITYCQMDTRFCDHKAPVGFMVDVYDLDVFELAQALEKKDIKIFELCLMFPIELTARDGSLTIPELGVEVVRKGDVIMYTVGGVGDAYTHSVQKIISFFGSNVVQLPSGSAFSVEYVGYRLGYHQFSLCVIDTAHASYNLTRKVSTTFKGHSLVMIPEIADG  717</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match91>
+      
+        <h1>Nucleotide Sequence (435 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-133_52</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>332</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 6 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline91>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.114942528735632%">
+                        <div>44</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.114942528735632%">
+                        <div>88</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.114942528735632%">
+                        <div>132</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.114942528735632%">
+                        <div>176</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.114942528735632%">
+                        <div>220</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.114942528735632%">
+                        <div>264</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.114942528735632%">
+                        <div>308</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.114942528735632%">
+                        <div>352</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.114942528735632%">
+                        <div>396</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.96551724137931%">
+                        <div>435</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline91").innerHTML="methyltransferase/helicase [Grapevine leafroll-associated virus 1]"'
+                   onmouseout='document.getElementById("defline91").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="methyltransferase/helicase [Grapevine leafroll-associated virus 1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 73.79310344827586%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 26.20689655172414%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="methyltransferase/helicase [Grapevine leafroll-associated virus 1]"
+                              id="description1">
+                        methyltransferase/helicase [Grapevine leafroll-associated virus 1]
+                  </a></div></td>
+                  <td>191.8</td>
+                  <td>191.8</td>
+                  <td>25%</td>
+                  <td>2.014e-52</td>
+                  <td>89%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=genbank&amp;log$=nuclalign">ANP22138</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>methyltransferase/helicase [Grapevine leafroll-associated virus 1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=genbank&amp;log$=nuclalign">gb|ANP22138.1|</a>
+                    <span class=b>Length:</span> 2204
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1148 to 1257</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=genbank&amp;log$=nuclalign&amp;from=1148&amp;to=1257">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=graph&amp;log$=nuclalign&amp;from=1148&amp;to=1257">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>191.8 bits(486)</td>
+                      <td>0.0</td>
+                      <td>98/110(89%)</td>
+                      <td>3/110(3%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  LAWAEFKDRVSGFVEEMGYIYGDSLNVQTACLTAAAYLSSSYEKSAILVLLAPKRFRYIGSVGYGIAALRCIKGGAYGRALKLMGVAACLALTAKKGVSRAA---ILTPK  321
+                +A AEFKDRVSG+VEEMGYIYGDSLNVQT CLTAAAYLSSSYEKSA LVLLAPKRFRYIGSVGYGIAALRCIKGG YGRA KLMGVAACLALTAKKGVSRAA   I+ PK
+Subject   1148  IARAEFKDRVSGYVEEMGYIYGDSLNVQTVCLTAAAYLSSSYEKSAFLVLLAPKRFRYIGSVGYGIAALRCIKGGEYGRASKLMGVAACLALTAKKGVSRAASLQIVFPK  1257</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match96>
+      
+        <h1>Nucleotide Sequence (312 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-133_52</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>332</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 6 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline96>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>32</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>64</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>96</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>128</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>160</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>192</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>224</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>256</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.256410256410257%">
+                        <div>288</div>
+                      </div>
+                      <div class=graphicitem style="width: 7.692307692307693%">
+                        <div>312</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline96").innerHTML="p55 [Grapevine leafroll-associated virus 1]"'
+                   onmouseout='document.getElementById("defline96").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="p55 [Grapevine leafroll-associated virus 1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.32051282051282054%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 99.03846153846155%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.6410256410256411%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="p55 [Grapevine leafroll-associated virus 1]"
+                              id="description1">
+                        p55 [Grapevine leafroll-associated virus 1]
+                  </a></div></td>
+                  <td>190.7</td>
+                  <td>190.7</td>
+                  <td>33%</td>
+                  <td>2.402e-55</td>
+                  <td>89%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671874?report=genbank&amp;log$=nuclalign">ANP22142</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671874?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671874?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>p55 [Grapevine leafroll-associated virus 1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671874?report=genbank&amp;log$=nuclalign">gb|ANP22142.1|</a>
+                    <span class=b>Length:</span> 482
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 83 to 185</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671874?report=genbank&amp;log$=nuclalign&amp;from=83&amp;to=185">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671874?report=graph&amp;log$=nuclalign&amp;from=83&amp;to=185">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>190.7 bits(483)</td>
+                      <td>0.0</td>
+                      <td>92/103(89%)</td>
+                      <td>0/103(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        2  MLRNWKTCATSGLLKLDTAIAKKKDKYFILTPEQRVAVRALPNSTNEAFAQLFLNLGVFLKRVPNDDDVSGKGNIPLVQVSSAIATDRIEEGRFSPLLAKFVR  310
+                M+RNWK  A SG LKLDT I KKKDK+FILTPEQR AVRALPNSTNEAFAQLFLNLGVFLKRVPNDDDVSGKGNIPLVQVSSAIATDRIEEG++SPLLAKFVR
+Subject     83  MMRNWKAYANSGSLKLDTPITKKKDKHFILTPEQRAAVRALPNSTNEAFAQLFLNLGVFLKRVPNDDDVSGKGNIPLVQVSSAIATDRIEEGKYSPLLAKFVR  185</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match98>
+      
+        <h1>Nucleotide Sequence (327 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-133_52</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>332</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 6 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline98>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>33</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>66</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>99</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>132</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>165</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>198</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>231</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>264</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.091743119266054%">
+                        <div>297</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.174311926605505%">
+                        <div>327</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline98").innerHTML="methyltransferase/helicase [Grapevine leafroll-associated virus 1]"'
+                   onmouseout='document.getElementById("defline98").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="methyltransferase/helicase [Grapevine leafroll-associated virus 1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 100.0%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="methyltransferase/helicase [Grapevine leafroll-associated virus 1]"
+                              id="description1">
+                        methyltransferase/helicase [Grapevine leafroll-associated virus 1]
+                  </a></div></td>
+                  <td>204.1</td>
+                  <td>204.1</td>
+                  <td>33%</td>
+                  <td>2.243e-57</td>
+                  <td>99%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=genbank&amp;log$=nuclalign">ANP22138</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>methyltransferase/helicase [Grapevine leafroll-associated virus 1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=genbank&amp;log$=nuclalign">gb|ANP22138.1|</a>
+                    <span class=b>Length:</span> 2204
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1516 to 1624</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=genbank&amp;log$=nuclalign&amp;from=1516&amp;to=1624">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/1041671870?report=graph&amp;log$=nuclalign&amp;from=1516&amp;to=1624">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>204.1 bits(518)</td>
+                      <td>0.0</td>
+                      <td>108/109(99%)</td>
+                      <td>0/109(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        1  EVAFFSKCSRRYVYNGGSHASQGWNKAXXXXXXXXXXXESYDHCLIQKYKKGATIGFHADDEKCYTSGVSVVTVNLNGQARFRVRSNKTGEVVEHLLGDGDVFVMSPGM  327
+                EVAFFSKCSRRYVYNGGSHASQGWNKALDELREELKLDESYDHCLIQKY+KGATIGFHADDEKCYTSGVSVVTVNLNGQARFRVRSNKTGEVVEHLLGDGDVFVMSPGM
+Subject   1516  EVAFFSKCSRRYVYNGGSHASQGWNKALDELREELKLDESYDHCLIQKYRKGATIGFHADDEKCYTSGVSVVTVNLNGQARFRVRSNKTGEVVEHLLGDGDVFVMSPGM  1624</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match106>
+      
+        <h1>Nucleotide Sequence (317 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-133_52</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>332</td></tr>
+            <tr><td class=param>Program:</td><td>BLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/bank/blastdb/nr</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 6 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline106>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.094637223974763%">
+                        <div>32</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.094637223974763%">
+                        <div>64</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.094637223974763%">
+                        <div>96</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.094637223974763%">
+                        <div>128</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.094637223974763%">
+                        <div>160</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.094637223974763%">
+                        <div>192</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.094637223974763%">
+                        <div>224</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.094637223974763%">
+                        <div>256</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.094637223974763%">
+                        <div>288</div>
+                      </div>
+                      <div class=graphicitem style="width: 9.14826498422713%">
+                        <div>317</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline106").innerHTML="replicase, partial [Grapevine leafroll-associated virus 1]"'
+                   onmouseout='document.getElementById("defline106").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="replicase, partial [Grapevine leafroll-associated virus 1]">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 12.302839116719243%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 87.06624605678233%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 0.6309148264984227%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="replicase, partial [Grapevine leafroll-associated virus 1]"
+                              id="description1">
+                        replicase, partial [Grapevine leafroll-associated virus 1]
+                  </a></div></td>
+                  <td>180.3</td>
+                  <td>180.3</td>
+                  <td>29%</td>
+                  <td>3.957e-52</td>
+                  <td>96%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/119874799?report=genbank&amp;log$=nuclalign">ABM05860</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/119874799?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/119874799?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>replicase, partial [Grapevine leafroll-associated virus 1]</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/119874799?report=genbank&amp;log$=nuclalign">gb|ABM05860.1|</a>
+                    <span class=b>Length:</span> 381
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 44 to 135</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/119874799?report=genbank&amp;log$=nuclalign&amp;from=44&amp;to=135">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/119874799?report=graph&amp;log$=nuclalign&amp;from=44&amp;to=135">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>180.3 bits(456)</td>
+                      <td>0.0</td>
+                      <td>88/92(96%)</td>
+                      <td>0/92(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       40  HDAMNLRGCVRLAKRALVGEYMKSVKLSAVNSPPGGGKTTRLVDEYFGRKKRAKIATANTGSAADINSAIRAREGKKETDLVAKTANSWIVN  315
+                HDAMNLRGCV LAKRALVGEY KSVKLSAVNSPPGGGKTTRLVDEYFGRKKRAKIATANTGSAADINSAI+AREGKKE DLVAKTANSWIVN
+Subject     44  HDAMNLRGCVGLAKRALVGEYTKSVKLSAVNSPPGGGKTTRLVDEYFGRKKRAKIATANTGSAADINSAIQAREGKKEPDLVAKTANSWIVN  135</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+
+    </div>
+
+    <footer>
+      This page was generated by <a href="https://github.com/thehyve/blast2html/">blast2html</a>.
+    </footer>
+  </body>
+</html>
+

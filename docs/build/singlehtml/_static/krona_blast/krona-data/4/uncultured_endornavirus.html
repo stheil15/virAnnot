@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=generator content="blast2html; see https://github.com/thehyve/blast2html/">
+    
+    <title>Blast output</title>
+    
+    <style>
+      body {
+      color: #333333;
+      font-family: Arial,Sans-Serif;
+      }
+
+      :link {
+      color: #336699;
+      }
+
+      .right {
+      float: right;
+      }
+
+      /* Galaxy with html sanitization enabled strips the header of this html page. If so, show the user a warning.*/
+      #strip_html_warning {
+      display: none;
+      }
+      
+      #content {
+      margin: 0 2em;
+      padding: 0.5em;
+      border: 1px solid #888888;
+      background-color: #d3dff5;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+      color: #2A6979;
+      font-family: arial,verdana,sans-serif;
+      letter-spacing: -1px;
+      margin: 1.2em 0 0.3em;
+      }
+
+      h1 {
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 150%;
+      padding-bottom: 0.1em;
+      }
+
+      h2 {
+      font-size: 120%;
+      font-weight: bold;
+      }
+
+      h4.darkHeader {
+      color: #4D4D4D;
+      letter-spacing: 0;
+      font-weight: bold;
+      }
+
+      #nodata {
+      font-weight: bold;
+      }
+
+      .index {
+      margin-bottom: 3em;
+      }
+      .index div.indexentry {
+      margin: 1.2em 1.6em;
+      font-weight: bold;
+      font-size: 100%;
+      }
+      
+      .headerdata {
+      font-size: 90%;
+      }
+      .headerdata .param {
+      font-weight: bold;
+      text-align: right;
+      padding: 0 1em;
+      }
+
+      .grey {
+      background-color: #eeeeee;
+      border: 1px solid #cccccc;
+      padding: 1em;
+      }
+
+      .white {
+      background-color: white;
+      border: 1px solid #cccccc;
+      padding: 1.5em 2%;
+      }
+
+      .graphicrow {
+      clear: left;
+      width: 100%;
+      }
+
+      .graphicitem {
+      float: left;
+      }
+
+
+      
+      .graphics .grey {
+      text-align: center;
+      }
+
+      .graphic {
+      background-color: white;
+      border: 2px solid black;
+      padding: 1.5em;
+      margin: auto;
+      }
+
+      .centered, .defline, div.legend, div.tablewrapper {
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .defline {
+      background-color: white;
+      border: 1px solid black;
+      margin: .5em auto;
+      padding-left: .2em;
+      padding-right: .2em;
+      max-width: 50em;
+      text-align: left;
+      height: 2.8em;
+      overflow-y: hidden;
+      }
+
+      div.legend {
+      max-width: 40em;
+      }
+      div.legend div {
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-spacing: 0;
+      }
+      div.legend div .graphicitem {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      }
+
+      div.tablewrapper {
+      width: 50%;
+      min-width: 60em;
+      }
+
+      /* For small widths we give the graphic 100% */
+      @media (max-width: 72.5em) {
+      div.tablewrapper {
+      width: 100%;
+      min-width: 0px;
+      }
+      }
+
+      .scale {
+      width: 100%;
+      margin: .5em 0;
+      font-weight: bold;
+      }
+      .scale div {
+      color: red;
+      text-align: left;
+      }
+      .scale .graphicrow {
+      margin: .5em 0 .5em 0;
+      color: white;
+      }
+      .scale .graphicitem {
+      position: relative;
+      }
+      .scale .graphicitem div {
+      margin: 0 1px;
+      padding: 0 2px;
+      text-align: right;
+      background-color: red;
+      color: white;
+      }
+      .scale .graphicitem:first-child div {
+      margin-left: 0px;
+      }
+      .scale .graphicitem:last-child div {
+      margin-right: 0px;
+      }
+      .scale .graphicitem .lastlabel {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      background-color: transparent;
+      color: red;
+      }
+
+      a.matchresult {
+      display: block;
+      margin: 0;
+      padding: 0;
+      }
+      div.matchrow {
+      margin-top: 4px;
+      }
+      div.matchrow, div.matchitem {
+      height: 4px;
+      }
+
+      
+      table.descriptiontable {
+      font-size: 85%;
+      border: 1px solid #97b0c8;
+      border-spacing: 0;
+      color: #222222;
+      line-height: 1.3em;
+      background-color: white;
+      }
+      table.descriptiontable col:first-child {
+      width: 100%;
+      }
+      table.descriptiontable tr:hover {
+      background-color: #D5DEE3;
+      }
+      table.descriptiontable th {
+      color: #14376C;
+      font-weight: normal;
+      background-color: #F0F0F0;
+      background: linear-gradient(#FFFFFF, #F0F0F0);
+      border-bottom: 1px solid #D4DFE9;
+      border-right: 1px solid #CFCFCF;
+      border-left: 0px solid black;
+      border-top: 0px solid black;
+      }
+      table.descriptiontable td {
+      overflow: hidden;
+      text-align: center;
+      padding: .4em .8em;
+      }
+      table.descriptiontable td div {
+      width: 1em;
+      overflow: visible;
+      white-space: nowrap;
+      text-align: left;
+      }
+
+
+      
+      .alignments .white {
+      padding: 1.5em 1em;
+      }
+      
+      .alignment {
+      border-top: 1px solid black;
+      padding-left: 1em;
+      padding-right: 1em;
+      }
+      
+      div.linkheader {
+      padding-top: .2em;
+      font-size: 85%;
+      color: #14376C;
+      }
+      div.linkheader a.linkheader {
+      margin-right: 1em;
+      }
+      div.linkheader .right a {
+      text-decoration: none;
+      }
+
+      .title .hittitle {
+      color: #222222;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo {
+      font-size: 80%;
+      margin-top: 0;
+      margin-bottom: .3em;
+      }
+      .title .titleinfo .b {
+      color: #606060;
+      font-weight: bold;
+      font-size: 90%;
+      }
+
+      .moretitles {
+      margin: 1.2em;
+      }
+      .moretitles .titleinfo {
+      margin: 0;
+      padding: 0;
+      }
+      .moretitles .hittitle {
+      margin: .4em 0 .2em 0;
+      padding: 0;
+      }
+      
+      a.showmoretitles {
+      font-size: 75%;
+      color: #336699;
+      font-weight: bold;
+      margin-top: 0;
+      }
+      a.showmoretitles:hover {
+      }
+
+      .hotspot {
+      color: #606060;
+      font-family: verdana, arial, sans-serif;
+      margin-bottom: 2.5em;
+      }
+
+      .hotspot p.range {
+      font-size: 70%;
+      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: .2em;
+      }
+      .hotspot p.range span.range {
+      font-weight: bold;
+      }
+      .hotspot p.range a.range {
+      margin-left: .5em;
+      }
+
+      table.hotspotstable {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      text-align: left;
+      border-collapse: collapse;
+      }
+      table.hotspotstable th, table.hotspotstable td {
+      padding: .1em 1em;
+      }
+      table.hotspotstable th {
+      font-size: 70%;
+      }
+      table.hotspotstable td {
+      min-width: 7em;
+      color: #222222;
+      font-size: 80%;
+      }
+
+      pre.alignmentgraphic {
+      color: #222222;
+      }
+
+      footer {
+      text-align: center;
+      color: #cccccc;
+      font-size: 70%;
+      margin-top: 1em;
+      }
+      footer :link {
+      color: #5588cc;
+      }
+      
+    </style>
+
+    <script type="text/javascript">
+      function toggle_visibility(id) {
+          var e = document.getElementById(id);
+          if(e.style.display != 'block')
+              e.style.display = 'block';
+          else
+              e.style.display = 'none';
+      }
+    </script>
+
+  </head>
+
+  
+  <body>
+    
+    <div id="strip_html_warning">
+      <!-- This div should be hidden by the header css block. Galaxy
+      strips all css, breaking this page but making this warning
+      visible. This warning contains some ugly old skool tabular html
+      layout that is not stripped. -->
+      <table bgcolor="#FFE5C9"><tr><td><font color="red"><b>
+                <font size=5><center>This html page seems to have been stripped by Galaxy.</center></font>
+                Disable Galaxy's html sanitization feature to view the full page (see <font face=monospace>sanitize_all_html</font> in your galaxy's universe_wsgi.ini), or download this page instead of viewing it in Galaxy.
+      </b></font></td></tr></table>
+    </div>
+    
+    <div id=content>
+
+
+      <section class=index>
+        <h1>Queries</h1>
+
+        <div class=indexentry><a href="#match53">
+            ds2016-56_112: No definition line
+            (302 letters, 5 hits)
+        </a></div>
+        <div class=indexentry><a href="#match66">
+            ds2016-56_91: No definition line
+            (335 letters, 5 hits)
+        </a></div>
+        <div class=indexentry><a href="#match81">
+            ds2016-56_62: No definition line
+            (415 letters, 5 hits)
+        </a></div>
+        <div class=indexentry><a href="#match86">
+            ds2016-56_108: No definition line
+            (306 letters, 5 hits)
+        </a></div>
+
+      </section>
+
+      
+      <section class=match id=match53>
+      
+        <h1>Nucleotide Sequence (302 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-56_135</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>156</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/home/stheil/save/db/all_vir/all_vir_nucl.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 4 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline53>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.264900662251657%">
+                        <div>31</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.264900662251657%">
+                        <div>62</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.264900662251657%">
+                        <div>93</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.264900662251657%">
+                        <div>124</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.264900662251657%">
+                        <div>155</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.264900662251657%">
+                        <div>186</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.264900662251657%">
+                        <div>217</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.264900662251657%">
+                        <div>248</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.264900662251657%">
+                        <div>279</div>
+                      </div>
+                      <div class=graphicitem style="width: 7.6158940397351%">
+                        <div>302</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline53").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1"'
+                   onmouseout='document.getElementById("defline53").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 27.152317880794705%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 57.6158940397351%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 15.2317880794702%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit2"
+                   onmouseover='document.getElementById("defline53").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1"'
+                   onmouseout='document.getElementById("defline53").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 27.152317880794705%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 57.6158940397351%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 15.2317880794702%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit3"
+                   onmouseover='document.getElementById("defline53").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_1"'
+                   onmouseout='document.getElementById("defline53").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_1">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 27.152317880794705%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 57.6158940397351%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 15.2317880794702%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit4"
+                   onmouseover='document.getElementById("defline53").innerHTML="Alternaria brassicicola endornavirus isolate 1, complete genome"'
+                   onmouseout='document.getElementById("defline53").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Alternaria brassicicola endornavirus isolate 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 27.152317880794705%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 57.6158940397351%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 15.2317880794702%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit5"
+                   onmouseover='document.getElementById("defline53").innerHTML="Alternaria brassicicola endornavirus isolate 1, complete genome"'
+                   onmouseout='document.getElementById("defline53").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Alternaria brassicicola endornavirus isolate 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 27.152317880794705%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 57.6158940397351%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 15.2317880794702%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1"
+                              id="description1">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1
+                  </a></div></td>
+                  <td>49.6</td>
+                  <td>49.6</td>
+                  <td>19%</td>
+                  <td>0.0001382</td>
+                  <td>31%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=genbank&amp;log$=nuclalign">HE579681.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit2"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1"
+                              id="description2">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1
+                  </a></div></td>
+                  <td>49.6</td>
+                  <td>49.6</td>
+                  <td>19%</td>
+                  <td>0.0001382</td>
+                  <td>31%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign">HE579703.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit3"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_1"
+                              id="description3">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_1
+                  </a></div></td>
+                  <td>49.6</td>
+                  <td>49.6</td>
+                  <td>19%</td>
+                  <td>0.0001382</td>
+                  <td>31%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579706.1?report=genbank&amp;log$=nuclalign">HE579706.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit4"
+                              title="Alternaria brassicicola endornavirus isolate 1, complete genome"
+                              id="description4">
+                        Alternaria brassicicola endornavirus isolate 1, complete genome
+                  </a></div></td>
+                  <td>49.6</td>
+                  <td>49.6</td>
+                  <td>19%</td>
+                  <td>0.0001382</td>
+                  <td>31%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">KP239989.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit5"
+                              title="Alternaria brassicicola endornavirus isolate 1, complete genome"
+                              id="description5">
+                        Alternaria brassicicola endornavirus isolate 1, complete genome
+                  </a></div></td>
+                  <td>49.6</td>
+                  <td>49.6</td>
+                  <td>19%</td>
+                  <td>0.0001382</td>
+                  <td>31%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">NC_026136.1</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=genbank&amp;log$=nuclalign">HE579681.1</a>
+                    <span class=b>Length:</span> 4873
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 542 to 715</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=genbank&amp;log$=nuclalign&amp;from=542&amp;to=715">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=graph&amp;log$=nuclalign&amp;from=542&amp;to=715">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>49.6 bits(102)</td>
+                      <td>0.0</td>
+                      <td>18/58(31%)</td>
+                      <td>0/58(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       83  DAVDGKDANLRKRMEDMMLGDTKDALRGFTAKGALDHHNKKIIDSTIRLNTLHTYPIP  256
+                D + GK  ++ K +++ ++GD   A++    +G LD HN K+I+  ++ N +  Y IP
+Subject    542  DFIFGKSNDIEKVLKNHIIGDVATAIKTQQVRGNLDLHNSKVINQLVKANAMRDYQIP  715</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit2>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description2">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign">HE579703.1</a>
+                    <span class=b>Length:</span> 9565
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 420 to 593</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign&amp;from=420&amp;to=593">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=graph&amp;log$=nuclalign&amp;from=420&amp;to=593">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>49.6 bits(102)</td>
+                      <td>0.0</td>
+                      <td>18/58(31%)</td>
+                      <td>0/58(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       83  DAVDGKDANLRKRMEDMMLGDTKDALRGFTAKGALDHHNKKIIDSTIRLNTLHTYPIP  256
+                D + GK  ++ K +++ ++GD   A++    +G LD HN K+I+  ++ N +  Y IP
+Subject    420  DFIFGKSNDIEKVLKNHIIGDVATAIKTQQVRGNLDLHNSKVINQLVKANAMRDYQIP  593</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit3>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description3">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579706.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579706.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_1</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579706.1?report=genbank&amp;log$=nuclalign">HE579706.1</a>
+                    <span class=b>Length:</span> 2072
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 559 to 732</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579706.1?report=genbank&amp;log$=nuclalign&amp;from=559&amp;to=732">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579706.1?report=graph&amp;log$=nuclalign&amp;from=559&amp;to=732">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>49.6 bits(102)</td>
+                      <td>0.0</td>
+                      <td>18/58(31%)</td>
+                      <td>0/58(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       83  DAVDGKDANLRKRMEDMMLGDTKDALRGFTAKGALDHHNKKIIDSTIRLNTLHTYPIP  256
+                D + GK  ++ K +++ ++GD   A++    +G LD HN K+I+  ++ N +  Y IP
+Subject    559  DFIFGKSNDIEKVLKNHIIGDVATAIKTQQVRGNLDLHNSKVINQLVKANAMRDYQIP  732</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit4>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description4">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Alternaria brassicicola endornavirus isolate 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">KP239989.1</a>
+                    <span class=b>Length:</span> 10290
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1157 to 1330</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign&amp;from=1157&amp;to=1330">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=graph&amp;log$=nuclalign&amp;from=1157&amp;to=1330">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>49.6 bits(102)</td>
+                      <td>0.0</td>
+                      <td>18/58(31%)</td>
+                      <td>0/58(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       83  DAVDGKDANLRKRMEDMMLGDTKDALRGFTAKGALDHHNKKIIDSTIRLNTLHTYPIP  256
+                D + GK  ++ K +++ ++GD   A++    +G LD HN K+I+  ++ N +  Y IP
+Subject   1157  DFIFGKSNDIEKVLKNHIIGDVATAIKTQQVRGNLDLHNSKVINQLVKANAMRDYQIP  1330</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit5>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description5">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Alternaria brassicicola endornavirus isolate 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">NC_026136.1</a>
+                    <span class=b>Length:</span> 10290
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1157 to 1330</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign&amp;from=1157&amp;to=1330">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=graph&amp;log$=nuclalign&amp;from=1157&amp;to=1330">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>49.6 bits(102)</td>
+                      <td>0.0</td>
+                      <td>18/58(31%)</td>
+                      <td>0/58(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       83  DAVDGKDANLRKRMEDMMLGDTKDALRGFTAKGALDHHNKKIIDSTIRLNTLHTYPIP  256
+                D + GK  ++ K +++ ++GD   A++    +G LD HN K+I+  ++ N +  Y IP
+Subject   1157  DFIFGKSNDIEKVLKNHIIGDVATAIKTQQVRGNLDLHNSKVINQLVKANAMRDYQIP  1330</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match66>
+      
+        <h1>Nucleotide Sequence (335 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-56_135</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>156</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/home/stheil/save/db/all_vir/all_vir_nucl.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 4 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline66>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>34</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>68</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>102</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>136</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>170</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>204</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>238</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>272</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.149253731343283%">
+                        <div>306</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.656716417910447%">
+                        <div>335</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline66").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1"'
+                   onmouseout='document.getElementById("defline66").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 32.537313432835816%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 49.253731343283576%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 18.208955223880594%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit2"
+                   onmouseover='document.getElementById("defline66").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_2"'
+                   onmouseout='document.getElementById("defline66").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_2">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 32.537313432835816%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 49.253731343283576%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 18.208955223880594%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit3"
+                   onmouseover='document.getElementById("defline66").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1"'
+                   onmouseout='document.getElementById("defline66").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 32.537313432835816%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 49.253731343283576%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 18.208955223880594%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit4"
+                   onmouseover='document.getElementById("defline66").innerHTML="Alternaria brassicicola endornavirus isolate 1, complete genome"'
+                   onmouseout='document.getElementById("defline66").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Alternaria brassicicola endornavirus isolate 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 32.537313432835816%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 49.253731343283576%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 18.208955223880594%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit5"
+                   onmouseover='document.getElementById("defline66").innerHTML="Alternaria brassicicola endornavirus isolate 1, complete genome"'
+                   onmouseout='document.getElementById("defline66").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Alternaria brassicicola endornavirus isolate 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 32.537313432835816%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 49.253731343283576%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 18.208955223880594%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1"
+                              id="description1">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1
+                  </a></div></td>
+                  <td>48.7</td>
+                  <td>48.7</td>
+                  <td>16%</td>
+                  <td>0.0003157</td>
+                  <td>33%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=genbank&amp;log$=nuclalign">HE579681.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit2"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_2"
+                              id="description2">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_2
+                  </a></div></td>
+                  <td>48.7</td>
+                  <td>48.7</td>
+                  <td>16%</td>
+                  <td>0.0003157</td>
+                  <td>33%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579685.1?report=genbank&amp;log$=nuclalign">HE579685.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit3"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1"
+                              id="description3">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1
+                  </a></div></td>
+                  <td>48.7</td>
+                  <td>48.7</td>
+                  <td>16%</td>
+                  <td>0.0003157</td>
+                  <td>33%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign">HE579703.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit4"
+                              title="Alternaria brassicicola endornavirus isolate 1, complete genome"
+                              id="description4">
+                        Alternaria brassicicola endornavirus isolate 1, complete genome
+                  </a></div></td>
+                  <td>48.7</td>
+                  <td>48.7</td>
+                  <td>16%</td>
+                  <td>0.0003157</td>
+                  <td>33%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">KP239989.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit5"
+                              title="Alternaria brassicicola endornavirus isolate 1, complete genome"
+                              id="description5">
+                        Alternaria brassicicola endornavirus isolate 1, complete genome
+                  </a></div></td>
+                  <td>48.7</td>
+                  <td>48.7</td>
+                  <td>16%</td>
+                  <td>0.0003157</td>
+                  <td>33%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">NC_026136.1</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_1</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=genbank&amp;log$=nuclalign">HE579681.1</a>
+                    <span class=b>Length:</span> 4873
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 2015 to 2179</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=genbank&amp;log$=nuclalign&amp;from=2015&amp;to=2179">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579681.1?report=graph&amp;log$=nuclalign&amp;from=2015&amp;to=2179">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>48.7 bits(100)</td>
+                      <td>0.0</td>
+                      <td>18/55(33%)</td>
+                      <td>0/55(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      110  TADEYKLGPSHINEMLHDITQYEGLAHQIESRIPAAITYHNRNEIKVSWKDQKMD  274
+                T DEYK+    ++E+L D++ Y      +  +  AAI+YH +N I  +W  + +D
+Subject   2015  TLDEYKMSHVTVSEVLKDVSMYTSGMQSMSKQNNAAISYHGQNRINATWVSKLLD  2179</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit2>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description2">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579685.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579685.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_2</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579685.1?report=genbank&amp;log$=nuclalign">HE579685.1</a>
+                    <span class=b>Length:</span> 1702
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1203 to 1367</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579685.1?report=genbank&amp;log$=nuclalign&amp;from=1203&amp;to=1367">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579685.1?report=graph&amp;log$=nuclalign&amp;from=1203&amp;to=1367">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>48.7 bits(100)</td>
+                      <td>0.0</td>
+                      <td>18/55(33%)</td>
+                      <td>0/55(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      110  TADEYKLGPSHINEMLHDITQYEGLAHQIESRIPAAITYHNRNEIKVSWKDQKMD  274
+                T DEYK+    ++E+L D++ Y      +  +  AAI+YH +N I  +W  + +D
+Subject   1203  TLDEYKMSHVTVSEVLKDVSMYTSGMQSMSKQNNAAISYHGQNRINATWVSKLLD  1367</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit3>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description3">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign">HE579703.1</a>
+                    <span class=b>Length:</span> 9565
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 1893 to 2057</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign&amp;from=1893&amp;to=2057">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=graph&amp;log$=nuclalign&amp;from=1893&amp;to=2057">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>48.7 bits(100)</td>
+                      <td>0.0</td>
+                      <td>18/55(33%)</td>
+                      <td>0/55(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      110  TADEYKLGPSHINEMLHDITQYEGLAHQIESRIPAAITYHNRNEIKVSWKDQKMD  274
+                T DEYK+    ++E+L D++ Y      +  +  AAI+YH +N I  +W  + +D
+Subject   1893  TLDEYKMSHVTVSEVLKDVSMYTSGMQSMSKQNNAAISYHGQNRINATWVSKLLD  2057</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit4>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description4">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Alternaria brassicicola endornavirus isolate 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">KP239989.1</a>
+                    <span class=b>Length:</span> 10290
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 2630 to 2794</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign&amp;from=2630&amp;to=2794">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=graph&amp;log$=nuclalign&amp;from=2630&amp;to=2794">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>48.7 bits(100)</td>
+                      <td>0.0</td>
+                      <td>18/55(33%)</td>
+                      <td>0/55(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      110  TADEYKLGPSHINEMLHDITQYEGLAHQIESRIPAAITYHNRNEIKVSWKDQKMD  274
+                T DEYK+    ++E+L D++ Y      +  +  AAI+YH +N I  +W  + +D
+Subject   2630  TLDEYKMSHVTVSEVLKDVSMYTSGMQSMSKQNNAAISYHGQNRINATWVSKLLD  2794</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit5>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description5">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Alternaria brassicicola endornavirus isolate 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">NC_026136.1</a>
+                    <span class=b>Length:</span> 10290
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 2630 to 2794</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign&amp;from=2630&amp;to=2794">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=graph&amp;log$=nuclalign&amp;from=2630&amp;to=2794">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>48.7 bits(100)</td>
+                      <td>0.0</td>
+                      <td>18/55(33%)</td>
+                      <td>0/55(0%)</td>
+                      <td>Minus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      110  TADEYKLGPSHINEMLHDITQYEGLAHQIESRIPAAITYHNRNEIKVSWKDQKMD  274
+                T DEYK+    ++E+L D++ Y      +  +  AAI+YH +N I  +W  + +D
+Subject   2630  TLDEYKMSHVTVSEVLKDVSMYTSGMQSMSKQNNAAISYHGQNRINATWVSKLLD  2794</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match81>
+      
+        <h1>Nucleotide Sequence (415 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-56_135</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>156</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/home/stheil/save/db/all_vir/all_vir_nucl.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 4 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline81>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>42</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>84</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>126</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>168</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>210</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>252</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>294</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>336</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.120481927710843%">
+                        <div>378</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.91566265060241%">
+                        <div>415</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline81").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_1"'
+                   onmouseout='document.getElementById("defline81").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_1">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 22.89156626506024%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 0.24096385542168675%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 75.18072289156626%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 1.6867469879518073%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit2"
+                   onmouseover='document.getElementById("defline81").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_2"'
+                   onmouseout='document.getElementById("defline81").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_2">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 22.89156626506024%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 55.903614457831324%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 21.204819277108435%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit3"
+                   onmouseover='document.getElementById("defline81").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2"'
+                   onmouseout='document.getElementById("defline81").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 22.89156626506024%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 55.903614457831324%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 21.204819277108435%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit4"
+                   onmouseover='document.getElementById("defline81").innerHTML="Alternaria brassicicola endornavirus isolate 1, complete genome"'
+                   onmouseout='document.getElementById("defline81").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Alternaria brassicicola endornavirus isolate 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 23.132530120481928%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 55.66265060240964%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 21.204819277108435%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit5"
+                   onmouseover='document.getElementById("defline81").innerHTML="Alternaria brassicicola endornavirus isolate 1, complete genome"'
+                   onmouseout='document.getElementById("defline81").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Alternaria brassicicola endornavirus isolate 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 23.132530120481928%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 55.66265060240964%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 21.204819277108435%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_1"
+                              id="description1">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_1
+                  </a></div></td>
+                  <td>94.5</td>
+                  <td>148.3</td>
+                  <td>18%</td>
+                  <td>7.383e-18</td>
+                  <td>38%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579684.1?report=genbank&amp;log$=nuclalign">HE579684.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit2"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_2"
+                              id="description2">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_2
+                  </a></div></td>
+                  <td>91.3</td>
+                  <td>146.9</td>
+                  <td>18%</td>
+                  <td>6.819e-17</td>
+                  <td>43%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579682.1?report=genbank&amp;log$=nuclalign">HE579682.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit3"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2"
+                              id="description3">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2
+                  </a></div></td>
+                  <td>91.3</td>
+                  <td>146.9</td>
+                  <td>18%</td>
+                  <td>6.819e-17</td>
+                  <td>43%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=genbank&amp;log$=nuclalign">HE579707.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit4"
+                              title="Alternaria brassicicola endornavirus isolate 1, complete genome"
+                              id="description4">
+                        Alternaria brassicicola endornavirus isolate 1, complete genome
+                  </a></div></td>
+                  <td>90.0</td>
+                  <td>90.0</td>
+                  <td>19%</td>
+                  <td>1.768e-16</td>
+                  <td>44%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">KP239989.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit5"
+                              title="Alternaria brassicicola endornavirus isolate 1, complete genome"
+                              id="description5">
+                        Alternaria brassicicola endornavirus isolate 1, complete genome
+                  </a></div></td>
+                  <td>90.0</td>
+                  <td>90.0</td>
+                  <td>19%</td>
+                  <td>1.768e-16</td>
+                  <td>44%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">NC_026136.1</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579684.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579684.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_454_1</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579684.1?report=genbank&amp;log$=nuclalign">HE579684.1</a>
+                    <span class=b>Length:</span> 7141
+                    <span class=b>Number of Matches:</span> 2
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 4848 to 5159</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579684.1?report=genbank&amp;log$=nuclalign&amp;from=4848&amp;to=5159">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579684.1?report=graph&amp;log$=nuclalign&amp;from=4848&amp;to=5159">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>94.5 bits(200)</td>
+                      <td>0.0</td>
+                      <td>40/104(38%)</td>
+                      <td>0/104(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       97  ECIVDEIGDRIPTSWVTDAVKQIVMPSFLERHGRSNSMPHLGGKNEILSKYWSRWLGMPSRAPITIDPTWKDVKHNMAFDATAQPKRMTNAFTHVNRDPSIKDT  408
+                E +V+EIGD   + +V D VK+++ PS+  RH R+ S    GG  +IL KYWSR LG  S  P+ +  TW DVKHN+      + +  T          +I+DT
+Subject   4848  EVLVEEIGDAKTSDYVRDTVKKLLYPSYFRRHARARSNASFGGAVDILGKYWSRLLGARSGNPVQLSETWNDVKHNLPLMVGQENQNSTKQGKKYKAFHTIRDT  5159</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 4847 to 5074</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579684.1?report=genbank&amp;log$=nuclalign&amp;from=4847&amp;to=5074">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579684.1?report=graph&amp;log$=nuclalign&amp;from=4847&amp;to=5074">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>53.8 bits(111)</td>
+                      <td>0.0</td>
+                      <td>32/76(42%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       96  LCLTSFQVGSIVIGARLGIPNHRLQYLLKISFFPPRCGILLDLPCLSKKLGITICFTASVTQDVGMRSPISSTMHS  323
+                LC TSF V     G  L  P++  QYL K+S  PP         CL K LG +  FT S+T    + SPISST  S
+Subject   4847  LCFTSFHVSDNCTGLPLLAPSNLDQYLPKMSTAPPNDAFDRARACLRK*LGYSNFFTVSLT*SEVLASPISSTKTS  5074</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit2>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description2">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579682.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579682.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 139Pv1_454_2</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579682.1?report=genbank&amp;log$=nuclalign">HE579682.1</a>
+                    <span class=b>Length:</span> 4542
+                    <span class=b>Number of Matches:</span> 2
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 2316 to 2546</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579682.1?report=genbank&amp;log$=nuclalign&amp;from=2316&amp;to=2546">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579682.1?report=graph&amp;log$=nuclalign&amp;from=2316&amp;to=2546">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>91.3 bits(193)</td>
+                      <td>0.0</td>
+                      <td>35/77(45%)</td>
+                      <td>0/77(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       97  ECIVDEIGDRIPTSWVTDAVKQIVMPSFLERHGRSNSMPHLGGKNEILSKYWSRWLGMPSRAPITIDPTWKDVKHNM  327
+                E +V+EIGD   + +V D VK+++ PS+  RH R+ S    GG  +IL KYWSR LG  S  P+ +  TW +VKHN+
+Subject   2316  EVLVEEIGDAKTSDYVRDTVKKLLYPSYFRRHARARSNASFGGAVDILGKYWSRLLGARSGNPVQLSETWNEVKHNL  2546</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 2315 to 2542</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579682.1?report=genbank&amp;log$=nuclalign&amp;from=2315&amp;to=2542">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579682.1?report=graph&amp;log$=nuclalign&amp;from=2315&amp;to=2542">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>55.6 bits(115)</td>
+                      <td>0.0</td>
+                      <td>33/76(43%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       96  LCLTSFQVGSIVIGARLGIPNHRLQYLLKISFFPPRCGILLDLPCLSKKLGITICFTASVTQDVGMRSPISSTMHS  323
+                LC TSF V     G  L  P+   QYL K+S  PP       L CL K LG +  FT S+T    + SPISST  S
+Subject   2315  LCFTSFHVSDNCTGLPLLAPSSLDQYLPKMSTAPPNDAFDRALACLRK*LGYSNFFTVSLT*SEVLASPISSTKTS  2542</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit3>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description3">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=genbank&amp;log$=nuclalign">HE579707.1</a>
+                    <span class=b>Length:</span> 5637
+                    <span class=b>Number of Matches:</span> 2
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 3345 to 3575</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=genbank&amp;log$=nuclalign&amp;from=3345&amp;to=3575">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=graph&amp;log$=nuclalign&amp;from=3345&amp;to=3575">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>91.3 bits(193)</td>
+                      <td>0.0</td>
+                      <td>35/77(45%)</td>
+                      <td>0/77(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       97  ECIVDEIGDRIPTSWVTDAVKQIVMPSFLERHGRSNSMPHLGGKNEILSKYWSRWLGMPSRAPITIDPTWKDVKHNM  327
+                E +V+EIGD   + +V D VK+++ PS+  RH R+ S    GG  +IL KYWSR LG  S  P+ +  TW +VKHN+
+Subject   3345  EVLVEEIGDAKTSDYVRDTVKKLLYPSYFRRHARARSNASFGGAVDILGKYWSRLLGARSGNPVQLSETWNEVKHNL  3575</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 3344 to 3571</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=genbank&amp;log$=nuclalign&amp;from=3344&amp;to=3571">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=graph&amp;log$=nuclalign&amp;from=3344&amp;to=3571">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>55.6 bits(115)</td>
+                      <td>0.0</td>
+                      <td>33/76(43%)</td>
+                      <td>0/76(0%)</td>
+                      <td>Minus/Minus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       96  LCLTSFQVGSIVIGARLGIPNHRLQYLLKISFFPPRCGILLDLPCLSKKLGITICFTASVTQDVGMRSPISSTMHS  323
+                LC TSF V     G  L  P+   QYL K+S  PP       L CL K LG +  FT S+T    + SPISST  S
+Subject   3344  LCFTSFHVSDNCTGLPLLAPSSLDQYLPKMSTAPPNDAFDRALACLRK*LGYSNFFTVSLT*SEVLASPISSTKTS  3571</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit4>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description4">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Alternaria brassicicola endornavirus isolate 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">KP239989.1</a>
+                    <span class=b>Length:</span> 10290
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 7988 to 8218</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign&amp;from=7988&amp;to=8218">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=graph&amp;log$=nuclalign&amp;from=7988&amp;to=8218">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>90.0 bits(190)</td>
+                      <td>0.0</td>
+                      <td>34/77(44%)</td>
+                      <td>0/77(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       97  ECIVDEIGDRIPTSWVTDAVKQIVMPSFLERHGRSNSMPHLGGKNEILSKYWSRWLGMPSRAPITIDPTWKDVKHNM  327
+                E +V+EIGD   + +V D VK+++ PS+  RH R+ S    GG  +IL KYWSR LG  S  P+ +  TW ++KHN+
+Subject   7988  EVLVEEIGDVRTSDYVRDTVKKLLYPSYFRRHARARSNASFGGAVDILGKYWSRLLGARSGNPVQLSETWNEIKHNL  8218</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit5>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description5">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Alternaria brassicicola endornavirus isolate 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">NC_026136.1</a>
+                    <span class=b>Length:</span> 10290
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 7988 to 8218</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign&amp;from=7988&amp;to=8218">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=graph&amp;log$=nuclalign&amp;from=7988&amp;to=8218">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>90.0 bits(190)</td>
+                      <td>0.0</td>
+                      <td>34/77(44%)</td>
+                      <td>0/77(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query       97  ECIVDEIGDRIPTSWVTDAVKQIVMPSFLERHGRSNSMPHLGGKNEILSKYWSRWLGMPSRAPITIDPTWKDVKHNM  327
+                E +V+EIGD   + +V D VK+++ PS+  RH R+ S    GG  +IL KYWSR LG  S  P+ +  TW ++KHN+
+Subject   7988  EVLVEEIGDVRTSDYVRDTVKKLLYPSYFRRHARARSNASFGGAVDILGKYWSRLLGARSGNPVQLSETWNEIKHNL  8218</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+      
+      <section class=match id=match86>
+      
+        <h1>Nucleotide Sequence (306 letters)</h1>
+
+        <section class=header>
+
+          <table class=headerdata>
+            <tr><td class=param>Query ID:</td><td>ds2016-56_135</td></tr>
+            <tr><td class=param>Query definition:</td><td>No definition line</td></tr>
+            <tr><td class=param>Query length:</td><td>156</td></tr>
+            <tr><td class=param>Program:</td><td>TBLASTX 2.2.29+</td></tr>
+            <tr><td class=param>Database:</td><td>/home/stheil/save/db/all_vir/all_vir_nucl.fna</td></tr>
+          </table>
+
+        </section>
+
+
+        <section class=graphics>
+          <h2>Graphic Summary</h2>
+
+          <div class=grey>
+            <h3 class=centered>Distribution of 4 Blast Hits on the Query Sequence</h3>
+
+            <div class=defline id=defline86>
+              Mouse-over to show defline and scores, click to show alignments
+            </div>
+
+            <div class=graphic>
+              <h4 class=darkHeader>Color key for alignment scores</h4>
+              <div class=legend><div class=graphicrow>
+                  <div class=graphicitem style="background-color: black">&lt;40</div>
+                  <div class=graphicitem style="background-color: blue">40–50</div>
+                  <div class=graphicitem style="background-color: green">50–80</div>
+                  <div class=graphicitem style="background-color: magenta">80–200</div>
+                  <div class=graphicitem style="background-color: red">200≤</div>
+              </div></div>
+              <div style="clear: left"></div>
+
+              <div class=tablewrapper>
+
+                <div class=scale>
+                  <div>query:</div>
+                  <div class=graphicrow>
+                    <div>
+                      <div class=graphicitem style="width: 10.130718954248366%">
+                        <div>31</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.130718954248366%">
+                        <div>62</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.130718954248366%">
+                        <div>93</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.130718954248366%">
+                        <div>124</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.130718954248366%">
+                        <div>155</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.130718954248366%">
+                        <div>186</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.130718954248366%">
+                        <div>217</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.130718954248366%">
+                        <div>248</div>
+                      </div>
+                      <div class=graphicitem style="width: 10.130718954248366%">
+                        <div>279</div>
+                      </div>
+                      <div class=graphicitem style="width: 8.823529411764707%">
+                        <div>306</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: left"></div>
+                </div>
+
+                <a class=matchresult
+                   href="#hit1"
+                   onmouseover='document.getElementById("defline86").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_cloning_1"'
+                   onmouseout='document.getElementById("defline86").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_cloning_1">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 2.6143790849673203%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 85.29411764705883%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 12.091503267973856%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit2"
+                   onmouseover='document.getElementById("defline86").innerHTML="Alternaria brassicicola endornavirus isolate 1, complete genome"'
+                   onmouseout='document.getElementById("defline86").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Alternaria brassicicola endornavirus isolate 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 2.6143790849673203%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 85.29411764705883%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 12.091503267973856%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit3"
+                   onmouseover='document.getElementById("defline86").innerHTML="Alternaria brassicicola endornavirus isolate 1, complete genome"'
+                   onmouseout='document.getElementById("defline86").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Alternaria brassicicola endornavirus isolate 1, complete genome">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 2.6143790849673203%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 85.29411764705883%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 12.091503267973856%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit4"
+                   onmouseover='document.getElementById("defline86").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2"'
+                   onmouseout='document.getElementById("defline86").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 2.6143790849673203%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: magenta; width: 85.29411764705883%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 12.091503267973856%"></div>
+                  </div>
+                </a>
+
+                <a class=matchresult
+                   href="#hit5"
+                   onmouseover='document.getElementById("defline86").innerHTML="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1"'
+                   onmouseout='document.getElementById("defline86").innerHTML="Mouse-over to show defline and scores, click to show alignments"'
+                   title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1">
+                  <div class="matchrow graphicrow">
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 2.6143790849673203%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: green; width: 71.56862745098039%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: black; width: 13.725490196078432%"></div>
+                    <div class="matchitem graphicitem"
+                         style="background-color: transparent; width: 12.091503267973856%"></div>
+                  </div>
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <section class=descriptions>
+          <h2>Descriptions</h2>
+
+          <div class=grey><div class=white>
+              <h4 class=darkHeader>Sequences producing significant alignments:</h4>
+
+              <table class=descriptiontable>
+                <col/><col/><col/><col/><col/><col/><col/>
+                <tr>
+                  <th>Description</th>
+                  <th>Max score</th>
+                  <th>Total score</th>
+                  <th>Query cover</th>
+                  <th>E value</th>
+                  <th>Ident</th>
+                  <th>Accession</th>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit1"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_cloning_1"
+                              id="description1">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_cloning_1
+                  </a></div></td>
+                  <td>100.0</td>
+                  <td>100.0</td>
+                  <td>28%</td>
+                  <td>9.485e-20</td>
+                  <td>43%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579686.1?report=genbank&amp;log$=nuclalign">HE579686.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit2"
+                              title="Alternaria brassicicola endornavirus isolate 1, complete genome"
+                              id="description2">
+                        Alternaria brassicicola endornavirus isolate 1, complete genome
+                  </a></div></td>
+                  <td>100.0</td>
+                  <td>100.0</td>
+                  <td>28%</td>
+                  <td>9.485e-20</td>
+                  <td>45%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">KP239989.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit3"
+                              title="Alternaria brassicicola endornavirus isolate 1, complete genome"
+                              id="description3">
+                        Alternaria brassicicola endornavirus isolate 1, complete genome
+                  </a></div></td>
+                  <td>100.0</td>
+                  <td>100.0</td>
+                  <td>28%</td>
+                  <td>9.485e-20</td>
+                  <td>45%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">NC_026136.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit4"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2"
+                              id="description4">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2
+                  </a></div></td>
+                  <td>97.8</td>
+                  <td>97.8</td>
+                  <td>28%</td>
+                  <td>4.605e-19</td>
+                  <td>41%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=genbank&amp;log$=nuclalign">HE579707.1</a></td>
+                </tr>
+                <tr>
+                  <td><div><a href="#hit5"
+                              title="Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1"
+                              id="description5">
+                        Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1
+                  </a></div></td>
+                  <td>81.3</td>
+                  <td>110.3</td>
+                  <td>31%</td>
+                  <td>4.431e-17</td>
+                  <td>42%</td>
+                  <td><a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign">HE579703.1</a></td>
+                </tr>
+              </table>
+
+          </div></div>
+        </section>
+
+
+
+        <section class=alignments>
+          <h2>Alignments</h2>
+
+          <div class=grey><div class=white>
+              <div class=alignment id=hit1>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description1">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579686.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579686.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 32.1Pv1_cloning_1</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579686.1?report=genbank&amp;log$=nuclalign">HE579686.1</a>
+                    <span class=b>Length:</span> 563
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 104 to 364</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579686.1?report=genbank&amp;log$=nuclalign&amp;from=104&amp;to=364">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579686.1?report=graph&amp;log$=nuclalign&amp;from=104&amp;to=364">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>100.0 bits(213)</td>
+                      <td>0.0</td>
+                      <td>37/87(43%)</td>
+                      <td>0/87(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        9  TLDRIRPENHGSMERQVKEWADTRLVLLLKARYSDNNEIDATAEDWFINRDQSLFSQVKLPSEARIKHTLPIMQQTRQNITDIGHAP  269
+                T ++I P NH  ME  +  WA+TRL L L+    D+NE ++TA DWF+N DQ+ ++++KLP+    K  LP+    +Q++T +GHAP
+Subject    104  TGEKISPPNHAEMETMIDSWAETRLRLSLRMGTYDSNEPNSTAIDWFLNTDQTAYNEIKLPTNGSTKSRLPVYDNAKQHVTVVGHAP  364</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit2>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description2">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Alternaria brassicicola endornavirus isolate 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign">KP239989.1</a>
+                    <span class=b>Length:</span> 10290
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 8669 to 8929</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=genbank&amp;log$=nuclalign&amp;from=8669&amp;to=8929">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/KP239989.1?report=graph&amp;log$=nuclalign&amp;from=8669&amp;to=8929">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>100.0 bits(213)</td>
+                      <td>0.0</td>
+                      <td>39/87(45%)</td>
+                      <td>0/87(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        9  TLDRIRPENHGSMERQVKEWADTRLVLLLKARYSDNNEIDATAEDWFINRDQSLFSQVKLPSEARIKHTLPIMQQTRQNITDIGHAP  269
+                T ++I P NH  ME  +  WA+TRL L L+    D+NE +ATA DWF+N DQ+ ++++KLP+    K  LP+    +Q++T IGHAP
+Subject   8669  TGEKIGPSNHDEMETMIDLWAETRLRLSLRMGTYDSNEPNATAIDWFLNTDQTAYNEIKLPTNGSTKSRLPVYDNVKQHVTVIGHAP  8929</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit3>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description3">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Alternaria brassicicola endornavirus isolate 1, complete genome</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign">NC_026136.1</a>
+                    <span class=b>Length:</span> 10290
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 8669 to 8929</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=genbank&amp;log$=nuclalign&amp;from=8669&amp;to=8929">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/NC_026136.1?report=graph&amp;log$=nuclalign&amp;from=8669&amp;to=8929">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>100.0 bits(213)</td>
+                      <td>0.0</td>
+                      <td>39/87(45%)</td>
+                      <td>0/87(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        9  TLDRIRPENHGSMERQVKEWADTRLVLLLKARYSDNNEIDATAEDWFINRDQSLFSQVKLPSEARIKHTLPIMQQTRQNITDIGHAP  269
+                T ++I P NH  ME  +  WA+TRL L L+    D+NE +ATA DWF+N DQ+ ++++KLP+    K  LP+    +Q++T IGHAP
+Subject   8669  TGEKIGPSNHDEMETMIDLWAETRLRLSLRMGTYDSNEPNATAIDWFLNTDQTAYNEIKLPTNGSTKSRLPVYDNVKQHVTVIGHAP  8929</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit4>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description4">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 71Pv1_454_2</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=genbank&amp;log$=nuclalign">HE579707.1</a>
+                    <span class=b>Length:</span> 5637
+                    <span class=b>Number of Matches:</span> 1
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 4026 to 4286</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=genbank&amp;log$=nuclalign&amp;from=4026&amp;to=4286">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579707.1?report=graph&amp;log$=nuclalign&amp;from=4026&amp;to=4286">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>97.8 bits(208)</td>
+                      <td>0.0</td>
+                      <td>36/87(41%)</td>
+                      <td>0/87(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        9  TLDRIRPENHGSMERQVKEWADTRLVLLLKARYSDNNEIDATAEDWFINRDQSLFSQVKLPSEARIKHTLPIMQQTRQNITDIGHAP  269
+                T ++I P NH  ME  +  WA+TRL   L+    D+NE ++TA DWF+N DQ+ ++++KLP+    K  LP+    +Q++T +GHAP
+Subject   4026  TGEKISPSNHDEMETMIDSWAETRLRFSLRMGTYDSNEPNSTAIDWFLNTDQTAYNEIKLPTNGSSKSRLPVYDNAKQHVTVVGHAP  4286</pre>
+                </div>
+
+              </div>
+
+              <div class=alignment id=hit5>
+
+                <div class=linkheader>
+                  <div class=right><a href="#description5">Descriptions</a></div>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign">GenBank</a>
+                  <a class=linkheader href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=graph&amp;log$=nuclalign">Graphics</a>
+                </div>
+
+                <div class=title>
+                  <p class=hittitle>Uncultured endornavirus genomic RNA containing putative polyprotein, contig 63Hv1_454_1</p>
+                  <p class=titleinfo>
+                    <span class=b>Sequence ID:</span> <a href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign">HE579703.1</a>
+                    <span class=b>Length:</span> 9565
+                    <span class=b>Number of Matches:</span> 2
+                  </p>
+                </div>
+
+
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 1: 7933 to 8151</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign&amp;from=7933&amp;to=8151">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=graph&amp;log$=nuclalign&amp;from=7933&amp;to=8151">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>81.3 bits(172)</td>
+                      <td>0.0</td>
+                      <td>31/73(42%)</td>
+                      <td>0/73(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query        9  TLDRIRPENHGSMERQVKEWADTRLVLLLKARYSDNNEIDATAEDWFINRDQSLFSQVKLPSEARIKHTLPIM  227
+                T ++I P NH  ME  +  WA+TRL L L+    D+NE ++TA DWF+N DQ+ ++++KLP+     H  P M
+Subject   7933  TGEKISPSNHDEMETMIDSWAETRLRLSLRMGTYDSNEPNSTAIDWFLNTDQTAYNEIKLPTNGSPSHACPCM  8151</pre>
+                </div>
+                <div class=hotspot>
+                  <p class=range>
+                    <span class=range>Range 2: 8130 to 8192</span>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=genbank&amp;log$=nuclalign&amp;from=8130&amp;to=8192">GenBank</a>
+                    <a class=range href="http://www.ncbi.nlm.nih.gov/nucleotide/HE579703.1?report=graph&amp;log$=nuclalign&amp;from=8130&amp;to=8192">Graphics</a>
+                  </p>
+
+                  <table class=hotspotstable>
+                    <tr>
+                      <th>Score</th><th>Expect</th><th>Identities</th><th>Gaps</th><th>Strand</th>
+                    </tr>
+                    <tr>
+                      <td>28.9 bits(57)</td>
+                      <td>0.0</td>
+                      <td>9/21(43%)</td>
+                      <td>0/21(0%)</td>
+                      <td>Plus/Plus</td>
+                    </tr>
+                  </table>
+
+                  <pre class=alignmentgraphic>Query      207  KHTLPIMQQTRQNITDIGHAP  269
+                K  LP+    +Q++T +GHAP
+Subject   8130  KSRLPVYDNAKQHVTVVGHAP  8192</pre>
+                </div>
+
+              </div>
+
+          </div></div>
+        </section>
+      </section>
+
+    </div>
+
+    <footer>
+      This page was generated by <a href="https://github.com/thehyve/blast2html/">blast2html</a>.
+    </footer>
+  </body>
+</html>
+

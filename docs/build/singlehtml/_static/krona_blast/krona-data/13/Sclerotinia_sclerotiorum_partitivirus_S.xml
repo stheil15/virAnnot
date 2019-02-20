@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>tblastx</BlastOutput_program>
+  <BlastOutput_version>TBLASTX 2.2.29+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of protein database search programs", Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/home/stheil/save/db/all_vir/all_vir_nucl.fna</BlastOutput_db>
+  <BlastOutput_query-ID>ds2016-58_48</BlastOutput_query-ID>
+  <BlastOutput_query-def>No definition line</BlastOutput_query-def>
+  <BlastOutput_query-len>589</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>0.001</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>L;</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>147</Iteration_iter-num>
+  <Iteration_query-ID>ds2016-58_45</Iteration_query-ID>
+  <Iteration_query-def>No definition line</Iteration_query-def>
+  <Iteration_query-len>621</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>GQ280378.1</Hit_id>
+  <Hit_def>Sclerotinia sclerotiorum partitivirus S segment 2, complete sequence</Hit_def>
+  <Hit_accession>GQ280378.1</Hit_accession>
+  <Hit_len>1852</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>82.1702</Hsp_bit-score>
+      <Hsp_score>173</Hsp_score>
+      <Hsp_evalue>5.01601e-19</Hsp_evalue>
+      <Hsp_query-from>39</Hsp_query-from>
+      <Hsp_query-to>365</Hsp_query-to>
+      <Hsp_hit-from>450</Hsp_hit-from>
+      <Hsp_hit-to>776</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>36</Hsp_identity>
+      <Hsp_positive>57</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>109</Hsp_align-len>
+      <Hsp_qseq>SFFVPNALMLFHILFNMEETLNGNEDLRWTSPKYFSLPVRVYYAIIFYVQTLRAKEQSGKLEKAEGSWLRAFLRRFKDTSLPIAGPLVPYFTNIVTVLPSDDQYEFVYP</Hsp_qseq>
+      <Hsp_hseq>STYTPSCWSMYAVLDAMHDLVGDNASLRRFCPYYHVALSNIYYGIIFIIQVLRANQVANNLSQADFQFLRFFESNFALEELPVAGPLVLFFQNLAAFKPDGNRFNWVVP</Hsp_hseq>
+      <Hsp_midline>S + P+   ++ +L  M + +  N  LR   P Y      +YY IIF +Q LRA + +  L +A+  +LR F   F    LP+AGPLV +F N+    P  +++ +V P</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>36.3494</Hsp_bit-score>
+      <Hsp_score>73</Hsp_score>
+      <Hsp_evalue>5.01601e-19</Hsp_evalue>
+      <Hsp_query-from>411</Hsp_query-from>
+      <Hsp_query-to>581</Hsp_query-to>
+      <Hsp_hit-from>804</Hsp_hit-from>
+      <Hsp_hit-to>974</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>18</Hsp_identity>
+      <Hsp_positive>25</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>57</Hsp_align-len>
+      <Hsp_qseq>GQRLPNVTSAHYLIPSVPIIASLLKDFCTTPTIGNSKFDDDGNYIPFQLTVGGTFAG</Hsp_qseq>
+      <Hsp_hseq>GANSPRVNAQSTALPQLPQMISLLNLFGASNAALLTAMDTAGQWEPFTFAAGGTIAG</Hsp_hseq>
+      <Hsp_midline>G   P V +    +P +P + SLL  F  +     +  D  G + PF    GGT AG</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>2</Hit_num>
+  <Hit_id>NC_013015.1</Hit_id>
+  <Hit_def>Sclerotinia sclerotiorum partitivirus S segment 2, complete genome</Hit_def>
+  <Hit_accession>NC_013015.1</Hit_accession>
+  <Hit_len>1852</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>82.1702</Hsp_bit-score>
+      <Hsp_score>173</Hsp_score>
+      <Hsp_evalue>5.01601e-19</Hsp_evalue>
+      <Hsp_query-from>39</Hsp_query-from>
+      <Hsp_query-to>365</Hsp_query-to>
+      <Hsp_hit-from>450</Hsp_hit-from>
+      <Hsp_hit-to>776</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>36</Hsp_identity>
+      <Hsp_positive>57</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>109</Hsp_align-len>
+      <Hsp_qseq>SFFVPNALMLFHILFNMEETLNGNEDLRWTSPKYFSLPVRVYYAIIFYVQTLRAKEQSGKLEKAEGSWLRAFLRRFKDTSLPIAGPLVPYFTNIVTVLPSDDQYEFVYP</Hsp_qseq>
+      <Hsp_hseq>STYTPSCWSMYAVLDAMHDLVGDNASLRRFCPYYHVALSNIYYGIIFIIQVLRANQVANNLSQADFQFLRFFESNFALEELPVAGPLVLFFQNLAAFKPDGNRFNWVVP</Hsp_hseq>
+      <Hsp_midline>S + P+   ++ +L  M + +  N  LR   P Y      +YY IIF +Q LRA + +  L +A+  +LR F   F    LP+AGPLV +F N+    P  +++ +V P</Hsp_midline>
+    </Hsp>
+            <Hsp>
+      <Hsp_num>2</Hsp_num>
+      <Hsp_bit-score>36.3494</Hsp_bit-score>
+      <Hsp_score>73</Hsp_score>
+      <Hsp_evalue>5.01601e-19</Hsp_evalue>
+      <Hsp_query-from>411</Hsp_query-from>
+      <Hsp_query-to>581</Hsp_query-to>
+      <Hsp_hit-from>804</Hsp_hit-from>
+      <Hsp_hit-to>974</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>18</Hsp_identity>
+      <Hsp_positive>25</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>57</Hsp_align-len>
+      <Hsp_qseq>GQRLPNVTSAHYLIPSVPIIASLLKDFCTTPTIGNSKFDDDGNYIPFQLTVGGTFAG</Hsp_qseq>
+      <Hsp_hseq>GANSPRVNAQSTALPQLPQMISLLNLFGASNAALLTAMDTAGQWEPFTFAAGGTIAG</Hsp_hseq>
+      <Hsp_midline>G   P V +    +P +P + SLL  F  +     +  D  G + PF    GGT AG</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>3</Hit_num>
+  <Hit_id>LC076695.1</Hit_id>
+  <Hit_def>Rosellinia necatrix partitivirus 7 genomic RNA, segment 2, complete sequence, strain: W1142</Hit_def>
+  <Hit_accession>LC076695.1</Hit_accession>
+  <Hit_len>1896</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>88.127</Hsp_bit-score>
+      <Hsp_score>186</Hsp_score>
+      <Hsp_evalue>1.13626e-15</Hsp_evalue>
+      <Hsp_query-from>9</Hsp_query-from>
+      <Hsp_query-to>371</Hsp_query-to>
+      <Hsp_hit-from>430</Hsp_hit-from>
+      <Hsp_hit-to>792</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>1</Hsp_hit-frame>
+      <Hsp_identity>37</Hsp_identity>
+      <Hsp_positive>73</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>121</Hsp_align-len>
+      <Hsp_qseq>RIPLKNFDEKSFFVPNALMLFHILFNMEETLNGNEDLRWTSPKYFSLPVRVYYAIIFYVQTLRAKEQSGKLEKAEGSWLRAFLRRFKDTSLPIAGPLVPYFTNIVTVLPSDDQYEFVYPTI</Hsp_qseq>
+      <Hsp_hseq>RMIAEHHPQTNYYVPSAIPLFSLLEAAEDRINASKHIQQHEPNYNPYAVKVYYAYMYYMQIFRAKRESGHIEGSELKILKRFEQKFPLNSLPCAEIVYGYFSSLHATELAESKYDWIVPRI</Hsp_hseq>
+      <Hsp_midline>R+  ++  + +++VP+A+ LF +L   E+ +N ++ ++   P Y    V+VYYA ++Y+Q  RAK +SG +E +E   L+ F ++F   SLP A  +  YF+++     ++ +Y+++ P I</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>4</Hit_num>
+  <Hit_id>AB569998.1</Hit_id>
+  <Hit_def>Rosellinia necatrix partitivirus 2 CP gene for capsid protein, complete cds</Hit_def>
+  <Hit_accession>AB569998.1</Hit_accession>
+  <Hit_len>1828</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>81.2538</Hsp_bit-score>
+      <Hsp_score>171</Hsp_score>
+      <Hsp_evalue>1.33197e-13</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>380</Hsp_query-to>
+      <Hsp_hit-from>381</Hsp_hit-from>
+      <Hsp_hit-to>758</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>37</Hsp_identity>
+      <Hsp_positive>67</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>126</Hsp_align-len>
+      <Hsp_qseq>HVRIPLKNFDEKSFFVPNALMLFHILFNMEETLNGNEDLRWTSPKYFSLPVRVYYAIIFYVQTLRAKEQSGKLEKAEGSWLRAFLRRFKDTSLPIAGPLVPYFTNIVTVLPSDDQYEFVYPTIPKK</Hsp_qseq>
+      <Hsp_hseq>HMTIQYASRKKNNTFLPSAFMMMYIIHEMNVLLCEHFYFKREAPNYHPLLLRTYFGILFIIQTLRAQHAANNLFGDQFEFLEKFLDAYPVDTLPIPAPLIHIFKSLCSSRPEIPQYGYVTPFVPEE</Hsp_hseq>
+      <Hsp_midline>H+ I   +  + + F+P+A M+ +I+  M   L  +   +  +P Y  L +R Y+ I+F +QTLRA+  +  L   +  +L  FL  +   +LPI  PL+  F ++ +  P   QY +V P +P++</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+        <Hit>
+  <Hit_num>5</Hit_num>
+  <Hit_id>NC_020235.1</Hit_id>
+  <Hit_def>Rosellinia necatrix partitivirus 2 CP gene for capsid protein, complete cds</Hit_def>
+  <Hit_accession>NC_020235.1</Hit_accession>
+  <Hit_len>1828</Hit_len>
+  <Hit_hsps>
+<Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>81.2538</Hsp_bit-score>
+      <Hsp_score>171</Hsp_score>
+      <Hsp_evalue>1.33197e-13</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>380</Hsp_query-to>
+      <Hsp_hit-from>381</Hsp_hit-from>
+      <Hsp_hit-to>758</Hsp_hit-to>
+      <Hsp_query-frame>3</Hsp_query-frame>
+      <Hsp_hit-frame>3</Hsp_hit-frame>
+      <Hsp_identity>37</Hsp_identity>
+      <Hsp_positive>67</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>126</Hsp_align-len>
+      <Hsp_qseq>HVRIPLKNFDEKSFFVPNALMLFHILFNMEETLNGNEDLRWTSPKYFSLPVRVYYAIIFYVQTLRAKEQSGKLEKAEGSWLRAFLRRFKDTSLPIAGPLVPYFTNIVTVLPSDDQYEFVYPTIPKK</Hsp_qseq>
+      <Hsp_hseq>HMTIQYASRKKNNTFLPSAFMMMYIIHEMNVLLCEHFYFKREAPNYHPLLLRTYFGILFIIQTLRAQHAANNLFGDQFEFLEKFLDAYPVDTLPIPAPLIHIFKSLCSSRPEIPQYGYVTPFVPEE</Hsp_hseq>
+      <Hsp_midline>H+ I   +  + + F+P+A M+ +I+  M   L  +   +  +P Y  L +R Y+ I+F +QTLRA+  +  L   +  +L  FL  +   +LPI  PL+  F ++ +  P   QY +V P +P++</Hsp_midline>
+    </Hsp>
+          </Hit_hsps>
+</Hit>
+      </Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>2441847</Statistics_db-num>
+      <Statistics_db-len>4250264092</Statistics_db-len>
+      <Statistics_hsp-len>56</Statistics_hsp-len>
+      <Statistics_eff-space>193281701015</Statistics_eff-space>
+      <Statistics_kappa>0.133956144488482</Statistics_kappa>
+      <Statistics_lambda>0.317605957635731</Statistics_lambda>
+      <Statistics_entropy>0.401214524497119</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+  </BlastOutput_iterations>
+</BlastOutput>

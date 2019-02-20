@@ -1,0 +1,3 @@
+krona-data/32/Mirafiori_lettuce_virus_LS301_O.csv	krona-data/32/Mirafiori_lettuce_virus_LS301_O.xml
+krona-data/32/Lettuce_mosaic_virus__strain_0___French_isolate_.csv	krona-data/32/Lettuce_mosaic_virus__strain_0___French_isolate_.xml
+krona-data/32/Lettuce_mosaic_virus.csv	krona-data/32/Lettuce_mosaic_virus.xml
