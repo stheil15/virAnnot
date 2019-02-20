@@ -1,6 +1,0 @@
-krona-data/9/Isaria_javanica_chrysovirus_1.csv	krona-data/9/Isaria_javanica_chrysovirus_1.xml
-krona-data/9/Botryosphaeria_dothidea_virus_1.csv	krona-data/9/Botryosphaeria_dothidea_virus_1.xml
-krona-data/9/Penicillium_chrysogenum_virus.csv	krona-data/9/Penicillium_chrysogenum_virus.xml
-krona-data/9/Grapevine_rupestris_stem_pitting_associated_virus.csv	krona-data/9/Grapevine_rupestris_stem_pitting_associated_virus.xml
-krona-data/9/Grapevine_virus_A.csv	krona-data/9/Grapevine_virus_A.xml
-krona-data/9/Grapevine_leafroll_associated_virus_3.csv	krona-data/9/Grapevine_leafroll_associated_virus_3.xml

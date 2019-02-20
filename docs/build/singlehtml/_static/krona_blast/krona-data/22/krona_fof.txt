@@ -1,3 +1,0 @@
-krona-data/22/uncultured_marine_virus.csv	krona-data/22/uncultured_marine_virus.xml
-krona-data/22/Proteus_phage_vB_PmiS_TH.csv	krona-data/22/Proteus_phage_vB_PmiS_TH.xml
-krona-data/22/uncultured_phage.csv	krona-data/22/uncultured_phage.xml
