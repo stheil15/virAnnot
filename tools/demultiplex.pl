@@ -265,7 +265,7 @@ sub _get_pairs_and_singles {
 	my $hash;
   my $old_hash;
   foreach my $f (@files){
-		$logger->debug('Reading fastq file: ' . $f);
+		$logger->info('Reading fastq file: ' . $f);
     open(FILE,$f);
     while(<FILE>){
       if(/^@(\S+)\/([12])$/){
@@ -280,9 +280,10 @@ sub _get_pairs_and_singles {
       }
     }
     close FILE;
-    $old_hash =+ $hash;
+    $old_hash += $hash;
   }
-	return $old_hash;
+	# return $old_hash;
+  return $hash;
 }
 
 
@@ -309,8 +310,9 @@ sub _print_id_files {
   open(ID1,">$prefix" . "_r1.ids");
   open(ID2,">$prefix" . "_r2.ids");
   open(IDS,">$prefix" . "_s.ids");
+  $logger->info("print id file");
   foreach my $r_id (sort(keys(%{$hash}))){
-		my @keys = keys(%{$hash->{$r_id}});
+    my @keys = keys(%{$hash->{$r_id}});
 		if(scalar(@keys) == 2){
 			print ID1 $r_id . '/1' . "\n";
       print ID2 $r_id . '/2' . "\n";
