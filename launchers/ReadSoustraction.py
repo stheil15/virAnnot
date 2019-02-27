@@ -1,6 +1,5 @@
 """
 Authors: Sebastien Theil
-python_version: 3.4
 """
 import os.path
 import logging as log

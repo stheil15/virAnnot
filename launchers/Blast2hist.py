@@ -1,4 +1,3 @@
-#!/user/bin/pyton3.4
 """
 	This class is a part of the virAnnot module
 	===========
@@ -9,12 +8,12 @@ from subprocess import call
 import logging as log
 
 class Blast2hist:
-		"""
+	"""
 	This module is part of virAnnot module
 	It creates the command that will generate histogram
 	from Blast results (csv)
 	"""
-
+	
 	def __init__(self, args):
 		self.check_args(args)
 		self.cmd = []
