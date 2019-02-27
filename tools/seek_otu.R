@@ -18,18 +18,34 @@ if (length(args)==0) {
 	# assign otu based on identity value
 	otu = cutree(hc, h=-id_threshold)
 	# group contigs by otu
-	otu_list = sapply(unique(otu),function(g)row.names(mat)[otu == g])
+	# otu_list = sapply(unique(otu),function(g)row.names(mat)[otu == g])
 	# Print results to output file
 	output = args[2]
-	count = 1
-	for (i in otu_list){
+	# unique is used to know the number of different otu
+	for (i in unique(otu)){
+		# retrieve contigs belonging to the same otu
+		clust = which(otu == i)
 		# write otu number and number of contigs in this otu
-		cat(paste(c("OTU_", count, ",", length(i), ","), sep = ""), file=output, append=TRUE)
-		for (j in i){
-			# write contigs list
-			cat(paste(gsub(" ", "", j), ",", sep = ""), file=output, append=TRUE)
+		cat(paste(c("OTU_", i, ",", length(clust), ","), sep = ""), file=output, append=TRUE)
+		for (n in names(clust)){
+			# write contigs name
+			cat(paste(gsub(" ", "", n), ",", sep = ""), file=output, append=TRUE)
 		}
 		cat("\n", sep="", file=output, append=TRUE)
-		count = count + 1
 	}
+	# count = 1
+	# for (i in otu_list){
+	# 	# write otu number and number of contigs in this otu
+	# 	cat(paste(c("OTU_", count, ",", length(i), ","), sep = ""), file=output, append=TRUE)
+	# 	for (j in i){
+	# 		# write contigs list
+	# 		cat(paste(gsub(" ", "", j), ",", sep = ""), file=output, append=TRUE)
+	# 	}
+	# 	cat("\n", sep="", file=output, append=TRUE)
+	# 	count = count + 1
+	# }
 }
+
+
+
+

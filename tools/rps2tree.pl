@@ -312,7 +312,6 @@ sub _get_global_stats {
                 
               }else{
                 $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$i]}++;
-                # $cdd_info->{$cdd_id}->{sample_present}->{$self->{id_samples}->[$i]}++;
                 $cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{taxonomy} = "not found";
                 push(@{$cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{seq_list}},$l[$i]);
               }
@@ -755,15 +754,16 @@ sub _compute_pairwise_distance {
         }else{
           printf MAT ",%.4f", 0;
         }
-        if ($matrix[$i][$j] == 100){
-          $count = 0;
-        }
+        # if ($matrix[$i][$j] == 100){
+        #   $count = 0;
+        # }
       }else{
-        if ( $matrix[$i][$j] == 100) {
+        # if ( $matrix[$i][$j] == 100) {
           printf MAT ",%.4f", $matrix[$i][$j];
-        }else{
-          printf MAT ",%.4f", 0;
-        }
+        # }
+        # else{
+        #   printf MAT ",%.4f", 0;
+        # }
       }
     }
     print MAT ",\n";
@@ -793,15 +793,23 @@ sub _cut_sequences {
     my $pfam_hits = $self->{taxoTools}->readCSVextended_regex($self->{filesList}->[$i],"\t",'Viruses');
     my $fasta_tool = Tools::Fasta->new('file' => $self->{seqFileList}->[$i]);
     $logger->info('Csv read');
-  # for(my $i=0;$i<=$#{$self->{_pfam_hits}};$i++){
+    # for(my $j=0;$j<=$#{$self->{_pfam_hits}};$j++){
     for(my $j=0;$j<=$#{$pfam_hits};$j++){
       if(!defined($pfam_hits->[$j]->{superkingdom})){next;}
       if($pfam_hits->[$j]->{superkingdom} =~ /Viruses\((\d+\.\d+)\);/){
         my $vir_percent = $1;
         if($vir_percent >= $self->{_viral_portion}){
           my $seq = $fasta_tool->retrieveFastaSequence($pfam_hits->[$j]->{query_id});
+          my $seq_length = length($seq->{$pfam_hits->[$j]->{query_id}});
           my $bioSeq = Bio::Seq->new(-seq => $seq->{$pfam_hits->[$j]->{query_id}});
-          my $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($pfam_hits->[$j]->{startQ},$pfam_hits->[$j]->{endQ}));
+          $logger->info($pfam_hits->[$j]->{startQ} . " " . $pfam_hits->[$j]->{endQ} . " " . $seq_length);
+          my $subseq;
+          if($pfam_hits->[$j]->{endQ} < $seq_length){
+            $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($pfam_hits->[$j]->{startQ},$pfam_hits->[$j]->{endQ}));
+          }else{
+            $logger->info('seq length');
+            $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($pfam_hits->[$j]->{startQ},$seq_length));
+          }
           if($pfam_hits->[$j]->{frame} < 0){
             $subseq = $subseq->revcom;
           }
