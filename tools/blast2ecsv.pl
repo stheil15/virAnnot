@@ -261,10 +261,11 @@ sub printCSVExcel {
 					}
         }
         elsif($field eq 'nb_reads'){
-          if ($self->{read_numbers}->{$line->{'query_id'}}){
-            push(@fields, '"' . $self->{read_numbers}->{$line->{'query_id'}} . '"');
+          my $query_id = join( "", split("_d2b", $line->{'query_id'}) );
+          if ($self->{read_numbers}->{$query_id}){
+            push(@fields, '"' . $self->{read_numbers}->{$query_id} . '"');
           }else{
-            push(@fields, '');
+            push(@fields, '0');
           }
         }
         elsif($field eq 'query_length'){
@@ -430,7 +431,6 @@ sub _set_options {
       $logger->error('Fasta sequence file not found. ' . $seqFile),
     }
   }
-
   if(defined($readNumber)){
     if(-e $readNumber){
       $self->{read_numbers} = _readNumber($self,$readNumber);
