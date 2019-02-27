@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Actually runs under either python 2 or 3
+# Actually runs under python 3
 
 # Copyright The Hyve B.V. 2014
 # License: GPL version 3 or higher
