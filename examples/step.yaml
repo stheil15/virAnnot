@@ -79,26 +79,29 @@ Diamond:
   qov: 50
   hov: 5
   db: all_vir_prot
-Blast2ecsv_dmd:
-  evalue: 0.01
-  fhit: True
-  pm: global
-  if: xml
-  r: True
-  b: (SampleID)_dmd.xml
-  out: (SampleID)_dmd.allVirProt.csv
+Diamond_singletons_nr:
+  contigs: (SampleID)_idba.scaffold.fa
+  db: nr
+  ising: (SampleID)_singletons.fq
+  n_cpu: 10
   sge: True
-  type: BLASTX
-  pd: True
-Ecsv2krona_dmd:
-  id1: (SampleID)
-  b1: (SampleID)_dmd.allVirProt.csv
-  outdir: krona_diamond
-  out: global_krona_dmd.html
-  data: contig
-  r: True
-  c: identity
-  iter: global
+  out: (SampleID)_singletons_test.nr.dmdx.xml
+  evalue: 0.001
+  iter: sample
+  score: 10
+  qov: 10
+Diamond2blast:
+  i: (SampleID)_idba.scaffold.dmdx.nr.csv
+  contigs: (SampleID)_idba.scaffold.dmdx2bltx.fa
+  out: (SampleID)_idba.scaffold.dmdx2bltx.nr.xml
+  type: blastx
+  db: nr
+  evalue: 0.0001
+  server: genologin
+  n_cpu: 8
+  tc: 50
+  num_chunk: 1000
+  max_target_seqs: 1
   sge: True
 Blast_allvirTX:
   type: tblastx
@@ -132,6 +135,17 @@ Blast_refvirTX:
   server: genotoul
   n_cpu: 8
   tc: 50
+  num_chunk: 1000
+  sge: True
+Blast_singleton_nr:
+  type: blastx
+  contigs: (SampleID)_singletons.fa
+  db: nr
+  out: (SampleID)_singletons.bltx.nr.xml
+  evalue: 0.0001
+  server: genologin
+  n_cpu: 8
+  tc: 10
   num_chunk: 1000
   sge: True
 Blast_RPS:
@@ -190,6 +204,31 @@ Blast2ecsv_nr:
   score: 50
   qov: 5
   hov: 5
+Blast2ecsv_dmd:
+  evalue: 0.01
+  fhit: True
+  pm: global
+  if: xml
+  r: True
+  b: (SampleID)_dmd.xml
+  out: (SampleID)_dmd.allVirProt.csv
+  sge: True
+  type: BLASTX
+  pd: True
+Blast2ecsv_dmdx_singletons_nr:
+  contigs: (SampleID)_idba.scaffold.fa
+  evalue: 0.001
+  fhit: True
+  pm: global
+  if: xml
+  rn: (SampleID)_idba.scaffold.rn
+  r: True
+  b: (SampleID)_singletons.nr.dmdx.xml
+  vs: True
+  out: (SampleID)_singletons_test.nr.dmdx.csv
+  sge: True
+  type: DIAMONDX
+  pd: True
 Rps2ecsv:
   b: (SampleID)_idba.scaffold.rps.pfam.xml
   out: (SampleID)_idba.scaffold.rps.pfam.csv
@@ -232,6 +271,16 @@ Ecsv2krona:
   outdir: krona_blast
   out: blast.global.krona.html
   data: both
+  r: True
+  c: identity
+  iter: global
+  sge: True
+Ecsv2krona_dmd:
+  id1: (SampleID)
+  b1: (SampleID)_dmd.allVirProt.csv
+  outdir: krona_diamond
+  out: global_krona_dmd.html
+  data: contig
   r: True
   c: identity
   iter: global
