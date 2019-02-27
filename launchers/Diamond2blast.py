@@ -40,10 +40,7 @@ class Diamond2blast:
 			exec_cmd = self._get_exec_script()
 			cluster_cmd = self._get_clust_script()
 		if self.server != 'enki':
-			if self.server == 'avakas':
-				cmd = 'scp ' + self.contigs + ' ' + self.username + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
-			else:
-				cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
+			cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
 			log.debug(cmd)
 			self.cmd.append(cmd)
 			fw = open(self.remote_cmd_file, mode='w')
@@ -56,21 +53,21 @@ class Diamond2blast:
 				fw = open(self.cluster_exec_cmd_file, mode='w')
 				fw.write(exec_cmd)
 				fw.close()
-				cmd = 'ssh ' + self.username + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
-				cmd = 'scp ' + self.cluster_cmd_file + ' ' + self.username + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir
+				cmd = 'scp ' + self.cluster_cmd_file + ' ' + self.params['servers'][self.server]['username']  + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir
 				log.debug(cmd)
 				self.cmd.append(cmd)
-				cmd = 'ssh ' + self.username + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.cluster_exec_cmd_file
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.cluster_exec_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
 			else:
-				cmd = 'ssh ' + self.username + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
 
-			cmd = 'scp ' + self.username + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
+			cmd = 'scp ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
 			log.debug(cmd)
 			self.cmd.append(cmd)
 		elif self.server == 'enki':
@@ -175,11 +172,12 @@ class Diamond2blast:
 		for strLine in file_input:
 			reg = re.compile(r"^\"Virus.*")
 			taxo = strLine.split("\t")[14]
+			query_id = strLine.split("\t")[1]
 			#Test if viral
 			if re.match(reg, taxo) != None:
 				seq = strLine.split("\t")[15]
 				#Write sequence header
-				file_output.write(">" + self.sample + "_d2b_" + str(count) + "\n")
+				file_output.write(">" + query_id.replace("\"", "") + "\n")
 				#Write sequence
 				file_output.write(seq.replace('\"', ''))
 				count = count + 1
