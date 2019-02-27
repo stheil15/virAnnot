@@ -23,7 +23,7 @@ class Rps2ecsv:
 		if 'sample' in args:
 			self.sample = str(args['sample'])
 		self.wd = os.getcwd() + '/' + self.sample
-		self.cmd_file = self.wd + '/' + self.sample + '_blast2ecsv_cmd.txt'
+		self.cmd_file = self.wd + '/' + self.sample + '_rps2ecsv_cmd.txt'
 		if 'contigs' in args:
 			self.contigs = self.wd + '/' + args['contigs']
 		if 'sge' in args:
@@ -45,7 +45,7 @@ class Rps2ecsv:
 				self.b = ''
 				self.execution=0
 		else:
-			log.critical('You must provide a blast file.')
+			log.critical('You must provide a blast rps file.')
 		if 'n_cpu' in args:
 			self.n_cpu = str(args['n_cpu'])
 		else:
