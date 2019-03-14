@@ -33,6 +33,7 @@ my $blast_type = 'blastx';
 my $verbosity=1;
 my @seq_fasta;
 my @ecsv_files;
+my @rn_files;
 my $min_prot_length = 100;
 my $viral_portion=0.30;
 my $outdir='rps2tree';
@@ -45,6 +46,7 @@ GetOptions(
   "i|input:s"      => \@input_files,
   "id:s"           => \@id_samples,
   "e|ecsv:s"       => \@ecsv_files,
+  "r|rn:s"         => \@rn_files,
   "o|outdir:s"     => \$outdir,
   "v|verbosity=i"  => \$verbosity,
   "blast_db=s"     => \$blast_db_path,
@@ -93,6 +95,7 @@ sub main {
   _draw_legend($self);
   _cut_sequences($self);
   _align_with_ref($self);
+  _get_read_nb($self);
   $logger->info('Get stats.');
   my $data = _get_global_stats($self,);
   $logger->info('Print excel.');
@@ -235,7 +238,7 @@ sub _print_excel {
       $worksheet->write($row,0,$otu);
       my $col=1;
       for(my $i=1;$i<=$#headers;$i++){
-        if(defined($data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]})){
+        if(exists($data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]})){
           $worksheet->write($row,$col,$data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]});
         }
         else{
@@ -285,35 +288,42 @@ sub _print_csv {
 sub _get_global_stats {
   my ($self)=@_;
   my $cdd_info;
+  # collection : array containing contigs->sequence
   foreach my $cdd_id (keys(%{$self->{_cluster_files}})){
     open(CLUST,$self->{_cluster_files}->{$cdd_id});
+    # Read clusters.csv for each motifs
     while(<CLUST>){
       chomp;
       my @l = split(",",$_);
+      # $logger->info(Dumper(@l));
+      ## for each contigs 
+      ## $i is a contig_id 
       for(my $i=2;$i<=$#l;$i++){
-
+        # $logger->info(Dumper($self->{collection}->{$cdd_id}));
+        ## for each contig with sequence Blastx results
+        ## $j is a sample_id
         for(my $j=0;$j<=$#{$self->{collection}->{$cdd_id}};$j++){
-          # if(defined($self->{collection}->{$cdd_id}->[$j])){
-          #   if(defined($self->{collection}->{$cdd_id}->[$j]->{$l[$i]})){
-          #     if(defined($self->{_query_annotation}->{$l[$i]})){
-          #       if(defined($self->{_query_annotation}->{$l[$i]}->{nb_reads})){
+          ## sample_id present in collection of cdd_id
           if(exists($self->{collection}->{$cdd_id}->[$j])){
+            ## contig_id present in collection of the sample_id
             if(exists($self->{collection}->{$cdd_id}->[$j]->{$l[$i]})){
+              ## contig_id in blastx results
               if(exists($self->{_query_annotation}->{$l[$i]})){
+                ## contig_id has a nb of reads
                 if(exists($self->{_query_annotation}->{$l[$i]}->{nb_reads})){
-                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += $self->{_query_annotation}->{$l[$i]}->{nb_reads};
-                }
-                else{
-                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]}++;
+                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += int($self->{_query_annotation}->{$l[$i]}->{nb_reads});
+                }else{
+                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += $self->{all_nb_read}->{$l[$i]};
                 }
                 $cdd_info->{$cdd_id}->{sample_present}->{$self->{id_samples}->[$j]}++;
                 $cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{taxonomy} = $self->{_query_annotation}->{$l[$i]}->{taxonomy};
                 push(@{$cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{seq_list}},$l[$i]);
                 
               }else{
-                $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$i]}++;
+                $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += int($self->{all_nb_read}->{$l[$i]});
                 $cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{taxonomy} = "not found";
                 push(@{$cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{seq_list}},$l[$i]);
+                $cdd_info->{$cdd_id}->{sample_present}->{$self->{id_samples}->[$j]}++;
               }
             }
           }
@@ -431,7 +441,7 @@ sub _seek_ref {
   `$format_db_cmd`;
   my $ref_acc;
   for(my $i =0;$i<=$#{$self->{collection}->{$cdd_id}};$i++){
-    my $blast_hits = $self->{taxoTools}->readCSVextended_regex($self->{ecsvFileList}->[$i],"\t",'Viruses');
+    my $blast_hits = $self->{taxoTools}->readCSVextended_regex($self->{ecsvFileList}->[$i],"\t", "Viruses");
     foreach my $q_id (keys(%{$self->{collection}->{$cdd_id}->[$i]})){
       foreach my $m (@{$blast_hits}){
         if($m->{query_id} eq $q_id){
@@ -790,7 +800,7 @@ sub _cut_sequences {
   $logger->info('Cut sequences.');
   my ($self)=@_;
   for(my $i=0;$i<=$#{$self->{filesList}};$i++){
-    my $pfam_hits = $self->{taxoTools}->readCSVextended_regex($self->{filesList}->[$i],"\t",'Viruses');
+    my $pfam_hits = $self->{taxoTools}->readCSVextended_regex($self->{filesList}->[$i],"\t", "Viruses");
     my $fasta_tool = Tools::Fasta->new('file' => $self->{seqFileList}->[$i]);
     $logger->info('Csv read');
     # for(my $j=0;$j<=$#{$self->{_pfam_hits}};$j++){
@@ -802,12 +812,10 @@ sub _cut_sequences {
           my $seq = $fasta_tool->retrieveFastaSequence($pfam_hits->[$j]->{query_id});
           my $seq_length = length($seq->{$pfam_hits->[$j]->{query_id}});
           my $bioSeq = Bio::Seq->new(-seq => $seq->{$pfam_hits->[$j]->{query_id}});
-          $logger->info($pfam_hits->[$j]->{startQ} . " " . $pfam_hits->[$j]->{endQ} . " " . $seq_length);
           my $subseq;
           if($pfam_hits->[$j]->{endQ} < $seq_length){
             $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($pfam_hits->[$j]->{startQ},$pfam_hits->[$j]->{endQ}));
           }else{
-            $logger->info('seq length');
             $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($pfam_hits->[$j]->{startQ},$seq_length));
           }
           if($pfam_hits->[$j]->{frame} < 0){
@@ -826,6 +834,25 @@ sub _cut_sequences {
     }
   }
   $logger->info('End Cut sequences.');
+}
+
+sub _get_read_nb {
+  $logger->info('Get read nb.');
+  my ($self)=@_;
+  my $res;
+  for(my $i=0;$i<=$#{$self->{rnFileList}};$i++){
+    # $logger->info(Dumper($self->{rnFileList}->[$i]));
+    my $file = $self->{rnFileList}->[$i];
+    open(RN,$file) || $logger->logdie('Cannot open file ' . $file);
+    while(<RN>){
+      my @line = split("\t",$_);
+      # first cell is contig name, second cell is number of reads for the contig
+      $res->{$line[0]} = $line[1];
+    }
+    close RN;
+  }
+  $self->{all_nb_read} = $res;
+  # $logger->info(Dumper($self->{all_nb_read}));
 }
 
 
@@ -855,6 +882,13 @@ sub _set_options {
     }
     else{
       $logger->logdie('You must provide annotation files associated with csv files.')
+    }
+    if(scalar(@rn_files) > 0){
+      # Blastx files
+      $self->{rnFileList} = \@rn_files;
+    }
+    else{
+      $logger->logdie('You must provide read number files.')
     }
   }
   else{

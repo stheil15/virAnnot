@@ -31,6 +31,7 @@ class Rps2tree:
 				cmd += ' -s ' + self.blast_files[s_id]['contigs']
 				cmd += ' -i ' + self.blast_files[s_id]['pfam']
 				cmd += ' -e ' + self.blast_files[s_id]['ecsv']
+				cmd += ' -rn ' + self.blast_files[s_id]['rn']
 		else:
 			log.debug('msg')
 			sys.exit(0)
@@ -89,6 +90,7 @@ class Rps2tree:
 							self.blast_files[s_id]['pfam'] = self.wd + '/' + s_id + '/' + args['args'][s_id]['pfam']
 							self.blast_files[s_id]['ecsv'] = self.wd + '/' + s_id + '/' + args['args'][s_id]['ecsv']
 							self.blast_files[s_id]['contigs'] = self.wd + '/' + s_id + '/' + args['args'][s_id]['contigs']
+							self.blast_files[s_id]['rn'] = self.wd + '/' + s_id + '/' + args['args'][s_id]['rn']
 							self.blast_files[s_id]['id'] = args['args'][s_id]['id']
 		else:
 			log.critical('No iter parameters.')
