@@ -24,7 +24,7 @@ class Blast:
 			fw =  open(self.remote_cmd_file, mode='w')
 			fw.write(ssh_cmd)
 			fw.close()
-			if self.server != 'avakas':
+			if self.server != 'avakas' or self.server != 'curta':
 				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)

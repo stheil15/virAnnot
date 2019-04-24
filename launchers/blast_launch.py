@@ -135,6 +135,8 @@ def _get_qstat_cmd(cluster=str, jobid=int) :
         qstat_cmd = ['squeue', '-j',str(jobid)]
     elif cluster == 'genouest':
         qstat_cmd = ['qstat', '-j',str(jobid)]
+    elif cluster == 'curta':
+        qstat_cmd = ['qstat ',str(jobid)]
     else:
         log.critical('unknown cluster.')
     return qstat_cmd
@@ -173,6 +175,10 @@ def _get_qsub_cmd(cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=s
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-d', o_d, '-l', 'walltime=250:00:00', '-l', 'mem=14G', '-l', 'nodes=1:ppn=' + str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
         job_regex = '^(\d+\[\]\.master)\.cm\.cluster$'
+    elif cluster == 'curta':
+        qsub_cmd = ['sbatch', '--export=ALL', '--array=1-' + str(n_f+1), '--chdir=', o_d, '--time=250:00:00', '--mem=14G', '--nodes=1 --cpus-per-task=' + str(n_cpu), blt_script]
+        # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
+        job_regex = '^Submitted batch job (\d+)'
     elif cluster == 'genotoul':
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d,'-l', 'mem=8G', '-l', 'h_vmem=12G', '-pe', 'parallel_smp', str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -wd ' + o_d + ' -l mem=8G -l h_vmem=12G -pe parallel_smp ' + str(n_cpu) + ' ' + blt_script
@@ -222,7 +228,7 @@ def batch_iterator(iterator, batch_size):
 def _set_options():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s','--seq',help='The fasta sequence file.',action='store',type=str,required=True)
-    parser.add_argument('-c','--cluster',help='The cluster name.',action='store',type=str,required=True,default='avakas',choices=['avakas','genotoul','enki','genologin','genouest'])
+    parser.add_argument('-c','--cluster',help='The cluster name.',action='store',type=str,required=True,default='avakas',choices=['avakas','genotoul','enki','genologin','genouest', 'curta'])
     parser.add_argument('-n','--num_chunk',dest='chunk',help='The number of chunks to split the fasta in.',action='store',type=int,default=100)
     parser.add_argument('--tc',dest='tc',help='The number of concurent jobs to launch on SGE servers.',action='store',type=int,default=100)
     parser.add_argument('--n_cpu',help='The number of cpu cores to use per job.',action='store',type=int,default=5)
@@ -258,7 +264,7 @@ def _load_script(cluster, prog):
         script_sge += ".  /softs/local/env/envblast-2.6.0.sh\n"
         script_sge += ". /softs/local/env/envpython-3.6.3.sh\n"
         script_sge += "%s -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
-    elif cluster == 'genologin':
+    elif cluster == 'genologin' or cluster == 'curta':
         script_sge = "#!/bin/sh\n%s -query %s/group_$SLURM_ARRAY_TASK_ID.fa -db %s -out %s/group_$SLURM_ARRAY_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
     return script_sge
 
