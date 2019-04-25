@@ -136,7 +136,7 @@ def _get_qstat_cmd(cluster=str, jobid=int) :
     elif cluster == 'genouest':
         qstat_cmd = ['qstat', '-j',str(jobid)]
     elif cluster == 'curta':
-        qstat_cmd = ['qstat ',str(jobid)]
+        qstat_cmd = ['qstat', '-i',str(jobid)]
     else:
         log.critical('unknown cluster.')
     return qstat_cmd
@@ -159,7 +159,10 @@ def _launch_jobs(n_f, o_d, cluster, prog, db, n_cpu, tc, outfmt, max_target_seqs
     # log.debug(stdoutdata)
     p = re.compile(job_regex)
     m = p.match(stdoutdata)
-    jobid = m.group(1)
+    try:
+        jobid = m.group(1)
+    except AttributeError:
+        jobid = m.group()
     log.debug('job launch with jobid ' + jobid + '.')
     time.sleep(10)
     return jobid
@@ -176,7 +179,7 @@ def _get_qsub_cmd(cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=s
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
         job_regex = '^(\d+\[\]\.master)\.cm\.cluster$'
     elif cluster == 'curta':
-        qsub_cmd = ['sbatch', '--export=ALL', '--array=1-' + str(n_f+1), '--chdir=', o_d, '--time=250:00:00', '--mem=14G', '--nodes=1 --cpus-per-task=' + str(n_cpu), blt_script]
+        qsub_cmd = ['sbatch', '--export=ALL', '--array=1-' + str(n_f+1), '-D' , o_d, '--time=250:00:00', '--mem=14G', '--nodes=1 --ntasks=' + str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
         job_regex = '^Submitted batch job (\d+)'
     elif cluster == 'genotoul':
@@ -264,8 +267,10 @@ def _load_script(cluster, prog):
         script_sge += ".  /softs/local/env/envblast-2.6.0.sh\n"
         script_sge += ". /softs/local/env/envpython-3.6.3.sh\n"
         script_sge += "%s -query %s/group_$SGE_TASK_ID.fa -db %s -out %s/group_$SGE_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
-    elif cluster == 'genologin' or cluster == 'curta':
+    elif cluster == 'genologin':
         script_sge = "#!/bin/sh\n%s -query %s/group_$SLURM_ARRAY_TASK_ID.fa -db %s -out %s/group_$SLURM_ARRAY_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
+    elif  cluster == 'curta':
+        script_sge = "#!/bin/bash\n%s -query %s/group_$SLURM_ARRAY_TASK_ID.fa -db %s -out %s/group_$SLURM_ARRAY_TASK_ID.xml -evalue %f -outfmt %d -max_target_seqs %d -parse_deflines -num_threads %i"
     return script_sge
 
 
