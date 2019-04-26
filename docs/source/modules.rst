@@ -369,6 +369,7 @@ Rps2tree
 This module launch rps2tree.pl script for all sample provided.
 This module generates Operational Taxonomic Unit (OTU) based on RPS-Blast results.
 For each CDD motifs, contigs are clustered together based on matrix distance.
+The tree is generated thanks to `ete3 toolkit <http://etetoolkit.org/>`_.
 
 Options
 *******
