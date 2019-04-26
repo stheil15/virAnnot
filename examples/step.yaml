@@ -317,6 +317,7 @@ Rps2tree:
   out: rps2tree_global
   min_prot: 100
   viral_portion: 0.3
+  perc: 90
   iter: global
   sge: True
 Getresults:
