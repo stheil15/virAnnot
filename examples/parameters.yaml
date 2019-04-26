@@ -35,6 +35,22 @@ servers:
     bin:
       blastx: 'blastx+'
       blastn: 'blastn+'
+  genologin:
+    adress: 'genologin.toulouse.inra.fr'
+    username: 'mlefebvre'
+    db:
+      nr: '/bank/ncbi/blast/nr/current/blast/nr'
+      nt: '/bank/ncbi/blast/nr/current/blast/nt'
+      dmd_nr: '/bank/diamonddb/nr'
+      refseq_vir_nucl: '/save/mlefebvre/db/refseq_vir/viral.genomic.fna'
+      refseq_vir_prot: '/save/mlefebvre/db/refseq_vir/viral.protein.faa'
+      pfam: '/home/mlefebvre/work/pfam/Pfam'
+      all_vir_nucl: '/home/mlefebvre/save/db/all_vir/all_vir_nucl.fna'
+      all_vir_prot: '/home/mlefebvre/save/db/all_vir/all_vir_prot.faa'
+    scratch: '/work/mlefebvre'
+    bin:
+      blastx: 'blastx'
+      blastn: 'blastn'
   avakas:
     adress: 'avakas.mcia.univ-bordeaux.fr'
     username: 'stheil'
