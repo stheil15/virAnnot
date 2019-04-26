@@ -33,3 +33,4 @@ This is a minimum map.txt file:
 .. literalinclude:: ../../examples/map.txt
 
 You can add categories for each sample so they can be used when coloring sequences in trees from the Rps2tree module.
+One library can be attributed to multiple samples, as shown in the example. Thus the demultiplexing step will be able to differentiate each sample and separate them.
