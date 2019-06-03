@@ -12,7 +12,7 @@ NR and NT must be present localy and NCBI taxonomy is loaded in an SQLITE databa
 
 See Readthedocs for more:
 
-http://virannot.readthedocs.io/en/latest/
+https://virannot-docs.readthedocs.io/en/latest/
 
 Pipeline general scheme:
 
