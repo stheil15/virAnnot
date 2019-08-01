@@ -288,7 +288,7 @@ Options
 - ``max_target_seqs``: Maximum match per query sequences.
 - ``num_chunk``: Number of chunks to split the original fasta file for parallel execution.
 - ``out``: Output file name.
-- ``server``: ['enki','genologin','avakas'] Values are defined in the parameters.yaml file.
+- ``server``: ['enki','genologin','avakas', 'curta'] Values are defined in the parameters.yaml file.
 - ``sge``: [BOOL] use SGE scheduler.
 
 This module is able to launch Blast instance on distant servers if the database and the blast_launch.py script is present on the server. Then you have to edit the parameters.yaml file to fit your configuration. The script has been developped to use two computer cluster, Avakas (PBS + Torque) and Genotoul (SGE) but each cluster has its own configuration so you may have to modify this script to adapt it to your configuration.
@@ -382,6 +382,22 @@ Options
 - ``min_prot``: Minimum protein length to be included in a tree.
 - ``perc``: Percentage of identity. Threshold set to define OTU.
 - ``iter``: ['global']
+
+Rps2merge
+---------
+This module launches rps2merge script.
+It generates a summary file, merging OTU results, blast results and rps results.
+For each OTU, if multiple contigs corresponding, one is randomly selected.
+
+Options
+*******
+- ``pfam``: CSV file from Rps2ecsv.
+- ``blastx``: CSV file from Blast2ecsv.
+- ``rps_folder``: Name of output folder of Rps2tree.
+- ``id``: Sample or library ID
+- ``out``: CSV output file
+- ``iter``: ['global']
+- ``sge``: [BOOL]
 
 AutoMapper
 ----------

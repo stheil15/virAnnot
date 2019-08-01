@@ -20,7 +20,7 @@ NR and NT must be present localy and/or on distant servers and NCBI taxonomy is 
 Blast step is the most time consumming step and the use of large computer cluster is clearly an advantage.
 Here we used two clusters :
 
-`AVAKAS
+`CURTA
 <https://redmine.mcia.univ-bordeaux.fr/>`_ at Bordeaux University.
 
 `GENOTOUL
