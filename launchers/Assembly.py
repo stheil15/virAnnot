@@ -1,14 +1,13 @@
-"""
-	Assembly step of virAnnot module
-	From fasta files, assemble sequences to generate scaffolds
-	Author: Sebastien Thiel
-"""
 import os.path
-#from subprocess import call
 import logging as log
 import sys
 
 class Assembly:
+	"""
+	Assembly step of virAnnot module
+	From fasta files, assemble sequences to generate scaffolds
+	Author: Sebastien Thiel
+	"""
 
 	def __init__(self, args):
 		self.i1 = ""
@@ -26,6 +25,26 @@ class Assembly:
 			self._create_idba_cmd()
 		elif self.prog == 'spades':
 			self.create_spades_cmd()
+		elif self.prog == 'newbler':
+			self.create_newbler_cmd()
+
+
+	# Run assembly with newbler for single-end
+	# >contig00026  length=303   numreads=8
+	def create_newbler_cmd(self):
+		if self.ising != '':
+			cmd = 'runAssembly -o ' + self.wd + '/' + self.sample + '_newbler '  + self.ising 
+			log.debug(cmd)
+			self.cmd.append(cmd)
+			cmd = 'sed -i \'s,^>contig\([0-9]*\)  length=[0-9]*   numreads=[0-9]*,>' + self.sample + '_\\1,\' ' + self.wd + '/' + self.sample + '_newbler' + '/454AllContigs.fna'
+			log.debug(cmd)
+			self.cmd.append(cmd)
+			cmd = 'cp ' + self.wd + '/' + self.sample + '_newbler' + '/454AllContigs.fna' + ' ' + self.wd + '/' + self.out
+			log.debug(cmd)
+			self.cmd.append(cmd)
+		else:
+			log.critical('Must specify one ising file.')
+			sys.exit(1)
 
 
 	# Run assembly with Spades
@@ -85,7 +104,7 @@ class Assembly:
 				self.cmd.append(cmd)
 			return out
 		else:
-			log.debug('Format seems to be fastq.')
+			log.debug('Format seems to be fastq (ising).')
 			return in_file
 
 	# Input format (i1 and i2) should be fastq
@@ -102,7 +121,7 @@ class Assembly:
 				self.cmd.append(cmd)
 			return out
 		else:
-			log.debug('Format seems to be fastq.')
+			log.debug('Format seems to be fastq (r1 and/or r2).')
 			return in_file
 
 	# Verify that all mandatory parameters are present
@@ -128,7 +147,7 @@ class Assembly:
 			log.critical('At least one read file must be defined.')
 			self.execution = 0
 		if 'prog' in args:
-			if args['prog'] == 'idba' or args['prog'] == 'spades':
+			if args['prog'] == 'idba' or args['prog'] == 'spades' or args['prog'] == 'newbler':
 				self.prog = args['prog']
 			else:
 				log.critical('Wrong assembly program name.')
