@@ -186,9 +186,10 @@ In Illumina technology, if the sequencing matrix is too short compared to the se
 Assembly
 --------
 
-This module can launch two assemblers, `IDBA
-<https://github.com/loneknightpy/idba/>`_ and `MetaSpades
-<http://bioinf.spbau.ru/en/spades3.7/>`_.
+This module can launch three assemblers, `IDBA
+<https://github.com/loneknightpy/idba/>`_, `MetaSpades
+<http://bioinf.spbau.ru/en/spades3.7/>`_ and `Newbler 
+<https://wikis.utexas.edu/display/bioiteam/GS+De+novo+assembler>`_ for single-end data.
 
 Foreach assembler, the module convert reads files to the proper format, launch the assembly in a separate directory, rename scaffolds identifier and move results file to the sample root directory.
 
