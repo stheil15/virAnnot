@@ -1,4 +1,3 @@
-#!/user/bin/pyton3.4
 """
 This class is a part of the virAnnot module
 Authors		    :Marie Lefebvre
@@ -92,5 +91,5 @@ class Normalization:
 			open(input_file)
 			return input_file
 		except IOError:
-			print 'File not found ' + input_file
+			print ('File not found ' + input_file)
 			self.execution = 0
