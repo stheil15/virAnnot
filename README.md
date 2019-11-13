@@ -9,8 +9,10 @@ It is designed to identify viruses in plant metagenomic data but it can be used 
 
 NR and NT must be present localy and NCBI taxonomy is loaded in an SQLITE database with provided scripts.
 
+VirAnnot also takes part of the Euphresco project "[Plant Health Bioinformatics Network](https://doi.org/10.5281/zenodo.3245830)". See [more](https://gitlab.com/ahaegeman/phbn-wp2-training).
 
-See Readthedocs for more:
+
+See documentation:
 
 https://virannot-docs.readthedocs.io/en/latest/
 
