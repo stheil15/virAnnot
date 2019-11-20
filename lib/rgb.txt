@@ -57,11 +57,6 @@
 211 211 211	LightGrey
 211 211 211	light gray
 211 211 211	LightGray
-25 25 112	midnight blue
-25 25 112	MidnightBlue
-0  0 128	navy
-0  0 128	navy blue
-0  0 128	NavyBlue
 100 149 237	cornflower blue
 100 149 237	CornflowerBlue
 106 90 205	slate blue
@@ -76,9 +71,6 @@
 65 105 225	RoyalBlue
 0  0 255	blue
 30 144 255	dodger blue
-30 144 255	DodgerBlue
-0 191 255	deep sky blue
-0 191 255	DeepSkyBlue
 135 206 235	sky blue
 135 206 235	SkyBlue
 135 206 250	light sky blue
@@ -175,8 +167,6 @@
 255  0  0	red
 255 105 180	hot pink
 255 105 180	HotPink
-255 20 147	deep pink
-255 20 147	DeepPink
 255 192 203	pink
 255 182 193	light pink
 255 182 193	LightPink
@@ -272,10 +262,6 @@
 92 172 238	SteelBlue2
 79 148 205	SteelBlue3
 54 100 139	SteelBlue4
-0 191 255	DeepSkyBlue1
-0 178 238	DeepSkyBlue2
-0 154 205	DeepSkyBlue3
-0 104 139	DeepSkyBlue4
 135 206 255	SkyBlue1
 126 192 238	SkyBlue2
 108 166 205	SkyBlue3
@@ -436,10 +422,6 @@
 238  0 0	red2
 205  0 0	red3
 139  0 0	red4
-255 20 147	DeepPink1
-238 18 137	DeepPink2
-205 16 118	DeepPink3
-139 10 80	DeepPink4
 255 110 180	HotPink1
 238 106 167	HotPink2
 205 96 144	HotPink3
@@ -460,10 +442,6 @@
 238 48 167	maroon2
 205 41 144	maroon3
 139 28 98	maroon4
-255 62 150	VioletRed1
-238 58 140	VioletRed2
-205 50 120	VioletRed3
-139 34 82	VioletRed4
 255  0 255	magenta1
 238  0 238	magenta2
 205  0 205	magenta3
