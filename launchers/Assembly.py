@@ -1,6 +1,7 @@
 import os.path
 import logging as log
 import sys
+from Bio import SeqIO
 
 class Assembly:
 	"""
@@ -30,7 +31,6 @@ class Assembly:
 
 
 	# Run assembly with newbler for single-end
-	# >contig00026  length=303   numreads=8
 	def create_newbler_cmd(self):
 		if self.ising != '':
 			cmd = 'runAssembly -o ' + self.wd + '/' + self.sample + '_newbler '  + self.ising 
@@ -40,6 +40,10 @@ class Assembly:
 			log.debug(cmd)
 			self.cmd.append(cmd)
 			cmd = 'cp ' + self.wd + '/' + self.sample + '_newbler' + '/454AllContigs.fna' + ' ' + self.wd + '/' + self.out
+			log.debug(cmd)
+			self.cmd.append(cmd)
+			self.get_singletons()
+			cmd = 'cp ' + self.wd + '/' + self.sample + '_newbler/' + self.sample + '_newbler.singletons.fa' + ' ' + self.wd + '/'
 			log.debug(cmd)
 			self.cmd.append(cmd)
 		else:
@@ -89,6 +93,30 @@ class Assembly:
 		cmd = 'cp ' + self.wd + '/' + self.sample + '_idba' + '/scaffold.fa' + ' ' + self.wd + '/' + self.out
 		log.debug(cmd)
 		self.cmd.append(cmd)
+
+
+	# Get singletons
+	def get_singletons(self):
+		# get ID of singletons
+		stats_file = self.wd + '/' + self.sample + '_newbler/454ReadStatus.txt'
+		f = open(stats_file, "r")
+		singletons = []
+		for line in f:
+			kind = line.split("\t")[1].replace('\n', '')
+			if kind == 'Singleton':
+				singletons.append(line.split("\t")[0])
+		f.close()
+
+		# retireve sequence 
+		fasta_seq = SeqIO.parse(open(self.ising), 'fasta')
+		singletons_file = self.wd + '/' + self.sample + '_newbler/' + self.sample + '_newbler.singletons.fa'
+		with open(singletons_file, "w") as out_file:
+			for seq in fasta_seq:
+				name, sequence = seq.id, str(seq.seq)
+				out_file.write('>' + name + '\n')
+				out_file.write(sequence + '\n')
+
+
 
 	# Input ising format should be fasta
 	# If fastq or fq, convert to fasta
