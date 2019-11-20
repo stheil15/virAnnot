@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript
+#!/usr/bin/Rscript
 args <- commandArgs(TRUE)
 if (length(args)==0) {
   stop("Arguments missing for Rscrpit", call.=FALSE)
@@ -33,17 +33,6 @@ if (length(args)==0) {
 		}
 		cat("\n", sep="", file=output, append=TRUE)
 	}
-	# count = 1
-	# for (i in otu_list){
-	# 	# write otu number and number of contigs in this otu
-	# 	cat(paste(c("OTU_", count, ",", length(i), ","), sep = ""), file=output, append=TRUE)
-	# 	for (j in i){
-	# 		# write contigs list
-	# 		cat(paste(gsub(" ", "", j), ",", sep = ""), file=output, append=TRUE)
-	# 	}
-	# 	cat("\n", sep="", file=output, append=TRUE)
-	# 	count = count + 1
-	# }
 }
 
 
