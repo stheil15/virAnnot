@@ -1,6 +1,3 @@
-"""
-Authors: Sebastien Theil
-"""
 import os.path
 import logging as log
 
