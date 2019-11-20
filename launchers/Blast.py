@@ -24,7 +24,7 @@ class Blast:
 			fw =  open(self.remote_cmd_file, mode='w')
 			fw.write(ssh_cmd)
 			fw.close()
-			if self.server != 'avakas' or self.server != 'curta':
+			if self.server != 'curta':
 				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
@@ -58,8 +58,6 @@ class Blast:
 			ssh_cmd += 'else' + "\n"
 			ssh_cmd += 'echo "source not found."' + "\n"
 			ssh_cmd += 'fi' + "\n"
-			if self.server == 'avakas':
-				ssh_cmd += 'source ~/.bashrc' + "\n"
 			if self.server == 'genouest':
 				ssh_cmd += '. /softs/local/env/envpython-3.6.3.sh' + "\n"
 			ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + "\n"
@@ -67,28 +65,21 @@ class Blast:
 			ssh_cmd += 'mv ' + self.params['servers'][self.server]['scratch'] + '/' + os.path.basename(self.contigs) + ' ' + self.out_dir + "\n"
 			ssh_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + "\n"
 
-		if self.server == 'genotoul' or self.server == 'genouest':
+		if self.server == 'genouest':
 			ssh_cmd += 'echo "'
 		if self.server == "genologin":
 			ssh_cmd += 'sbatch '
-		ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu ' + self.n_cpu + ' --tc ' + self.tc + ' -d ' + self.params['servers'][self.server]['db'][self.db]
+		ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu 8 --tc ' + self.tc + ' -d ' + self.params['servers'][self.server]['db'][self.db]
 		if self.server != 'enki':
 			ssh_cmd += ' -s ' + os.path.basename(self.contigs)
 		else:
 			ssh_cmd += ' -s ' + self.contigs
-
 		ssh_cmd += ' --prefix ' + self.out_dir
 		ssh_cmd += ' -p ' + self.type + ' -o ' + os.path.basename(self.out) + ' -r ' + ' --outfmt 5'
 		ssh_cmd += ' --max_target_seqs ' + self.max_target_seqs
-		if self.server == 'genotoul':
-			ssh_cmd += '"'
-			ssh_cmd += ' | qsub -sync yes -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample
 		if self.server == 'genouest':
 			ssh_cmd += '"'
 			ssh_cmd += ' | qsub -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample
-		# elif self.server == 'genologin':
-		# 	ssh_cmd += '"'
-		# 	ssh_cmd += ' | sbatch -W --export=ALL --workdir=' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -J ' + self.sample
 		return ssh_cmd
 
 
@@ -103,7 +94,7 @@ class Blast:
 				self.execution = 1;
 			else:
 				self.execution = 0;
-				log.critical('Input fasta file do not exists.')
+				log.critical('Input fasta file do not exists. ' + self.wd + '/' + args['contigs'])
 		if 'type' in args:
 			if args['type'] in accepted_type:
 				self.type = args['type']
