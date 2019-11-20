@@ -67,7 +67,6 @@ if($verbosity > 1){
 sub main {
   my $self={};
   bless $self;
-
   _set_options($self);
 
   if(! -e $self->{_krona_out_dir}){
@@ -680,8 +679,8 @@ sub _extract_blast {
     }
   }
   close FOF;
-
-  my $cmd = 'demultiplex-BLAST-results --fof ' . $krona_fof . ' -i ' . $self->{xml_files}->[$index];
+  $logger->info("FOF");
+  my $cmd = 'demultiplex-BLAST-results.py --fof ' . $krona_fof . ' -i ' . $self->{xml_files}->[$index];
   $logger->debug($cmd);
   if(! -z $krona_fof){
     `$cmd`;
@@ -696,6 +695,7 @@ sub _extract_blast {
       if( !(-z $xml_out) && !(-e $xml_out)){
         $cmd = 'blast2html.py -i ' . $xml_out . ' -o ' . $html_out;
         $logger->debug($cmd);
+        $logger->info("blast2html");
         `$cmd`;
       }
       else{
