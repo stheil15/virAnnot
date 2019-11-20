@@ -1,5 +1,5 @@
-<img src="docs/source/INRA_logo.jpg" style="width: 200px;" align="left"/>
-<img src="docs/source/ubx-logo.png" style="width: 200px;" align="right"/>
+<img src="docs/source/INRA_logo.jpg" style="width: 100px;" align="left"/>
+<img src="docs/source/ubx-logo.png" style="width: 100px;" align="right"/>
 
 # VirAnnot
 
