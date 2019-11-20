@@ -51,7 +51,6 @@ def _read_pfam(options):
 						pfam_otu_dict[i].append(row[0]) # otu
 						pfam_otu_dict[i].append(str(row[row_length-2])) # taxonomy
 						pfam_otu_dict[i].append(row[row_length-1]) # contigs
-						print(row[row_length-2])
 						i = i + 1
 					headers = False
 	return(pfam_otu_dict)
@@ -73,22 +72,38 @@ def _read_blast(options):
 	# for each blastx files
 	for i in range(0, len(options.bx_files)):
 		blast_file = options.bx_files[i]
-		reader = csv.reader(blast_file,delimiter="\t")
+		reader = csv.reader(blast_file, delimiter="\t", quotechar='"')
 		headers = True
 		for row in reader:
 			# skip headers
 			if headers == False:
 				contig_name = row[1]
-				if row[6] != "":
+				try:
 					blast_dict[contig_name].append(row[6]) # organism
-				else:
+				except IndexError:
 					blast_dict[contig_name].append("unknown") # organism
-				blast_dict[contig_name].append(row[3]) # query length
-				blast_dict[contig_name].append(row[4]) # accession
-				blast_dict[contig_name].append(row[5]) # description
-				blast_dict[contig_name].append(row[7]) # identity
-				blast_dict[contig_name].append(row[11]) # evalue
-				blast_dict[contig_name].append(row[14]) # taxonomy
+				try:
+					blast_dict[contig_name].append(row[3]) # query length
+				except IndexError:
+					blast_dict[contig_name].append("")
+				try:
+					blast_dict[contig_name].append(row[4]) # accession
+				except IndexError:
+					blast_dict[contig_name].append("")
+				try:
+					blast_dict[contig_name].append(row[5]) # description
+				except IndexError:
+					blast_dict[contig_name].append("")
+				try:
+					blast_dict[contig_name].append(row[7]) # identity
+				except IndexError:
+					blast_dict[contig_name].append("")
+				try:
+					blast_dict[contig_name].append(row[11]) # evalue
+					blast_dict[contig_name].append(row[14]) # taxonomy
+				except IndexError:	
+					blast_dict[contig_name].append("") # evalue
+					blast_dict[contig_name].append("") # taxonomy
 			headers = False
 	return(blast_dict)
 
@@ -125,8 +140,10 @@ def _merge_data(cdd_dict, blast_dict, rps_dict):
 	for key in cdd_dict:
 		# Get contig list
 		contig_list = cdd_dict[key][3].split(",")
-		# Randomly select a contig in the list
-		random_contig = contig_list[randint(0, len(contig_list)-1)]
+		# # Randomly select a contig in the list
+		# random_contig = contig_list[randint(0, len(contig_list)-1)]
+		# Select le longest contig in the list
+		random_contig = max(contig_list, key=len)
 		merge_dict[i].append(cdd_dict[key][0]) # cdd
 		merge_dict[i].append(cdd_dict[key][1]) # otu
 		merge_dict[i].append(cdd_dict[key][2]) # taxo
