@@ -12,6 +12,10 @@ External programs
 * drVM (https://sourceforge.net/projects/sb2nhri/files/drVM/)
 * Open Grid Scheduler (http://gridscheduler.sourceforge.net/)
 * Diamond (https://github.com/bbuchfink/diamond)
+* SortMeRNA (https://bioinfo.lifl.fr/RNA/sortmerna/)
+* PrintSeq-lite (http://prinseq.sourceforge.net/)
+* Samtools (http://samtools.sourceforge.net/)
+* Bcftools (https://samtools.github.io/bcftools/)
 
 
 External databases
