@@ -34,11 +34,12 @@ Perl external libraries
 * Bioperl
 * Color::Rgb
 * List::Util
-* Excel::Writer
+* Spreadsheet::WriteExcel
 * Log::Log4perl
 * DBD::SQLite
 * SQL::SplitStatement
 * Math::Round
+* String::Random
 
 
 Perl included libraries
