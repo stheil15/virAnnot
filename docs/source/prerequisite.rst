@@ -16,6 +16,7 @@ External programs
 * PrintSeq-lite (http://prinseq.sourceforge.net/)
 * Samtools (http://samtools.sourceforge.net/)
 * Bcftools (https://samtools.github.io/bcftools/)
+* Seqtk (https://github.com/lh3/seqtk)
 
 
 External databases
