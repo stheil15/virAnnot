@@ -1,5 +1,4 @@
 import os.path
-from subprocess import call
 import logging as log
 import random
 import string
@@ -18,24 +17,29 @@ class Blast:
 	def create_cmd (self):
 		ssh_cmd = self._get_exec_script()
 		if self.server != 'enki' :
-			cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
+			cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress']
+			cmd += ':' + self.params['servers'][self.server]['scratch']
 			log.debug(cmd)
 			self.cmd.append(cmd)
 			fw =  open(self.remote_cmd_file, mode='w')
 			fw.write(ssh_cmd)
 			fw.close()
 			if self.server != 'curta':
-				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress']
+				cmd += ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
-				cmd = 'scp ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
+				cmd = 'scp ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':'
+				cmd += self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
 				log.debug(cmd)
 				self.cmd.append(cmd)
 			else:
-				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress']
+				cmd += ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
-				cmd = 'scp ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
+				cmd = 'scp ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress']
+				cmd += ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
 				log.debug(cmd)
 				self.cmd.append(cmd)
 		elif self.server == 'enki':
@@ -69,7 +73,8 @@ class Blast:
 			ssh_cmd += 'echo "'
 		if self.server == "genologin":
 			ssh_cmd += 'sbatch '
-		ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu 8 --tc ' + self.tc + ' -d ' + self.params['servers'][self.server]['db'][self.db]
+		ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu 8 --tc ' + self.tc
+		ssh_cmd += ' -d ' + self.params['servers'][self.server]['db'][self.db]
 		if self.server != 'enki':
 			ssh_cmd += ' -s ' + os.path.basename(self.contigs)
 		else:
@@ -83,7 +88,7 @@ class Blast:
 		return ssh_cmd
 
 
-	def check_args (self, args: dict):
+	def check_args (self, args=dict):
 		if 'sample' in args:
 			self.sample = str(args['sample'])
 		self.wd = os.getcwd() + '/' + self.sample

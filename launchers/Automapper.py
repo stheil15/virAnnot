@@ -73,7 +73,7 @@ class Automapper:
 				self.execution = 0
 
 
-	def _check_file(self, filepath):
+	def _check_file(filepath):
 		""" 
 		Check if file exists
 		"""

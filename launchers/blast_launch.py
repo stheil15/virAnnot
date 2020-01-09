@@ -1,13 +1,13 @@
 import argparse
 import logging as log
 import re
-import sys
 import os
 import subprocess
 import time
 import glob
 import shutil
 import random
+import warnings
 from Bio import SeqIO
 
 def main():
@@ -35,7 +35,6 @@ def main():
 
 def _concat_m8(path, out_file):
     files = glob.glob(path + '/' + '*.xml')
-    h = None
     for f in files:
         cmd = 'cat ' + f + ' >> ' + out_file
         os.system(cmd)
@@ -148,7 +147,6 @@ def _launch_jobs(n_f, o_d, prefix, cluster, prog, db, n_cpu, tc, outfmt, max_tar
     pipes = subprocess.Popen(qsub_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = pipes.communicate()
     stdoutdata = stdout.decode("utf-8")
-    stderrdata = stderr.decode("utf-8")
     log.debug(stdoutdata)
     # stdoutdata = subprocess.getoutput(qsub_cmd)
     # log.debug(stdoutdata)
@@ -170,14 +168,17 @@ def _get_qsub_cmd(cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=s
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d, '-pe', 'multithread', str(n_cpu), blt_script]
         job_regex = '^Your job-array (\d+)\.1-\d+'
     elif cluster == 'curta':
-        qsub_cmd = ['sbatch', '--export=ALL', '--array=1-' + str(n_f+1), '-D' , o_d, '--time=250:00:00', '--mem=14G', '--nodes=1 --ntasks=' + str(n_cpu), blt_script]
+        qsub_cmd = ['sbatch', '--export=ALL', '--array=1-' + str(n_f+1), '-D' , o_d, '--time=250:00:00', '--mem=14G', '--nodes=1 --ntasks=', 
+            str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
         job_regex = '^Submitted batch job (\d+)'
     elif cluster == 'genouest':
-        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d,'-l', 'mem=8G', '-l', 'h_vmem=12G', '-pe', 'parallel_smp', str(n_cpu), blt_script]
+        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d,'-l', 'mem=8G', '-l', 'h_vmem=12G', '-pe', 'parallel_smp', 
+            str(n_cpu), blt_script]
         job_regex = '^Your job-array (\d+)\.1-\d+:\d+ \(\"blast_script\.sh\"\) has been submitted'
     elif cluster == 'genologin':
-        qsub_cmd = ['sbatch','--export=ALL', '--array=1-' + str(n_f+1), '--ntasks-per-node=' + str(tc), '-D', o_d, '--mem=14G', '--ntasks=' + str(n_cpu), blt_script]
+        qsub_cmd = ['sbatch','--export=ALL', '--array=1-' + str(n_f+1), '--ntasks-per-node=' + str(tc), '-D', o_d, '--mem=14G', 
+            '--ntasks=' + str(n_cpu), blt_script]
         job_regex = '^Submitted batch job (\d+)'
         # job_regex = '^Waiting job array (\d+)'
 

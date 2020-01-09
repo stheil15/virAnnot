@@ -1,5 +1,4 @@
 import os.path
-from subprocess import call
 import logging as log
 
 class Rps2ecsv:
@@ -18,7 +17,7 @@ class Rps2ecsv:
 		self.cmd.append(cmd)
 
 
-	def check_args (self, args: dict):
+	def check_args (self, args=dict):
 		self.execution=1
 		if 'sample' in args:
 			self.sample = str(args['sample'])
@@ -50,10 +49,3 @@ class Rps2ecsv:
 			self.n_cpu = str(args['n_cpu'])
 		else:
 			self.n_cpu = '1'
-
-	def _check_file (self,f):
-		try:
-			open(f)
-			return f
-		except IOError:
-			print('File not found ' + f)
