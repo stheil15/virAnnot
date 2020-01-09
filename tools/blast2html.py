@@ -247,7 +247,7 @@ class BlastVisualize:
                        width = (query_length % skip) * percent_multiplier)
 
     @filter
-    def hit_info(self, result):
+    def hit_info(result):
 
         query_length = blastxml_len(result)
 

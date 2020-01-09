@@ -174,3 +174,4 @@ class Diamond:
 			return file_path
 		except IOError:
 			print('File not found ' + file_path)
+			self.execution = 0
