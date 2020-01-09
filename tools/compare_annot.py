@@ -64,8 +64,6 @@ def _get_seq_data (all_data,data,headers,i,id_list,regex_list):
 			if found:
 				if el['taxonomy'] != 'unknown':
 					tax = el['taxonomy'].split(';')
-				else:
-					tax = '_undef_'
 				if el['query_id'] not in all_data:
 					all_data[el['query_id']] = {}
 				if id_list[i] not in all_data[el['query_id']]:

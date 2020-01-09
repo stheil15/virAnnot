@@ -51,7 +51,6 @@ def _plot_heatmap (all_data, id_list, key, lvl, out_dir):
 			data.append(all_data[tax][key])
 	np_data = np.array(data)
 	axis = plt.subplot(111)
-	heatmap = axis.pcolor(np_data, cmap=plt.cm.Greens)
 	axis.set_yticks(np.arange(np_data.shape[0])+0.5, minor=False)
 	axis.set_xticks(np.arange(np_data.shape[1])+0.5, minor=False)
 	axis.set_yticklabels(sorted(row_labels), minor=False)
