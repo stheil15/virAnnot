@@ -1,6 +1,5 @@
 import os.path
 from subprocess import call
-import logging as log
 from collections import defaultdict
 import csv
 
@@ -30,7 +29,7 @@ class Select:
 		self.wd = os.getcwd() + '/' + self.sample
 		self.cmd_file = self.wd + '/' + self.sample + '_select_cmd.txt'
 		if 'blastx' in args:
-			self.blastx = self._check_file(self.wd + '/' + args['blastx'])
+			self.blastx = self.check_file(self.wd + '/' + args['blastx'])
 		else:
 			self.execution = 0
 		if 'out' in args:
@@ -48,7 +47,7 @@ class Select:
 		if 'out' in args:
 			self.out = args['out']
 
-	def _check_file (self,f):
+	def check_file (self,f):
 		try:
 			open(f)
 			return f

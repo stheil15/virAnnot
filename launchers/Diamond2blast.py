@@ -20,7 +20,6 @@ class Diamond2blast:
 	run Blast on these sequences only.
 	"""
 	def __init__(self, args):
-		self.execution = 1
 		self.check_args(args)
 		contigfile = os.getcwd() + '/' +str(args['sample']) + '/' + args['contigs']
 		if not os.path.exists(contigfile):

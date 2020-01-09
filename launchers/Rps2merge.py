@@ -1,9 +1,5 @@
-"""
-Authors: Marie Lefebvre
-"""
 import os.path
 import logging as log
-import sys
 
 
 class Rps2merge:

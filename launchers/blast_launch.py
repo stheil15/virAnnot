@@ -22,7 +22,7 @@ def main():
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
     num_files = _split_fasta(args.seq,args.chunk,out_dir,args.random)
-    jobid = _launch_jobs(num_files,out_dir,args.cluster,args.prog,args.db,args.n_cpu,args.tc,args.outfmt,args.max_target_seqs)
+    jobid = _launch_jobs(num_files,out_dir,args.prefix,args.cluster,args.prog,args.db,args.n_cpu,args.tc,args.outfmt,args.max_target_seqs)
     _wait_job(args.cluster,jobid)
     if args.outfmt == 5:
         _concat_xml(out_dir,args.out)
@@ -50,7 +50,6 @@ def _concat_xml(path, out_file):
     h = None
     for f in files:
         h = open(f)
-        body = False
         header = h.readline()
         if not header:
             h.close()
@@ -138,7 +137,7 @@ def _get_qstat_cmd(cluster=str, jobid=int) :
     return qstat_cmd
 
 
-def _launch_jobs(n_f, o_d, cluster, prog, db, n_cpu, tc, outfmt, max_target_seqs):
+def _launch_jobs(n_f, o_d, prefix, cluster, prog, db, n_cpu, tc, outfmt, max_target_seqs):
     script = _load_script(cluster,prog)
     blt_script = o_d + '/' + 'blast_script.sh'
     fw = open(blt_script, mode='w')

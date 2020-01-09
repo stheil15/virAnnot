@@ -1,5 +1,4 @@
 #!/home/stheil/softwares/miniconda2/bin/python
-import sys
 from optparse import OptionParser
 from ete3 import Tree, NodeStyle, TreeStyle, SeqGroup, SeqMotifFace
 import csv

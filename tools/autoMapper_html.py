@@ -15,7 +15,7 @@ def main ():
     index_file = options.out + '/index.html'
     fh = open(index_file, mode='w')
     fh.write(html)
-    fh.close
+    fh.close()
 
 
 def _print_html (title,data,headers):

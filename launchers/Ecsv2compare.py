@@ -1,10 +1,8 @@
 import os.path
-from subprocess import call
 import logging as log
 import sys
 import glob
 import csv
-import xlsxwriter as xlwt
 
 class Ecsv2compare:
 

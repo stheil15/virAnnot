@@ -1,4 +1,4 @@
-import sys, getopt
+import sys
 import csv, re, os
 import argparse
 import logging as log

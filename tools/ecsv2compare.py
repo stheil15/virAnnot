@@ -1,9 +1,7 @@
-#!/usr/bin/python3
 import csv, os, re
-from subprocess import call
 import logging as log
 import argparse
-import sys, getopt
+import sys
 import glob
 import xlsxwriter as xlwt
 
