@@ -38,7 +38,6 @@ class Ecsv2excel:
 		"""
 		Check if arguments are valid
 		"""
-		self.execution = 1
 		self.sample = args['sample']
 		self.wd = os.getcwd() + '/' + self.sample
 		self.cmd_file = self.wd + '/' + 'ecsv2excel_cmd.txt'
@@ -69,7 +68,7 @@ class Ecsv2excel:
 			self.n_cpu = '1'
 
 
-	def _check_file(self, input_file):
+	def _check_file(input_file):
 		"""
 		Verify that file exists
 		"""

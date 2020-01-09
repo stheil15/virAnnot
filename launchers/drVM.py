@@ -44,7 +44,7 @@ class drVM:
 
 
 
-    def check_args (self, args: dict):
+    def check_args (self, args=dict):
         if 'sample' in args:
             self.sample = str(args['sample'])
         self.wd = os.getcwd() + '/' + self.sample
@@ -88,7 +88,7 @@ class drVM:
                 log.debug(el)
                 os.system (el)
 
-    def _check_file (self,f):
+    def _check_file (f):
         try:
             open(f)
             return f

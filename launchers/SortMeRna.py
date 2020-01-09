@@ -12,7 +12,7 @@ class SortMeRna:
             self.cmd = ''
 
 
-    def check_args (self, args: dict):
+    def check_args (self, args=dict):
         self.wd = os.getcwd()
         self.params = args['params']
         self.sample = args['sample']

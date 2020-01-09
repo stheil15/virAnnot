@@ -136,7 +136,7 @@ class Demultiplex:
 		self.cmd.append(cmd)
 
 
-	def _check_file(self, file_path):
+	def _check_file(file_path):
 		"""
 		Check that file exists
 		"""

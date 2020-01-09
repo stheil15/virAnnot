@@ -22,7 +22,7 @@ class Ecsv2compare:
 		self.cmd.append(cmd)
 
 
-	def check_args (self, args: dict):
+	def check_args (self, args=dict):
 		self.execution=1
 		self.sample = args['sample']
 		self.wd = os.getcwd() + '/' + self.sample
@@ -54,7 +54,7 @@ class Ecsv2compare:
 			self.n_cpu = '1'
 
 
-	def _check_file (self,f):
+	def _check_file(f):
 		try:
 			open(f)
 			return f

@@ -39,7 +39,7 @@ class Diamond2blast:
 			exec_cmd = self._get_exec_script()
 			cluster_cmd = self._get_clust_script()
 		if self.server != 'enki':
-			cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] 
+			cmd = 'scp ' + self.contigs + ' ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress']
 			cmd += ':' + self.params['servers'][self.server]['scratch']
 			log.debug(cmd)
 			self.cmd.append(cmd)

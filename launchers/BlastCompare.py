@@ -20,7 +20,7 @@ class BlastCompare:
 		log.debug(cmd)
 
 
-	def check_args (self, args: dict):
+	def check_args (self, args=dict):
 		self.execution=1
 		if 'sample' in args:
 			self.sample = str(args['sample'])

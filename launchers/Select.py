@@ -22,7 +22,7 @@ class Select:
 		self.cmd.append(cmd)
 
 
-	def check_args(self, args:dict):
+	def check_args(self, args=dict):
 		self.execution = 1
 		if 'sample' in args:
 			self.sample = str(args['sample'])

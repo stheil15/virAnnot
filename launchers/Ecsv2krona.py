@@ -125,31 +125,6 @@ class Ecsv2krona:
 							self.blast_files[self.sample]['xml_file'].append(self._check_file(self.wd + '/' + args[xml_opt_name]))
 				if len(self.blast_files[self.sample]['csv_file']) == 0:
 					self.execution = 0
-			# elif args['iter'] == 'library':
-			# 	if 'out' in args:
-			# 		self.out = args['out']
-			# 	self.iter = 'library'
-			# 	self.library = args['library']
-			# 	print(self.library)
-			# 	self.blast_files = {}
-			# 	if self.library not in self.blast_files:
-			# 		self.blast_files[self.library]={}
-			# 		self.blast_files[self.library]['csv_file'] = []
-			# 		self.blast_files[self.library]['xml_file'] = []
-			# 		self.blast_files[self.library]['id'] = []
-			# 	for i in range(1, 100, 1):
-			# 		id_name = 'id' + str(object=i)
-			# 		opt_name = 'b' + str(object=i)
-			# 		xml_opt_name = 'x' + str(object=i)
-			# 		if id_name not in args and opt_name not in args:
-			# 			continue
-			# 		print(args)
-			# 		if os.path.exists(self.wd + '/' + args[self.library][opt_name]):
-			# 			if opt_name in args:
-			# 				self.blast_files[self.library]['csv_file'].append(self._check_file(self.wd + '/' + args[opt_name]))
-			# 				self.blast_files[self.library]['id'].append(args[id_name])
-			# 			if xml_opt_name in args:
-			# 				self.blast_files[self.library]['xml_file'].append(self._check_file(self.wd + '/' + args[xml_opt_name]))
 			else:
 				log.error('iter argument not handled. ' + args['iter'])
 				self.execution = 0
@@ -157,7 +132,7 @@ class Ecsv2krona:
 			self.execution = 0
 
 
-	def _check_file(self, input_file):
+	def _check_file(input_file):
 		"""
 		Verify that file exists
 		"""

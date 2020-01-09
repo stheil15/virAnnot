@@ -168,16 +168,16 @@ def _get_qsub_cmd(cluster=str, n_f=str, o_d=str, n_cpu=int, tc=int, blt_script=s
         qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d, '-pe', 'multithread', str(n_cpu), blt_script]
         job_regex = '^Your job-array (\d+)\.1-\d+'
     elif cluster == 'curta':
-        qsub_cmd = ['sbatch', '--export=ALL', '--array=1-' + str(n_f+1), '-D' , o_d, '--time=250:00:00', '--mem=14G', '--nodes=1 --ntasks=', 
+        qsub_cmd = ['sbatch', '--export=ALL', '--array=1-' + str(n_f+1), '-D' , o_d, '--time=250:00:00', '--mem=14G', '--nodes=1 --ntasks=',
             str(n_cpu), blt_script]
         # qsub_cmd = 'qsub -V -t 1-' + str(n_f+1) + ' -d ' + o_d + ' -l walltime=18:00:00 -l nodes=1:ppn=' + str(n_cpu) + ' ' + blt_script
         job_regex = '^Submitted batch job (\d+)'
     elif cluster == 'genouest':
-        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d,'-l', 'mem=8G', '-l', 'h_vmem=12G', '-pe', 'parallel_smp', 
+        qsub_cmd = ['qsub', '-V', '-t', '1-' + str(n_f+1), '-tc', str(tc), '-wd', o_d,'-l', 'mem=8G', '-l', 'h_vmem=12G', '-pe', 'parallel_smp',
             str(n_cpu), blt_script]
         job_regex = '^Your job-array (\d+)\.1-\d+:\d+ \(\"blast_script\.sh\"\) has been submitted'
     elif cluster == 'genologin':
-        qsub_cmd = ['sbatch','--export=ALL', '--array=1-' + str(n_f+1), '--ntasks-per-node=' + str(tc), '-D', o_d, '--mem=14G', 
+        qsub_cmd = ['sbatch','--export=ALL', '--array=1-' + str(n_f+1), '--ntasks-per-node=' + str(tc), '-D', o_d, '--mem=14G',
             '--ntasks=' + str(n_cpu), blt_script]
         job_regex = '^Submitted batch job (\d+)'
         # job_regex = '^Waiting job array (\d+)'

@@ -73,28 +73,3 @@ class Getresults:
 				if s not in self.sample_files:
 					self.sample_files[s] = []
 				self.sample_files[s] = args['sample_files'][s]
-
-	def launch(self):
-		if not self.sge:
-			for el in self.cmd:
-				os.system(el)
-		else:
-			fw = open(self.cmd_file, mode='w')
-			for el in self.cmd:
-				fw.write(el + "\n")
-			fw.close()
-			qsub_call = "qsub -wd " + self.wd + " -V -N " + 'Getresults' + ' ' + self.cmd_file
-			log.debug(qsub_call)
-			os.system(qsub_call)
-
-
-	def _check_file(self, input_file):
-		"""
-		Verify that file exists and can be opened
-		"""
-		try:
-			open(input_file)
-			return input_file
-		except IOError:
-			print('File not found ' + input_file)
-			self.execution = 0
