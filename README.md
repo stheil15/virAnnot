@@ -13,6 +13,8 @@ VirAnnot also takes part of the Euphresco project "[Plant Health Bioinformatics 
 
 It is designed to identify viruses in plant metagenomic data but it can be used to assemble and annotate any sequences with the NCBI taxonomy.
 
+Link to the [article](https://doi.org/10.1094/PBIOMES-07-19-0037-A)
+
 # Documentation
 
 See documentation:
