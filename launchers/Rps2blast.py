@@ -31,7 +31,8 @@ class Rps2blast:
 			exec_cmd = self._get_exec_script()
 			cluster_cmd = self._get_clust_script()
 		if self.server != 'enki':
-			cmd = 'scp ' + self.bcontigs + ' ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch']
+			cmd = 'scp ' + self.bcontigs + ' ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress']
+			cmd += ':' + self.params['servers'][self.server]['scratch']
 			log.debug(cmd)
 			self.cmd.append(cmd)
 			fw = open(self.remote_cmd_file, mode='w')
@@ -44,20 +45,25 @@ class Rps2blast:
 				fw = open(self.cluster_exec_cmd_file, mode='w')
 				fw.write(exec_cmd)
 				fw.close()
-				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress']
+				cmd += ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
-				cmd = 'scp ' + self.cluster_cmd_file + ' ' + self.params['servers'][self.server]['username']  + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir
+				cmd = 'scp ' + self.cluster_cmd_file + ' ' + self.params['servers'][self.server]['username']  + '@'
+				cmd += self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir
 				log.debug(cmd)
 				self.cmd.append(cmd)
-				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.cluster_exec_cmd_file
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress']
+				cmd += ' \'bash -s\' < ' + self.cluster_exec_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
 			else:
-				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ' \'bash -s\' < ' + self.remote_cmd_file
+				cmd = 'ssh ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress']
+				cmd += ' \'bash -s\' < ' + self.remote_cmd_file
 				log.debug(cmd)
 				self.cmd.append(cmd)
-			cmd = 'scp ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
+			cmd = 'scp ' + self.params['servers'][self.server]['username'] + '@' + self.params['servers'][self.server]['adress'] + ':'
+			cmd += self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.out) + ' ' + self.wd
 			log.debug(cmd)
 			self.cmd.append(cmd)
 		elif self.server == 'enki':
@@ -72,7 +78,7 @@ class Rps2blast:
 		# exec_cmd += 'export SGE_ROOT="/usr/local/sge"\n'
 		exec_cmd += '. /etc/profile.d/sge.sh\n'
 		exec_cmd += 'echo "./' + os.path.basename(self.cluster_cmd_file)
-		exec_cmd += '" | qsub -sync yes -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample 
+		exec_cmd += '" | qsub -sync yes -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample
 		return exec_cmd
 
 
@@ -83,8 +89,9 @@ class Rps2blast:
 		clust_cmd = '. /softs/local/env/envpython-3.6.3.sh \n'
 		clust_cmd += '. /softs/local/env/envblast-2.6.0.sh \n'
 		clust_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + '\n'
-		clust_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu ' + self.n_cpu + ' --tc ' + self.tc 
-		clust_cmd += ' -d ' + self.params['servers'][self.server]['db'][self.db] + ' -s ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.bcontigs)
+		clust_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu ' + self.n_cpu + ' --tc ' + self.tc
+		clust_cmd += ' -d ' + self.params['servers'][self.server]['db'][self.db]
+		clust_cmd += ' -s ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + os.path.basename(self.bcontigs)
 		clust_cmd += ' --prefix ' + self.out_dir + ' -p ' + self.type + ' -o ' + os.path.basename(self.out) + ' -r ' + ' --outfmt 5'
 		clust_cmd += ' --max_target_seqs ' + self.max_target_seqs
 		return clust_cmd
@@ -124,7 +131,8 @@ class Rps2blast:
 				ssh_cmd += 'echo "'
 			if self.server == "genologin":
 				ssh_cmd += 'sbatch '
-			ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu ' + self.n_cpu + ' --tc ' + self.tc + ' -d ' + self.params['servers'][self.server]['db'][self.db]
+			ssh_cmd += 'blast_launch.py -c ' + self.server + ' -n ' + self.num_chunk + ' --n_cpu ' + self.n_cpu
+			ssh_cmd += ' --tc ' + self.tc + ' -d ' + self.params['servers'][self.server]['db'][self.db]
 			if self.server != 'enki':
 				ssh_cmd += ' -s ' + os.path.basename(self.bcontigs)
 			else:
@@ -167,7 +175,6 @@ class Rps2blast:
 		"""
 		Check if arguments are valid
 		"""
-		self.execution == 1
 		if 'sample' in args:
 			self.sample = str(args['sample'])
 		self.wd = os.getcwd() + '/' + self.sample

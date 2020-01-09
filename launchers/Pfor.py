@@ -1,5 +1,4 @@
 import os.path
-from subprocess import call
 import logging as log
 
 class ReadSoustraction:
@@ -9,7 +8,7 @@ class ReadSoustraction:
 		self._create_cmd()
 
 
-	def check_args (self, args: dict):
+	def check_args (self, args=dict):
 		self.wd = os.getcwd()
 		self.params = args['params']
 		self.cmd = []
@@ -59,14 +58,14 @@ class ReadSoustraction:
 	def _create_cmd (self):
 		cmd = ''
 		cmd += self.params['bin']['pfor'] + ' -p ' + str(self.n_cpu)
-		cmd += ' -1 ' + self.i1 + ' -2 ' + self.i2 
+		cmd += ' -1 ' + self.i1 + ' -2 ' + self.i2
 		cmd += ' -x ' + self.x
 		cmd += ' bamtofastq -i - -fq ' + self.o1 + ' -fq2 ' + self.o2
 		log.debug(cmd)
 		self.cmd.append(cmd)
 
 
-	def _check_file (self,f):
+	def _check_file (f):
 		try:
 			open(f)
 			return f

@@ -7,7 +7,7 @@ class Blast2hist:
 	It creates the command that will generate histogram
 	from Blast results (csv)
 	"""
-	
+
 	def __init__(self, args):
 		self.check_args(args)
 		self.cmd = []

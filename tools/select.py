@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-import sys, getopt
 import csv
 import argparse
 import logging as log

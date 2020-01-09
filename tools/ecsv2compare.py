@@ -1,7 +1,6 @@
 import csv, os, re
 import logging as log
 import argparse
-import glob
 import xlsxwriter as xlwt
 
 
@@ -40,9 +39,9 @@ def main ():
 				cell_format = wb.add_format({})
 				if len(row) > 8 :
 					taxonomy = row[9] # col J
-					if regex.match(taxonomy) != None:
+					if regex.match(taxonomy) is not None:
 						cell_format = wb.add_format({"bg_color":"#CCFFFF"}) # row color as blue if Viruses
-						if row[0] in  blast_query_id_list:
+						if row[0] in blast_query_id_list:
 							cell_format = wb.add_format({"bg_color":"#FF6347"}) # row color as red if pfam_query_id not in blast_query_id
 					else:
 						cell_format = wb.add_format({})

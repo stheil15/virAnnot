@@ -141,27 +141,3 @@ class Blast:
 		self.remote_cmd_file = self.wd + '/' + self.sample + '_' + self.type + '_' + self.db + '_remote_blast_cmd.txt'
 		self.random_string = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
 		self.out_dir = self.random_string + '_' + self.sample + '_' + self.type
-
-
-	def check_file (f):
-		try:
-			open(f)
-			return f
-		except IOError:
-			print('File not found ' + f)
-
-
-	def check_seq_format (self, in_file):
-		in_file = str(object=in_file)
-		self.check_file(in_file)
-		out = ''
-		if in_file.lower().endswith('.fa') or in_file.lower().endswith('.fasta') or in_file.lower().endswith('.fas'):
-			out = os.path.splitext(in_file)[0] + '.fq'
-			if not self.check_file(out):
-				cmd = 'fasta_to_fastq' + ' ' + in_file + ' > ' + out
-				log.debug(str(cmd))
-				self.cmd.append(cmd)
-			return out
-		else:
-			log.debug('Format seems to be fastq.')
-			return in_file
