@@ -78,9 +78,9 @@ sub main {
   if(! -e $rps2tree_folder){
     `mkdir $rps2tree_folder`;
   }
-  $self->{_colors_array} = _read_rgb_file($self,'/home/stheil/git-repo/virAnnot/lib/rgb.txt');
+  $self->{_colors_array} = _read_rgb_file($self,'/home/mlefebvre/Documents/Projects/virAnnot/lib/rgb.txt');
 
-  $self->{_color_obj} = new Color::Rgb(rgb_txt=>'/home/stheil/git-repo/virAnnot/lib/rgb.txt');
+  $self->{_color_obj} = new Color::Rgb(rgb_txt=>'/home/mlefebvre/Documents/Projects/virAnnot/lib/rgb.txt');
   if($group_file ne ''){
     $logger->info('Treating group file...');
     $self->{_group} = &read_group_file($self,$group_file);
@@ -828,6 +828,29 @@ sub _cut_sequences {
             my @a = split(',',$pfam_hits->[$j]->{description});
             $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} = $a[1];
             $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} =~ s/^\s//;
+            # # Trim GDD motif with 100 amino acid around it
+            # if((my $pos = index($prot->seq, 'GDD')) != -1){
+            #   # The G of GDD is $pos+1
+            #   # $pos-24 for starting position
+            #   # $pos+3+25 for ending position
+            #   my $GDD_start = $pos-49;
+            #   my $GDD_end = $pos+3+50;
+            #   if($GDD_start < 1){
+            #     $GDD_start = 1;
+            #   }
+            #   if($GDD_end > length($prot->seq)){
+            #     $GDD_end = length($prot->seq);
+            #   }
+            #   # $logger->info('start ',$GDD_start,'end ', $GDD_end);
+            #   my $prot_GDD = Bio::Seq->new(-seq => $prot->subseq($GDD_start, $GDD_end));
+            #   $self->{collection}->{$pfam_hits->[$j]->{cdd_id}}->[$i]->{$pfam_hits->[$j]->{query_id}} = $prot_GDD->seq;
+
+            #   # $self->{collection}->{$pfam_hits->[$j]->{cdd_id}}->[$i]->{$pfam_hits->[$j]->{query_id}} = $prot->seq;
+            #   $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{full_description} = $pfam_hits->[$j]->{description};
+            #   my @a = split(',',$pfam_hits->[$j]->{description});
+            #   $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} = $a[1];
+            #   $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} =~ s/^\s//;
+            # }
           }
         }
       }

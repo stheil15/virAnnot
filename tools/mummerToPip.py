@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import sys
 from optparse import OptionParser
-import csv
 import matplotlib.pyplot as plt
 import logging
 

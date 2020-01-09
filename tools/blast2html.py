@@ -108,7 +108,7 @@ def genelink(hit, type='genbank', hsp=None):
     if not isinstance(hit, str):
         hit = hitid(hit)
     link = "http://www.ncbi.nlm.nih.gov/nucleotide/{}?report={}&log$=nuclalign".format(hit, type)
-    if hsp != None:
+    if hsp is not None:
         link += "&from={}&to={}".format(hsp['Hsp_hit-from'], hsp['Hsp_hit-to'])
     return link
 
@@ -298,7 +298,7 @@ def main():
     args = parser.parse_args()
     if args.input == None:
         args.input = args.positional_arg
-    if args.input == None:
+    if args.input is None:
         parser.error('no input specified')
 
     templatedir, templatename = path.split(args.template.name)

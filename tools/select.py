@@ -21,7 +21,7 @@ def _get_seq(options):
 		headers = True
 		for row in reader:
 			# skip headers
-			if headers == False:
+			if headers is False:
 				contig_name = row[1]
 				if row[15] != "":
 					seq_dict[contig_name].append(row[15]) # seq
