@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/887cb2a956394c9ea9b35855fc046663)](https://www.codacy.com/manual/marieBvr/virAnnot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marieBvr/virAnnot&amp;utm_campaign=Badge_Grade)
+
 # Funding
 
 <img src="docs/source/INRA_logo.jpg" width="30%"/> &emsp;<img src="docs/source/ubx-logo.png" width="30%"/>
