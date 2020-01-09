@@ -1,10 +1,4 @@
-"""
-	This class is a part of the virAnnot module
-	===========
-	Authors: Sebastien Theil
-"""
 import os.path
-from subprocess import call
 import logging as log
 
 class Blast2hist:

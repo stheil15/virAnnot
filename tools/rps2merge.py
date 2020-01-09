@@ -5,13 +5,11 @@
 # Objective: merge OTU results with blastx and rpsblast results
 #
 """
-import sys
 import csv, re, os
 import argparse
 import logging as log
 from collections import defaultdict
 from glob import glob
-from random import randint
 
 
 def main ():
@@ -122,7 +120,7 @@ def _read_rps(options):
 		# for each line
 		for row in reader:
 			# Skip headers
-			if headers == False:
+			if headers is False:
 				contig_name = row[0]
 				if row[1] != "no_hit":
 					rps_dict[contig_name].append(row[4])

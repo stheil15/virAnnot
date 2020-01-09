@@ -103,7 +103,6 @@ def _get_rank_hist (data,rank,id_list,out_dir,plot_files):
 		# plt.xticks(ind, id_list, rotation='vertical')
 		plt.legend(handles,x_names,loc=(1.05,-1.75),ncol=1)
 		# plt.subplot(2,1,2)
-		ax2 = plt.subplot2grid((7,4), (3,0), colspan=3, rowspan=3)
 		percent = _get_percent_matrix(cumul,matrix)
 		cumul_percent = _get_cumul_matrix(percent)
 		log.debug('creating percent histograms')

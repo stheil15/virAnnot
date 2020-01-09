@@ -2,7 +2,6 @@ import os.path
 import logging as log
 import random
 import string
-import re
 from Bio import SeqIO
 
 class Rps2blast:
@@ -81,7 +80,6 @@ class Rps2blast:
 		"""
 		Script executed only on Genouest cluster
 		"""
-		ssh_cmd = ''
 		clust_cmd = '. /softs/local/env/envpython-3.6.3.sh \n'
 		clust_cmd += '. /softs/local/env/envblast-2.6.0.sh \n'
 		clust_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + '\n'
@@ -138,10 +136,6 @@ class Rps2blast:
 			if self.server == 'genotoul':
 				ssh_cmd += '"'
 				ssh_cmd += ' | qsub -sync yes -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample
-		# else:
-		# 	ssh_cmd += 'export SGE_ROOT="/usr/local/sge"\n'
-		# 	ssh_cmd += 'echo "./' + os.path.basename(self.cluster_cmd_file)
-		# 	ssh_cmd += '" | /usr/local/sge/bin/lx-amd64/qsub -sync yes -V -wd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + ' -N ' + self.sample 
 		return ssh_cmd
 
 

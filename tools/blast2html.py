@@ -6,7 +6,6 @@
 
 import sys
 import math
-import warnings
 from os import path
 from itertools import repeat
 import argparse
@@ -296,7 +295,7 @@ def main():
                         help='The template file to use. Defaults to blast_html.html.jinja')
 
     args = parser.parse_args()
-    if args.input == None:
+    if args.input is None:
         args.input = args.positional_arg
     if args.input is None:
         parser.error('no input specified')

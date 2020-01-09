@@ -2,9 +2,6 @@ import sys
 import csv, re, os
 import argparse
 import logging as log
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib import colors as mcolors
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': False})
 

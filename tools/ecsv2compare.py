@@ -1,7 +1,6 @@
 import csv, os, re
 import logging as log
 import argparse
-import sys
 import glob
 import xlsxwriter as xlwt
 

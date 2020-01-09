@@ -47,7 +47,7 @@ class Select:
 		if 'out' in args:
 			self.out = args['out']
 
-	def check_file (self,f):
+	def check_file (f):
 		try:
 			open(f)
 			return f

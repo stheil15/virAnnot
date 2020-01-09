@@ -143,7 +143,7 @@ class Blast:
 		self.out_dir = self.random_string + '_' + self.sample + '_' + self.type
 
 
-	def _check_file (self,f):
+	def check_file (f):
 		try:
 			open(f)
 			return f
@@ -153,11 +153,11 @@ class Blast:
 
 	def check_seq_format (self, in_file):
 		in_file = str(object=in_file)
-		self._check_file(in_file)
+		self.check_file(in_file)
 		out = ''
 		if in_file.lower().endswith('.fa') or in_file.lower().endswith('.fasta') or in_file.lower().endswith('.fas'):
 			out = os.path.splitext(in_file)[0] + '.fq'
-			if not self._check_file(out):
+			if not self.check_file(out):
 				cmd = 'fasta_to_fastq' + ' ' + in_file + ' > ' + out
 				log.debug(str(cmd))
 				self.cmd.append(cmd)

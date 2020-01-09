@@ -7,8 +7,6 @@ __build__ = ""
 
 import optparse
 import sys, os
-import csv, re
-import curses
 
 p = optparse.OptionParser(description = """demultiplex-BLAST-results: split a
 XML-formatted BLAST results file into multiple XML-formatted files based on
@@ -42,7 +40,7 @@ try:
 except:
     error("The Amara library is required; see http://wiki.xml3k.org/Amara for information.")
 
-if (p.fof == None):
+if p.fof is None:
     error("At least one list file.")
 
 XPATH = re.compile("(?P<xpath>(?:query|hit|HSP)(?:\.[A-Z][A-Za-z_\-]+)+)")
@@ -85,7 +83,7 @@ def parse(lst):
         if str(object=query.Iteration_query_ID) not in lst:
             continue
         hits = query.Iteration_hits.Hit
-        if (hits == None):
+        if (hits is None):
             continue
 
         # create a copy of this query alone (without children hits)
@@ -95,7 +93,7 @@ def parse(lst):
         # for each hit,
         for hit in hits:
             hsps = hit.Hit_hsps.Hsp
-            if (hsps == None):
+            if (hsps is None):
                 continue
 
             # create a copy of this hit alone (without children HSPs)
@@ -126,10 +124,8 @@ def process(out,lst):
     for (query, hit, hsp) in parse(lst):
         query_key = str(query.Iteration_iter_num)
         hit_key = str(hit.Hit_num)
-        hsp_key = str(hsp.Hsp_num)
 
-
-        if (not fn in triplets_per_fn):
+        if (fn not in triplets_per_fn):
             triplets_per_fn[fn] = 0
 
         triplets_per_fn[fn] += 1
@@ -139,7 +135,6 @@ def process(out,lst):
             # if not, we create a new document as a copy
             # of the 'envelop' document created earlier
             o = copy(envelop)
-
             has_content[fn] = o
             has_query[fn] = {}
             has_hit[fn] = {}
@@ -152,24 +147,21 @@ def process(out,lst):
             # description of the query sequence
             query_ = copy(query).Iteration
             has_content[fn].BlastOutput.BlastOutput_iterations.xml_append(query_)
-
             has_query[fn][query_key] = query_
             has_hit[fn][query_key] = {}
 
         # has this hit been added in this output file yet?
-        if (not hit_key in has_hit[fn][query_key]):
+        if (hit_key not in has_hit[fn][query_key]):
             # if not, we add to the document the
             # description of the hit sequence
             hit_ = copy(hit).Hit
             has_query[fn][query_key].Iteration_hits.xml_append(hit_)
-
             has_hit[fn][query_key][hit_key] = hit_
 
         # we add this HSP to the output file
         hsp_ = copy(hsp).Hsp
         has_hit[fn][query_key][hit_key].Hit_hsps.xml_append(hsp_)
-
-            # yield query_key, hit_key, hsp_key, triplets_per_fn
+        # yield query_key, hit_key, hsp_key, triplets_per_fn
 
     # write the output files
     for fn in sorted(has_content):
