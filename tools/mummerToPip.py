@@ -73,7 +73,7 @@ def _create_plot (data,prefix,output,color,title):
         plt.axvline(x=total_length,color='grey')
     plt.axis([0,total_length,0,101])
     plt.savefig(output + ".svg")
-    plt.close
+    plt.close()
 
 
 def _create_line (line):
