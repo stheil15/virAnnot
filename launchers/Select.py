@@ -1,7 +1,4 @@
 import os.path
-from subprocess import call
-from collections import defaultdict
-import csv
 
 class Select:
 	"""

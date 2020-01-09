@@ -1,11 +1,10 @@
-#!/usr/bin/env python3
 """
 # Name: Rps2merge
 # Author: Marie Lefebvre
 # Objective: merge OTU results with blastx and rpsblast results
 #
 """
-import csv, re, os
+import csv, os
 import argparse
 import logging as log
 from collections import defaultdict

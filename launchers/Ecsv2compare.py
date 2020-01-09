@@ -1,8 +1,6 @@
 import os.path
 import logging as log
 import sys
-import glob
-import csv
 
 class Ecsv2compare:
 

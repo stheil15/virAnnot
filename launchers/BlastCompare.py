@@ -1,5 +1,4 @@
 import os.path
-from subprocess import call
 import logging as log
 
 class BlastCompare:
