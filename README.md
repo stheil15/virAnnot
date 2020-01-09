@@ -18,7 +18,7 @@ Link to the [article](https://doi.org/10.1094/PBIOMES-07-19-0037-A)
 # Documentation
 
 See documentation:
-https://virannot-docs.readthedocs.io/en/latest/
+<https://virannot-docs.readthedocs.io/en/latest/>
 
 Pipeline general scheme:
 

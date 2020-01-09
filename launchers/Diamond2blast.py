@@ -90,7 +90,6 @@ class Diamond2blast:
 		"""
 		Script executed only on Genouest cluster
 		"""
-		ssh_cmd = ''
 		clust_cmd = '. /softs/local/env/envpython-3.6.3.sh \n'
 		clust_cmd += '. /softs/local/env/envblast-2.6.0.sh \n'
 		clust_cmd += 'cd ' + self.params['servers'][self.server]['scratch'] + '/' + self.out_dir + '/' + '\n'

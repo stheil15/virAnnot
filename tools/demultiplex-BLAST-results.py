@@ -135,7 +135,7 @@ def process(out,lst):
         triplets_per_fn[fn] += 1
 
         # has anything been added in this output file yet?
-        if (not fn in has_content):
+        if (fn not in has_content):
             # if not, we create a new document as a copy
             # of the 'envelop' document created earlier
             o = copy(envelop)
@@ -147,7 +147,7 @@ def process(out,lst):
             o = has_content[fn]
 
         # has this query been added in this output file yet?
-        if (not query_key in has_query[fn]):
+        if (query_key not in has_query[fn]):
             # if not, we add to the document the
             # description of the query sequence
             query_ = copy(query).Iteration

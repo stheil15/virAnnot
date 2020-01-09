@@ -1,12 +1,9 @@
-#!/usr/bin/python3
 import sys, getopt
 import csv, re, os
 import argparse
 import logging as log
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib import colors as mcolors
-import random
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': False})
 
