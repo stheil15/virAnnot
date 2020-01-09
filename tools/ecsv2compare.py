@@ -30,7 +30,6 @@ def main ():
 					blast_query_id_list.append(row[1])
 			ws.write_row(rowx,0, row, cell_format)
 		ws.autofilter('A1:P1')
-	
 	if (options.rps_file != ""):
 		for filename in options.rps_file:
 			pattern = r"(.)*Virus(.)*;"

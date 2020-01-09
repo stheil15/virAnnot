@@ -1,3 +1,4 @@
+#!/bin/sh
 wget http://ng6.toulouse.inra.fr/fileadmin/data/run/0ee92cff3/BI-CO-QC_CTGAAGCT-GTCAGTAC_L007_R1.fastq.gz
 wget http://ng6.toulouse.inra.fr/fileadmin/data/run/0ee92cff3/BI-CO-QC_CTGAAGCT-GTCAGTAC_L007_R2.fastq.gz
 wget http://ng6.toulouse.inra.fr/fileadmin/data/run/0ee92cff3/BI-CO-QE_TAATGCGC-AGGCTATA_L007_R1.fastq.gz

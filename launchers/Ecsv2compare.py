@@ -5,7 +5,6 @@ import sys
 import glob
 import csv
 import xlsxwriter as xlwt
-import re
 
 class Ecsv2compare:
 

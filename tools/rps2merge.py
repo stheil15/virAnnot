@@ -5,7 +5,7 @@
 # Objective: merge OTU results with blastx and rpsblast results
 #
 """
-import sys, getopt
+import sys
 import csv, re, os
 import argparse
 import logging as log
@@ -101,7 +101,7 @@ def _read_blast(options):
 				try:
 					blast_dict[contig_name].append(row[11]) # evalue
 					blast_dict[contig_name].append(row[14]) # taxonomy
-				except IndexError:	
+				except IndexError:
 					blast_dict[contig_name].append("") # evalue
 					blast_dict[contig_name].append("") # taxonomy
 			headers = False

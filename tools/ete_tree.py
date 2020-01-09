@@ -1,7 +1,7 @@
 #!/home/stheil/softwares/miniconda2/bin/python
 import sys
 from optparse import OptionParser
-from ete3 import PhyloTree, Tree, NodeStyle, TreeStyle, SeqGroup, SeqMotifFace
+from ete3 import Tree, NodeStyle, TreeStyle, SeqGroup, SeqMotifFace
 import csv
 
 def main ():
