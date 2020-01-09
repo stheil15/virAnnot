@@ -1,4 +1,10 @@
+# Funding
+
 <img src="docs/source/INRA_logo.jpg" width="30%"/> &emsp;<img src="docs/source/ubx-logo.png" width="30%"/>
+
+# License
+
+This work is licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0).
 
 # VirAnnot
 
@@ -7,6 +13,7 @@ VirAnnot also takes part of the Euphresco project "[Plant Health Bioinformatics 
 
 It is designed to identify viruses in plant metagenomic data but it can be used to assemble and annotate any sequences with the NCBI taxonomy.
 
+# Documentation
 
 See documentation:
 https://virannot-docs.readthedocs.io/en/latest/
