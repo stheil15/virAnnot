@@ -149,7 +149,7 @@ sub _step_04 {
 		$h->{$x} = $self->{illuminaAdapter}->{$x};
 		$h->{$x . '-REVCOMP'} = _reverseComplement($self,$self->{illuminaAdapter}->{$x});
 	}
-  $logger->info('Launch CutAdapt...');
+  $logger->info('Launch CutAdapt... step 04');
   _launchCutAdapt($self,$files->{1},$h,$tmp_file_prefix . "_step.04_R1",'k','k','-b','0.2','1','0.6','4');
   _launchCutAdapt($self,$files->{2},$h,$tmp_file_prefix . "_step.04_R2",'k','k','-b','0.2','1','0.6','4');
 	if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
@@ -191,6 +191,7 @@ sub _step_06 {
   my ($self,$files,$tmp_file_prefix) = @_;
   my $h->{polyA} = 'AAAAAAAAAA';
 	$h->{polyT} = 'TTTTTTTTTT';
+  $logger->info('Launch CutAdapt... step 06');
   _launchCutAdapt($self,$files->{1}, $h, $tmp_file_prefix . "_step.06_R1",'k','k','-a','0','1','0.8','6');
   _launchCutAdapt($self,$files->{2}, $h, $tmp_file_prefix . "_step.06_R2",'k','k','-a','0','1','0.8','6');
   if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
@@ -359,6 +360,7 @@ sub _dispatchPairs {
 
 
 sub _launch_subseq {
+  $logger->info("Launch subseq");
   my ($self,$last_R1_file,$last_R2_file,$prefix,$path)=@_;
   my $file1 = $path . '/' . $prefix . '_truePairs_r1.fq';
   my $file2 = $path . '/' . $prefix . '_truePairs_r2.fq';
@@ -366,13 +368,16 @@ sub _launch_subseq {
 
   my $seqtk_cmd = 'seqtk subseq ' . $last_R1_file . ' ' . $prefix . '_r1.ids > ' . $file1;
   $logger->debug($seqtk_cmd);
+  $logger->info($seqtk_cmd);
   `$seqtk_cmd`;
 
   $seqtk_cmd = 'seqtk subseq ' . $last_R2_file . ' ' . $prefix . '_r2.ids > ' . $file2;
   $logger->debug($seqtk_cmd);
+  $logger->info($seqtk_cmd);
   `$seqtk_cmd`;
   my $cmd = 'wc -l ' . $file1;
 	$logger->debug($cmd);
+  $logger->info($cmd);
   my ($nb_line_r1) = split(' ',`$cmd`);
 	$logger->debug($nb_line_r1);
   $cmd = 'wc -l ' . $file2;
@@ -387,9 +392,11 @@ sub _launch_subseq {
   }
   $seqtk_cmd = 'seqtk subseq ' . $last_R1_file . ' ' . $prefix . '_s.ids > ' . $file_s;
   $logger->debug($seqtk_cmd);
+  $logger->info($seqtk_cmd);
   `$seqtk_cmd`;
   $seqtk_cmd = 'seqtk subseq ' . $last_R2_file . ' ' . $prefix . '_s.ids >> ' . $file_s;
   $logger->debug($seqtk_cmd);
+  $logger->info($seqtk_cmd);
   `$seqtk_cmd`;
 
   $cmd = 'wc -l ' . $file_s;
