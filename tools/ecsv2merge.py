@@ -2,9 +2,9 @@
 """
 # Name: Ecsv2merge
 # Author: Marie Lefebvre
+# Aims: Merge blastx results (.csv) of contigs and singletons
 #
 """
-import sys
 import csv, os
 import argparse
 import logging as log
