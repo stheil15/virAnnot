@@ -10,12 +10,13 @@ use SQL::SplitStatement;
 
 
 my $taxo_struct_dmp = 'taxonomyStructure.sql';
+my $taxo_index_dmp = 'taxonomyIndex.sql';
 my $data_acc_prot = 'prot.accession2taxid';
 my $data_dead_acc_prot = 'dead_prot.accession2taxid';
 my $data_dead_acc_nucl = 'dead_nucl.accession2taxid';
-my $data_acc_wgs = 'nucl_wgs.accession2taxid';
-my $data_acc_gb = 'nucl_gb.accession2taxid';
-my $data_acc_gss = 'nucl_gss.accession2taxid';
+my $data_acc_wgs = 'ucl_wgs.accession2taxid';
+# my $data_acc_gb = 'nucl_gb.accession2taxid';
+# my $data_acc_gss = 'nucl_gss.accession2taxid';
 my $data_nodes = 'nodes.dmp';
 my $data_names = 'names.dmp';
 my $dir = '.';
@@ -25,7 +26,7 @@ my $verbosity=1;
 GetOptions(
   "acc_prot=s" => \$data_acc_prot,
   "acc_wgs=s"=> \$data_acc_wgs,
-  "acc_gb=s" => \$data_acc_gb,
+  # "acc_gb=s" => \$data_acc_gb,
   "names=s"  => \$data_names,
   "nodes=s"  => \$data_nodes,
   "struct=s" => \$taxo_struct_dmp,
@@ -192,20 +193,6 @@ sub _set_options {
   }
   else{
     $logger->error($data_acc_wgs . ' data_acc_wgs file not found.');
-    &help;
-  }
-  if(-e $data_acc_gss){
-    push(@{$self->{_data}->{nucl_accession2taxid}},$data_acc_gss);
-  }
-  else{
-    $logger->error($data_acc_gss . ' data_acc_wgs file not found.');
-    &help;
-  }
-  if(-e $data_acc_gb){
-    push(@{$self->{_data}->{nucl_accession2taxid}},$data_acc_gb);
-  }
-  else{
-    $logger->error($data_acc_gb . ' data_acc_gb file not found.');
     &help;
   }
 }

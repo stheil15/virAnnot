@@ -13,3 +13,5 @@ __*
 db/taxdump/*
 db/*.accession2taxid
 db/taxo*
+launchers/__init__.py
+docs/build
