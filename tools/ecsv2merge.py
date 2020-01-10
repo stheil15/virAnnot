@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
 """
-# Name: Rps2merge
+# Name: Ecsv2merge
 # Author: Marie Lefebvre
-# Objective: merge OTU results with blastx and rpsblast results
 #
 """
-import sys, getopt
-import csv, re, os
+import sys
+import csv, os
 import argparse
 import logging as log
-from collections import defaultdict
-from glob import glob
-from random import randint
 
 
 def main ():
@@ -30,13 +26,13 @@ def _print_csv(options):
 				f.write('\t'.join(row))
 				f.write("\n")
 	if os.path.exists(options.s_file):
-		# singletons file	
+		# singletons file
 		with open(options.s_file) as csv_file:
 			reader = csv.reader(csv_file, delimiter="\t", quotechar='"')
 			headers = True
 			for row in reader:
 				# skip headers
-				if headers == False:
+				if headers is False:
 					f.write('\t'.join(row))
 					f.write("\n")
 				headers = False

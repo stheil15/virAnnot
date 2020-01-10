@@ -8,7 +8,6 @@ from __future__ import division # avoid writing float(x) when dividing by x
 
 import os.path
 import logging as log
-import sys
 
 
 class Ecsv2merge:
@@ -34,7 +33,6 @@ class Ecsv2merge:
 		cmd += ' -o ' + self.out
 		log.debug(cmd)
 		self.cmd.append(cmd)
-		
 
 
 	def check_args(self, args=dict):
