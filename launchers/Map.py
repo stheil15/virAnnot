@@ -1,7 +1,3 @@
-"""
-Authors: Sebastien Theil
-python_version: 3.4
-"""
 import os.path
 import logging as log
 
@@ -25,6 +21,10 @@ class Map:
 		cmd = 'bowtie2 -p ' + self.n_cpu + ' -x ' + self.contigs + ' -1 ' + self.i1 + ' -2 ' + self.i2
 		if self.ising != '':
 			cmd += ' -U ' + self.ising
+		# cmd = 'fa2fq ' + self.ising + ' ' + os.path.splitext(self.ising)[0] + '.fastq'
+		# log.debug(cmd)
+		# self.cmd.append(cmd)
+		# cmd = 'bowtie2 -p ' + self.n_cpu + ' -x ' + self.contigs + ' -U ' + os.path.splitext(self.ising)[0] + '.fastq'
 		cmd += ' | ' + self.params['bin']['samtools'] + ' view -bS - > ' + self.bam
 		log.debug(cmd)
 		self.cmd.append(cmd)
