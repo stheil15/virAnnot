@@ -1,9 +1,14 @@
-#!/user/bin/pyton3.4
 """
 	This class is a part of the virAnnot module
 	============
 	Authors: Sebastien Theil, Marie Lefebvre
 """
+
+# to allow code to work with Python 2 and 3
+from __future__ import print_function   # print is a function in python3
+from __future__ import unicode_literals # avoid adding "u" to each string
+from __future__ import division # avoid writing float(x) when dividing by x
+
 import os.path
 import logging as log
 

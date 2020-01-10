@@ -1,4 +1,8 @@
 #!/usr/bin/python3.4
+# to allow code to work with Python 2 and 3
+from __future__ import print_function   # print is a function in python3
+from __future__ import unicode_literals # avoid adding "u" to each string
+from __future__ import division # avoid writing float(x) when dividing by x
 
 import argparse
 import logging as log
