@@ -385,11 +385,11 @@ sub readCSVextended_regex {
       my $m;
       for(my $i=0; $i<=$#line; $i++){
         $line[$i] =~ s/\"//g;
-				if(!defined($headers[$i])){
-					$logger->error(Dumper @headers);
-					$logger->error($i);
-					$logger->error(Dumper @line);
-				}
+				# if(!defined($headers[$i])){
+				# 	$logger->error(Dumper @headers);
+				# 	$logger->error($i);
+				# 	$logger->error(Dumper @line);
+				# }
         $m->{$headers[$i]} = $line[$i];
       }
       push (@$res, $m);
@@ -421,11 +421,11 @@ sub readCSVextended {
       my $m;
       for(my $i=0; $i<=$#line; $i++){
         $line[$i] =~ s/\"//g;
-				if(!defined($headers[$i])){
-					$logger->error(Dumper @headers);
-					$logger->error($i);
-					$logger->error(Dumper @line);
-				}
+				# if(!defined($headers[$i])){
+				# 	$logger->error(Dumper @headers);
+				# 	$logger->error($i);
+				# 	$logger->error(Dumper @line);
+				# }
         $m->{$headers[$i]} = $line[$i];
       }
       push (@$res, $m);
