@@ -134,17 +134,29 @@ PFAM taxonomy
 The pipeline modules ``rps2ecsv`` and ``rps2tree`` need taxonomic information of the PFAM domains to work.
 You need to extract these informations and load it into the sqlite database.
 
+- Download and extract Pfam FASTA files:
+
+.. code-block:: bash
+
+ ftp://ftp.ncbi.nih.gov/pub/mmdb/cdd/fasta.tar.gz
+ tar -xzf fasta.tar.gz;
+
 - Extract taxonomic information for each sequence of each PFAM domain and store it in ``*.tax.txt`` files:
 
 .. code-block:: bash
 
-  \ls -1 *.FASTA | sed 's,^\(.*\)\.FASTA,gi2taxonomy.pl -i & -o \1.tax.txt -r,' | bash
+ for file in ./pf*.FASTA
+ do
+   file=${file##*/}
+   file="${file%.FASTA}"
+   esearch -db nuccore -query $file | elink -target taxonomy | efetch -format native -mode xml | grep ScientificName | awk -F ">|<" 'BEGIN{ORS=", ";}{print $3;}' | sed 's/cellular organisms,/\n/g' > $file.taxo.txt
+ done
 
-- Create a file of file for the ``*.tax.txt`` files:
+- Create a file of file for the ``*.taxo.txt`` files:
 
 .. code-block:: bash
 
- listPath.pl -d . | grep 'tax.txt' > idx
+ listPath.pl -d . | grep 'taxo.txt' > idx
 
 - Compute taxonomy statistic for each domain and create a sql file to load into the database:
 
