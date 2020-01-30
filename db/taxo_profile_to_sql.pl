@@ -15,13 +15,13 @@ use Getopt::Long;
 # );
 
 my $fof='';
-my $verbosity=1;
+my $verbosity=3;
 my $help;
 
 
 GetOptions(
   "i|fof=s"               => \$fof,
-	"v|verbosity=i"         => \$verbosity,
+  "v|verbosity=i"         => \$verbosity,
   "h|help"                => \$help,
 );
 
@@ -42,6 +42,7 @@ sub main {
 	while(<FOF>){
 		chomp;
 		my $file = $_;
+		print($file);
 		$self->_compute_frequency($file);
 	}
 	close FOF;
@@ -52,8 +53,9 @@ sub main {
 sub _compute_frequency {
 	my ($self,$file)=@_;
 	my @ranks = ('superkingdom','no rank','family','genus','specie');
-	$file =~ /.*\/(.*)\.tax\.txt/;
+	$file =~ /.*\/(.*)\.taxo\.txt/;
 	my $profile_name = $1;
+	print($file);
 	open(FILE,$file);
 	my $h;
 	while(<FILE>){
