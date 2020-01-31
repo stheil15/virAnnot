@@ -17,6 +17,7 @@ External programs
 * Samtools (http://samtools.sourceforge.net/)
 * Bcftools (https://samtools.github.io/bcftools/)
 * Seqtk (https://github.com/lh3/seqtk)
+* NCBI utils (https://www.ncbi.nlm.nih.gov/books/NBK179288/)
 
 
 External databases
