@@ -147,7 +147,7 @@ You need to extract these informations and load it into the sqlite database.
 
 .. code-block:: bash
 
- for file in ./pf*.FASTA
+ for file in ./*.FASTA
  do
    file=${file##*/}
    file="${file%.FASTA}"
@@ -171,6 +171,17 @@ You need to extract these informations and load it into the sqlite database.
 .. code-block:: bash
 
  sqlite3 taxonomy.tmp.sqlite < taxo_profile.sql
+
+- Modify path to the database by editing the following scripts:
+
+.. code-block:: bash
+
+ ./tools/rps2ecsv.pl:my $db = '/path/to/taxonomy.tmp.sqlite';
+ ./tools/2krona_new.pl:my $db = '/path/to/taxonomy.tmp.sqlite';
+ ./tools/ecsv2krona.pl:my $db = '/path/to/taxonomy.tmp.sqlite';
+ ./tools/blast2ecsv.pl:my $db = '/path/to/taxonomy.tmp.sqlite';
+ ./tools/rps2tree.pl:my $db = '/path/to/taxonomy.tmp.sqlite';
+ ./tools/autoMapper.pl:  'taxonomyDatabase'  => '/path/to/taxonomy.tmp.sqlite'
 
 
 NCBI Blast database
