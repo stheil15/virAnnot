@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 use Getopt::Long;
+use Logger::Logger;
 
 # CREATE TABLE `cdd_taxo` (
 # `id` int unsigned NOT NULL DEFAULT '0',
@@ -42,7 +43,6 @@ sub main {
 	while(<FOF>){
 		chomp;
 		my $file = $_;
-		print($file);
 		$self->_compute_frequency($file);
 	}
 	close FOF;
@@ -55,14 +55,14 @@ sub _compute_frequency {
 	my @ranks = ('superkingdom','no rank','family','genus','specie');
 	$file =~ /.*\/(.*)\.taxo\.txt/;
 	my $profile_name = $1;
-	print($file);
-	open(FILE,$file);
+	open(FILE,$file) or die "can't open file: $file $!";
 	my $h;
 	while(<FILE>){
 		chomp;
-		my @line = split(/\t/,$_);
-		if($line[1] ne 'unknown'){
-			my @taxo = split(/;/,$line[1]);
+		my @line = split(/,/,$_);
+		if($line[0] ne 'unknown'){
+			# my @taxo = split(/,/,$line[1]);
+			my @taxo = @line;
 			if(scalar(@taxo) == 4 || scalar(@taxo) == 5){
 				for(my $i=0;$i<=$#taxo;$i++){
 					$h->{$ranks[$i]}->{$taxo[$i]}++;
