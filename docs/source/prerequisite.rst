@@ -42,6 +42,7 @@ Perl external libraries
 * SQL::SplitStatement
 * Math::Round
 * String::Random
+* Bio::SearchIO:blastxml
 
 
 Perl included libraries
@@ -163,7 +164,7 @@ You need to extract these informations and load it into the sqlite database.
 
 .. code-block:: bash
 
- taxo_profile_to_sql.pl -i idx -o taxo_profile.sql
+ taxo_profile_to_sql.pl -i idx > taxo_profile.sql
 
 - Load into the database:
 
