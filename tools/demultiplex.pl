@@ -530,7 +530,7 @@ sub _launchCutAdapt {
 	$self->{_cutAdaptCmd} .= ' -e ' . $error .
 	                         ' ' . $file;
 	$self->{_cutAdaptCmd} .= ' > ' . $prefix . '.log';
-	$logger->debug($self->{_cutAdaptCmd});
+	$logger->info($self->{_cutAdaptCmd});
 	if(defined($self->{sge})){
 		return $self->{_cutAdaptCmd};
 	}

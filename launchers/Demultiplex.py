@@ -4,9 +4,7 @@
 	Authors: Sebastien Theil, Marie Lefebvre
 """
 # to allow code to work with Python 2 and 3
-from __future__ import print_function   # print is a function in python3
-from __future__ import unicode_literals # avoid adding "u" to each string
-from __future__ import division # avoid writing float(x) when dividing by x
+
 
 import os.path
 import logging as log
@@ -141,7 +139,7 @@ class Demultiplex:
 		self.cmd.append(cmd)
 
 
-	def _check_file(file_path):
+	def _check_file(self, file_path):
 		"""
 		Check that file exists
 		"""

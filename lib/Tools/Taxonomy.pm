@@ -271,7 +271,8 @@ sub retrieveTaxIdFromGi {
   else{
     $type = 'nucl';
   }
-  my $NameQuery = 'SELECT tax_id FROM gi_taxid_' . $type . ' WHERE gi="' . $gi . '"';
+  # my $NameQuery = 'SELECT tax_id FROM gi_taxid_' . $type . ' WHERE gi="' . $gi . '"';
+  my $NameQuery = 'SELECT taxid FROM ' . $type . '_accession2taxid WHERE gi="' . $gi . '"';
   my $sth=$self->{dbh}->prepare($NameQuery);
   $sth->execute();
   my @res = $sth->fetchrow_array();

@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use Data::Dumper;
 use Getopt::Long;
-use Logger::Logger;
 
 # CREATE TABLE `cdd_taxo` (
 # `id` int unsigned NOT NULL DEFAULT '0',
@@ -16,13 +15,13 @@ use Logger::Logger;
 # );
 
 my $fof='';
-my $verbosity=3;
+my $verbosity=1;
 my $help;
 
 
 GetOptions(
   "i|fof=s"               => \$fof,
-  "v|verbosity=i"         => \$verbosity,
+	"v|verbosity=i"         => \$verbosity,
   "h|help"                => \$help,
 );
 
@@ -53,16 +52,15 @@ sub main {
 sub _compute_frequency {
 	my ($self,$file)=@_;
 	my @ranks = ('superkingdom','no rank','family','genus','specie');
-	$file =~ /.*\/(.*)\.taxo\.txt/;
+	$file =~ /.*\/(.*)\.tax\.txt/;
 	my $profile_name = $1;
-	open(FILE,$file) or die "can't open file: $file $!";
+	open(FILE,$file);
 	my $h;
 	while(<FILE>){
 		chomp;
-		my @line = split(/,/,$_);
-		if($line[0] ne 'unknown'){
-			# my @taxo = split(/,/,$line[1]);
-			my @taxo = @line;
+		my @line = split(/\t/,$_);
+		if($line[1] ne 'unknown'){
+			my @taxo = split(/;/,$line[1]);
 			if(scalar(@taxo) == 4 || scalar(@taxo) == 5){
 				for(my $i=0;$i<=$#taxo;$i++){
 					$h->{$ranks[$i]}->{$taxo[$i]}++;

@@ -42,6 +42,10 @@ CREATE TABLE `cdd_taxo` (
   `specie` varchar(32) DEFAULT NULL,
   `superkingdom` varchar(32) DEFAULT NULL
 );
+CREATE TABLE `gi_taxid_prot` (
+  `gi` int unsigned NOT NULL DEFAULT '0',
+  `tax_id` int unsigned NOT NULL DEFAULT '0'
+);
 CREATE INDEX tax_id ON names(tax_id);
 CREATE INDEX unique_name ON names(unique_name);
 CREATE INDEX name_txt ON names(name_txt);
@@ -50,6 +54,7 @@ CREATE INDEX prot_acc ON prot_accession2taxid(accession);
 CREATE INDEX nucl_acc ON nucl_accession2taxid(accession);
 CREATE INDEX nucl_taxid ON nucl_accession2taxid(taxid);
 CREATE INDEX prot_taxid ON nucl_accession2taxid(taxid);
+CREATE INDEX gi ON gi_taxid_prot(gi);
 CREATE TABLE `virus2hosts` (
 `representative` varchar(32) DEFAULT NULL,
 `neighbor` varchar(32) DEFAULT NULL,
