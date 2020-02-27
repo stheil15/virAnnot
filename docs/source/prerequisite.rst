@@ -43,6 +43,7 @@ Perl external libraries
 * Math::Round
 * String::Random
 * Bio::SearchIO:blastxml
+* Bio::SeqIO
 
 
 Perl included libraries

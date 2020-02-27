@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!usr/bin/env perl
 use strict;
 print 'begin transaction;' . "\n";
 open(FILE,$ARGV[0]);
