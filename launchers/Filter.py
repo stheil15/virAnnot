@@ -5,7 +5,6 @@ from __future__ import division # avoid writing float(x) when dividing by x
 
 import os.path
 import logging as log
-import sys
 
 
 class Filter:

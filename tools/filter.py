@@ -5,7 +5,6 @@
 # Aims: Filter assembly fasta output by sequence length
 #
 """
-import csv, os
 import argparse
 import logging as log
 from Bio import SeqIO
@@ -17,7 +16,7 @@ def main ():
 	_filter_contigs(options.contigs_in, options.l, options.output)
 
 
-def _filter_contigs(contigs_in,l,output):	
+def _filter_contigs(contigs_in,l,output):
         contigs_file = contigs_in
         filtered_contigs_file = output
         length = l

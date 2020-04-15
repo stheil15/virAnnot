@@ -36,7 +36,7 @@ class Blast:
             log.debug(cmd)
             self.cmd.append(cmd)
             if self.server == 'genouest':
-                cmd = 'scp ' + self.genouest_cmd_file + ' ' + self.params['servers'][self.server]['username'] 
+                cmd = 'scp ' + self.genouest_cmd_file + ' ' + self.params['servers'][self.server]['username']
                 cmd += '@' + self.params['servers'][self.server]['adress']
                 cmd += ':' + self.params['servers'][self.server]['scratch']
                 log.debug(cmd)
