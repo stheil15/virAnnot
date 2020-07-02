@@ -263,27 +263,34 @@ sub _get_pairs_and_singles {
   my ($self,$last_R1_file,$last_R2_file,$prefix)=@_;
   my @files = ($last_R1_file,$last_R2_file);
   $logger->info('Sorting pairs and singletons...');
-	my $hash;
+  my $hash;
   my $old_hash;
   foreach my $f (@files){
-		$logger->info('Reading fastq file: ' . $f);
+    $logger->info('Reading fastq file: ' . $f);
     open(FILE,$f);
     while(<FILE>){
       if(/^@(\S+)\/([12])$/){
-				if(defined($self->{dispatch})){
-					if(defined($self->{dispatch}->{$prefix}->{$1})){
-						$hash->{$1}->{$2}++;
-					}
-				}
-				else{
-					$hash->{$1}->{$2}++;
-				}
+        if(defined($self->{dispatch})){
+          if(defined($self->{dispatch}->{$prefix}->{$1})){
+            $hash->{$1}->{$2}++;
+          }
+        }else{
+          $hash->{$1}->{$2}++;
+        }
+      }
+      if(/^>(\S+)\/([12])$/){
+        if(defined($self->{dispatch})){
+          if(defined($self->{dispatch}->{$prefix}->{$1})){
+            $hash->{$1}->{$2}++;
+          }
+        }else{
+          $hash->{$1}->{$2}++;
+        }
       }
     }
     close FILE;
     $old_hash += $hash;
   }
-	# return $old_hash;
   return $hash;
 }
 
