@@ -271,7 +271,8 @@ sub retrieveTaxIdFromGi {
   else{
     $type = 'nucl';
   }
-  my $NameQuery = 'SELECT tax_id FROM gi_taxid_' . $type . ' WHERE gi="' . $gi . '"';
+  # my $NameQuery = 'SELECT tax_id FROM gi_taxid_' . $type . ' WHERE gi="' . $gi . '"';
+  my $NameQuery = 'SELECT taxid FROM ' . $type . '_accession2taxid WHERE gi="' . $gi . '"';
   my $sth=$self->{dbh}->prepare($NameQuery);
   $sth->execute();
   my @res = $sth->fetchrow_array();
@@ -385,11 +386,11 @@ sub readCSVextended_regex {
       my $m;
       for(my $i=0; $i<=$#line; $i++){
         $line[$i] =~ s/\"//g;
-				if(!defined($headers[$i])){
-					$logger->error(Dumper @headers);
-					$logger->error($i);
-					$logger->error(Dumper @line);
-				}
+				# if(!defined($headers[$i])){
+				# 	$logger->error(Dumper @headers);
+				# 	$logger->error($i);
+				# 	$logger->error(Dumper @line);
+				# }
         $m->{$headers[$i]} = $line[$i];
       }
       push (@$res, $m);
@@ -405,7 +406,6 @@ sub readCSVextended {
   my ($self,$file,$separator) = @_ ;
   my $res = [];
   my @headers;
-
   open(CSV,$file) || $logger->logdie('Cannot open file ' . $file);
   while(<CSV>){
     chomp;
@@ -422,11 +422,11 @@ sub readCSVextended {
       my $m;
       for(my $i=0; $i<=$#line; $i++){
         $line[$i] =~ s/\"//g;
-				if(!defined($headers[$i])){
-					$logger->error(Dumper @headers);
-					$logger->error($i);
-					$logger->error(Dumper @line);
-				}
+				# if(!defined($headers[$i])){
+				# 	$logger->error(Dumper @headers);
+				# 	$logger->error($i);
+				# 	$logger->error(Dumper @line);
+				# }
         $m->{$headers[$i]} = $line[$i];
       }
       push (@$res, $m);

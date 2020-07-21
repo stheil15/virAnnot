@@ -1,5 +1,9 @@
+# to allow code to work with Python 2 and 3
+from __future__ import print_function   # print is a function in python3
+from __future__ import unicode_literals # avoid adding "u" to each string
+from __future__ import division # avoid writing float(x) when dividing by x
+
 import os.path
-from subprocess import call
 import logging as log
 
 class BlastCompare:
@@ -17,14 +21,15 @@ class BlastCompare:
 			cmd += ' --blast ' + self.blast_files['csv_file'][i]
 		cmd += ' --out ' + self.out
 		self.cmd.append(cmd)
+		log.debug(cmd)
 
 
-	def check_args (self, args: dict):
+	def check_args (self, args=dict):
 		self.execution=1
 		if 'sample' in args:
 			self.sample = str(args['sample'])
 		self.wd = os.getcwd() + '/' + self.sample
-		self.cmd_file = self.wd + '/' + self.sample + '_idba_cmd.txt'
+		self.cmd_file = self.wd + '/' + self.sample + '_compare_cmd.txt'
 		self.blast_files = {}
 		self.blast_files['csv_file'] = []
 		self.blast_files['id'] = []

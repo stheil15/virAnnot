@@ -1,12 +1,9 @@
-#!/usr/bin/python3
-import sys, getopt
+import sys
 import csv, re, os
 import argparse
 import logging as log
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib import colors as mcolors
-import random
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': False})
 
@@ -54,7 +51,6 @@ def _plot_heatmap (all_data, id_list, key, lvl, out_dir):
 			data.append(all_data[tax][key])
 	np_data = np.array(data)
 	axis = plt.subplot(111)
-	heatmap = axis.pcolor(np_data, cmap=plt.cm.Greens)
 	axis.set_yticks(np.arange(np_data.shape[0])+0.5, minor=False)
 	axis.set_xticks(np.arange(np_data.shape[1])+0.5, minor=False)
 	axis.set_yticklabels(sorted(row_labels), minor=False)
@@ -115,13 +111,15 @@ def _get_rank_data (all_data,data,headers,i,id_list_len,keys,lvl,regex_list):
 							all_data[tax]['reads'] = [0] * id_list_len
 						if 'reads' not in keys:
 							keys.append('reads')
-						all_data[tax]['reads'][i] += int(el['nb_reads'])
+						if el['nb_reads'] != "":
+							all_data[tax]['reads'][i] += int(el['nb_reads'])
 					if 'query_length' in headers:
 						if 'cumul_length' not in all_data[tax]:
 							all_data[tax]['cumul_length'] = [0] * id_list_len
 						if 'cumul_length' not in keys:
 							keys.append('cumul_length')
-						all_data[tax]['cumul_length'][i] += int(el['query_length'])
+						if el['query_length'] != "":
+							all_data[tax]['cumul_length'][i] += int(el['query_length'])
 					if 'percentIdentity' in headers:
 						if 'identity' not in all_data[tax]:
 							all_data[tax]['identity'] = [[] for j in range(id_list_len)]
@@ -130,9 +128,11 @@ def _get_rank_data (all_data,data,headers,i,id_list_len,keys,lvl,regex_list):
 						all_data[tax]['identity'][i].append(float(el['percentIdentity']))
 				else:
 					if 'nb_reads' in headers:
-						all_data[tax]['reads'][i] += int(el['nb_reads'])
+						if el['nb_reads'] != "":
+							all_data[tax]['reads'][i] += int(el['nb_reads'])
 					if 'query_length' in headers:
-						all_data[tax]['cumul_length'][i] += int(el['query_length'])
+						if el['query_length'] != "":
+							all_data[tax]['cumul_length'][i] += int(el['query_length'])
 					if 'percentIdentity' in headers:
 						all_data[tax]['identity'][i].append(float(el['percentIdentity']))
 					all_data[tax]['contigs'][i] += 1

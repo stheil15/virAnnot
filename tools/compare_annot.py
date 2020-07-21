@@ -1,12 +1,7 @@
-#!/usr/bin/python3
-import sys, getopt
+import sys
 import csv, re, os
 import argparse
 import logging as log
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib import colors as mcolors
-import random
 from matplotlib import rcParams
 rcParams.update({'figure.autolayout': False})
 
@@ -69,8 +64,6 @@ def _get_seq_data (all_data,data,headers,i,id_list,regex_list):
 			if found:
 				if el['taxonomy'] != 'unknown':
 					tax = el['taxonomy'].split(';')
-				else:
-					tax = '_undef_'
 				if el['query_id'] not in all_data:
 					all_data[el['query_id']] = {}
 				if id_list[i] not in all_data[el['query_id']]:

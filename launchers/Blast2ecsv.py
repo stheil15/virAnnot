@@ -1,15 +1,35 @@
+"""
+	This class is a part of the virAnnot module
+	=============
+	Authors: Sebastien Theil, Marie Lefebvre
+"""
+
+# to allow code to work with Python 2 and 3
+from __future__ import print_function   # print is a function in python3
+from __future__ import unicode_literals # avoid adding "u" to each string
+from __future__ import division # avoid writing float(x) when dividing by x
+
 import os.path
-from subprocess import call
 import logging as log
+import sys
 
 class Blast2ecsv:
+	"""
+	This class is part of virAnnot module
+	It creates the command that will convert
+	Blast results xml format to csv format
+	"""
 
-	def __init__ (self, args):
+	def __init__(self, args):
 		self.check_args(args)
 		self.cmd = []
 		self.create_cmd()
 
-	def create_cmd (self):
+
+	def create_cmd(self):
+		"""
+		Create command
+		"""
 		cmd = 'blast2ecsv.pl'
 		cmd += ' -t ' + self.type
 		cmd += ' -b ' + self.b
@@ -41,8 +61,11 @@ class Blast2ecsv:
 		self.cmd.append(cmd)
 
 
-	def check_args (self, args: dict):
-		self.execution=1
+	def check_args(self, args=dict):
+		"""
+		Check if arguments are valid
+		"""
+		self.execution = 1
 		if 'iter' in args:
 			if args['iter'] == 'library':
 				self.library = args['library']
@@ -62,7 +85,7 @@ class Blast2ecsv:
 		if 'contigs' in args:
 			self.contigs = self.wd + '/' + args['contigs']
 		else:
-			self.contigs=''
+			self.contigs = ''
 		if 'sge' in args:
 			self.sge = bool(args['sge'])
 		else:
@@ -107,8 +130,8 @@ class Blast2ecsv:
 			if os.path.exists(self.wd + '/' + args['b']):
 				self.b = self.wd + '/' + args['b']
 			else:
-				self.b=''
-				self.execution=0;
+				self.b = ''
+				self.execution = 0
 		else:
 			log.critical('You must provide a blast file.')
 			sys.exit(1)
@@ -137,16 +160,4 @@ class Blast2ecsv:
 			self.hov = str(args['hov'])
 		else:
 			self.hov = '0'
-		if 'pd' in args:
-			self.pd = True
-		else:
-			self.pd = False
-
-
-
-	def _check_file (self,f):
-		try:
-			open(f)
-			return f
-		except IOError:
-			print('File not found ' + f)
+		self.pd = 'pd' in args

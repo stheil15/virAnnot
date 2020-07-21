@@ -186,9 +186,10 @@ In Illumina technology, if the sequencing matrix is too short compared to the se
 Assembly
 --------
 
-This module can launch two assemblers, `IDBA
-<https://github.com/loneknightpy/idba/>`_ and `MetaSpades
-<http://bioinf.spbau.ru/en/spades3.7/>`_.
+This module can launch three assemblers, `IDBA
+<https://github.com/loneknightpy/idba/>`_, `MetaSpades
+<http://bioinf.spbau.ru/en/spades3.7/>`_ and `Newbler 
+<https://wikis.utexas.edu/display/bioiteam/GS+De+novo+assembler>`_ for single-end data.
 
 Foreach assembler, the module convert reads files to the proper format, launch the assembly in a separate directory, rename scaffolds identifier and move results file to the sample root directory.
 
@@ -213,6 +214,22 @@ Options
 - ``rn``: output file name.
 
 
+Normalization
+-------------
+This module randomly select NUM reads from paired-files.
+
+Options
+*******
+- ``i1``: R1 fastq file. [mandatory]
+- ``i2``: R2 fastq file. [mandatory]
+- ``o1``: Output R1 normalized file. [mandatory]
+- ``o2``: Output R2 normalized file. [mandatory]
+- ``num``: [INT] Number of reads to randomly select. [mandatory]
+- ``iter``: Iteration on [sample, library].
+- ``n_cpu``: [INT] number of CPU to use.
+- ``sge``: [BOOL] use SGE scheduler.
+
+
 Diamond
 -------
 
@@ -228,13 +245,32 @@ Options
 - ``sge``: [BOOL] use SGE scheduler.
 - ``sensitive``: [BOOL]
 - ``more_sensitive``: [BOOL]
-- ``out``:
+- ``out``: XML output file
 - ``score``: Report matches above this score.
 - ``max_target_seqs``: Maximum match per query sequences.
 - ``evalue``: Min e-value.
 - ``identity``: Report matches above this identity percent. 0 > X > 100.
 - ``qov``: Query overlap.
 - ``hov``: Hit overlap.
+
+Diamond2Blast
+-------------
+
+Options
+*******
+- ``i``: CSV file with DIAMOND results. [mandatory]
+- ``contigs``: Fasta file. [mandatory]
+- ``out``: XML output file.
+- ``type``: Blast type. ['tblastx','blastx','blastn','blastp','rpstblastn']. [mandatory]
+- ``db``: Values are defined in the parameters.yaml file. [mandatory]
+- ``evalue``: Min e-value.
+- ``server``: ['enki','genologin','avakas'] Values are defined in the parameters.yaml file.
+- ``n_cpu``: [INT] number of CPU to use.
+- ``tc``: Number of task launched at the same time on SGE.
+- ``num_chunk``: Number of chunks to split the original fasta file for parallel execution.
+- ``max_target_seqs``: Maximum match per query sequences.
+- ``sge``: [BOOL] use SGE scheduler.
+
 
 Blast
 -----
@@ -253,7 +289,7 @@ Options
 - ``max_target_seqs``: Maximum match per query sequences.
 - ``num_chunk``: Number of chunks to split the original fasta file for parallel execution.
 - ``out``: Output file name.
-- ``server``: ['enki','genotoul','avakas'] Values are defined in the parameters.yaml file.
+- ``server``: ['enki','genologin','avakas', 'curta'] Values are defined in the parameters.yaml file.
 - ``sge``: [BOOL] use SGE scheduler.
 
 This module is able to launch Blast instance on distant servers if the database and the blast_launch.py script is present on the server. Then you have to edit the parameters.yaml file to fit your configuration. The script has been developped to use two computer cluster, Avakas (PBS + Torque) and Genotoul (SGE) but each cluster has its own configuration so you may have to modify this script to adapt it to your configuration.
@@ -271,7 +307,7 @@ Options
 - ``evalue``: Min e-value.
 - ``fhit``: Only report first hit.
 - ``fhsp``: Only report first hsp.
-- ``pm``
+- ``pm``:
 - ``r``: Reduced taxonomy. Report only 5 consistent rank.
 - ``vs``: Only report sequences when match is virus or viroids.
 - ``rn``: Read number. File created by the Map module.
@@ -304,15 +340,15 @@ This module launch the ecsv2krona.pl script. It will aggregate multiple ecsv fil
 
 Options
 *******
-- ``b[INT]``: CSV Blast file.
-- ``id[INT]``: ID wanted corresponding to the Blast file.
-- ``x[INT]``: XML Blast file. If used, this file will be split by species and link in the Krona file.
+- ``b``: [INT] CSV Blast file.
+- ``id``: [INT] ID wanted corresponding to the Blast file.
+- ``x``: [INT] XML Blast file. If used, this file will be split by species and link in the Krona file.
 - ``out``: Output file name.
 - ``data``: ['both','reads','contigs','none']
 - ``r``: Use reduced taxonomy.
 - ``c``: ['identity','taxid','none']
 - ``iter``: ['global']
-- ``sge``: [BOOL]
+- ``sge``: [BOOL] use SGE scheduler.
 
 Rps2ecsv
 --------
@@ -324,7 +360,7 @@ Options
 *******
 - ``b``: RPSBLAST XML file.
 - ``contigs``: Fasta file.
-- ``sge``: [BOOL]
+- ``sge``: [BOOL] use SGE scheduler.
 - ``out``: Output file name.
 - ``evalue``: e-value threshold.
 
@@ -332,6 +368,9 @@ Rps2tree
 --------
 
 This module launch rps2tree.pl script for all sample provided.
+This module generates Operational Taxonomic Unit (OTU) based on RPS-Blast results.
+For each CDD motifs, contigs are clustered together based on matrix distance.
+The tree is generated thanks to `ete3 toolkit <http://etetoolkit.org/>`_.
 
 Options
 *******
@@ -342,7 +381,24 @@ Options
 - ``sge``: [BOOL]
 - ``viral_portion``: Minimum percentage of viral sequence in a domain to be selected.
 - ``min_prot``: Minimum protein length to be included in a tree.
+- ``perc``: Percentage of identity. Threshold set to define OTU.
 - ``iter``: ['global']
+
+Rps2merge
+---------
+This module launches rps2merge script.
+It generates a summary file, merging OTU results, blast results and rps results.
+For each OTU, if multiple contigs corresponding, one is randomly selected.
+
+Options
+*******
+- ``pfam``: CSV file from Rps2ecsv.
+- ``blastx``: CSV file from Blast2ecsv.
+- ``rps_folder``: Name of output folder of Rps2tree.
+- ``id``: Sample or library ID
+- ``out``: CSV output file
+- ``iter``: ['global']
+- ``sge``: [BOOL]
 
 AutoMapper
 ----------

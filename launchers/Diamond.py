@@ -1,17 +1,30 @@
+"""
+This class is a part of the virAnnot module
+Authors: Sebastien Theil, Marie Lefebvre
+"""
+# to allow code to work with Python 2 and 3
+from __future__ import print_function   # print is a function in python3
+from __future__ import unicode_literals # avoid adding "u" to each string
+from __future__ import division # avoid writing float(x) when dividing by x
+
 import os.path
-from subprocess import call
 import logging as log
 import sys
 
 class Diamond:
+	"""
+	This Class is part of virAnnot module
+	It creates the command that will run DIAMOND
+	http://dx.doi.org/10.1038/nmeth.3176
+	"""
 
-	def __init__ (self, args):
-		log.info( 'Diamond module')
+	def __init__(self, args):
+		log.info('Diamond module')
 		self.cmd = []
 		self.check_args(args)
 		self._create_cmd()
 
-	def _create_cmd (self):
+	def _create_cmd(self):
 
 		merged_read = self.wd + '/' + os.path.basename(self.i1).split('_')[0] + '_mergedPair.fa'
 		fasta_singleton = self.wd + '/' + os.path.basename(self.ising).split('.')[0] + '.fa'
@@ -28,10 +41,12 @@ class Diamond:
 				cmd = 'cat ' + fasta_singleton + ' >> ' + merged_read
 				log.debug(cmd)
 				self.cmd.append(cmd)
+		# outfmt 5 = XML format
 		cmd = 'diamond blastx --outfmt 5'
 		cmd += ' --db ' + str(self.db)
 		cmd += ' --out ' + self.out
 		cmd += ' --threads ' + self.n_cpu
+		# Path to the query input file
 		if self.i1 != '' and self.i2 != '':
 			cmd += ' --query ' + merged_read
 		elif self.ising != '':
@@ -41,8 +56,11 @@ class Diamond:
 		cmd += ' --evalue ' + self.evalue
 		cmd += ' --max-target-seqs ' + self.max_target_seqs
 		cmd += ' --min-score ' + self.score
+		# Report only alignments above the given percentage of sequence identity
 		cmd += ' --id ' + self.identity
+		# Report only alignments above the given percentage of query cover
 		cmd += ' --query-cover ' + self.qov
+		# Report only alignments above the given percentage of subject cover
 		cmd += ' --subject-cover ' + self.hov
 		if self.sensitive:
 			cmd += ' --sensitive '
@@ -52,8 +70,10 @@ class Diamond:
 		self.cmd.append(cmd)
 
 
-
-	def check_args (self, args: dict):
+	def check_args(self, args=dict):
+		"""
+		Check if arguments are valid
+		"""
 		if 'iter' in args:
 			if args['iter'] == 'library':
 				self.library = args['library']
@@ -77,17 +97,16 @@ class Diamond:
 		if 'i1' in args:
 			self.i1 = self._check_file(self.wd + '/' + args['i1'])
 		else:
-			self.i1=''
+			self.i1 = ''
 		if 'i2' in args:
 			self.i2 = self._check_file(self.wd + '/' + args['i2'])
 		else:
-			self.i2=''
+			self.i2 = ''
 
 		if 'ising' in args:
 			self.ising = self._check_file(self.wd + '/' + args['ising'])
 		else:
-			self.ising=''
-
+			self.ising = ''
 		if self.i1 == '' and self.i2 == '' and self.ising == '' and self.contigs == '':
 			self.execution = 0
 			log.critical('At least one read file must be defined.')
@@ -144,16 +163,20 @@ class Diamond:
 			if args['db'] in self.params['Diamond']['db']:
 				self.db = self.params['Diamond']['db'][args['db']]
 			else:
-				self.execution=0
+				self.execution = 0
 				sys.exit('Database ' + args['db'] + ' not in parameters.yaml.')
 		else:
 			sys.exit('You must provide a database.')
-		self.execution=1
+		self.execution = 1
 
 
-	def _check_file (self,f):
+	def _check_file(self, file_path):
+		"""
+		Check that file exists
+		"""
 		try:
-			open(f)
-			return f
+			open(file_path)
+			return file_path
 		except IOError:
-			print('File not found ' + f)
+			print('File not found ' + file_path)
+			self.execution = 0

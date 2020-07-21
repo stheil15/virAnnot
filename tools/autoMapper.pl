@@ -23,13 +23,12 @@ my $verbosity=1;
 my %mapperOptions = (
 	'queries' 			    => '',
 	'taxonomyDatabase' 	=> '/media/data/db/taxonomy/taxonomy.sqlite',
-	'blastDatabase' 	  => '/media/data/db/ncbi/nt/nt',
+	'blastDatabase' 	  => '/home/mlefebvre/Documents/db/nt',
 	'blast'				      => '',
 	'outputDir' 		    => 'autoMapper_out',
 	'filter' 			      => 'Viruses',
 	'windowsSize' 		  => 50,
 );
-
 
 my %mummerOptions = (
 	'm' 			=> 'mum',
@@ -78,6 +77,7 @@ sub main {
 	$self->processOptions(\%mapperOptions,\%mummerOptions);
 	my $taxid_infos = $self->readExtentedBlast($mapperOptions{blast}, $mapperOptions{filter});
 	foreach my $tax_id (keys(%{$taxid_infos})){
+		$logger->debug('Treating tax_id ' . $tax_id);
 		$self->{_map}->{$tax_id}->{taxonomy} = $taxid_infos->{$tax_id}->{taxonomy};
 		$self->{_map}->{$tax_id}->{organism} = $taxid_infos->{$tax_id}->{organism};
 
@@ -607,7 +607,7 @@ sub readExtentedBlast {
   my %taxidInfos;
 	my $file = Tools::Taxonomy->readCSVextended($blastFile, "\t");
 	my $taxid_infos;
-  foreach my $hit (@{$file}){
+  	foreach my $hit (@{$file}){
 		if($hit->{taxonomy} =~ /$filter/){
 			$hit->{organism} =~ s/[\.\-\s\/]+/_/g;
 			$taxid_infos->{$hit->{tax_id}}->{organism} = $hit->{organism};
@@ -626,15 +626,19 @@ sub processOptions {
 		$logger->error('Windows size must be an integer value >= 1');
 		&help;
 	}
-	foreach my $option ( ('taxonomyDatabase', 'queries', 'blast', 'reads_file') ){
-    if(defined($mapperOptions->{$option})){
-      if(! -e $mapperOptions->{$option} ){
-        $logger->error($option . ' : file ' . $mapperOptions->{$option} . ' doesn\'t exist');
-        &help;
-      }
-    }
+	foreach my $option ( ('taxonomyDatabase', 'queries', 'blast') ){
+	    if(defined($mapperOptions->{$option})){
+	      if(! -e $mapperOptions->{$option} ){
+	        $logger->error($option . ' : file ' . $mapperOptions->{$option} . ' doesn\'t exist');
+	        &help;
+	      }
+	    }
 	}
-	foreach my $option ( ('outputDir', 'taxonomyDatabase', 'queries', 'blast', 'taxonomyDatabase', 'blastDatabase', 'reads_file') ){
+	# 'outputDir', 'taxonomyDatabase', 'queries', 'blast', 'taxonomyDatabase', 'blastDatabase', 'reads_file'
+	foreach my $option ( ('outputDir', 'taxonomyDatabase', 'queries', 'blast', 'blastDatabase') ){
+		if(!defined($mapperOptions->{$option})){
+			$logger->error($option . 'not defined.');
+		}
 		$mapperOptions->{$option} = abs_path($mapperOptions->{$option});
 		if($option eq 'queries'){
 			my @a = split('_',$mapperOptions->{$option});

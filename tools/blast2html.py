@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-# Actually runs under either python 2 or 3
+# Actually runs under python 3
 
 # Copyright The Hyve B.V. 2014
 # License: GPL version 3 or higher
 
 import sys
 import math
-import warnings
 from os import path
 from itertools import repeat
 import argparse
@@ -108,7 +107,7 @@ def genelink(hit, type='genbank', hsp=None):
     if not isinstance(hit, str):
         hit = hitid(hit)
     link = "http://www.ncbi.nlm.nih.gov/nucleotide/{}?report={}&log$=nuclalign".format(hit, type)
-    if hsp != None:
+    if hsp is not None:
         link += "&from={}&to={}".format(hsp['Hsp_hit-from'], hsp['Hsp_hit-to'])
     return link
 
@@ -248,7 +247,7 @@ class BlastVisualize:
                        width = (query_length % skip) * percent_multiplier)
 
     @filter
-    def hit_info(self, result):
+    def hit_info(result):
 
         query_length = blastxml_len(result)
 
@@ -296,9 +295,9 @@ def main():
                         help='The template file to use. Defaults to blast_html.html.jinja')
 
     args = parser.parse_args()
-    if args.input == None:
+    if args.input is None:
         args.input = args.positional_arg
-    if args.input == None:
+    if args.input is None:
         parser.error('no input specified')
 
     templatedir, templatename = path.split(args.template.name)

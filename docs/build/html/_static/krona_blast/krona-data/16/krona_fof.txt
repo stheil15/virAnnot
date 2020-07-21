@@ -1,4 +1,0 @@
-krona-data/16/uncultured_marine_virus.csv	krona-data/16/uncultured_marine_virus.xml
-krona-data/16/Grapevine_Red_Globe_virus.csv	krona-data/16/Grapevine_Red_Globe_virus.xml
-krona-data/16/Grapevine_rupestris_vein_feathering_virus.csv	krona-data/16/Grapevine_rupestris_vein_feathering_virus.xml
-krona-data/16/Grapevine_rupestris_stem_pitting_associated_virus.csv	krona-data/16/Grapevine_rupestris_stem_pitting_associated_virus.xml

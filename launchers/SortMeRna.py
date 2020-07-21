@@ -1,5 +1,9 @@
+# to allow code to work with Python 2 and 3
+from __future__ import print_function   # print is a function in python3
+from __future__ import unicode_literals # avoid adding "u" to each string
+from __future__ import division # avoid writing float(x) when dividing by x
+
 import os.path
-from subprocess import call
 import logging as log
 
 class SortMeRna:
@@ -12,7 +16,7 @@ class SortMeRna:
             self.cmd = ''
 
 
-    def check_args (self, args: dict):
+    def check_args (self, args=dict):
         self.wd = os.getcwd()
         self.params = args['params']
         self.sample = args['sample']

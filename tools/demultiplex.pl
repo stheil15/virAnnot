@@ -149,6 +149,7 @@ sub _step_04 {
 		$h->{$x} = $self->{illuminaAdapter}->{$x};
 		$h->{$x . '-REVCOMP'} = _reverseComplement($self,$self->{illuminaAdapter}->{$x});
 	}
+  $logger->info('Launch CutAdapt... step 04');
   _launchCutAdapt($self,$files->{1},$h,$tmp_file_prefix . "_step.04_R1",'k','k','-b','0.2','1','0.6','4');
   _launchCutAdapt($self,$files->{2},$h,$tmp_file_prefix . "_step.04_R2",'k','k','-b','0.2','1','0.6','4');
 	if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
@@ -182,7 +183,7 @@ sub _step_05 {
   	push(@{$self->{_files_to_delete}},$files->{1});
   	push(@{$self->{_files_to_delete}},$files->{2});
   }
-	return ($tmp_file_prefix . '_step.04_R1.out',$tmp_file_prefix . '_step.04_R2.out');
+	return ($tmp_file_prefix . '_step.05_R1.out',$tmp_file_prefix . '_step.05_R2.out');
 }
 
 
@@ -190,6 +191,7 @@ sub _step_06 {
   my ($self,$files,$tmp_file_prefix) = @_;
   my $h->{polyA} = 'AAAAAAAAAA';
 	$h->{polyT} = 'TTTTTTTTTT';
+  $logger->info('Launch CutAdapt... step 06');
   _launchCutAdapt($self,$files->{1}, $h, $tmp_file_prefix . "_step.06_R1",'k','k','-a','0','1','0.8','6');
   _launchCutAdapt($self,$files->{2}, $h, $tmp_file_prefix . "_step.06_R2",'k','k','-a','0','1','0.8','6');
   if($self->{_clean} == 1 && $files->{1} ne $self->{readFiles}->{1}){
@@ -261,25 +263,35 @@ sub _get_pairs_and_singles {
   my ($self,$last_R1_file,$last_R2_file,$prefix)=@_;
   my @files = ($last_R1_file,$last_R2_file);
   $logger->info('Sorting pairs and singletons...');
-	my $hash;
+  my $hash;
+  my $old_hash;
   foreach my $f (@files){
-		$logger->debug('Reading fastq file: ' . $f);
+    $logger->info('Reading fastq file: ' . $f);
     open(FILE,$f);
     while(<FILE>){
       if(/^@(\S+)\/([12])$/){
-				if(defined($self->{dispatch})){
-					if(defined($self->{dispatch}->{$prefix}->{$1})){
-						$hash->{$1}->{$2}++;
-					}
-				}
-				else{
-					$hash->{$1}->{$2}++;
-				}
+        if(defined($self->{dispatch})){
+          if(defined($self->{dispatch}->{$prefix}->{$1})){
+            $hash->{$1}->{$2}++;
+          }
+        }else{
+          $hash->{$1}->{$2}++;
+        }
+      }
+      if(/^>(\S+)\/([12])$/){
+        if(defined($self->{dispatch})){
+          if(defined($self->{dispatch}->{$prefix}->{$1})){
+            $hash->{$1}->{$2}++;
+          }
+        }else{
+          $hash->{$1}->{$2}++;
+        }
       }
     }
     close FILE;
+    $old_hash += $hash;
   }
-	return $hash;
+  return $hash;
 }
 
 
@@ -306,8 +318,9 @@ sub _print_id_files {
   open(ID1,">$prefix" . "_r1.ids");
   open(ID2,">$prefix" . "_r2.ids");
   open(IDS,">$prefix" . "_s.ids");
+  $logger->info("print id file");
   foreach my $r_id (sort(keys(%{$hash}))){
-		my @keys = keys(%{$hash->{$r_id}});
+    my @keys = keys(%{$hash->{$r_id}});
 		if(scalar(@keys) == 2){
 			print ID1 $r_id . '/1' . "\n";
       print ID2 $r_id . '/2' . "\n";
@@ -354,6 +367,7 @@ sub _dispatchPairs {
 
 
 sub _launch_subseq {
+  $logger->info("Launch subseq");
   my ($self,$last_R1_file,$last_R2_file,$prefix,$path)=@_;
   my $file1 = $path . '/' . $prefix . '_truePairs_r1.fq';
   my $file2 = $path . '/' . $prefix . '_truePairs_r2.fq';
@@ -361,13 +375,16 @@ sub _launch_subseq {
 
   my $seqtk_cmd = 'seqtk subseq ' . $last_R1_file . ' ' . $prefix . '_r1.ids > ' . $file1;
   $logger->debug($seqtk_cmd);
+  $logger->info($seqtk_cmd);
   `$seqtk_cmd`;
 
   $seqtk_cmd = 'seqtk subseq ' . $last_R2_file . ' ' . $prefix . '_r2.ids > ' . $file2;
   $logger->debug($seqtk_cmd);
+  $logger->info($seqtk_cmd);
   `$seqtk_cmd`;
   my $cmd = 'wc -l ' . $file1;
 	$logger->debug($cmd);
+  $logger->info($cmd);
   my ($nb_line_r1) = split(' ',`$cmd`);
 	$logger->debug($nb_line_r1);
   $cmd = 'wc -l ' . $file2;
@@ -382,9 +399,11 @@ sub _launch_subseq {
   }
   $seqtk_cmd = 'seqtk subseq ' . $last_R1_file . ' ' . $prefix . '_s.ids > ' . $file_s;
   $logger->debug($seqtk_cmd);
+  $logger->info($seqtk_cmd);
   `$seqtk_cmd`;
   $seqtk_cmd = 'seqtk subseq ' . $last_R2_file . ' ' . $prefix . '_s.ids >> ' . $file_s;
   $logger->debug($seqtk_cmd);
+  $logger->info($seqtk_cmd);
   `$seqtk_cmd`;
 
   $cmd = 'wc -l ' . $file_s;
@@ -518,7 +537,7 @@ sub _launchCutAdapt {
 	$self->{_cutAdaptCmd} .= ' -e ' . $error .
 	                         ' ' . $file;
 	$self->{_cutAdaptCmd} .= ' > ' . $prefix . '.log';
-	$logger->debug($self->{_cutAdaptCmd});
+	$logger->info($self->{_cutAdaptCmd});
 	if(defined($self->{sge})){
 		return $self->{_cutAdaptCmd};
 	}

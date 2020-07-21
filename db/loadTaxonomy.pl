@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!usr/bin/env perl
 use strict ;
 use File::Basename;
 use Data::Dumper;
@@ -10,14 +10,16 @@ use SQL::SplitStatement;
 
 
 my $taxo_struct_dmp = 'taxonomyStructure.sql';
+my $taxo_index_dmp = 'taxonomyIndex.sql';
 my $data_acc_prot = 'prot.accession2taxid';
 my $data_dead_acc_prot = 'dead_prot.accession2taxid';
 my $data_dead_acc_nucl = 'dead_nucl.accession2taxid';
 my $data_acc_wgs = 'nucl_wgs.accession2taxid';
-my $data_acc_gb = 'nucl_gb.accession2taxid';
-my $data_acc_gss = 'nucl_gss.accession2taxid';
+my $data_acc_nucl = 'nucl.accession2taxid';
 my $data_nodes = 'nodes.dmp';
 my $data_names = 'names.dmp';
+# my $gi_nucl = 'gi_taxid_nucl.dmp';
+my $gi_prot = 'gi_taxid_prot.dmp';
 my $dir = '.';
 my $verbosity=1;
 
@@ -25,7 +27,9 @@ my $verbosity=1;
 GetOptions(
   "acc_prot=s" => \$data_acc_prot,
   "acc_wgs=s"=> \$data_acc_wgs,
-  "acc_gb=s" => \$data_acc_gb,
+  "acc_nucl=s"=> \$data_acc_nucl,
+  # "gi_nucl=s" => \$gi_nucl,
+  "gi_prot=s" => \$gi_prot,
   "names=s"  => \$data_names,
   "nodes=s"  => \$data_nodes,
   "struct=s" => \$taxo_struct_dmp,
@@ -52,13 +56,14 @@ sub main {
   bless $self;
   _set_options($self);
 
-  $self->{_sep} = { names	=> '\t\|\t|\t\|$',
+  $self->{_sep} = { names => '\t\|\t|\t\|$',
                     nodes => '\t\|\t|\t\|$',
                     'prot_accession2taxid' => '\t',
-                    'nucl_accession2taxid' => '\t'
+                    'nucl_accession2taxid' => '\t',
+                    'gi_prot' => '\t'
                   };
 
-	#
+  #
   my $db_path = $dir . '/taxonomy.tmp.sqlite';
   _create_sqlite_db($self,$db_path);
   my $dbh = DBI->connect("dbi:SQLite:dbname=$db_path","","");
@@ -67,26 +72,35 @@ sub main {
 }
 
 sub _insertingCSVDataInDatabase {
-	my ($self,$dbh,$tablesDataFiles) = @_;
+  my ($self,$dbh,$tablesDataFiles) = @_;
   $logger->info('Inserting tables into database...');
-	foreach my $table (keys %{$tablesDataFiles}){
+  foreach my $table (keys %{$tablesDataFiles}){
     $logger->info($table);
-		my $sth = $dbh->column_info( undef, undef, $table, '%');
-		my $ref = $sth->fetchall_arrayref;
-		my @cols = map { $_->[3] } @$ref;
-
-		$logger->debug("Inserting data in table $table ...\n");
+    my $sth = $dbh->column_info( undef, undef, $table, '%');
+    my $ref = $sth->fetchall_arrayref;
+    my @cols = map { $_->[3] } @$ref;
+    my $req = "";
+    $logger->debug("Inserting data in table $table ...\n");
     $dbh->{AutoCommit} = 0;
-    my $req = "INSERT OR IGNORE INTO $table ( ".join(',', map {"'".$_."'"} @cols)." ) VALUES (".join(',', map {'?'} @cols).")";
-    $logger->debug($req);
-		$sth = $dbh->prepare( "INSERT OR IGNORE INTO $table ( ".join(',', map {"'".$_."'"} @cols)." ) VALUES (".join(',', map {'?'} @cols).")" ) or $logger->logdie($dbh->errstr);
+    if($table eq 'gi_nucl'){
+      $req = "INSERT OR IGNORE INTO gi_taxid_nucl ( 'gi','tax_id' ) VALUES (?,?)"; 
+    if($table eq 'gi_prot'){
+      $req = "INSERT OR IGNORE INTO gi_taxid_prot ( 'gi','tax_id' ) VALUES (?,?)";  
+    }else{
+      $req = "INSERT OR IGNORE INTO $table ( ".join(',', map {"'".$_."'"} @cols)." ) VALUES (".join(',', map {'?'} @cols).")";  
+    }
+    
+    $logger->info($req);
+    # $sth = $dbh->prepare( "INSERT OR IGNORE INTO $table ( ".join(',', map {"'".$_."'"} @cols)." ) VALUES (".join(',', map {'?'} @cols).")" ) or $logger->logdie($dbh->errstr);
+    $sth = $dbh->prepare( $req ) or $logger->logdie($dbh->errstr);
 
-		my $separator;
+    my $separator;
     if(defined $self->{_sep}->{$table}){
       $separator = $self->{_sep}->{$table};
     }
 
     foreach my $file (@{$tablesDataFiles->{$table}}){
+      $logger->info($file);
       open (DATA, $file) || $logger->logdie($file);
       while (<DATA>) {
         chomp;
@@ -95,9 +109,9 @@ sub _insertingCSVDataInDatabase {
       close DATA;
     }
 
-		$dbh->commit or $logger->logdie($dbh->errstr);
-		$logger->debug("Insertion of data in table $table finished\n");
-	}
+    $dbh->commit or $logger->logdie($dbh->errstr);
+    $logger->debug("Insertion of data in table $table finished\n");
+  }
 }
 
 
@@ -107,37 +121,37 @@ sub _create_sqlite_db {
   if(-e $file){
     `mv $file $file.'_old'`;
   }
-	if(! -e $file){
-		`touch $file`;
-		my $dbh = DBI->connect("dbi:SQLite:dbname=$file","","");
-		_executeSQLFiles($self,$dbh,($self->{_taxo_struct_dmp}));
-		$dbh->disconnect;
-	}
-	else{
-		$logger->warn('Database already exists. Skip...')
-	}
+  if(! -e $file){
+    `touch $file`;
+    my $dbh = DBI->connect("dbi:SQLite:dbname=$file","","");
+    _executeSQLFiles($self,$dbh,($self->{_taxo_struct_dmp}));
+    $dbh->disconnect;
+  }
+  else{
+    $logger->warn('Database already exists. Skip...')
+  }
 }
 
 
 sub _executeSQLFiles {
-	my ($self,$dbh,@sqlFiles) = @_;
-	my $sql_splitter = SQL::SplitStatement->new;
-	foreach my $file (@sqlFiles){
+  my ($self,$dbh,@sqlFiles) = @_;
+  my $sql_splitter = SQL::SplitStatement->new;
+  foreach my $file (@sqlFiles){
     $logger->debug('Reading sql file:' . $file);
     my $cmd;
-		open (FILE, $file) or $logger->logdie("Unable to open the SQL file : $file\n");
-		while( <FILE> ){
+    open (FILE, $file) or $logger->logdie("Unable to open the SQL file : $file\n");
+    while( <FILE> ){
       $cmd.= $_;
     }
-		close FILE;
+    close FILE;
 
     my @statements = $sql_splitter->split($cmd);
-		foreach (@statements){
+    foreach (@statements){
       $logger->debug('Executing sql cmd:');
       $logger->debug($_);
-			$dbh-> do($_) or $logger->logdie($dbh->errstr);
-		}
-	}
+      $dbh-> do($_) or $logger->logdie($dbh->errstr);
+    }
+  }
 }
 
 
@@ -184,7 +198,14 @@ sub _set_options {
     push(@{$self->{_data}->{nucl_accession2taxid}},$data_dead_acc_nucl);
   }
   else{
-    $logger->error($data_dead_acc_nucl . ' data_acc_nucl file not found.');
+    $logger->error($data_dead_acc_nucl . ' data_dead_acc_nucl file not found.');
+    &help;
+  }
+  if(-e $data_acc_nucl){
+    push(@{$self->{_data}->{nucl_accession2taxid}},$data_acc_nucl);
+  }
+  else{
+    $logger->error($data_acc_nucl . ' data_acc_nucl file not found.');
     &help;
   }
   if(-e $data_acc_wgs){
@@ -194,20 +215,34 @@ sub _set_options {
     $logger->error($data_acc_wgs . ' data_acc_wgs file not found.');
     &help;
   }
-  if(-e $data_acc_gss){
-    push(@{$self->{_data}->{nucl_accession2taxid}},$data_acc_gss);
+  # if(-e $gi_nucl){
+  #   push(@{$self->{_data}->{gi_nucl}},$gi_nucl);
+  # }
+  # else{
+  #   $logger->error($gi_nucl . ' gi_nucl file not found.');
+  #   &help;
+  # }
+  if(-e $gi_prot){
+    push(@{$self->{_data}->{gi_prot}},$gi_prot);
   }
   else{
-    $logger->error($data_acc_gss . ' data_acc_wgs file not found.');
+    $logger->error($gi_prot . ' gi_nucl file not found.');
     &help;
   }
-  if(-e $data_acc_gb){
-    push(@{$self->{_data}->{nucl_accession2taxid}},$data_acc_gb);
-  }
-  else{
-    $logger->error($data_acc_gb . ' data_acc_gb file not found.');
-    &help;
-  }
+  # if(-e $data_acc_gss){
+  #   push(@{$self->{_data}->{nucl_accession2taxid}},$data_acc_gss);
+  # }
+  # else{
+  #   $logger->error($data_acc_gss . ' data_acc_wgs file not found.');
+  #   &help;
+  # }
+  # if(-e $data_acc_gb){
+  #   push(@{$self->{_data}->{nucl_accession2taxid}},$data_acc_gb);
+  # }
+  # else{
+  #   $logger->error($data_acc_gb . ' data_acc_gb file not found.');
+  #   &help;
+  # }
 }
 
 
@@ -216,20 +251,21 @@ my $prog = basename($0);
 print STDERR <<EOF ;
 #### $prog ####
 #
-# AUTHOR:     Sebastien THEIL
-# LAST MODIF: 19/09/2015
+# AUTHOR:     Sebastien THEIL and Marie LEFEBVRE
+# LAST MODIF: 07/02/2020
 # PURPOSE:    This script is used to load NCBI taxonomy file into a SQLite database.
 
 USAGE:
-      $prog  -struct taxonomyStructure.sql -index taxonomyIndex.sql -acc_prot prot.accession2taxid -acc_nucl nucl.accession2taxid -names names.dmp -nodes nodes.dmp
+      $prog -struct taxonomyStructure.sql -index taxonomyIndex.sql -acc_prot acc2taxid.prot -acc_nucl acc2taxid.nucl -names names.dmp -nodes nodes.dmp -gi_nucl gi_taxid_nucl.dmp -gi_prot gi_taxid_prot.dmp
 
-			### OPTIONS ###
+      ### OPTIONS ###
       -struct     <path>   taxonomyStructure.sql path. (Default: $taxo_struct_dmp)
       -index      <path>   taxonomyIndex.sql path. (Default: $taxo_index_dmp)
       -acc_prot   <path>   prot.accession2taxid. (Default: $data_acc_prot)
       -acc_nucl   <path>   nucl.accession2taxid. (Default: $data_acc_wgs)
       -names      <path>   names.dmp file. (Default: $data_names)
       -nodes      <path>   nodes.dmp file. (Default: $data_nodes)
+      -gi_prot    <path>   gi_taxid_prot.dmp file (Default: $gi_prot)
       -v          <int>      Verbosity level. (0 -> 4).
 EOF
 exit(1);

@@ -2,7 +2,6 @@
 import os
 import csv
 import argparse
-import logging
 
 
 def main ():

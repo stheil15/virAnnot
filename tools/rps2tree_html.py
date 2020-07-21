@@ -1,5 +1,4 @@
-#!/usr/bin/python
-import sys, getopt
+import sys
 import csv
 import argparse
 import logging

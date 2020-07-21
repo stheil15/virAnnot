@@ -1,2 +1,0 @@
-krona-data/15/Grapevine_Syrah_virus_1.csv	krona-data/15/Grapevine_Syrah_virus_1.xml
-krona-data/15/Grapevine_rupestris_stem_pitting_associated_virus.csv	krona-data/15/Grapevine_rupestris_stem_pitting_associated_virus.xml

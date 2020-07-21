@@ -82,7 +82,7 @@ This module launch Diamond similarity search for reads and produce an XML file p
 Step **Assembly**
 *****************
 
-This module simply launch udba_ud and metaspades assemblers in each sample folder, rename scaffolds id and move the resulting fasta file.
+This module simply launch udba_ud, newbler and metaspades assemblers in each sample folder, rename scaffolds id and move the resulting fasta file.
 
 .. literalinclude:: ../../examples/step.yaml
   :lines: 33-46

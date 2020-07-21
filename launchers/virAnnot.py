@@ -1,15 +1,24 @@
 #!/usr/bin/python3.4
+# to allow code to work with Python 2 and 3
+from __future__ import print_function   # print is a function in python3
+from __future__ import unicode_literals # avoid adding "u" to each string
+from __future__ import division # avoid writing float(x) when dividing by x
 
 import argparse
 import logging as log
-import yaml
 import csv
 import importlib
 import re
 import sys
-import os,shutil
+import os, shutil
+import time
+import yaml
 
-def main ():
+
+"""
+Main function
+"""
+def main():
 	args = _set_options()
 	_set_log_level(args.verbosity)
 
@@ -21,7 +30,9 @@ def main ():
 		_create_folders(maps)
 	elif(args.name_step in steps):
 		log.info('Launching step ' + args.name_step)
+		start_time = time.time()
 		_launch_step(args.name_step,steps,maps,params)
+		log.info("--- %s seconds ---" %(time.time() - start_time))
 	else:
 		log.critical('This step is not present in the step file.')
 
@@ -33,7 +44,7 @@ def _set_log_level(verbosity):
 		log_format = '%(filename)s:%(lineno)s - %(asctime)s %(levelname)-8s %(message)s'
 		log.basicConfig(level=log.DEBUG,format=log_format)
 
-def _create_folders (maps):
+def _create_folders(maps):
 	wd = os.getcwd()
 	for i in range(0,len(maps)):
 		if 'file' in maps[i]:
@@ -64,7 +75,7 @@ def _create_folders (maps):
 			sys.exit(1)
 
 
-def _launch_step (s_n,s,m,p):
+def _launch_step(s_n,s,m,p):
 	module_name = s_n.split('_')[0]
 	if module_name == 'Getresults':
 		_launch_getresults(s_n,s,m,p,module_name)
@@ -109,7 +120,7 @@ def _launch_getresults(s_n,s,m,p,module_name):
 					args['sample_files'][m[i]['SampleID']].append(tmp[key])
 	_launch_module(args,module_name)
 
-def _launch_global (s_n,s,m,p,module_name):
+def _launch_global(s_n,s,m,p,module_name):
 	global_input = {}
 	global_input['args'] = {}
 	for i in range(0,len(m)):
@@ -160,13 +171,21 @@ def _launch_global (s_n,s,m,p,module_name):
 				if 'blast_type' not in global_input:
 					global_input['blast_type'] = tmp[j]
 					continue
+			elif j == 'perc':
+				if 'perc' not in global_input:
+					global_input['perc'] = tmp[j]
+					continue
+			elif j == 'rps_folder':
+				if 'rps_folder' not in global_input:
+					global_input['rps_folder'] = tmp[j]
+					continue
 			else:
 				global_input['args'][m[i]['SampleID']][j] = tmp[j]
 	global_input['params'] = p
 	_launch_module(global_input,module_name)
 
 
-def _launch_by_sample_id (s_n,s,m,p,module_name):
+def _launch_by_sample_id(s_n,s,m,p,module_name):
 	for i in range(0,len(m)):
 		tmp = _replace_sample_name(s[s_n],m[i])
 		tmp['sample'] = m[i]['SampleID']
@@ -194,7 +213,7 @@ def _launch_by_library(s_n,s,m,p,module_name):
 			args[m[i]['library']]['mid'][m[i]['SampleID']] = m[i]['mid']
 			args[m[i]['library']]['common'] = m[i]['common']
 		for k in tmp:
-			if (k not in args[m[i]['library']]):
+			if(k not in args[m[i]['library']]):
 				args[m[i]['library']][k] = tmp[k]
 	for library in args:
 		args[library]['params'] = p
@@ -209,12 +228,12 @@ def _launch_module(args,module_name):
 	else:
 		log.critical('Skip execution.')
 
-def _exec (module,name):
+def _exec(module,name):
 	if not module.sge:
 		for el in module.cmd:
 			log.debug(el)
 			if log.getLogger().getEffectiveLevel() == 20:
-				os.system (el)
+				os.system(el)
 	else:
 		fw =  open(module.cmd_file, mode='w')
 		for el in module.cmd:
@@ -238,7 +257,7 @@ def _exec (module,name):
 			os.system(qsub_call)
 
 
-def _replace_sample_name (step_args,sample_map):
+def _replace_sample_name(step_args,sample_map):
 	args = {}
 	for k in step_args:
 		if(isinstance(step_args[k], str)):
@@ -255,7 +274,7 @@ def _replace_sample_name (step_args,sample_map):
 	return args
 
 
-def _create_module (name,param):
+def _create_module(name,param):
 	if '_' in name:
 		name = name.split('_')[0]
 	try:
@@ -267,7 +286,7 @@ def _create_module (name,param):
 		print(str(e))
 
 
-def _read_map_file (f):
+def _read_map_file(f):
 	reader = csv.reader(f,delimiter="\t")
 	data = list(reader)
 	headers = data[0]
@@ -285,11 +304,11 @@ def _read_map_file (f):
 	return map_obj
 
 
-def _read_yaml_file (f):
+def _read_yaml_file(f):
 	return yaml.safe_load(f)
 
 
-def _set_options ():
+def _set_options():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-m','--map',help='The map file.',action='store',type=argparse.FileType('r'),required=True)
 	parser.add_argument('-s','--step',help='The step file.',action='store',type=argparse.FileType('r'),required=True)

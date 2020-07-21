@@ -1,7 +1,6 @@
 #!/home/stheil/softwares/miniconda2/bin/python
-import sys
 from optparse import OptionParser
-from ete3 import PhyloTree, Tree, NodeStyle, TreeStyle, SeqGroup, SeqMotifFace
+from ete3 import Tree, NodeStyle, TreeStyle, SeqGroup, SeqMotifFace
 import csv
 
 def main ():
@@ -11,6 +10,8 @@ def main ():
 def _create_tree (tree,fasta,out,color):
     seqs = SeqGroup(fasta, format="fasta")
     t = Tree(tree)
+    ts = TreeStyle()
+    ts.show_branch_length = True
     colors = _parse_color_file(color)
     node_names = t.get_leaf_names()
     for name in node_names:
@@ -23,7 +24,7 @@ def _create_tree (tree,fasta,out,color):
                 ns['bgcolor'] = colors[name]
                 node[i].set_style(ns)
             node[i].add_face(seqFace,0,'aligned')
-    t.render(out)
+    t.render(out, tree_style=ts)
 
 def _parse_color_file (file):
     fh = open(file)
@@ -35,16 +36,17 @@ def _parse_color_file (file):
     return colors
 
 def _set_options ():
-	usage = "usage: %prog -t newick.tree -f seq.fasta -c color.txt"
-	parser = OptionParser(usage)
-	parser.add_option('-t','--tree',dest='tree_file',help='A newick file containing the tree.',action='store',metavar='FILE')
-	parser.add_option('-f','--fasta',dest='fasta_file',help='A fasta file containing sequences to align.',action='store',metavar='FILE')
-	parser.add_option('-o','--out',dest='out_file',help='A fasta file containing sequences to align.',action='store',metavar='FILE')
-	parser.add_option('-c','--color',dest='color_file',help='A csv file containing the coloring scheme for the tree.',action='store',metavar='FILE')
-	(options, args) = parser.parse_args()
-	if not options.fasta_file:
-		parser.error('You must provide a fasta file.')
-	return options
+    usage = "usage: %prog -t newick.tree -f seq.fasta -c color.txt"
+    parser = OptionParser(usage)
+    parser.add_option('-t','--tree',dest='tree_file',help='A newick file containing the tree.',action='store',metavar='FILE')
+    parser.add_option('-f','--fasta',dest='fasta_file',help='A fasta file containing sequences to align.',action='store',metavar='FILE')
+    parser.add_option('-o','--out',dest='out_file',help='Ouput tree file.',action='store',metavar='FILE')
+    parser.add_option('-m','--matrix',dest='out_matrix',help='Matrix output filename.',action='store',metavar='FILE')
+    parser.add_option('-c','--color',dest='color_file',help='A csv file containing the coloring scheme for the tree.',action='store',metavar='FILE')
+    (options, args) = parser.parse_args()
+    if not options.fasta_file:
+        parser.error('You must provide a fasta file.')
+    return options
 
 
 if __name__ == "__main__":

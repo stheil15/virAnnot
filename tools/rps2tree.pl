@@ -19,9 +19,10 @@ use List::Util 'shuffle';
 use Excel::Writer::XLSX;
 use Excel::Writer::XLSX::Utility;
 use GD::Simple;
+use Expect;
 
-my $VERSION = '1.2' ;
-my $lastmodif = '2015-10-27' ;
+my $VERSION = '1.3' ;
+my $lastmodif = '2018-06-15' ;
 
 my @input_files;
 my @id_samples;
@@ -32,27 +33,31 @@ my $blast_type = 'blastx';
 my $verbosity=1;
 my @seq_fasta;
 my @ecsv_files;
+my @rn_files;
 my $min_prot_length = 100;
 my $viral_portion=0.30;
 my $outdir='rps2tree';
 my $help;
 my $group_file='';
+my $p_identity=90;
 
 
 GetOptions(
-	"i|input:s"      => \@input_files,
-	"id:s"           => \@id_samples,
+  "i|input:s"      => \@input_files,
+  "id:s"           => \@id_samples,
   "e|ecsv:s"       => \@ecsv_files,
+  "r|rn:s"         => \@rn_files,
   "o|outdir:s"     => \$outdir,
-	"v|verbosity=i"  => \$verbosity,
-	"blast_db=s"     => \$blast_db_path,
-	"blast_type=s"   => \$blast_type,
-	"db=s"           => \$db,
+  "v|verbosity=i"  => \$verbosity,
+  "blast_db=s"     => \$blast_db_path,
+  "blast_type=s"   => \$blast_type,
+  "db=s"           => \$db,
   "s=s"            => \@seq_fasta,
   "g|group=s"      => \$group_file,
   "mp|min_prot=i"      => \$min_prot_length,
   'vp|viral_portion=f' => \$viral_portion,
-	"h|help"         => \$help,
+  'perc=s'         => \$p_identity,
+  "h|help"         => \$help,
 );
 
 
@@ -65,35 +70,39 @@ if($verbosity > 1){
 
 
 sub main {
-	my $self ={};
-	bless $self;
-	_set_options($self);
+  my $self ={};
+  bless $self;
+  _set_options($self);
   my $cwd = cwd();
   my $rps2tree_folder = $cwd . '/' . $outdir ;
   if(! -e $rps2tree_folder){
     `mkdir $rps2tree_folder`;
   }
-  $self->{_colors_array} = _read_rgb_file($self,'/home/stheil/git-repo/virAnnot/lib/rgb.txt');
+  $self->{_colors_array} = _read_rgb_file($self,'/home/mlefebvre/Documents/Projects/virAnnot/lib/rgb.txt');
 
-  $self->{_color_obj} = new Color::Rgb(rgb_txt=>'/home/stheil/git-repo/virAnnot/lib/rgb.txt');
+  $self->{_color_obj} = new Color::Rgb(rgb_txt=>'/home/mlefebvre/Documents/Projects/virAnnot/lib/rgb.txt');
   if($group_file ne ''){
     $logger->info('Treating group file...');
     $self->{_group} = &read_group_file($self,$group_file);
   }
-	else{
-		for(my $i=0;$i<=$#{$self->{id_samples}};$i++){
-			$self->{_group}->{cat_to_color}->{$self->{id_samples}->[$i]} = $self->{_color_obj}->hex($self->{_colors_array}->[$i],'');
-			$self->{_group}->{sample_to_color}->{$self->{id_samples}->[$i]} = $self->{_color_obj}->hex($self->{_colors_array}->[$i],'');
-		}
-	}
+  else{
+    for(my $i=0;$i<=$#{$self->{id_samples}};$i++){
+      $self->{_group}->{cat_to_color}->{$self->{id_samples}->[$i]} = $self->{_color_obj}->hex($self->{_colors_array}->[$i],'');
+      $self->{_group}->{sample_to_color}->{$self->{id_samples}->[$i]} = $self->{_color_obj}->hex($self->{_colors_array}->[$i],'');
+    }
+  }
 
-	_draw_legend($self);
+  _draw_legend($self);
   _cut_sequences($self);
   _align_with_ref($self);
-
+  _get_read_nb($self);
+  $logger->info('Get stats.');
   my $data = _get_global_stats($self,);
+  $logger->info('Print excel.');
   _print_excel($self,$outdir . '/rps2tree_stats.xlsx',$data);
+  $logger->info('Print csv.');
   _print_csv($self,'cluster_nb_reads.csv',$data);
+  $logger->info('Map file.');
   _print_map_file($self,$outdir.'/map.txt',$data);
   _create_html($self,$outdir.'/map.txt',$outdir);
 }
@@ -142,6 +151,7 @@ sub read_group_file {
 sub _create_html {
   my ($self,$map_file,$outdir)=@_;
   my $cmd = 'rps2tree_html.py -m ' . $map_file . ' -o ' . $outdir;
+  $logger->info($cmd);
   $logger->debug($cmd);
   `$cmd`;
 }
@@ -228,7 +238,7 @@ sub _print_excel {
       $worksheet->write($row,0,$otu);
       my $col=1;
       for(my $i=1;$i<=$#headers;$i++){
-        if(defined($data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]})){
+        if(exists($data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]})){
           $worksheet->write($row,$col,$data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]});
         }
         else{
@@ -259,7 +269,7 @@ sub _print_csv {
     foreach my $otu (sort(keys(%{$data->{$cdd_id}->{otu_matrix}}))){
       print CSV $otu;
       for(my $i=1;$i<=$#headers;$i++){
-        if(defined($data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]})){
+        if(exists($data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]})){
           print CSV "\t" . $data->{$cdd_id}->{otu_matrix}->{$otu}->{$headers[$i]};
         }
         else{
@@ -278,25 +288,42 @@ sub _print_csv {
 sub _get_global_stats {
   my ($self)=@_;
   my $cdd_info;
+  # collection : array containing contigs->sequence
   foreach my $cdd_id (keys(%{$self->{_cluster_files}})){
     open(CLUST,$self->{_cluster_files}->{$cdd_id});
+    # Read clusters.csv for each motifs
     while(<CLUST>){
       chomp;
-      my @l = split("\t",$_);
+      my @l = split(",",$_);
+      # $logger->info(Dumper(@l));
+      ## for each contigs 
+      ## $i is a contig_id 
       for(my $i=2;$i<=$#l;$i++){
+        # $logger->info(Dumper($self->{collection}->{$cdd_id}));
+        ## for each contig with sequence Blastx results
+        ## $j is a sample_id
         for(my $j=0;$j<=$#{$self->{collection}->{$cdd_id}};$j++){
-          if(defined($self->{collection}->{$cdd_id}->[$j])){
-            if(defined($self->{collection}->{$cdd_id}->[$j]->{$l[$i]})){
-              if(defined($self->{_query_annotation}->{$l[$i]})){
-                if(defined($self->{_query_annotation}->{$l[$i]}->{nb_reads})){
-                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += $self->{_query_annotation}->{$l[$i]}->{nb_reads};
-                }
-                else{
-                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]}++;
+          ## sample_id present in collection of cdd_id
+          if(exists($self->{collection}->{$cdd_id}->[$j])){
+            ## contig_id present in collection of the sample_id
+            if(exists($self->{collection}->{$cdd_id}->[$j]->{$l[$i]})){
+              ## contig_id in blastx results
+              if(exists($self->{_query_annotation}->{$l[$i]})){
+                ## contig_id has a nb of reads
+                if(exists($self->{_query_annotation}->{$l[$i]}->{nb_reads})){
+                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += int($self->{_query_annotation}->{$l[$i]}->{nb_reads});
+                }else{
+                  $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += $self->{all_nb_read}->{$l[$i]};
                 }
                 $cdd_info->{$cdd_id}->{sample_present}->{$self->{id_samples}->[$j]}++;
                 $cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{taxonomy} = $self->{_query_annotation}->{$l[$i]}->{taxonomy};
                 push(@{$cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{seq_list}},$l[$i]);
+                
+              }else{
+                $cdd_info->{$cdd_id}->{otu_matrix}->{$l[0]}->{$self->{id_samples}->[$j]} += int($self->{all_nb_read}->{$l[$i]});
+                $cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{taxonomy} = "not found";
+                push(@{$cdd_info->{$cdd_id}->{otu_annot}->{$l[0]}->{seq_list}},$l[$i]);
+                $cdd_info->{$cdd_id}->{sample_present}->{$self->{id_samples}->[$j]}++;
               }
             }
           }
@@ -385,7 +412,8 @@ sub _print_qry_seq {
   $self->{_associated_color} = {};
   my $j=0;
   for(my $i =0;$i<=$#{$self->{collection}->{$cdd_id}};$i++){
-    if(defined($self->{collection}->{$cdd_id}->[$i])){
+    # if(defined($self->{collection}->{$cdd_id}->[$i])){
+    if(exists($self->{collection}->{$cdd_id}->[$i])){
       foreach my $qry_id (keys(%{$self->{collection}->{$cdd_id}->[$i]})){
         print FASTA '>' . $qry_id . "\n";
         print FASTA $self->{collection}->{$cdd_id}->[$i]->{$qry_id} . "\n";
@@ -399,6 +427,7 @@ sub _print_qry_seq {
 
 
 sub _seek_ref {
+  $logger->info('Seek ref');
   my ($self,$cdd_id,$smp)=@_;
   my $smp_list = $self->{_cdd_folder} . '/smp_list';
   my $ref_pfam = $self->{_cdd_folder} . '/ref_pfam.fasta';
@@ -412,7 +441,7 @@ sub _seek_ref {
   `$format_db_cmd`;
   my $ref_acc;
   for(my $i =0;$i<=$#{$self->{collection}->{$cdd_id}};$i++){
-    my $blast_hits = $self->{taxoTools}->readCSVextended_regex($self->{ecsvFileList}->[$i],"\t",'Viruses');
+    my $blast_hits = $self->{taxoTools}->readCSVextended_regex($self->{ecsvFileList}->[$i],"\t", "Viruses");
     foreach my $q_id (keys(%{$self->{collection}->{$cdd_id}->[$i]})){
       foreach my $m (@{$blast_hits}){
         if($m->{query_id} eq $q_id){
@@ -429,38 +458,38 @@ sub _seek_ref {
     print REF_ACC join("\n",keys(%{$ref_acc}));
     close REF_ACC;
     my $fastacmd = 'fastacmd -d ' . $blast_db_path;
-		if($blast_type =~ /^BLASTP$|^BLASTX$/i){
-			$fastacmd .= ' -p T ';
-		}
-		elsif($blast_type =~ /^TBLASTX$|^BLASTN$/i){
-			$fastacmd .= ' -p F ';
-		}
-		else{
-		}
-		$fastacmd .= ' -i ' . $ref_acc_file . ' > ' . $self->{_cdd_folder} . '/ref.fasta' ;
+    if($blast_type =~ /^BLASTP$|^BLASTX$/i){
+      $fastacmd .= ' -p T ';
+    }
+    elsif($blast_type =~ /^TBLASTX$|^BLASTN$/i){
+      $fastacmd .= ' -p F ';
+    }
+    else{
+    }
+    $fastacmd .= ' -i ' . $ref_acc_file . ' > ' . $self->{_cdd_folder} . '/ref.fasta' ;
     $logger->debug($fastacmd);
     `$fastacmd`;
 
-		open(FAS,$self->{_cdd_folder} . '/ref.fasta');
-		my $f_line = <FAS>;
-		my $lcl=0;
-		if($f_line =~ /lcl|/){
-			$lcl=1;
-		}
-		close FAS;
+    open(FAS,$self->{_cdd_folder} . '/ref.fasta');
+    my $f_line = <FAS>;
+    my $lcl=0;
+    if($f_line =~ /lcl|/){
+      $lcl=1;
+    }
+    close FAS;
 
     $clean_cmd .= 'rm ' . $self->{_cdd_folder} . '/ref.fasta' . "\n";
     my $ref_fasta_tool = Tools::Fasta->new('file' => $self->{_cdd_folder} . '/ref.fasta');
 
     if(scalar(keys(%{$ref_fasta_tool->{index}}))){
       my $rps_cmd = '';
-			if($blast_type =~ /^BLASTP$|^BLASTX$/i){
-				$rps_cmd = 'rpsblast+';
-			}
-			elsif($blast_type =~ /^TBLASTX$|^BLASTN$/i){
-				$rps_cmd = 'rpstblastn'
-			}
-			$rps_cmd .= ' -parse_deflines -query ' . $self->{_cdd_folder} . '/ref.fasta' . ' -db ' . $self->{_cdd_folder} . '/' . $cdd_id . '_rpsdb';
+      if($blast_type =~ /^BLASTP$|^BLASTX$/i){
+        $rps_cmd = 'rpsblast+';
+      }
+      elsif($blast_type =~ /^TBLASTX$|^BLASTN$/i){
+        $rps_cmd = 'rpstblastn'
+      }
+      $rps_cmd .= ' -parse_deflines -query ' . $self->{_cdd_folder} . '/ref.fasta' . ' -db ' . $self->{_cdd_folder} . '/' . $cdd_id . '_rpsdb';
       $rps_cmd .= ' -out ' . $self->{_cdd_folder} . '/' . $cdd_id . '_ref.xml -num_threads 5 -max_target_seqs 1 -outfmt 5';
       $logger->debug($rps_cmd);
       `$rps_cmd`;
@@ -475,21 +504,21 @@ sub _seek_ref {
           if(!defined($ref_pfam_hits->[$i]->{startQ}) || ! defined($ref_pfam_hits->[$i]->{endQ})){
             next;
           }
-					my $seq='';
-					my $acc='';
-					my $bioSeq;
-					if($lcl){
-						$seq = $ref_fasta_tool->retrieveFastaSequence('lcl|'.$ref_pfam_hits->[$i]->{query_id});
-						$bioSeq = Bio::Seq->new(-seq => $seq->{'lcl|'.$ref_pfam_hits->[$i]->{query_id}});
-						$acc = $ref_pfam_hits->[$i]->{query_id};
-					}
-					else{
-						$seq = $ref_fasta_tool->retrieveFastaSequence($ref_pfam_hits->[$i]->{query_id});
-						$bioSeq = Bio::Seq->new(-seq => $seq->{$ref_pfam_hits->[$i]->{query_id}});
-						my @a = split('\|',$ref_pfam_hits->[$i]->{query_id});
-						$acc = $a[3];
-					}
-					my $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($ref_pfam_hits->[$i]->{startQ},$ref_pfam_hits->[$i]->{endQ}));
+          my $seq='';
+          my $acc='';
+          my $bioSeq;
+          if($lcl){
+            $seq = $ref_fasta_tool->retrieveFastaSequence('lcl|'.$ref_pfam_hits->[$i]->{query_id});
+            $bioSeq = Bio::Seq->new(-seq => $seq->{'lcl|'.$ref_pfam_hits->[$i]->{query_id}});
+            $acc = $ref_pfam_hits->[$i]->{query_id};
+          }
+          else{
+            $seq = $ref_fasta_tool->retrieveFastaSequence($ref_pfam_hits->[$i]->{query_id});
+            $bioSeq = Bio::Seq->new(-seq => $seq->{$ref_pfam_hits->[$i]->{query_id}});
+            my @a = split('\|',$ref_pfam_hits->[$i]->{query_id});
+            $acc = $a[3];
+          }
+          my $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($ref_pfam_hits->[$i]->{startQ},$ref_pfam_hits->[$i]->{endQ}));
           if($acc =~ /^(\S+)\.\d+$/){
             $acc = $1;
           }
@@ -500,16 +529,16 @@ sub _seek_ref {
 
           if(length($subseq->seq) >= $self->{_min_prot_length}){
             print REF_ACC_CUT '>' . $name . '_' . $acc . "\n";
-						if($blast_type =~ /^BLASTP$|^BLASTX$/i){
-							print REF_ACC_CUT $subseq->seq . "\n";
-						}
-						elsif($blast_type =~ /^TBLASTX$|^BLASTN$/i){
-							if($ref_pfam_hits->[$i]->{frame} < 0){
-		            $subseq = $subseq->revcom;
-		          }
-		          my $prot = $subseq->translate();
-							print REF_ACC_CUT $prot->seq . "\n";
-						}
+            if($blast_type =~ /^BLASTP$|^BLASTX$/i){
+              print REF_ACC_CUT $subseq->seq . "\n";
+            }
+            elsif($blast_type =~ /^TBLASTX$|^BLASTN$/i){
+              if($ref_pfam_hits->[$i]->{frame} < 0){
+                $subseq = $subseq->revcom;
+              }
+              my $prot = $subseq->translate();
+              print REF_ACC_CUT $prot->seq . "\n";
+            }
           }
         }
         close REF_ACC_CUT;
@@ -524,6 +553,7 @@ sub _seek_ref {
 
 
 sub _align_with_ref {
+  $logger->info('Align with ref :');
   my ($self)=@_;
   my $cwd = cwd();
   my $rps2tree_folder = $cwd . '/' . $outdir ;
@@ -578,6 +608,7 @@ sub _align_with_ref {
       if(! -e $align_fasta){
         my $ete_cmd = 'ete3 build -w standard_trimmed_fasttree -a ' . $seq_to_align . ' -o ' . $self->{_cdd_folder} . '/ete3 --rename-dup-seqnames' . "\n";
         $logger->debug($ete_cmd);
+        $logger->info($ete_cmd);
         `$ete_cmd`;
 
         my $mv_ete_cmd = 'mv ' . $self->{_cdd_folder} . '/ete3/clustalo_default-trimal01-none-fasttree_full/all_seq_to_align.fa.final_tree.fa' . ' ' . $align_fasta . "\n";
@@ -591,9 +622,12 @@ sub _align_with_ref {
         $self->{_align_files}->{$cdd_id} = $align_fasta;
       }
 
+      my $matrix_file = $self->{_cdd_folder} . '/' . 'identity_matrix.csv';
+
       if(! -e $tree_file . '.png'){
-        my $ete_tree_cmd = 'ete_tree.py' . ' -f ' . $align_fasta . ' -t ' . $tree_file . ' -c ' . $config_file . ' -o ' . $tree_file . '.png';
+        my $ete_tree_cmd = 'ete_tree.py' . ' -f ' . $align_fasta . ' -t ' . $tree_file . ' -c ' . $config_file . ' -m ' . $matrix_file . ' -o ' . $tree_file . '.png';
         $logger->debug($ete_tree_cmd);
+        $logger->info($ete_tree_cmd);
         `$ete_tree_cmd`;
         if(-e $tree_file . '.png'){
           $self->{_tree_files}->{$cdd_id} = $tree_file . '.png';
@@ -602,11 +636,10 @@ sub _align_with_ref {
       else{
         $self->{_tree_files}->{$cdd_id} = $tree_file . '.png';
       }
-
-      my $matrix_file = $self->{_cdd_folder} . '/' . 'identity_matrix.csv';
       my $cluster_file = $self->{_cdd_folder} . '/' . 'clusters.csv';
+      my $temp_otu_file = $self->{_cdd_folder} . '/' . 'temp_otu_file.csv';
       if(! -e $cluster_file && -e $align_fasta){
-        &_compute_pairwise_distance($self,$align_fasta,$matrix_file,$cluster_file,1,'90');
+        &_compute_pairwise_distance($self,$align_fasta,$matrix_file,$cluster_file,0,$self->{p_identity}, $temp_otu_file);
         $self->{_cluster_files}->{$cdd_id} = $cluster_file;
         $self->{_pairwise_files}->{$cdd_id} = $matrix_file;
       }
@@ -618,19 +651,21 @@ sub _align_with_ref {
     }
     $logger->debug($clean_cmd);
   }
-  if($verbosity < 3){
-    `$clean_cmd`
-  }
+  # if($verbosity < 3){
+  #   `$clean_cmd`
+  # }
 }
 
 
 sub _compute_pairwise_distance {
-  my ($self,$fasta,$matrix_file,$cluster_file,$gap,$hsppercid_opt)=@_;
-  $logger->info('Computing pairise distance...');
+  # { data , aligned sequences, output cluster file, take gap into account, identity percentage, OTU temporary output file}
+  my ($self,$fasta,$matrix_file,$cluster_file,$gap,$hsppercid_opt,$temp_otu_file)=@_;
+  $logger->info("Computing pairwise distance with " . $hsppercid_opt . " percentage of identity...");
   open(FASTA,$fasta);
   my $id='';
   my $seq='';
   my $sequences={};
+  $logger->info("Reading fasta file...");
   while(<FASTA>){
       chomp;
       if(/>(\S+)/){
@@ -655,14 +690,18 @@ sub _compute_pairwise_distance {
   my %array_family ;
   my $kfamily = 0 ;
   my $num_results ;
+  my $count = 0;
+  my %h = ();
 
-  my @keys1 = sort(keys(%{$sequences})) ;
+  # CALCULATE THE PERCENT IDENTITY BETWEEN EACH PAIR OF SEQUENCES:
+  my @keys1 = sort(keys(%{$sequences})) ; # SORTING THE KEYS MAKES IT EASIER TO TEST
+  $logger->info("Calculate identity matrix...");
   for(my $i=0; $i<=$#keys1; $i++){
     my $seq1 = $sequences->{$keys1[$i]};
     my $fam_nb = $kfamily ;
-    # if(! $matrix){
     if ($hash_family{$keys1[$i]}) {
         $fam_nb = $hash_family{$keys1[$i]} ;
+        
     }
     else {
             $kfamily += 1 ;
@@ -676,52 +715,74 @@ sub _compute_pairwise_distance {
       my $identic=0;
       my $compared=0;
       for(my $k=0; $k < scalar(@{$seq1}); $k++){
+          # mutation, next
           if($seq1->[$k] eq 'X' || $seq2->[$k] eq 'X'){next;}
+          # gap in both sequences, next
           if($seq1->[$k] eq '-' && $seq2->[$k] eq '-'){next;}
-          if($gap){
-            if($seq1->[$k] eq '-' || $seq2->[$k] eq '-'){next;}
-          }
+          # gap in one of the sequence, next
+          if($seq1->[$k] eq '-' || $seq2->[$k] eq '-'){next;}
+          # identity
           if($seq1->[$k] =~ /$seq2->[$k]/i){
             $identic++;
           }
           $compared++;
       }
       my $percentIdentity;
-      if($compared == 0){
+      # set minimum overlap to 20
+      if($compared == 0 || $compared < 20){
         $percentIdentity=0;
       }
       else{
         $percentIdentity = ( $identic / $compared )*100 ;
       }
       $matrix[$i][$j] = $percentIdentity;
-
+      if ($percentIdentity > $hsppercid_opt) {
+        $a = [ $keys1[$i], $keys1[$j] ];
+        $h{$count} = $a ;
+        $count += 1;
+      }
       $hash_family{$keys1[$j]} and next ;
-      next if ($percentIdentity < $hsppercid_opt) ;
+      next if ($percentIdentity < $hsppercid_opt );
       $hash_family{$keys1[$j]} = $fam_nb ;
       push (@{$array_family{$fam_nb}}, $keys1[$j]) ;
+      
     }
   }
+  # Write matrix to file
   open(MAT,">$matrix_file");
-  print MAT "\t" . scalar(@keys1) . "\n" ;
+  # print MAT "\t" . scalar(@keys1) . "\n" ;
   for(my $i=0; $i<=$#matrix; $i++){
-    printf MAT "%50s ",$keys1[$i] ;
-    for(my $j=0; $j<=$i; $j++){
+    my $name = $keys1[$i];
+    my $dim = scalar(@keys1);
+    my $count = 1;
+    printf MAT "%50s",$name ;
+    # for(my $j=0; $j<=$i; $j++){
+    for(my $j=0; $j<=$dim; $j++){
       if($j < $#{$matrix[$i]}){
-          printf MAT "%.5f ", $matrix[$i][$j] ;
-      }
-      else{
-          printf MAT "%.5f", $matrix[$i][$j] ;
+        if ($count != 0){
+          printf MAT ",%.4f", $matrix[$i][$j];
+        }else{
+          printf MAT ",%.4f", 0;
+        }
+        # if ($matrix[$i][$j] == 100){
+        #   $count = 0;
+        # }
+      }else{
+        # if ( $matrix[$i][$j] == 100) {
+          printf MAT ",%.4f", $matrix[$i][$j];
+        # }
+        # else{
+        #   printf MAT ",%.4f", 0;
+        # }
       }
     }
-    print MAT "\n";
+    print MAT ",\n";
   }
   close MAT;
-  open(CLUST,">$cluster_file");
+  # Run OTUs assignation
+  $logger->info("Seek OTUs...");
+  `seek_otu.R $matrix_file $cluster_file $hsppercid_opt`;
   print STDERR "# $kfamily families found for " . scalar(@keys1) . " queries\n" ;
-  foreach my $key (sort {$a<=>$b} keys %array_family) {
-    printf CLUST ("OTU_%03d\t%d\t%s\n",$key,scalar(@{$array_family{$key}}),join("\t", (sort {$a cmp $b} @{$array_family{$key}})) );
-  }
-  close CLUST;
 }
 
 
@@ -736,19 +797,27 @@ sub _print_color_scheme {
 
 
 sub _cut_sequences {
+  $logger->info('Cut sequences.');
   my ($self)=@_;
   for(my $i=0;$i<=$#{$self->{filesList}};$i++){
-    my $pfam_hits = $self->{taxoTools}->readCSVextended_regex($self->{filesList}->[$i],"\t",'Viruses');
+    my $pfam_hits = $self->{taxoTools}->readCSVextended_regex($self->{filesList}->[$i],"\t", "Viruses");
     my $fasta_tool = Tools::Fasta->new('file' => $self->{seqFileList}->[$i]);
-  # for(my $i=0;$i<=$#{$self->{_pfam_hits}};$i++){
+    $logger->info('Csv read');
+    # for(my $j=0;$j<=$#{$self->{_pfam_hits}};$j++){
     for(my $j=0;$j<=$#{$pfam_hits};$j++){
       if(!defined($pfam_hits->[$j]->{superkingdom})){next;}
       if($pfam_hits->[$j]->{superkingdom} =~ /Viruses\((\d+\.\d+)\);/){
         my $vir_percent = $1;
         if($vir_percent >= $self->{_viral_portion}){
           my $seq = $fasta_tool->retrieveFastaSequence($pfam_hits->[$j]->{query_id});
+          my $seq_length = length($seq->{$pfam_hits->[$j]->{query_id}});
           my $bioSeq = Bio::Seq->new(-seq => $seq->{$pfam_hits->[$j]->{query_id}});
-          my $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($pfam_hits->[$j]->{startQ},$pfam_hits->[$j]->{endQ}));
+          my $subseq;
+          if($pfam_hits->[$j]->{endQ} < $seq_length){
+            $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($pfam_hits->[$j]->{startQ},$pfam_hits->[$j]->{endQ}));
+          }else{
+            $subseq = Bio::Seq->new(-seq => $bioSeq->subseq($pfam_hits->[$j]->{startQ},$seq_length));
+          }
           if($pfam_hits->[$j]->{frame} < 0){
             $subseq = $subseq->revcom;
           }
@@ -759,11 +828,54 @@ sub _cut_sequences {
             my @a = split(',',$pfam_hits->[$j]->{description});
             $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} = $a[1];
             $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} =~ s/^\s//;
+            # # Trim GDD motif with 100 amino acid around it
+            # if((my $pos = index($prot->seq, 'GDD')) != -1){
+            #   # The G of GDD is $pos+1
+            #   # $pos-24 for starting position
+            #   # $pos+3+25 for ending position
+            #   my $GDD_start = $pos-49;
+            #   my $GDD_end = $pos+3+50;
+            #   if($GDD_start < 1){
+            #     $GDD_start = 1;
+            #   }
+            #   if($GDD_end > length($prot->seq)){
+            #     $GDD_end = length($prot->seq);
+            #   }
+            #   # $logger->info('start ',$GDD_start,'end ', $GDD_end);
+            #   my $prot_GDD = Bio::Seq->new(-seq => $prot->subseq($GDD_start, $GDD_end));
+            #   $self->{collection}->{$pfam_hits->[$j]->{cdd_id}}->[$i]->{$pfam_hits->[$j]->{query_id}} = $prot_GDD->seq;
+
+            #   # $self->{collection}->{$pfam_hits->[$j]->{cdd_id}}->[$i]->{$pfam_hits->[$j]->{query_id}} = $prot->seq;
+            #   $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{full_description} = $pfam_hits->[$j]->{description};
+            #   my @a = split(',',$pfam_hits->[$j]->{description});
+            #   $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} = $a[1];
+            #   $self->{cdd_info}->{$pfam_hits->[$j]->{cdd_id}}->{description} =~ s/^\s//;
+            # }
           }
         }
       }
     }
   }
+  $logger->info('End Cut sequences.');
+}
+
+sub _get_read_nb {
+  $logger->info('Get read nb.');
+  my ($self)=@_;
+  my $res;
+  for(my $i=0;$i<=$#{$self->{rnFileList}};$i++){
+    # $logger->info(Dumper($self->{rnFileList}->[$i]));
+    my $file = $self->{rnFileList}->[$i];
+    open(RN,$file) || $logger->logdie('Cannot open file ' . $file);
+    while(<RN>){
+      my @line = split("\t",$_);
+      # first cell is contig name, second cell is number of reads for the contig
+      $res->{$line[0]} = $line[1];
+    }
+    close RN;
+  }
+  $self->{all_nb_read} = $res;
+  # $logger->info(Dumper($self->{all_nb_read}));
 }
 
 
@@ -772,13 +884,15 @@ sub _set_options {
   if(scalar(@input_files) > 0){
     if(scalar(@id_samples) == 0){
       foreach my $file (@input_files){
-				my($filename, $dirs, $suffix) = fileparse($file);
+        my($filename, $dirs, $suffix) = fileparse($file);
         my @p = split(/\./,$filename);
         push(@id_samples,$p[0]);
       }
     }
     $self->{id_samples} = \@id_samples;
+    # RPS blast files
     $self->{filesList} = \@input_files;
+    # contigs
     if(scalar(@seq_fasta) > 0){
       $self->{seqFileList} = \@seq_fasta;
     }
@@ -786,10 +900,18 @@ sub _set_options {
       $logger->logdie('You must provide sequence files associated with csv files.')
     }
     if(scalar(@ecsv_files) > 0){
+      # Blastx files
       $self->{ecsvFileList} = \@ecsv_files;
     }
     else{
       $logger->logdie('You must provide annotation files associated with csv files.')
+    }
+    if(scalar(@rn_files) > 0){
+      # Blastx files
+      $self->{rnFileList} = \@rn_files;
+    }
+    else{
+      $logger->logdie('You must provide read number files.')
     }
   }
   else{
@@ -801,9 +923,9 @@ sub _set_options {
     $logger->error('Taxonomy sqlite database not found. ' . $db);
     exit;
   }
-	else{
-		$taxonomyParams{'dbh'} = DBI->connect("dbi:SQLite:dbname=$db","","");
-	}
+  else{
+    $taxonomyParams{'dbh'} = DBI->connect("dbi:SQLite:dbname=$db","","");
+  }
   $self->{taxoTools} = Tools::Taxonomy->new(%taxonomyParams);
   if(-e $cdd_fasta_path){
     $self->{_cdd_fasta_path} = $cdd_fasta_path;
@@ -821,6 +943,9 @@ sub _set_options {
   if($viral_portion >= 0 && $viral_portion <= 1){
     $self->{_viral_portion} = $viral_portion;
   }
+  if($p_identity > 0 && $viral_portion < 100){
+    $self->{p_identity} = $p_identity;
+  }
   else{
     $logger->logdie('Viral portion must be set between 0 and 1.');
   }
@@ -835,7 +960,7 @@ print STDERR <<EOF ;
 # AUTHOR:     Sebastien THEIL
 # VERSION:    $VERSION
 # LAST MODIF: $lastmodif
-# PURPOSE:    This script is used to parse csv file containing tax_id field and creates Krona charts.
+# PURPOSE:    
 #
 
 USAGE: perl $prog -i rspblast_csv_1 -id id_sample1 -e blast_cvs_1 ... -i rpsblast_csv_n -id id_sampleN -e blast_csv_n [OPTIONS]
@@ -848,13 +973,14 @@ USAGE: perl $prog -i rspblast_csv_1 -id id_sample1 -e blast_cvs_1 ... -i rpsblas
        -s                 Sequences in fasta.
        -mp|min_prot       Minimum query protein length.
        -vp|viral_portion  Minimun portion of viral sequences in PFAM domain to be included.
+       -perc              Minimum percentage of identity between two sequences
        -db                NCBI Taxonomy SqliteDB.
-			 --blast_db         Blast database path.
-			 --blast_type       Blast program type.
-			 -g|group           Group file. CSV file, comma separated, one line per group, first column for group name, then samples names. Sequence ID format has to be "SAMPLE_QUERYID".
+       --blast_db         Blast database path.
+       --blast_type       Blast program type.
+       -g|group           Group file. CSV file, comma separated, one line per group, first column for group name, then samples names. Sequence ID format has to be "SAMPLE_QUERYID".
        -v|verbosity       1 -> 3
 
-       -help|h				    Print this help and exit
+       -help|h            Print this help and exit
 EOF
 exit(1) ;
 }

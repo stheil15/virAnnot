@@ -1,5 +1,0 @@
-/media/scratch/stheil/test_virAnnot/ds2015-149/ds2015-149_autoMapper_nr/fasta/68893_Grapevine_Rupestris_stem_pitting_virus.fasta /media/scratch/stheil/test_virAnnot/ds2015-149/ds2015-149_autoMapper_nr/mummer/68893_Grapevine_Rupestris_stem_pitting_virus/queries.fasta
-PROMER
-
-[S1]	[E1]	[S2]	[E2]	[LEN 1]	[LEN 2]	[% IDY]	[% SIM]	[% STP]	[LEN R]	[LEN Q]	[FRM]	[TAGS]
-7108	7227	1	120	120	120	92.50	100.00	0.00	8726	120	1	1	gi|410519421|gb|JX559646.1|	ds2015-149_51

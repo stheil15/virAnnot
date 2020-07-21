@@ -36,14 +36,14 @@ if($verbosity > 1){
 }
 
 my @colors = (
-	['taxonomy', 'Viruses;.*', 'red'],
-	['taxonomy', 'Viruses;dsRNA viruses.*', 'blue'],
-	['taxonomy', 'Viruses;ssRNA viruses.*', 'cyan'],
+	['taxonomy', 'Viruses;.*', '#FF0000'],
+	['taxonomy', 'Viruses;dsRNA viruses.*', '#3366FF'], # blue
+	['taxonomy', 'Viruses;ssRNA viruses.*', '#00CCFF'], # cyan
 	['taxonomy', 'Viruses;Retro-transcribing viruses.*', 'green'],
 	['taxonomy', 'Viruses;dsDNA viruses.*', 'orange'],
 	['taxonomy', 'Viruses;ssDNA viruses.*', 'lime'],
 	['taxonomy', 'Viroid', 'yellow'],
-	['superkingdom', 'Viruses', 'red'],
+	['superkingdom', 'Viruses', '#FF0000'],
 );
 
 &main;
@@ -55,7 +55,6 @@ sub main {
 	_set_options($self);
 	my @blastExtentedHeaders;
 	my $merge = [];
-
 	my $workbook = Excel::Writer::XLSX->new( $outputFile );
 	my @excelColors = $self->setExcelColor($workbook, \@colors);
 	foreach my $file (@{$self->{blastFiles}}){
@@ -67,7 +66,6 @@ sub main {
 		my($filename, $dirs, $suffix) = fileparse($file);
 		my @p = split(/_/,$filename);
 		$p[1] =~ s/\.csv//;
-
 		my $worksheet = $workbook->add_worksheet($p[1]);
 		$self->printCSVExcel($hits, $worksheet, \@blastExtentedHeaders, \@excelColors, ['algo', 'query_id']);
 
@@ -79,30 +77,8 @@ sub main {
 		my @p = split(/_/,$filename);
 		$p[1] =~ s/\.csv//;
 		my $worksheet = $workbook->add_worksheet($p[1]);
-
 		$self->printCSVExcel($rpsHits, $worksheet, $headers, \@excelColors);
 	}
-}
-
-
-sub mergeBlastCSV {
-	my ($self, $files, $removeDuplicates) = @_;
-	my $mergedFile= [];
-	my %seenSequence;
-	my $nbFile = 1;
-	foreach my $file ( @$files ){
-		foreach my $line ( @$file ){
-			if(! $removeDuplicates || (! exists $seenSequence{$line->{'query_id'}} && ! $line->{no_hit}) || $seenSequence{$line->{'query_id'}} == $nbFile){
-				push ( @$mergedFile, $line );
-				$seenSequence{$line->{'query_id'}} = 1;
-				if($line->{taxonomy} =~ /Viruses/){
-					$self->{_virus_seq_id}->{$line->{'query_id'}}++;
-				}
-			}
-		}
-		$nbFile++;
-	}
-	return $mergedFile;
 }
 
 
@@ -118,11 +94,11 @@ sub printCSVExcel {
 		@lastFields{@$groupByFields} = ();
 	}
 	foreach my $hit (@{$hits}){
-    if(defined($hit->{'taxonomy'})){
-      if($hit->{'taxonomy'} eq 'unknown' || $hit->{'taxonomy'} eq ''){
-        next;
-      }
-    }
+	    # if(defined($hit->{'taxonomy'})){
+	    #   if($hit->{'taxonomy'} eq 'unknown' || $hit->{'taxonomy'} eq ''){
+	    #     next;
+	    #   }
+	    # }
 		my ($color, $level) = (undef, defined $groupByFields);
 		if(! $headers || ! @$headers){
 			$headers = [keys %$hit];
@@ -238,6 +214,27 @@ sub _set_options {
   }
 
 }
+
+
+# sub mergeBlastCSV {
+# 	my ($self, $files, $removeDuplicates) = @_;
+# 	my $mergedFile= [];
+# 	my %seenSequence;
+# 	my $nbFile = 1;
+# 	foreach my $file ( @$files ){
+# 		foreach my $line ( @$file ){
+# 			if(! $removeDuplicates || (! exists $seenSequence{$line->{'query_id'}} && ! $line->{no_hit}) || $seenSequence{$line->{'query_id'}} == $nbFile){
+# 				push ( @$mergedFile, $line );
+# 				$seenSequence{$line->{'query_id'}} = 1;
+# 				if($line->{taxonomy} =~ /Viruses/){
+# 					$self->{_virus_seq_id}->{$line->{'query_id'}}++;
+# 				}
+# 			}
+# 		}
+# 		$nbFile++;
+# 	}
+# 	return $mergedFile;
+# }
 
 
 sub help {

@@ -1003,7 +1003,7 @@ sub _readInputFile {
 		}
 		$self->{_queryCounter} += 1;
 		my $oldQueryId='';
-    while ($self->{_currentHit} = $self->{_result}->next_hit() || ! $self->{_result}->num_hits()){
+    	while ($self->{_currentHit} = $self->{_result}->next_hit() || ! $self->{_result}->num_hits()){
 			my $match = {};
 
 			if($oldQueryId ne $self->{_result}->query_name()){
@@ -1051,7 +1051,7 @@ sub _readInputFile {
 				}
 				$match->{hit_id} = $self->{_currentHit}->name;
 				# $match->{gi} = $self->_parseGi($match);
-        $match->{accession} = $self->{_currentHit}->accession;
+        		$match->{accession} = $self->{_currentHit}->accession;
 				if($taxonomyTools){
 					if(! defined($taxonomyTools->{gg})){
 						$taxonomyTools->_getNCBITaxonomy($match);
@@ -1061,10 +1061,9 @@ sub _readInputFile {
 					}
 				}
 				$self->{_hitAboveCutoff}++;
-			}
-      else{
-        $match->{'taxonomy'} = 'unknown'
-      }
+			}else{
+        		$match->{'taxonomy'} = 'unknown'
+      		}
 			push(@matches,$match);
 			if($self->keep_first_hit_only || $match->{no_hit}){
 				$logger->trace('FirstHit : last.');
